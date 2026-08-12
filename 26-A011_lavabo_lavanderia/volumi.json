@@ -1,0 +1,25 @@
+{
+  "titolo": "MOBILE LAVABO LAVANDERIA 26-A011 - VOLUMI (rev.01, checkpoint AutoCAD)",
+  "box": [
+    {"nome": "PARETE_mineral_wall", "layer": "VOL_PARETE", "colore": 8, "tinta": "#e8e4dc",
+     "x0": 0, "y0": 0, "z0": 0, "x1": 1173, "y1": 12, "z1": 2215},
+    {"nome": "TUBOLARE_80x50_basso", "layer": "VOL_METALLO", "colore": 250, "tinta": "#3a3a3a",
+     "x0": 0, "y0": 12, "z0": 920, "x1": 1173, "y1": 62, "z1": 1000},
+    {"nome": "TUBOLARE_80x50_medio", "layer": "VOL_METALLO", "colore": 250, "tinta": "#3a3a3a",
+     "x0": 0, "y0": 12, "z0": 1650, "x1": 1173, "y1": 62, "z1": 1730},
+    {"nome": "TUBOLARE_80x50_alto", "layer": "VOL_METALLO", "colore": 250, "tinta": "#3a3a3a",
+     "x0": 0, "y0": 12, "z0": 2105, "x1": 1173, "y1": 62, "z1": 2185},
+    {"nome": "VETRO_720", "layer": "VOL_VETRO", "colore": 140, "tinta": "#c8e4ea",
+     "x0": 0, "y0": 62, "z0": 965, "x1": 1173, "y1": 68, "z1": 1685},
+    {"nome": "ZOCCOLO_specchio_H100", "layer": "VOL_ZOCCOLO", "colore": 251, "tinta": "#6d6d6b",
+     "x0": 0, "y0": 88, "z0": 0, "x1": 1173, "y1": 448, "z1": 100},
+    {"nome": "CORPO_mobile", "layer": "VOL_CORPO", "colore": 124, "tinta": "#d9d4c7",
+     "x0": 0, "y0": 68, "z0": 100, "x1": 1173, "y1": 468, "z1": 575},
+    {"nome": "TOP_con_gola_specchio", "layer": "VOL_TOP", "colore": 253, "tinta": "#b9b4a9",
+     "x0": 0, "y0": 68, "z0": 575, "x1": 1173, "y1": 468, "z1": 670},
+    {"nome": "LAVABO_GALASSIA_MEG11", "layer": "VOL_LAVABO", "colore": 7, "tinta": "#f5f5f2",
+     "x0": 499, "y0": 78, "z0": 670, "x1": 1102, "y1": 457, "z1": 920},
+    {"nome": "MISCELATORE", "layer": "VOL_RUBINETTERIA", "colore": 250, "tinta": "#4a4a48",
+     "x0": 430, "y0": 129, "z0": 670, "x1": 470, "y1": 201, "z1": 1128}
+  ]
+}
