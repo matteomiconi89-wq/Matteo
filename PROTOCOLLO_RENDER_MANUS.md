@@ -13,6 +13,9 @@ Ruoli: Manus è il motore generativo (lavora a crediti, ~100–215 cr/giro). Cla
 regista dei prompt e collaudatore. Matteo è l'occhio finale: **occhio del falegname > collaudo AI** —
 se Matteo boccia una consegna promossa, il collaudo si aggiorna (è già successo: cucina giro 8).
 
+**Regola comunicazione (12/08/2026)**: a ogni passaggio Claude dichiara in chat i **minuti stimati**
+("~20 min, ti scrivo io quando è pronto") così Matteo non presidia la chat; se la stima slitta, si aggiorna.
+
 ## 2. Dove stanno i file
 
 Dropbox, cartella di lavoro: `/STEFANO/Matteo/RENDER_MANUS/` (ns:12436541105//Matteo/RENDER_MANUS)
@@ -47,6 +50,9 @@ Dropbox, cartella di lavoro: `/STEFANO/Matteo/RENDER_MANUS/` (ns:12436541105//Ma
    (niente forature, niente ferramenta) + su richiesta uno `.scr` che li ricrea come solidi BOX nativi,
    più l'assonometria PNG. **Si briefa Manus solo dopo l'OK di Matteo sul 3D**: un errore corretto qui
    costa 0 crediti, dopo costa un giro.
+8. **REPORT MATERIALI IN CHAT (regola fissa dal 12/08/2026)**: insieme al 3D, elencare in chat tutti i
+   materiali/finiture/colori trovati nel file (layer, retini, testi, blocchi), **evidenziando le voci da
+   confermare** — così colori dimenticati o cambiati si correggono al volo, prima di spendere crediti.
 
 ## 4. Fase B — SPEC_COLLAUDO.md (da scrivere PRIMA del primo giro)
 
