@@ -130,6 +130,19 @@ def main():
     disegna(mobile, titolo + "\nvista di fianco (sezione ottica): profondità e sbalzi",
             out + "_5_fianco.png", az=180, el=2)
 
+    # impianto: si guarda di fianco, tenendo solo i pezzi che il tubo attraversa o rasenta
+    impianto = [b for b in boxes if b["nome"].startswith(("SCAR_", "SIFONE"))
+                or b["nome"] in ("CARC_fondo_sp18_retro", "CARC_fondo_sp18_fronte",
+                                 "CARC_fondo_sopra_LED", "TRAVERSO_retro_basso_DX",
+                                 "TRAVERSO_retro_alto_DX", "TRAVERSO_gola_retro_sp18",
+                                 "CARC_cielo_sp18", "ZOCCOLO_arretrato_sp18",
+                                 "TOP_piano_sp18_foro_dietro", "TOP_piano_sp18_foro_avanti",
+                                 "TOP_piano_sp18_fronte", "TOP_bordo_fronte_h60",
+                                 "PAR_mineralwall_sp4_sotto", "PAR_mineralwall_sp4_medio",
+                                 "PAR_pannello_sp6_sotto")]
+    disegna(impianto, titolo + "\nIMPIANTO DI SCARICO visto di fianco: dal foro nel piano, giù fra "
+            "traversi e schienale, sifone e innesto in parete", out + "_6_scarico.png", az=182, el=6)
+
     print(f"{len(boxes)} solidi -> {out}.dxf / .scr + 5 viste")
     print(f"Ingombro totale: {tot[0]:.0f} x {tot[1]:.0f} x {tot[2]:.0f} mm")
 
