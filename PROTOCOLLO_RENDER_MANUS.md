@@ -7,7 +7,7 @@
 
 ## 1. Il flusso in una riga
 
-**Matteo manda il DWG → Claude estrae le misure vere → Claude briefa Manus → Manus renderizza a giri → Claude collauda (misure + visivo) → post-produzione deterministica se serve → solo ciò che passa il collaudo arriva a Matteo come `render_FINALE`.**
+**Matteo manda il DWG → Claude estrae le misure vere → Claude costruisce il 3D dei soli volumi (senza forature) e Matteo lo approva in AutoCAD → Claude briefa Manus → Manus renderizza a giri → Claude collauda (misure + visivo) → post-produzione deterministica se serve → solo ciò che passa il collaudo arriva a Matteo come `render_FINALE`.**
 
 Ruoli: Manus è il motore generativo (lavora a crediti, ~100–215 cr/giro). Claude è progettista della spec,
 regista dei prompt e collaudatore. Matteo è l'occhio finale: **occhio del falegname > collaudo AI** —
@@ -42,6 +42,11 @@ Dropbox, cartella di lavoro: `/STEFANO/Matteo/RENDER_MANUS/` (ns:12436541105//Ma
 6. **PROTOCOLLO SOLIDI** (standard dal 07/08, svolta anti-invenzioni): dal 2D costruire solidi 3D propri
    (senza forature) e dare a Manus **l'assonometria dei solidi come àncora geometrica**. Da quando si usa:
    "INVENZIONI ZERO". Lato AutoCAD esiste `esporta-solidi.lsp` in `/STEFANO/Matteo/CLAUDE/Definitivi/`.
+7. **CHECKPOINT 3D DI MATTEO (regola fissa dal 12/08/2026)**: prima del primo giro Manus, il 3D dei volumi
+   va fatto vedere a Matteo **in AutoCAD**: consegna di un **DXF 3D coi soli volumi a misure esatte**
+   (niente forature, niente ferramenta) + su richiesta uno `.scr` che li ricrea come solidi BOX nativi,
+   più l'assonometria PNG. **Si briefa Manus solo dopo l'OK di Matteo sul 3D**: un errore corretto qui
+   costa 0 crediti, dopo costa un giro.
 
 ## 4. Fase B — SPEC_COLLAUDO.md (da scrivere PRIMA del primo giro)
 
@@ -161,6 +166,7 @@ vetrata 1,96× vs 2,3×, ceramiche Geberit ~20% piccole in parallasse, giunti pa
 
 1. Leggere questo protocollo.
 2. Farsi dare (o pescare da Dropbox) il DWG del mobile nuovo.
-3. Fase A → B → C → D → (E) → consegna. Aggiornare la `SPEC_COLLAUDO.md` del mobile a ogni giro.
+3. Fase A (col checkpoint 3D approvato da Matteo in AutoCAD) → B → C → D → (E) → consegna.
+   Aggiornare la `SPEC_COLLAUDO.md` del mobile a ogni giro.
 4. In caso di dubbio su una regola: le spec dei mobili già chiusi su
    `/STEFANO/Matteo/RENDER_MANUS/` sono la giurisprudenza.
