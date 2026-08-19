@@ -59,6 +59,12 @@ asse X 800) → tubo Ø32 → sifone a bottiglia (Z 185..375) → uscita e innes
 - **Finestra nella parete**: confermare che sia una finestra e la sua larghezza (nel DWG non è quotata:
   nel 3D è larga quanto il mobile).
 - **Colore della verniciatura dei tubolari** metallici.
+- ⚠️ **SPECCHIO MURALE SOPRA IL LAVABO — non esiste nel CAD.** Il 13/08 Matteo ha chiesto a Manus
+  "sopra come mai non c'è lo specchio?" e Manus l'ha inserito nel render ravvicinato. Nel DWG non c'è:
+  l'unico specchio della spec è il **fondo della gola** (G, Y 400..418). Violazione di "INVENZIONI ZERO"
+  autorizzata a voce, quindi va sanata in un verso o nell'altro: o **entra nel DWG** (misure, quota,
+  finitura del telaio) ed entra in questa spec, oppure **esce dal render**. Finché resta così, il
+  render non è consegnabile come rappresentazione del progetto.
 
 ## Storico
 
@@ -69,7 +75,8 @@ asse X 800) → tubo Ø32 → sifone a bottiglia (Z 185..375) → uscita e innes
 | 3D rev.03 | quasi | 47 solidi, 0 compenetrazioni, 10/10 quote ok — mandato al collaudo incrociato |
 | collaudo incrociato | 6 errori su 17 | 5 lenti indipendenti + verifica adversariale: 11 segnalazioni confutate |
 | **3D rev.04** | ✓ **approvato da Matteo** | 74 solidi: schienali CERA, lavabo centrato, foro di scarico nel piano, impianto completo, 4° tubolare, **2 file di piedini** (indicazione di Matteo) |
-| Manus giro 1 | da lanciare | brief pronto in `BRIEF_MANUS.md` + gabbia in `gabbia_pixel.png` |
+| **Manus giro 1** (13/08) | ✓ auto-collaudo Manus, **collaudo pixel NON eseguito** | task `NWFkmSHXEgyKTRCUsmkQ2G`, 1.765 cr, `manus-1.6-max-agent`. Output `render_26A011_round1.png` 2400×1350 + report `26A011_verifica_round1.md`. Manus dichiara: 2 ante, 1 ripiano in nicchia, gola continua, zoccolo arretrato, nessuna ferramenta. Rapporti misurati da lui: L/H **1,750** (target 1,750), nicchia/anta **1,216** (target 1,210), ante+div/nicchia **1,664** (target 1,670), base a 92,0% del frame. Il 1,750 esatto è frutto di una **strizzata deterministica sulla sola fascia del corpo** (Fase E applicata da Manus, non da noi) → **da verificare a occhio che non abbia deformato oggetti** |
+| Manus giro 1-bis (13/08) | da collaudare | su richiesta di Matteo: `render_26A011_vista_ravvicinata_ante_aperte.png`, vista ravvicinata con le 2 ante aperte. **Manus ha aggiunto uno SPECCHIO MURALE sopra il lavabo** (vedi punti aperti) |
 
 **Errori miei da non ripetere** (validi anche per gli altri mobili):
 - la sezione del mobile può stare **dentro un blocco INSERT**, non nel modelspace: sempre esploderlo
