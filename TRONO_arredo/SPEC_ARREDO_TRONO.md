@@ -139,3 +139,42 @@ aria/spessore ponte = 150/55 = 2,7 · aria/altezza utile = 150/270 = 0,56 · pia
 - **Palette**: scelta d'ufficio, da confermare o correggere dopo il primo giro.
 - **Coerenza di scena tra opzioni**: le 4 sono partite in parallelo con lo stesso blocco palette.
   Se l'ambiente diverge, si rilancia riusando un render approvato come riferimento (costa un giro).
+
+### Giro 2 — correzioni mirate, esito
+
+Rifatte solo le 4 viste delle camerette di ciascuna opzione; le altre 6 di ogni set restano quelle del
+giro 1. Crediti a fine giro 2: **11.871** (A 1.818 · B 5.138 · C 3.115 · D 1.800).
+
+**B — soppalco: ✓ passa.** Le ancore in rapporto hanno centrato il bersaglio.
+
+| Vista | Piano soppalco (140) | Aria sopra materasso (105) |
+|---|---|---|
+| cameretta1_view1 | 142,0 | 103,9 |
+| cameretta1_view2 | 139,3 | 101,1 |
+| cameretta2_view1 | 142,5 | 108,9 |
+| cameretta2_view2 | 139,7 | 103,6 |
+
+Scarto massimo 1,8% sul piano e 3,7% sull'aria. Manus ha anche accettato la correzione sulla catena di
+quote (140 + 25 + 105 = 270).
+
+**C — cabinato: ✓ passa con una riserva.** Aria 154 · 142 · 138 · 137 contro 150 → tutte entro ±10%.
+Il passaggio in cameretta 2 è salito da 87 a **102-103 cm** riducendo la profondità di un fronte a 45-50,
+senza allargare la stanza. Riserva: in `cameretta1_view2` il ponte è reso spesso 39 cm invece di 55
+(aria/ponte 3,61 invece di 2,7) → **giro 3 su quella sola immagine**.
+
+**D — studio: ✗ non passa.** Aria 154 · 116 · 136 · 124 contro 150: solo `cameretta1_view1` è a target.
+Causa dichiarata: il basamento del letto contenitore è disegnato a 70-76 cm invece di 45 e mangia l'aria
+sopra il materasso. → **giro 3 sulle altre tre viste**.
+
+### Giro 3 — chirurgico (in corso)
+
+- **C**: la sola `cameretta1_view2`, per portare il ponte a spessore 55.
+- **D**: `cameretta1_view2`, `cameretta2_view1`, `cameretta2_view2`. `cameretta1_view1` non si tocca.
+  Ancora usata: non più millimetri ma un **riferimento a un altro oggetto nella stessa stanza** —
+  il materasso (45) deve stare più in basso del piano della scrivania (75), a poco più della metà.
+  È la lezione del giro 6 della cucina 26-A011: quando la quota assoluta non entra, si àncora a ciò che
+  sta accanto.
+
+**Lezione da portare sugli altri lavori:** le ancore in rapporto funzionano dove i millimetri falliscono.
+B e C sono rientrate al primo tentativo dopo che i target sono stati riscritti come rapporti
+(aria/spessore ponte, aria/altezza stanza) invece che come quote assolute.
