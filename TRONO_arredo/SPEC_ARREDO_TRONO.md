@@ -90,6 +90,43 @@ Serve identica in tutte e 40 le immagini: è ciò che rende le opzioni confronta
 
 Richiesta per ciascuno: 10 immagini 2400×1350 (2 viste × 5 stanze) + autocollaudo con le misure in pixel.
 
+### Giro 1 — consegnato, collaudo sui numeri dichiarati
+
+Tutte e quattro hanno consegnato **10 PNG + report di autoverifica**. Totale **7.186 crediti**
+(A 1.818 · B 2.559 · C 1.830 · D 979).
+
+| Opzione | Aria sopra il materasso, dichiarata | Target | Esito |
+|---|---|---|---|
+| **A ponte** | 154 (camtta 1) · 148 (camtta 2) | 150 | ✓ **passa** (entro ±10%) |
+| **B soppalco** | ~130 · piano soppalco 136/126/138/140 | 105 · 140 | ✗ **troppo arioso** |
+| **C cabinato** | 142 · 119 · 120 | 150 | ✗ **respinto** |
+| **D studio** | 97–106 | 150 | ✗ **respinto** |
+
+**Il difetto non è cosmetico: inverte il confronto.** Queste 4 tavole servono a far vedere che il ponte
+dà 150 cm sopra il letto e il soppalco solo 105. Al giro 1 il soppalco (B) ne mostrava ~130 e il ponte
+(C, D) 119–106: **il soppalco sembrava più arioso del ponte**, cioè l'opposto della verità. Un documento
+così porta a scegliere male.
+
+Cause dichiarate da Manus: in C il piano del materasso finisce a 59 e ~90 cm invece di 45; in D il ponte
+è disegnato troppo basso. In B, Manus ha contestato la sezione sostenendo che 140 + 105 = 245 ≠ 270 —
+**obiezione sbagliata**: mancava lo spessore del materasso, 140 + 25 + 105 = 270.
+
+Da segnalare a favore di A: le prime due viste davano 119 cm, Manus se n'è accorto da solo, le ha
+rigenerate e rimisurate. L'autocollaudo in pixel chiesto nel brief ha funzionato.
+
+Note residue del giro 1: in C il passaggio libero in cameretta 2 risulta ~87 cm (chiesto ≥ 90);
+in D la vista di dettaglio della zona giorno mostra l'anta della lavatrice aperta per documentarla.
+
+### Giro 2 — correzioni mirate (in corso)
+
+Lanciate su B, C e D come **giri single-fix sulle sole 4 viste delle camerette**, in continuazione dello
+stesso task (le altre 6 immagini di ciascuna opzione restano quelle del giro 1, con lista
+anti-regressione esplicita nel prompt). A non viene ritoccata.
+
+Ancore passate in rapporto, non solo in mm — lezione del protocollo 26-A011:
+aria/spessore ponte = 150/55 = 2,7 · aria/altezza utile = 150/270 = 0,56 · piano materasso/h utile = 0,17
+(per B: aria/h utile = 105/270 = 0,39 · piano soppalco/h utile = 140/270 = 0,52).
+
 ## Punti aperti
 
 - ⚠️ **Quota del ponte incoerente nel PDF**: le piante scrivono "ponte h 190", la tavola in sezione
