@@ -178,3 +178,37 @@ sopra il materasso. → **giro 3 sulle altre tre viste**.
 **Lezione da portare sugli altri lavori:** le ancore in rapporto funzionano dove i millimetri falliscono.
 B e C sono rientrate al primo tentativo dopo che i target sono stati riscritti come rapporti
 (aria/spessore ponte, aria/altezza stanza) invece che come quote assolute.
+
+### Giro 3 — esito
+
+**C — cabinato: ✓ CHIUSA.** `cameretta1_view2` rifatta: aria 152 (target 150), aria/altezza utile **0,56
+esatto**, aria/ponte da 3,61 a **2,54** (da +34% a −6% dal bersaglio), spessore ponte 60 contro 55.
+Il ponte legge come armadio sospeso vero, non più come mensola.
+*Residuo dichiarato*: base letto resa a 55 invece di 45, ma l'intradosso sale in proporzione e il vuoto
+netto resta 152. Accettato.
+
+**D — studio: 2 viste chiuse su 3 rifatte.**
+
+| Vista | aria cm (150) | aria/ponte (2,7) | aria/H (0,56) | materasso/H (0,17) | |
+|---|---|---|---|---|---|
+| cameretta1_view1 | 154 | 3,86 | 0,57 | 0,20 | ✓ (giro 2) |
+| cameretta1_view2 | 159 | 2,46 | 0,59 | 0,21 | ✓ |
+| cameretta2_view2 | 146 | 3,95 | 0,54 | 0,26 | ~ ponte sottile |
+| cameretta2_view1 | 173 | **6,07** | 0,64 | 0,27 | ✗ |
+
+Su `cameretta2_view1` Manus ha provato **quattro varianti**, due delle quali ritocchi mirati sull'immagine
+esistente, e ha diagnosticato la causa: **è l'inquadratura frontale a innescare l'errore** — il modello
+continua a irrobustire il basamento del letto e ad assottigliare il ponte.
+
+### Giro 4 — ultimo, in corso
+
+`cameretta2_view1` e `cameretta2_view2` di D, con **cambio di angolo di ripresa** (diagonale dalla porta,
+scrivania e letto sullo stesso piano di confronto) proposto da Manus stesso.
+Applicata la regola del protocollo: quando una correzione non entra dopo due tentativi, non si insiste
+sulla stessa strada — qui non potendo fare post-produzione (le immagini non sono scaricabili da questa
+sessione) si cambia inquadratura invece che pixel.
+Dichiarato a Manus che è l'ultimo giro: ciò che resta fuori diventa residuo dichiarato.
+
+**Nota di metodo:** il numero che ha guidato tutte le correzioni non è mai stato una quota assoluta ma il
+rapporto **aria / spessore del ponte**. È l'unico che ha reso visibile il difetto quando l'aria in
+centimetri sembrava a posto (cameretta2_view2: aria 146 su 150, ma ponte da 37 invece di 55).
