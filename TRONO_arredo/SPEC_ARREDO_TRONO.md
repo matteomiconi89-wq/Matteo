@@ -270,3 +270,55 @@ vantaggio di D sul soppalco si assottiglia. In opzione D la cameretta 2 è anche
 4. **L'autocollaudo in pixel chiesto nel brief funziona.** Manus ha dichiarato da solo i propri errori,
    compreso quello finale che non sapeva risolvere. È ciò che ha reso possibile collaudare senza vedere
    le immagini.
+
+---
+
+## Verifica del collaudo stesso (20/08) — cosa NON era stato controllato
+
+Rilettura critica su domanda di Matteo. Il collaudo dei quattro giri copriva **solo le altezze delle
+camerette**. Ecco il buco.
+
+### Cosa era stato verificato davvero
+- **Esistenza e completezza**: 40 PNG, 5 stanze × 2 viste × 4 opzioni, nomi file verificati via API. Solido.
+- **Altezze in cameretta** (aria sopra il materasso, piano soppalco, spessore ponte): solo tramite le
+  misure dichiarate da Manus, mai viste in pixel da questa sessione.
+
+### Cosa NON era stato verificato
+1. **Le dimensioni delle stanze non sono mai state misurate in nessun render.** La clausola di autocollaudo
+   nel brief chiedeva tre cose: elenco arredi, soffitto ~2,70, altezze nelle camerette. **Non chiedeva di
+   verificare larghezza e profondità della stanza.** Quindi 4,12 × 2,52, 3,52 × 4,00 e 3,52 × 1,71 non
+   sono state controllate da nessuno.
+2. **Camera, cabina e zona giorno: zero verifica dimensionale.** Sono 24 immagini su 40. L'unico controllo
+   è il "conforme" dichiarato da Manus — un sì/no, non un numero.
+3. **In opzione D il passaggio della cabina era stato chiesto e non è mai arrivato.** Il punto (d) del
+   brief D diceva "in the walk-in wardrobe, the clear passage left in front of the study corner".
+   Manus non l'ha riportato e non è stato richiesto di nuovo.
+4. **Le 6 immagini non rigenerate per opzione**: Manus dichiara di non averle toccate, non è verificabile.
+
+### Errore mio: la pianta della zona giorno contiene una misura inventata
+`pianta_zona_giorno.png` riporta **6,50 × 4,62 m** con le linee di quota e la dicitura "misure nette".
+**Quei numeri non vengono da nessun rilievo**: il PDF dice solo "30 mq, ambiente unico". L'area torna
+(30,03 mq) ma **la forma del rettangolo è inventata da me**, ed è stata mandata a Manus come se fosse
+rilevata. È esattamente ciò che il protocollo vieta. Le 8 immagini di zona giorno (2 × 4 opzioni) sono
+costruite su una proporzione che nessuno ha verificato.
+
+### Problema di progetto che il calcolo fa emergere: la cabina
+
+Cabina **3,52 × 1,71**. Con due fronti profondi 60 che si fronteggiano restano **51 cm di passaggio**.
+
+| Opzione | Fronti chiesti | % del perimetro | Passaggio se due fronti p.60 si fronteggiano |
+|---|---|---|---|
+| A | armadio p.60 3,53 + colonne p.40 | 48% | 0,71 m (minimo accettabile) |
+| B | colonne p.40 3,53 + armadio p.60 | 48% | 0,71 m (minimo accettabile) |
+| C | armadio p.60 3,53 + armadio di testata | 48% | **0,51 m** |
+| D | armadio 2,73 + armadio 2,00 + scrivania studio | **57%** | **0,51 m** |
+
+In C e D la cabina **probabilmente non funziona come l'ho briefata**, e non se n'è accorto nessuno perché
+non è stato chiesto di misurarla. In D ci sono 5,93 ml di fronti più una scrivania in una stanza profonda
+1,71: o un fronte scende a 40 di profondità, o lo studio esce dalla cabina.
+
+### Conseguenza
+
+Le altezze delle camerette sono collaudate. **Il resto no.** Il set è utilizzabile per il confronto
+ponte/soppalco, che era lo scopo delle quattro tavole, ma non è ancora un documento dimensionalmente
+verificato in tutte le stanze.
