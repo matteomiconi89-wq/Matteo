@@ -386,3 +386,24 @@ stanza, che nel primo brief non era stata data.
 
 **Lezione:** un PDF prodotto da noi è un disegno, non un testo. La prima cosa da fare è aprirlo come
 geometria — se l'estrazione testuale non basta, si passa il file a un ambiente che può leggerlo.
+
+### Zona giorno rigenerata sulla pianta a L — esito
+
+Le 8 viste rifatte, le altre 32 non toccate. Crediti a fine giro: **18.412** (A 2.536 · B 6.258 ·
+C 4.761 · D 4.857), **+3.790** rispetto al giro precedente.
+
+| Opzione | ala / larghezza (0,24) | Altro | Esito |
+|---|---|---|---|
+| **A** | dichiarato 0,24 | cucina a L dentro l'ala, angolo rientrante leggibile | ✓ ma **non misurato** |
+| **B** | dichiarato 0,24 | penisola che chiude l'imbocco dell'ala | ✓ ma **non misurato** |
+| **C** | **misurato 0,29** (+21%) | parete attrezzata presente, 315 cm su 340 (−7%) | ~ ala troppo larga |
+| **D** | **misurato 0,24 esatto** (300 px di apertura su 940 di parete) | tavolo da 8 con 8 sedie contabili, lavatrice dietro anta | ✓ **misurato** |
+
+**Distinzione importante:** A e B hanno *riportato* i rapporti della pianta, non li hanno misurati sui
+pixel. Solo C e D hanno fatto una misura vera. Quindi per A e B la forma a L è confermata solo dalla
+descrizione — corretta e circostanziata, ma non è una misura.
+
+**Residuo su C**: l'ala è resa larga 235 cm invece di 194, quindi il varco sulla cucina appare più
+generoso del reale. La parete attrezzata dimenticata al primo giro è invece rientrata, a 315 cm su 340.
+
+Con questo, la parete attrezzata di C era l'ultimo elemento del disegno che mancava del tutto nei render.
