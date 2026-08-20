@@ -212,3 +212,61 @@ Dichiarato a Manus che è l'ultimo giro: ciò che resta fuori diventa residuo di
 **Nota di metodo:** il numero che ha guidato tutte le correzioni non è mai stato una quota assoluta ma il
 rapporto **aria / spessore del ponte**. È l'unico che ha reso visibile il difetto quando l'aria in
 centimetri sembrava a posto (cameretta2_view2: aria 146 su 150, ma ponte da 37 invece di 55).
+
+### Giro 4 — esito e chiusura
+
+**D — `cameretta2_view2`: ✓ rientra.** Il ponte è ora un corpo pieno da 50 cm con due ante, gola
+orizzontale, fondo di spessore visibile e ombra di distacco sotto. Rapporto aria/ponte da 3,95 a
+**2,87 contro 2,70**, scarto 6%.
+
+**D — `cameretta2_view1`: ✗ residuo dichiarato.** Il cambio di inquadratura ha funzionato sul ponte
+(67 cm, il volume più solido dell'intero set) ma il letto è rimasto a 79 cm, quindi aria 113 e
+aria/ponte 1,68.
+
+**Causa, dichiarata da Manus dopo quattro varianti:** il modello tratta "letto contenitore" come una
+tipologia con basamento massiccio e la riporta a prescindere dalle quote — in quattro tentativi il piano
+del materasso ha oscillato fra 70 e 90 cm, **mai vicino a 45**. Giro chiuso come da accordo, senza
+insistere.
+
+---
+
+## Quadro finale
+
+| Opzione | Immagini | Esito | Crediti |
+|---|---|---|---|
+| **A — letto a ponte** | 10/10 | ✓ chiusa, aria 154 e 148 su 150 | 1.818 |
+| **B — soppalco** | 10/10 | ✓ chiusa, scarto max 3,7% | 5.138 |
+| **C — cabinato** | 10/10 | ✓ chiusa, aria/H 0,56 esatto | 3.642 |
+| **D — studio** | 9/10 | ✓ chiusa con 1 residuo | 4.024 |
+| | **40** | | **14.622** |
+
+**Residui dichiarati e accettati**
+1. **D, `cameretta2_view1`**: aria sopra il materasso 113 cm invece di 150, piano materasso 79 invece
+   di 45. Le altre tre viste delle camerette di D sono a bersaglio. La lettura d'insieme resta corretta
+   (letto a terra, cassettoni bassi, ponte alto, nessuna scala): sbagliate sono le due quote di dettaglio.
+2. **C, `cameretta1_view2`**: base letto 55 invece di 45, ma l'intradosso sale in proporzione e il vuoto
+   netto resta 152 su 150.
+3. **D, camerette**: piano materasso 0,26-0,29 dell'altezza utile invece di 0,17 in cameretta 2.
+
+## Da verificare a disegno, non è un difetto di render
+
+Il modello ha insistito quattro volte nel disegnare il letto contenitore con il piano a 70-90 cm. Vale la
+pena controllarlo sul serio: **un letto contenitore reale con cassettoni sotto difficilmente sta a 45 cm**
+di piano finito (cassetto ~20 + doghe + materasso ~20 fa già 50-60). Se in cameretta 2 il letto viene
+davvero a 55-60, con l'intradosso del ponte a 195 l'aria libera scende da 150 a **135-140**, e il
+vantaggio di D sul soppalco si assottiglia. In opzione D la cameretta 2 è anche la stanza piccola
+(2,18 × 2,97): è lì che la combinazione letto contenitore + ponte va verificata col falegname.
+
+## Cosa ha funzionato, da riportare sugli altri lavori
+
+1. **Le ancore in rapporto battono le quote assolute.** B e C sono rientrate al primo tentativo dopo aver
+   riscritto i target come rapporti (aria/spessore ponte, aria/altezza stanza) invece che in centimetri.
+2. **Il rapporto aria/spessore ponte è l'indicatore che smaschera il difetto** quando i centimetri
+   sembrano a posto: `cameretta2_view2` aveva 146 cm su 150 — apparentemente buona — ma il ponte era da
+   37 invece di 55.
+3. **Quando una correzione non entra dopo due tentativi, si cambia strada, non si insiste.** Qui, non
+   potendo fare post-produzione, la strada alternativa è stata cambiare angolo di ripresa: ha risolto il
+   ponte, non il letto.
+4. **L'autocollaudo in pixel chiesto nel brief funziona.** Manus ha dichiarato da solo i propri errori,
+   compreso quello finale che non sapeva risolvere. È ciò che ha reso possibile collaudare senza vedere
+   le immagini.
