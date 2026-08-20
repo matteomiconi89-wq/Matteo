@@ -322,3 +322,67 @@ non è stato chiesto di misurarla. In D ci sono 5,93 ml di fronti più una scriv
 Le altezze delle camerette sono collaudate. **Il resto no.** Il set è utilizzabile per il confronto
 ponte/soppalco, che era lo scopo delle quattro tavole, ma non è ancora un documento dimensionalmente
 verificato in tutte le stanze.
+
+---
+
+## Geometria vera, letta dal vettoriale del PDF (20/08)
+
+Il PDF `ARREDO - 4 opzioni.pdf` è vettoriale: 7 pagine, 58 rettangoli di pianta base e 26-31 elementi
+di arredo per opzione. **Tutta la disposizione era lì dentro fin dall'inizio** — nelle prime lavorazioni
+era stato letto solo il testo estratto, non la geometria.
+
+Scaricato nel sandbox remoto Composio (che non ha i blocchi di egress di questa sessione) via link
+temporaneo Dropbox, ed estratto con PyMuPDF. **Scala del PDF: 39,63 punti = 1 metro**, verificata su
+quattro stanze quotate indipendentemente:
+
+| Stanza | Dal vettoriale | Quota scritta |
+|---|---|---|
+| Camera | 3,52 × 4,00 | 3,52 × 4,00 ✓ |
+| Cabina | 3,52 × 1,71 | 3,52 × 1,71 ✓ |
+| Cameretta 1 | 4,12 × 2,52 | 4,12 × 2,52 ✓ |
+| Cameretta 2 | 2,18 × 2,97 | 2,18 × 2,97 ✓ |
+| Corridoio | 1,24 × 4,37 | 1,25 × 4,37 ✓ |
+
+### 1. La zona giorno è a L, non rettangolare
+
+| | |
+|---|---|
+| Corpo principale | 6,09 × 4,06 m = 24,72 mq |
+| Ala (zona cottura) | 1,94 × 2,95 m = 5,73 mq |
+| **Totale** | **30,45 mq**, larghezza complessiva **8,03 m** |
+
+**La cucina sta nell'ala larga 1,94**, non lungo una parete del corpo principale. Il rettangolo
+6,50 × 4,62 che era stato mandato a Manus era inventato: area giusta, forma sbagliata, e sbagliata nel
+punto che conta. Le 8 viste di zona giorno sono state rigenerate con la pianta vera
+(`ancore_giorno.py` → `pianta_giorno_A..D.png`, disegnate dalle coordinate del PDF).
+
+### 2. In opzione C mancava un mobile
+
+Nel corpo principale, lungo tutta la parete alta, il disegno porta una **parete attrezzata su misura
+3,40 × 0,45**. Non era nel brief e non c'è nelle immagini del primo giro: è il mobile più importante del
+soggiorno in quella opzione. Inserita nel giro di correzione.
+
+### 3. Cabina armadio — misurata sul disegno, non stimata
+
+| Opzione | Fronte nord | Fronte sud | Passaggio libero |
+|---|---|---|---|
+| A | colonne 2,65 × 0,40 | armadio 3,52 × 0,60 | **0,71 m** |
+| B | armadio 2,65 × 0,60 | colonne 3,52 × 0,40 | **0,71 m** |
+| C | armadio 0,60 × 1,11 (**di testata**) | armadio 3,52 × 0,60 | **1,11 m** |
+| D | armadio 2,65 × 0,60 | armadio 1,99 + studio 1,40, entrambi 0,60 | **0,51 m** |
+
+**Correzione a quanto scritto prima**: la stima che dava 0,51 m anche in C era sbagliata. Lì il secondo
+armadio è **di testata**, occupa 0,60 m di lunghezza sul lato corto e non fronteggia l'altro: il corridoio
+resta 1,11 m. **Resta confermato il problema in D**: due fronti da 0,60 che si fronteggiano lasciano
+**51 cm**. Non è un difetto di render, è così nel disegno — in D lo studio dentro la cabina non ci sta.
+
+### 4. Tutto il resto combacia
+
+Gli arredi di camerette, camera e cabina estratti dal vettoriale corrispondono a quelli briefati, misura
+per misura: letto 2,00 × 0,90, ponte 2,00 × 0,60, armadio 1,60 × 0,60, scrivania 1,55 × 0,60, letto
+matrimoniale 2,00 × 1,60, cassettiera 1,80 × 0,50, armadio cabina 3,52 × 0,60, colonne 2,65 × 0,40.
+Su quelle 32 immagini il contenuto è giusto; resta non verificata solo la **posizione** dei mobili nella
+stanza, che nel primo brief non era stata data.
+
+**Lezione:** un PDF prodotto da noi è un disegno, non un testo. La prima cosa da fare è aprirlo come
+geometria — se l'estrazione testuale non basta, si passa il file a un ambiente che può leggerlo.
