@@ -407,3 +407,45 @@ descrizione — corretta e circostanziata, ma non è una misura.
 generoso del reale. La parete attrezzata dimenticata al primo giro è invece rientrata, a 315 cm su 340.
 
 Con questo, la parete attrezzata di C era l'ultimo elemento del disegno che mancava del tutto nei render.
+
+---
+
+## ERRORE A MONTE: soggiorno e cucina non sono un ambiente unico (21/08)
+
+Segnalazione di Matteo guardando i render: *"la cucina con soggiorno e' sbagliato completamente, e'
+senza muro che divide le 2 aree"*. Verificato sul **rilievo originale** `Piano Primo(1).pdf`, che è
+vettoriale (296 primitive, nessun raster) — scala **35,95 punti per metro**.
+
+### Cosa dice il rilievo, contro cosa dice il nostro elaborato
+
+| | `Piano Primo(1).pdf` (rilievo) | `ARREDO - 4 opzioni.pdf` (nostro) |
+|---|---|---|
+| Etichette | **SOGGIORNO** e **CUCINA**, separate | "Soggiorno e cucina — **un unico ambiente**, 30 mq" |
+| Filo inferiore | catena **3950 \| 1160 \| 2925** (= 8035) | corpo 6,09 + ala 1,94 (= 8,03) |
+| Muri | **quad pieno 10 cm × 2,97 m** sul lato destro della cucina | nessun muro interno |
+
+La larghezza totale coincide — 8,03 m — ma **la suddivisione interna è completamente diversa**:
+3,95 di soggiorno, 1,16 nel mezzo, 2,925 di cucina, invece di un corpo unico da 6,09 con un'ala da 1,94.
+
+**Conseguenza: tutte e 8 le viste di zona giorno sono sbagliate a monte**, comprese quelle appena
+rifatte sulla "pianta a L". La forma a L era una mia deduzione dai rettangoli del nostro elaborato, e
+quell'elaborato aveva già perso la divisione fra le due stanze.
+
+### Errore di metodo, per la terza volta la stessa radice
+
+1. Primo giro: letto solo il **testo** del nostro PDF, non la geometria → zona giorno inventata.
+2. Secondo giro: letta la geometria **del nostro PDF**, non del rilievo → forma a L sbagliata.
+3. Solo adesso: aperto **il rilievo originale**.
+
+La fonte di verità è il rilievo, non un elaborato che ne discende — nemmeno se l'abbiamo fatto noi.
+Vale come regola generale: **prima di briefare, risalire sempre al documento più a monte disponibile**.
+
+### In corso
+
+Task Manus `dJx7yDG6zPdUctbYgQ39wS`: i tre PDF (rilievo, nostro elaborato, PROGETTO) caricati e affidati
+a Manus perché li legga come disegni e risponda su muro divisorio, natura del tratto da 1160, misure
+nette di soggiorno e cucina, porte, **e ogni altra difformità fra rilievo ed elaborato** — perché se
+la zona giorno è sbagliata, le altre stanze vanno ricontrollate e non date per buone.
+
+Trasferimento file: il sandbox remoto scarica da Dropbox e carica su Manus con PUT presigned. Da questa
+sessione i byte non passano (host bloccati), ma il sandbox raggiunge entrambi.
