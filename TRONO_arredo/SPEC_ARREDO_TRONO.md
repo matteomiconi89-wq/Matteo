@@ -503,3 +503,50 @@ conclusione sbagliata. Resta la fascia rossa sulla cabina di D (51 cm di passagg
 Ho trovato un muro nel disegno e ho concluso che dividesse le stanze senza verificare **di che muro si
 trattasse**. Un dato letto correttamente e interpretato male fa più danni di un dato mancante: la prima
 volta avevo inventato una misura, stavolta l'ho misurata giusta e le ho dato il significato sbagliato.
+
+---
+
+## Referto finale dell'audit sui disegni (21/08, task `dJx7yDG6zPdUctbYgQ39wS`, 4.970 cr)
+
+**1. Ambiente unico: confermato.** Nessun muro né setto fra soggiorno e cucina — la luce libera del varco
+misura **2,948 m**. Il muro pieno da 10 cm × 2,968 m che avevo individuato è reale, ma separa la **cucina
+dalla cameretta 2**, non dal soggiorno. Esiste un secondo setto da 10 cm × 1,944 m che chiude la cucina
+verso il corridoio, con **testata libera**: è la sua interruzione a generare il varco.
+
+**2. Il tratto 1160 è una finestra** del soggiorno, luce 0,984 m fra i montanti, sigle 1.00 / 1.45. La
+catena `3950 | 1160 | 2925` descrive la **foratura del muro perimetrale** — muro pieno, finestra, muro
+cieco — non le larghezze delle stanze.
+
+**3. Scala 36,00 pt/m.** Le linee di quota del rilievo sono accorciate di 1,8 pt per estremità e vanno
+compensate: è da lì che veniva il mio 35,95.
+
+**4. Le quote del nostro elaborato sono corrette entro 1 mm** e i 30 mq dichiarati corrispondono a 30,03
+reali. Uniche difformità: un filo murario spostato di 68 mm (in quel punto il rilievo ha **tre linee
+parallele**, è ambiguo) e il contorno del disimpegno, non determinabile univocamente.
+
+### Il dato che vale più di tutto il resto
+
+> **La cucina non ha finestre proprie: il fronte davanti è cieco per 2,922 m. Chiuderla con un muro la
+> renderebbe un locale cieco. La configurazione aperta non è una svista del disegnatore, è l'unica
+> soluzione praticabile allo stato dei luoghi.**
+
+Conclusione dell'audit: **i render vanno confermati, non rifatti.**
+
+## Consegna finale
+
+Le 8 viste di zona giorno rigenerate per leggibilità (spigolo del risvolto in campo, una stanza per
+vista, luce differenziata, pavimento continuo) e i **4 PDF da 11 pagine** rifatti senza fascia sul
+soggiorno; in D resta la fascia rossa sulla cabina (51 cm). Crediti totali: **36.495**.
+
+### Dropbox: diagnosi convergente da quattro task
+
+| Task | Errore |
+|---|---|
+| A | `invalid_access_token` |
+| B | `DROPBOX_API_KEY` lunga **5 caratteri** = segnaposto; servono gli scope `files.content.write` e `files.metadata.write` |
+| C | connettore "Dropbox API" ancora `enabled: false`, scheda di conferma inviata **due volte** e non approvata |
+| D | il connettore "Dropbox" attivo **legge** (vede `ns:12436541105//Matteo/TRONO`) ma il suo unico strumento di scrittura è `create_file`, solo testo inline max 5 MB, binari vietati |
+
+**Azione necessaria (solo Matteo può farla):** approvare in Manus la scheda di attivazione del connettore
+**"Dropbox API"**, uid `2918a878-d84d-47af-94ce-4967b72506f5`. Il connettore "Dropbox" semplice non basta:
+non ha upload binario, e i file pesano 71 MB (PDF) e 36 MB (ZIP).
