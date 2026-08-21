@@ -600,3 +600,43 @@ Dal rilievo (scala 36,00 pt/m), da far confermare a Manus:
 Task Manus `6KbG9UQoN6RbqBUfZUWAZC`, con l'ordine esplicito di leggere il rilievo e correggere la mia
 lettura se sbagliata. Finiture dei bagni non presenti in nessun disegno: proposto gres effetto pietra
 chiara, dichiarato come scelta da confermare.
+
+---
+
+## Wc e bagno: il rilievo corregge la mia lettura (21/08, task `6KbG9UQoN6RbqBUfZUWAZC`)
+
+Manus ha estratto le primitive vettoriali del rilievo — 130 segmenti, 20 rettangoli, 146 polilinee — e
+ha confermato **tutte le mie misure numeriche**: scala 36,00 pt/m, Wc 1,356 × 2,768, bagno profondo 2,768,
+lavabo 0,50 × 0,35 su ingombro 0,60 × 0,45, vaso e bidet 0,368 × 0,516, piatto doccia 1,00 × 0,60 su
+ingombro 1,10 × 0,70 con piletta centrale.
+
+**Ma su tre cose il rilievo dice altro, e vale il rilievo:**
+
+1. **Il bagno non è rettangolare, è a L.** Corpo 1,700 × 2,768, ma nei primi 1,10 m contro la parete
+   esterna si allarga a **2,688 m** per la **nicchia della doccia**. La doccia sta lì dentro, nell'angolo
+   di fondo, col lato da 1,00 orientato lungo la profondità — non "sul lato lungo" come avevo scritto.
+2. **Il bagno ha una finestra 1,00 × 1,45** (luce interna 1,16) sulla parete di fondo.
+   **Il wc invece è cieco**: nessuna apertura → serve estrazione meccanica.
+3. **I sanitari stanno altrove.** Vaso e bidet non sono sulla parete di fondo: sono **in fila sulla parete
+   lunga**, la tramezza fra i due locali. Nel bagno anche il lavabo è su quella stessa parete, quindi i
+   tre ceramici sono allineati. Nel wc il lavabo è sulla parete lunga opposta, arretrato verso la porta,
+   e la parete di fondo resta libera.
+
+### ⚠️ L'altezza utile 2,70 non è documentata da nessuna parte
+
+Segnalazione di Manus, e pesa più delle tre correzioni: **il rilievo contiene solo la pianta, nessuna
+sezione né quota verticale.** Il 2,70 l'ha assunto perché gliel'ho dato io — e io l'ho preso dalla tavola
+in sezione del nostro `ARREDO - 4 opzioni.pdf`, che a sua volta non può averlo ricavato dal rilievo.
+
+**Su quel 2,70 poggia l'intero confronto fra ponte e soppalco**: 150 cm liberi contro 105, la frase sul
+bambino seduto, la conclusione che sotto i 10 anni il ponte è più prudente. Se l'altezza reale fosse
+2,60 o 2,80 quei numeri cambiano tutti. **Da confermare con Matteo prima di presentare le opzioni.**
+
+### Consegna
+
+4 render (`wc_view1/2`, `bagno_view1/2`) + `verifica_pianta_wc_bagno.png`, caricati in
+`/STEFANO/Matteo/TRONO/RENDER/` con la catena file request + Playwright. I bagni **non cambiano fra le
+opzioni**: 4 immagini valide per tutte e quattro, non 16. Costo 1.765 crediti.
+
+Finiture dei bagni: gres effetto pietra chiara, mobile lavabo laccato bianco caldo a gola, rubinetteria
+nera opaca — **scelta nostra, nessun disegno dice nulla in merito**, da confermare.
