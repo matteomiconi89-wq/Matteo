@@ -449,3 +449,57 @@ la zona giorno è sbagliata, le altre stanze vanno ricontrollate e non date per 
 
 Trasferimento file: il sandbox remoto scarica da Dropbox e carica su Manus con PUT presigned. Da questa
 sessione i byte non passano (host bloccati), ma il sandbox raggiunge entrambi.
+
+---
+
+## Rettifica: il muro non c'è, il problema è la lettura (21/08)
+
+**Verifica metrica indipendente di Manus sul rilievo originale** (task `dJx7yDG6zPdUctbYgQ39wS`):
+
+> "Il documento 2 non contiene l'errore grave sospettato. Tutte le sue quote coincidono con il rilievo
+> entro 4 mm — Camera 3,524×4,000 · Cameretta 1 4,124×2,520 · Cameretta 2 2,180×2,968 · Wc 2,768×1,356 ·
+> Bagno 2,768×1,700 · Cabina 3,524×1,708 · Corridoio 1,244×4,368 · scala 2,240 — e l'area soggiorno+cucina
+> calcolata sul poligono a L è 30,03 mq contro i 30 dichiarati. **Nel rilievo vettoriale non esiste alcun
+> muro tra soggiorno e cucina.**"
+
+Inoltre: la scala reale del rilievo è **36,00 pt/m** (la mia stima diceva 35,95) e **il tratto da 1160
+è il foro di una finestra sul muro perimetrale** (sigle 1.00 / 1.45, parapetto e altezza foro), non un
+varco fra le stanze.
+
+### Correzione di due mie affermazioni
+
+1. ~~"Il rilievo conferma che c'è un muro fra soggiorno e cucina"~~ → **falso**. Il muro pieno da
+   10 cm × 2,97 m che avevo trovato è la parete **destra** della cucina, non un divisorio.
+2. ~~"La catena 3950 | 1160 | 2925 è soggiorno | divisione | cucina"~~ → **falso**. Sono quote di
+   facciata: parete piena, finestra, parete piena.
+
+**La forma a L era invece giusta** (30,03 mq sul poligono), e con essa le 8 viste rifatte ieri notte.
+
+### Cosa intendeva davvero Matteo
+
+Chiarito da lui: *"non è il muro, è la lettura"*. Nei render soggiorno e cucina **non si leggono come
+due ambienti distinti** — sembrano un unico stanzone. È un problema di composizione, non di geometria.
+
+### Rimedio in corso
+
+Rigenerate le 8 viste usando **la geometria che esiste già**, senza inventare divisori:
+
+- **Lo spigolo del risvolto** all'imbocco dell'ala (la parete rientra di 1,11, il varco resta 1,94)
+  sempre in campo, con luce diversa sulle due facce: è la soglia.
+- **Una stanza per vista**: la view 1 è il soggiorno e della cucina si vede solo uno scorcio oltre lo
+  spigolo; la view 2 è la cucina e del soggiorno si vede solo una fetta alle spalle.
+- **Luce differenziata**: soggiorno caldo e diffuso, cucina più fredda e contrastata.
+- **Profondità**: nitido davanti, in ombra dietro.
+- In **B** il lavoro lo fa la **penisola**, che chiude fisicamente la bocca dell'ala; in **C** le due
+  identità sono la parete attrezzata 3,40 di qua e la cucina a U di là.
+
+Vietato: muri nuovi, porte, archi, vetrate divisorie. Il pavimento resta **continuo**, è un pezzo solo.
+
+Le fasce "DA RIFARE" messe sulle pagine del soggiorno nei 4 PDF vanno **tolte** — erano basate sulla mia
+conclusione sbagliata. Resta la fascia rossa sulla cabina di D (51 cm di passaggio), che è confermata.
+
+### Lezione, la seconda in due giorni
+
+Ho trovato un muro nel disegno e ho concluso che dividesse le stanze senza verificare **di che muro si
+trattasse**. Un dato letto correttamente e interpretato male fa più danni di un dato mancante: la prima
+volta avevo inventato una misura, stavolta l'ho misurata giusta e le ho dato il significato sbagliato.
