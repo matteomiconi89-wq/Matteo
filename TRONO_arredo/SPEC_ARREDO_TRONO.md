@@ -640,3 +640,71 @@ opzioni**: 4 immagini valide per tutte e quattro, non 16. Costo 1.765 crediti.
 
 Finiture dei bagni: gres effetto pietra chiara, mobile lavabo laccato bianco caldo a gola, rubinetteria
 nera opaca — **scelta nostra, nessun disegno dice nulla in merito**, da confermare.
+
+---
+
+## Bagni: come spiegarli a Manus (31/08)
+
+Matteo: *"hai le piante fatte da te e devi farglielo capire tu come è meglio spiegarglielo per
+fare 1 cosa super fedele"*. Il primo brief dei bagni era una lista di parole — fixture, misure,
+niente posizioni — ed è andata come doveva andare. Quello che segue lo sostituisce.
+
+### Il metodo, in una riga
+
+**Un disegno quotato da entrambi gli angoli, più rapporti verificabili, più la camera decisa da
+noi.** È lo stesso metodo che ha funzionato sulle camerette dopo quattro giri, applicato prima
+invece che dopo.
+
+Le quattro cose che rendono un brief fedele, in ordine di peso:
+
+1. **Quotare da tutti e due gli angoli, non solo l'ingombro.** «vaso 0,368 × 0,516» non dice
+   dove sta. «vaso da P 0,236 a P 0,604» lo inchioda, e la quota non torna se lo sposti.
+2. **Un frame di lettura unico, dichiarato una volta e usato ovunque** (P dalla parete esterna
+   verso la porta, L da una parete lunga di riferimento). Senza, «destra» e «sinistra»
+   dipendono da dove immagini di stare.
+3. **Rapporti, non solo millimetri.** Manus non misura in metri, guarda l'immagine. «il locale è
+   lungo il doppio di quanto è largo» (2,04) è controllabile sui pixel del render; «2,768 ×
+   1,356» no. È la lezione dei quattro giri sul ponte e il soppalco.
+4. **La camera la decidiamo noi.** Posizione, altezza dell'obiettivo, direzione, FOV, disegnati
+   come coni numerati sulla pianta. Lasciare l'inquadratura a Manus significa scoprire dopo che
+   ha guardato dalla parte sbagliata.
+
+### Le tavole
+
+- `bagni_pianta_wc.png` — wc quotato, coni di ripresa 1 e 2
+- `bagni_pianta_bagno.png` — bagno a L quotato, coni 1 e 2
+- `bagni_prospetti_wc.png` — le tre pareti del wc in alzato
+- `bagni_prospetti_bagno.png` — le due pareti del bagno che portano qualcosa
+- `bagni_brief.py` — le genera tutte e quattro dalle coordinate del rilievo
+- `BRIEF_BAGNI_MANUS.md` — il testo da mandare, con le ancore e l'autoverifica
+
+I prospetti sono l'aggiunta vera. Il rilievo è una pianta: **non contiene una sola quota
+verticale**. Il primo brief taceva sulle altezze e Manus se le è inventate. Adesso ci sono, ma
+sono dichiarate per quello che sono — scelte di progetto, scritte in rosso sulla tavola:
+lavabo 0,85, specchio 1,05→1,95, vaso 0,42, bidet 0,40, soffione 2,10, davanzale 1,10,
+porta 0,80 × 2,10, **altezza utile 2,70 assunta**.
+
+### Quello che il rilievo dice, ricontrollato sulle coordinate
+
+Wc `1,356 × 2,768`, **cieco**. Lavabo su `L = 0` da P 1,517 a 2,117; vaso su `L = 1,356` da
+P 0,236 a 0,604; bidet sulla stessa parete da P 0,928 a 1,296; porta da L 0,514 a 1,314,
+cardine a 1,314. Lavabo e sanitari **si guardano da pareti opposte**, 0,908 di passaggio.
+
+Bagno **a L**: corpo `1,700 × 2,768`, nicchia doccia `0,988 × 1,100` contro la parete esterna.
+Finestra luce `1,161 × 1,45` da L 0,172 a 1,333. Vaso, bidet e lavabo **tutti e tre su `L = 0`**,
+in quest'ordine dalla finestra (P 0,236 / 0,928 / 1,600). Piatto doccia 0,60 × 1,00 nell'angolo
+della nicchia, piletta centrale. Porta da L 0,617 a 1,417.
+
+**Vaso e bidet hanno impronte identiche (0,368 × 0,516) e il rilievo non le etichetta**: quale
+dei due sia il vaso è una scelta di convenzione, non un dato. Ho messo il vaso verso la parete
+esterna in tutti e due i locali, come sulla pianta che Matteo ha già visto.
+
+### Manus è irraggiungibile
+
+Al momento dell'invio **la chiave API Manus dentro Composio è stata cancellata o revocata**:
+ogni chiamata torna `401 — api key has been deleted or does not exist` (`code 16`), incluse
+`MANUS_CREATE_FILE`, `MANUS_CREATE_TASK` e `MANUS_GET_TASK` sul vecchio task
+`6KbG9UQoN6RbqBUfZUWAZC`. Composio continua a dichiarare la connessione "ACTIVE" perché
+verifica che esista il record dell'account, non che la chiave valga ancora.
+
+Le tavole e il brief sono pronti e versionati; parte tutto appena la connessione torna.
