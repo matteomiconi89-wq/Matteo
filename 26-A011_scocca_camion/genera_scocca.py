@@ -27,13 +27,13 @@ def config_chiusa(boxes):
     for b in boxes:
         if b.get("solo_aperto"):
             continue
+        # divisori/vetrate dentro le zone estrattori: rientrano col modulo, nel chiuso si omettono
+        if b["gruppo"] in ("divisori", "vetrate") and (b["y0"] >= 3603 or b["y1"] <= 1213):
+            continue
         b = dict(b)
         dy = CORSA if b["gruppo"] == "estr_ing" else -CORSA if b["gruppo"] == "estr_cuc" else 0
         if dy:
-            if b.get("tipo") == "cilindro_y":
-                b["y0"] += dy; b["y1"] += dy
-            else:
-                b["y0"] += dy; b["y1"] += dy
+            b["y0"] += dy; b["y1"] += dy
         out.append(b)
     return out
 
@@ -160,20 +160,25 @@ def main():
     crea_scr(chiuso, out + "_chiuso.scr")
 
     q = ("APERTO: 13989 x 4840 x H 4000 mm  |  CHIUSO: 13989 x 2540 x H 4000 mm  |  "
-         "pavimento interno +1395, h utile 2290, sporgenza estrattori 1150/lato")
+         "pav. +1395, h utile 2290, finestre 2395-3042, controsoffitto 3646, sporg. estrattori 1150")
 
     scocca = [b for b in aperto if b["gruppo"] != "telaio"]
-    senza_tetto = [b for b in aperto if b["gruppo"] != "tetto" and not b["nome"].endswith("_tetto")]
+    senza_tetto = [b for b in aperto
+                   if b["gruppo"] not in ("tetto", "controsoffitto")
+                   and not b["nome"].endswith("_tetto")]
+    # il clima sta dentro il pacco tetto: nei complessivi non si vede (e sporca il painter)
+    aperto_v = [b for b in aperto if b["gruppo"] != "clima"]
+    chiuso_v = [b for b in chiuso if b["gruppo"] != "clima"]
 
-    disegna(aperto, titolo + "\ncomplessivo APERTO (telaio e ruote indicativi)",
+    disegna(aperto_v, titolo + "\ncomplessivo APERTO (telaio e ruote indicativi)",
             out + "_1_assonometria_aperto.png", az=215, el=16, quote=q)
     disegna(senza_tetto, titolo + "\nSENZA TETTI: baie estrattori, pilastrini, pavimenti",
             out + "_2_senza_tetto.png", az=215, el=38, quote=q)
     disegna(scocca, titolo + "\nvista frontale (dal muso): sezione trasversale aperta",
             out + "_3_fronte_aperto.png", az=180, el=3)
-    disegna(chiuso, titolo.replace("APERTI", "CHIUSI") + "\ncomplessivo CHIUSO (sagoma stradale 2540)",
+    disegna(chiuso_v, titolo.replace("APERTI", "CHIUSI") + "\ncomplessivo CHIUSO (sagoma stradale 2540)",
             out + "_4_assonometria_chiuso.png", az=215, el=16, quote=q)
-    disegna(aperto, titolo + "\npianta dall'alto (lato INGRESSO in alto)",
+    disegna(aperto_v, titolo + "\npianta dall'alto (lato INGRESSO in alto)",
             out + "_5_pianta.png", az=90, el=88)
 
     print(f"{len(aperto)} solidi APERTO / {len(chiuso)} CHIUSO -> {out}_aperto/_chiuso .dxf/.scr + 5 viste")

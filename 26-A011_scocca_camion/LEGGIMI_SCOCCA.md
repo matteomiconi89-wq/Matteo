@@ -1,4 +1,14 @@
-# SCOCCA CAMION 26-A011 — Volumi 3D dal DWG 2D
+# SCOCCA CAMION 26-A011 — Volumi 3D dal DWG 2D (rev.02)
+
+**Rev.02** (giro 2 su richiesta di Matteo): controsoffitto rev.01 sp.40 a Z 3646-3685
+(sotto-filo da sez. E-E': i tetti estrattori, filo 3646, ci rientrano sotto in chiusura);
+2 gruppi clima nel pacco tetto Z 3685-3960 su layer `VOL_IMPIANTO_CLIMA` (posizione dai
+tagli A-A' e D-D', lunghezza 900 ipotizzata); 4+1 finestre con vetro (davanzale Z 2395,
+architrave Z 3042) e pareti estrattori spezzate attorno ai vani; divisori interni su
+`VOL_DIVISORI` (divisoria living/camera sp.81, spa sp.80, tramezzi bagno, porta-bagno
+massello, parete camera lato ingresso) e vetrate su `VOL_VETRO`. Gli OBLO' non sono
+disegnati nel DWG e non sono stati modellati (da indicare a parte). Porta ingresso non
+forata. 82 solidi aperto / 67 chiuso.
 
 Sorgente: `26A011_SCOSSA_CAMION_2D.dwg` (AutoCAD 2018, scala 1:1 mm) — planimetria
 generale + sezioni trasversali A-A'/D-D'/E-E' ("Estrattori aperti") + longitudinali B-B'/C-C'.
