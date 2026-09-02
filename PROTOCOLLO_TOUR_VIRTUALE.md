@@ -144,10 +144,13 @@ Limite quota Veo osservato: ~3 generazioni in parallelo, poi 429 → lavorare a 
 | DWG allestimento camion | ☐ da ricevere da Matteo |
 | Conferma degli 8 ambienti/tappe con Matteo | ☐ da fare sul disegno |
 | Primo giro Manus "viste 1,60 m" + Marble Pro | ☐ dopo l'ok sul test |
+| Ricetta unica `/commessa-media` ("l'exe": cartella → inventario → menu con costi → produzione con collaudo) | ✔ consegnata e collaudata il 02/09/2026: 6 prove su 2 commesse finte (bagno hotel completo + cabina senza pianta) — **17/17 criteri con la ricetta** vs 15/17 senza, ~45% più veloce, ~40% meno gettoni; si attiva da sola descrivendo una cartella commessa. Skill in `.claude/skills/commessa-media/` + `AVVIA_COMMESSA.bat` + `COME_AVVIARE_UNA_COMMESSA.md`. I due errori del "senza": nessun menu di scelta e misure ipotizzate nelle tavole — esattamente ciò che la ricetta vieta. |
+| Quadro lavori con le spunte per Matteo | ✔ pagina viva: https://claude.ai/code/artifact/e4322eb6-6d18-4c85-9c34-1c84061939f1 (aggiornarla a ogni passo) + PDF procedura (3 pag.: giro completo, cosa dà Matteo, requisiti precisi DXF/STP) consegnato in chat il 02/09 |
 
 ## 8. Come si riparte (per la prossima sessione Claude)
 
 1. Leggere questo protocollo e il `PROTOCOLLO_RENDER_MANUS.md` (le regole di brief/collaudo valgono).
+   Per lavorare una commessa usare la skill `/commessa-media` (si carica da sola dal repo).
 2. Chiedere a Matteo: esito del test Marble Free + DWG dell'allestimento.
 3. Fase 1 dal punto in cui è ferma la tabella §7; aggiornare la tabella a ogni passo.
 4. Per l'interfaccia della pagina definitiva partire dalla demo in `DINO_CHIESA_truck/`.
