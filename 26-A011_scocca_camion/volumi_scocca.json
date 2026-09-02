@@ -1,6 +1,6 @@
 {
- "titolo": "SCOCCA CAMION 26-A011 rev.05 - VOLUMI (moduli con cima inclinata anche da aperti)",
- "note": "Origine: X=0 faccia esterna MUSO, X+ verso coda. Y=0 faccia esterna estrattore lato INGRESSO aperto, Y+ verso CUCINA. Z=0 terra. Rev.02: controsoffitto rev.01 sp.40 a Z 3646-3685 (sotto-filo 3645 da sez. E-E': i tetti estrattori, filo 3646, ci rientrano sotto in chiusura) con 2 gruppi clima DENTRO il pacco tetto Z 3685-3960 (posizione dai tagli A-A' e D-D', lunghezza 900 ipotizzata), finestre con vetro nelle pareti estrattori (davanzale Z 2395, architrave Z 3042, dai fili F_VETRO in pianta e sez. C-C'), divisoria living/camera, tramezzi bagno negli estrattori, vetrate interne. Oblo' NON disegnati nel DWG: non modellati. Porta ingresso non forata (posizione da confermare). Quote perimetro/altezze come rev.01: esterno 13989x2540, aperto 4840, H 4000, pavimento 1395, cielo 3685. Rev.03 dalla pianta controsoffitto fornita da Matteo (screenshot, calibrata su zona spa 34250-35679 e pilastrino): controsoffitto in 3 campate (fronte/living/camera, interrotto a pilastrino e zona spa-divisoria), 4 botole quadre ~600-780 sull'asse (X loc. 1643/5311/8657/12647) e lucernario centrale 1292x650 sopra il living (X loc. 6303-7595) come volumi PASSANTI nel tetto (da sottrarre col comando SOTTRAI o tenere come segnaposto), soffitti sp.30 negli estrattori a Z 3460-3490. Scritta rossa sul lucernario non leggibile dallo screenshot: DA CONFERMARE tipo e misure esatte di botole/lucernario. Rev.04: tetti estrattori INCLINATI come da sez. A-A'/D-D'/E-E' (linea misurata: sale 46 su 1176, ~2.2 gradi, da Z 3500 sulla parete esterna a Z 3546 sotto il bordo tetto fisso; intradosso 3468 esterno = quota 2073 dal pavimento, sp.32, sbordo 151 sotto il tetto fisso); solidi 'prisma_x' = profilo estruso lungo X (nello SCR: UCS+PLINE+EXTRUDE, solido nativo). Rimossi i soffitti piani sp.30 degli estrattori (l'intradosso del tetto inclinato E' il soffitto). In chiusura il colmo (3548) passa sotto il controsoffitto (3646). Rev.05: pareti esterne estrattori con cima a 3610 (misurata in A-A': pelle 3580, 80x50 a 3577, 30x25 a 3610; il 3646 era la testa della baia, non il modulo) e TESTATE a trapezio con la cima sull'intradosso del tetto inclinato (3468 esterno -> ~3510 lato cassone): da aperto il fronte del modulo mostra la pendenza, con il solo risalto sp.61 della fascia parete, come nelle sezioni.",
+ "titolo": "SCOCCA CAMION 26-A011 rev.06 - VOLUMI (pacco tetto estrattori sopra la linea, come il 2D)",
+ "note": "Origine: X=0 faccia esterna MUSO, X+ verso coda. Y=0 faccia esterna estrattore lato INGRESSO aperto, Y+ verso CUCINA. Z=0 terra. Rev.02: controsoffitto rev.01 sp.40 a Z 3646-3685 (sotto-filo 3645 da sez. E-E': i tetti estrattori, filo 3646, ci rientrano sotto in chiusura) con 2 gruppi clima DENTRO il pacco tetto Z 3685-3960 (posizione dai tagli A-A' e D-D', lunghezza 900 ipotizzata), finestre con vetro nelle pareti estrattori (davanzale Z 2395, architrave Z 3042, dai fili F_VETRO in pianta e sez. C-C'), divisoria living/camera, tramezzi bagno negli estrattori, vetrate interne. Oblo' NON disegnati nel DWG: non modellati. Porta ingresso non forata (posizione da confermare). Quote perimetro/altezze come rev.01: esterno 13989x2540, aperto 4840, H 4000, pavimento 1395, cielo 3685. Rev.03 dalla pianta controsoffitto fornita da Matteo (screenshot, calibrata su zona spa 34250-35679 e pilastrino): controsoffitto in 3 campate (fronte/living/camera, interrotto a pilastrino e zona spa-divisoria), 4 botole quadre ~600-780 sull'asse (X loc. 1643/5311/8657/12647) e lucernario centrale 1292x650 sopra il living (X loc. 6303-7595) come volumi PASSANTI nel tetto (da sottrarre col comando SOTTRAI o tenere come segnaposto), soffitti sp.30 negli estrattori a Z 3460-3490. Scritta rossa sul lucernario non leggibile dallo screenshot: DA CONFERMARE tipo e misure esatte di botole/lucernario. Rev.04: tetti estrattori INCLINATI come da sez. A-A'/D-D'/E-E' (linea misurata: sale 46 su 1176, ~2.2 gradi, da Z 3500 sulla parete esterna a Z 3546 sotto il bordo tetto fisso; intradosso 3468 esterno = quota 2073 dal pavimento, sp.32, sbordo 151 sotto il tetto fisso); solidi 'prisma_x' = profilo estruso lungo X (nello SCR: UCS+PLINE+EXTRUDE, solido nativo). Rimossi i soffitti piani sp.30 degli estrattori (l'intradosso del tetto inclinato E' il soffitto). In chiusura il colmo (3548) passa sotto il controsoffitto (3646). Rev.05: pareti esterne estrattori con cima a 3610 (misurata in A-A': pelle 3580, 80x50 a 3577, 30x25 a 3610; il 3646 era la testa della baia, non il modulo) e TESTATE a trapezio con la cima sull'intradosso del tetto inclinato (3468 esterno -> ~3510 lato cassone): da aperto il fronte del modulo mostra la pendenza, con il solo risalto sp.61 della fascia parete, come nelle sezioni. Rev.06 (collaudo sovrapposizione 2D di Matteo): la diagonale disegnata nelle sezioni e' l'INTRADOSSO della struttura del tetto estrattore, non l'estradosso: pacco tetto sp.78 (tubolari 80x50 + pelle) APPOGGIATO sulla linea: intradosso 3498->3546, estradosso 3576->3624 (filo pelle parete 3580, profilo 30x25 sopra fino a 3608-3610). Soffitto finito del modulo a 3468 (= pav+2073, ~30 sotto l'intradosso struttura): non modellato. Testate a trapezio sull'intradosso (3498->3540).",
  "box": [
   {
    "nome": "TEL_rail_SX",
@@ -699,11 +699,11 @@
     ],
     [
      1150,
-     3510
+     3540
     ],
     [
      61,
-     3468
+     3498
     ]
    ]
   },
@@ -727,11 +727,11 @@
     ],
     [
      1150,
-     3510
+     3540
     ],
     [
      61,
-     3468
+     3498
     ]
    ]
   },
@@ -847,11 +847,11 @@
     ],
     [
      1150,
-     3510
+     3540
     ],
     [
      61,
-     3468
+     3498
     ]
    ]
   },
@@ -875,11 +875,11 @@
     ],
     [
      1150,
-     3510
+     3540
     ],
     [
      61,
-     3468
+     3498
     ]
    ]
   },
@@ -995,11 +995,11 @@
     ],
     [
      4779,
-     3468
+     3498
     ],
     [
      3690,
-     3510
+     3540
     ]
    ]
   },
@@ -1023,11 +1023,11 @@
     ],
     [
      4779,
-     3468
+     3498
     ],
     [
      3690,
-     3510
+     3540
     ]
    ]
   },
@@ -1195,11 +1195,11 @@
     ],
     [
      4779,
-     3468
+     3498
     ],
     [
      3690,
-     3510
+     3540
     ]
    ]
   },
@@ -1223,11 +1223,11 @@
     ],
     [
      4779,
-     3468
+     3498
     ],
     [
      3690,
-     3510
+     3540
     ]
    ]
   },
@@ -1243,19 +1243,19 @@
    "profilo": [
     [
      61,
-     3468
+     3498
     ],
     [
      1301,
-     3516
+     3546
     ],
     [
      1301,
-     3548
+     3624
     ],
     [
      61,
-     3500
+     3576
     ]
    ]
   },
@@ -1271,19 +1271,19 @@
    "profilo": [
     [
      61,
-     3468
+     3498
     ],
     [
      1301,
-     3516
+     3546
     ],
     [
      1301,
-     3548
+     3624
     ],
     [
      61,
-     3500
+     3576
     ]
    ]
   },
@@ -1299,19 +1299,19 @@
    "profilo": [
     [
      4779,
-     3468
+     3498
     ],
     [
      3539,
-     3516
+     3546
     ],
     [
      3539,
-     3548
+     3624
     ],
     [
      4779,
-     3500
+     3576
     ]
    ]
   },
@@ -1327,19 +1327,19 @@
    "profilo": [
     [
      4779,
-     3468
+     3498
     ],
     [
      3539,
-     3516
+     3546
     ],
     [
      3539,
-     3548
+     3624
     ],
     [
      4779,
-     3500
+     3576
     ]
    ]
   }

@@ -34,21 +34,21 @@ def quota_v(y, z, testo, dy=60):
                 fontsize=10, color="#a33", family="monospace",
                 arrowprops=dict(arrowstyle="->", color="#a33", lw=1.2), zorder=10)
 
-ax.annotate("estradosso 3500\n(filo parete esterna)", xy=(75, 3502), xytext=(120, 3625),
+ax.annotate("intradosso 3498\n(la linea del tuo 2D)", xy=(75, 3500), xytext=(120, 3380),
             fontsize=10, color="#a33", family="monospace",
             arrowprops=dict(arrowstyle="->", color="#a33", lw=1.2), zorder=10)
-ax.annotate("estradosso 3548\n(sotto il tetto fisso)", xy=(1295, 3548), xytext=(680, 3610),
+ax.annotate("estradosso 3624 al colmo", xy=(1295, 3624), xytext=(700, 3700),
             fontsize=10, color="#a33", family="monospace",
             arrowprops=dict(arrowstyle="->", color="#a33", lw=1.2), zorder=10)
-ax.annotate("intradosso 3468 (= pav.+2073, e' il soffitto del modulo)", xy=(200, 3472),
-            xytext=(330, 3395), fontsize=10, color="#a33", family="monospace",
+ax.annotate("estradosso 3576 (filo pelle parete 3580)", xy=(200, 3580),
+            xytext=(430, 3450), fontsize=10, color="#a33", family="monospace",
             arrowprops=dict(arrowstyle="->", color="#a33", lw=1.2), zorder=10)
-ax.annotate("", xy=(1301, 3448), xytext=(61, 3448),
+ax.annotate("", xy=(1301, 3430), xytext=(61, 3430),
             arrowprops=dict(arrowstyle="<->", color="#333", lw=1))
-ax.text(660, 3428, "pendenza: +46 mm su 1176  (~2,2 gradi)", ha="center",
+ax.text(660, 3408, "pendenza: +46 mm su 1176 (~2,2 gradi) | sp. pacco 78 | soffitto finito 3468 (= pav+2073)", ha="center",
         fontsize=10.5, color="#333", family="monospace")
 
-ax.annotate("parete estrattore\n(banda alta, fino a 3646)", xy=(45, 3600), xytext=(-120, 3790),
+ax.annotate("parete estrattore\n(cima a 3610)", xy=(45, 3600), xytext=(-120, 3790),
             fontsize=9, color="#456",
             arrowprops=dict(arrowstyle="->", color="#456", lw=1))
 ax.text(1420, 3900, "TETTO CASSONE (3685-4000)", fontsize=9, color="#666")
@@ -60,7 +60,7 @@ ax.set_ylim(3350, 4080)
 ax.set_aspect("equal")
 ax.set_xlabel("Y locale (mm) - 0 = faccia esterna estrattore ingresso aperto")
 ax.set_ylabel("Z (mm da terra)")
-ax.set_title("SCOCCA 26-A011 rev.04 - zoom sezione: pendenza tetto estrattore (lato ingresso)\n"
+ax.set_title("SCOCCA 26-A011 rev.06 - zoom sezione: pendenza tetto estrattore (lato ingresso)\n"
              "in AutoCAD: vista FRONTE + zoom sul colmo, oppure clic sul solido arancio (layer VOL_TETTO_ESTR_INCLINATO)")
 ax.grid(True, linewidth=0.3, alpha=0.5)
 fig.tight_layout()
