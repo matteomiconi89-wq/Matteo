@@ -112,6 +112,10 @@ Clima: 2 unità sopra il tetto (X 1.651–2.551 e 9.392–10.292), nessun ingomb
 
 ## File in questa cartella
 
+- `SPEC_COLLAUDO.md` + `BRIEF_MANUS.md` — spec di collaudo e brief giro 1 per Manus
+  (anche su Dropbox: `/STEFANO/Matteo/RENDER_MANUS/26-A011_scocca/`).
+- `gabbia_pixel_scocca.png` + `gabbia_scocca.py` — gabbia di inquadratura della vista madre
+  (prospettiva centrale reale calcolata dalla geometria, quote in pixel).
 - `scocca_misure_interattivo.html` — pagina interattiva (3D + tavole): copia locale dell'artifact.
 - `scocca_assonometria_*.png` — àncora geometrica dei volumi per Manus (aperto ×2, chiuso).
 - `scocca_pianta_aperta.png` · `scocca_sezione.png` · `scocca_prospetto.png` · `scocca_pianta_chiusa.png`
