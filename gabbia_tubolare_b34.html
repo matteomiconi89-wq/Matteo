@@ -200,6 +200,8 @@
     #fronte,#lato{max-height:620px}
     #pianta{max-height:340px}
     #posa{max-height:280px}
+    #isoC{max-height:560px}
+    #piantaC{max-height:300px}
     table{min-width:0;font-size:11.5px}
     td,th{padding:6px 8px}
     .panel{padding:12px 14px}
@@ -217,7 +219,9 @@
        Ogni gabbia appoggia su un <b>cubo nero 90 × 90 × h 70 cm</b> già realizzato, con piano
        effetto cemento e <b>vano frontale per il subwoofer</b> chiuso da una <b>grata nera</b>;
        i 90 cm si misurano all'<b>esterno dei piedini</b>, che restano dentro il piano del cubo.
-       Da realizzare in <b>2 esemplari uguali</b>: uno a destra e uno a sinistra del bancone.</p>
+       Da realizzare in <b>2 esemplari uguali</b>: uno a destra e uno a sinistra del bancone.
+       In più una <b>struttura a C</b> (110 · 220 · 180 cm in pianta, h 150) fatta solo di montanti
+       con la chiusura in sommità.</p>
     <div class="chips">
       <span class="chip">esterno piedini <b>90 × 90 cm</b></span>
       <span class="chip">interasse montanti <b>80 cm</b></span>
@@ -229,6 +233,7 @@
       <span class="chip">finitura <b>nero opaco</b></span>
       <span class="chip">nel cubo <b>vano sub + grata</b></span>
       <span class="chip">peso gabbia <b>≈ 40 kg</b></span>
+      <span class="chip">+ struttura C <b>110·220·180 · h 150</b></span>
     </div>
   </header>
 
@@ -303,6 +308,37 @@
     </div>
   </div>
 
+  <div class="row views">
+    <div class="panel">
+      <h2>Struttura C — assonometrica <span class="tag">solo montanti + chiusura in alto</span></h2>
+      <figure>
+        <svg id="isoC" role="img" aria-label="Assonometria della struttura a C: quattro montanti alti 150 cm e solo il telaio di chiusura in sommità che segue la C, lati 110, 220 e 180 cm. Nessun corrente intermedio."></svg>
+        <figcaption>Solo 4 montanti e la chiusura in sommità che segue la C: nessun corrente
+        intermedio. Angoli con JM128, estremità libere con gomito a 90°.</figcaption>
+      </figure>
+    </div>
+    <div class="stack">
+      <div class="panel">
+        <h2>Struttura C — pianta <span class="tag">quote in cm</span></h2>
+        <figure>
+          <svg id="piantaC" role="img" aria-label="Pianta della struttura a C: braccio sinistro 110 cm, schiena 220 cm, braccio destro 180 cm, lato aperto in basso."></svg>
+          <figcaption>Misure esterne ai tubi: braccio SX 110, schiena 220, braccio DX 180.
+          Aperta sul quarto lato.</figcaption>
+        </figure>
+      </div>
+      <div class="panel">
+        <h2>Struttura C — quote e tagli <span class="tag">indicativi</span></h2>
+        <ul class="note-list">
+          <li><span class="k">h 150</span><span>4 montanti da <b>150 cm</b> — riusa 4 delle 8 barre da 150 già nel carrello</span></li>
+          <li><span class="k">213,2</span><span>corrente della schiena (220 − 3,4 − 3,4): serve <b>1 barra ≥ 220</b></span></li>
+          <li><span class="k">173,2</span><span>corrente del braccio 180 (interasse 176,6 − 3,4): da <b>1 barra 200</b></span></li>
+          <li><span class="k">103,2</span><span>corrente del braccio 110: si ricava da <b>1 barra 150</b> del carrello (la quinta)</span></li>
+          <li><span class="k">opz.</span><span>se il corrente da 220 flette, aggiungi 1 montante centrale con T <b>JM101</b></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <div class="panel" style="margin-bottom:14px">
     <h2>Distinta materiali <span class="tag">codici tubeo.com · serie B34 BLACK Ø 33,7</span></h2>
     <div class="tblwrap">
@@ -311,8 +347,8 @@
         <tr>
           <th>Componente</th>
           <th>Posizione</th>
-          <th class="num">× 1 gabbia</th>
-          <th class="num">× 2 gabbie</th>
+          <th class="num">× 1 struttura</th>
+          <th class="num">× progetto</th>
           <th class="num">€ cad.</th>
         </tr>
       </thead>
@@ -369,6 +405,48 @@
           <td class="num qty">10</td><td class="num qty">20</td><td class="num">28,69 / barra</td>
         </tr>
 
+        <tr class="section"><td colspan="5">Struttura C — 110 × 220 × 180, h 150 (1 pezzo)</td></tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 6v34M23 23h17"/><path d="M23 23l-11 8" stroke-opacity=".45"/></svg>
+            <div><span class="cod">JM128-B34</span><br><span class="desc">angolo 90° a 3 vie</span></div>
+          </div></td>
+          <td class="desc">i 2 angoli della C, in sommità</td>
+          <td class="num qty">2</td><td class="num qty">2</td><td class="num">6,71</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 42V23h19"/></svg>
+            <div><span class="cod">Gomito 90° (tipo JM125)</span><br><span class="desc">2 attacchi a 90° — verifica il codice esatto sul catalogo</span></div>
+          </div></td>
+          <td class="desc">le 2 estremità libere della C, in sommità</td>
+          <td class="num qty">2</td><td class="num qty">2</td><td class="num">da quotare</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 8v24"/><ellipse cx="23" cy="36" rx="15" ry="5"/></svg>
+            <div><span class="cod">JM131-B34</span><br><span class="desc">flangia di base</span></div>
+          </div></td>
+          <td class="desc">piede dei 4 montanti della C</td>
+          <td class="num qty">4</td><td class="num qty">4</td><td class="num">6,04</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"><path d="M14 42L32 4"/></svg>
+            <div><span class="cod">Montante C · 150 cm</span><br><span class="desc">riusa 4 barre da 150 cm già nel carrello</span></div>
+          </div></td>
+          <td class="desc">i 4 verticali della C</td>
+          <td class="num qty">4</td><td class="num qty">4</td><td class="num">21,52 ✓ carrello</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"><path d="M8 30h30"/><path d="M8 16h22" stroke-opacity=".45"/></svg>
+            <div><span class="cod">Correnti C · 213 / 173 / 103</span><br><span class="desc">1 barra ≥ 220 + 1 barra 200 + 1 barra 150 (dal carrello)</span></div>
+          </div></td>
+          <td class="desc">chiusura in sommità sui 3 lati della C</td>
+          <td class="num qty">3</td><td class="num qty">3</td><td class="num">—</td>
+        </tr>
+
         <tr class="section"><td colspan="5">Basamento — fornitura propria (non tubeo)</td></tr>
         <tr>
           <td><div class="comp">
@@ -390,6 +468,8 @@
       <tfoot>
         <tr><td colspan="5">Carrello per 2 gabbie: raccordi 8×(6,71 + 6,80 + 4,58 + 6,04) = <b>193,04 €</b> ·
         10 barre da 200 cm = <b>286,90 €</b> · + 8 barre per i montanti (≥ 230 cm) da quotare su tubeo.
+        <b>Struttura C</b>: riusa 5 delle 8 barre da 150 cm del carrello (4 montanti + 1 per il corrente
+        da 103) e aggiungi 2× JM128, 2× gomito 90°, 4× JM131, 1 barra ≥ 220 e 1 barra 200.
         Ogni raccordo include i grani; serve solo una chiave a brugola.</td></tr>
       </tfoot>
     </table>
@@ -406,7 +486,7 @@
   </div>
 
   <footer class="cartiglio">
-    <div><span class="lbl">Progetto</span><span class="val">Gabbia ×2 · lati bancone</span></div>
+    <div><span class="lbl">Progetto</span><span class="val">Gabbia ×2 + C</span></div>
     <div><span class="lbl">Ingombro</span><span class="val">90 × 90 × 300 cm</span></div>
     <div><span class="lbl">Materiale</span><span class="val">Tubo Ø 33,7 × 2,6</span></div>
     <div><span class="lbl">Finitura</span><span class="val">Nero opaco B34</span></div>
@@ -737,6 +817,72 @@
     txt(s,900+2*GAP+BW+450,GY+240,'DX',LS*0.85);
 
     s.setAttribute('viewBox','-140 -120 4280 3560');
+  })();
+
+  /* ───────────── STRUTTURA C — ASSONOMETRIA ───────────── */
+  (function(){
+    var s=document.getElementById('isoC');
+    var P=function(x,y,z){ return [(x-y)*0.866,(x+y)*0.5-z]; };
+    var LS=64, CW=2200, L1=1100, L2=1800, CH=1500;
+    var c1=[17,17], c2=[CW-17,17], e1=[17,L1-17], e2=[CW-17,L2-17];
+
+    poly(s,[P(-220,-220,0),P(CW+280,-220,0),P(CW+280,L2+220,0),P(-220,L2+220,0)],'var(--floor)');
+
+    function flange(xy){
+      var q=P(xy[0],xy[1],0);
+      var e=el(s,'ellipse',{cx:q[0],cy:q[1],rx:61,ry:35});
+      e.style.fill='var(--fit-body)'; e.style.stroke='var(--fit-edge)'; e.style.strokeWidth=10;
+      fit(s,P(xy[0],xy[1],8),P(xy[0],xy[1],110));
+    }
+    function post(xy){ tube(s,P(xy[0],xy[1],0),P(xy[0],xy[1],CH)); }
+    function sleeve(xy,dirs){
+      fit(s,P(xy[0],xy[1],CH-95),P(xy[0],xy[1],CH+6));
+      dirs.forEach(function(d){
+        fit(s,P(xy[0],xy[1],CH),P(xy[0]+d[0]*95,xy[1]+d[1]*95,CH));
+      });
+    }
+    function rail(a,b){ tube(s,P(a[0],a[1],CH),P(b[0],b[1],CH)); }
+
+    flange(c1); post(c1);
+    rail(c1,e1); rail(c1,c2);
+    sleeve(c1,[[1,0],[0,1]]);
+    flange(e1); post(e1); sleeve(e1,[[0,-1]]);
+    flange(c2); post(c2);
+    rail(c2,e2);
+    sleeve(c2,[[-1,0],[0,1]]);
+    flange(e2); post(e2); sleeve(e2,[[0,-1]]);
+
+    dim(s,P(CW,0,0),P(0,0,0),'220',LS,[P(0,-170,0)[0]-P(0,0,0)[0],P(0,-170,0)[1]-P(0,0,0)[1]]);
+    dim(s,P(0,0,0),P(0,L1,0),'110',LS,[P(-170,0,0)[0]-P(0,0,0)[0],P(-170,0,0)[1]-P(0,0,0)[1]]);
+    dim(s,P(CW,0,0),P(CW,L2,0),'180',LS,[P(170,0,0)[0]-P(0,0,0)[0],P(170,0,0)[1]-P(0,0,0)[1]]);
+    dim(s,P(CW,0,0),P(CW,0,CH),'150',LS,[P(420,0,0)[0]-P(0,0,0)[0],P(420,0,0)[1]-P(0,0,0)[1]]);
+
+    callout(s,P(c1[0],c1[1],CH),P(c1[0],c1[1],CH)[0]-280,P(c1[0],c1[1],CH)[1]-190,'JM128 ×2',LS);
+    callout(s,P(e2[0],e2[1],CH),P(e2[0],e2[1],CH)[0]-430,P(e2[0],e2[1],CH)[1]+230,'GOMITO 90° ×2',LS);
+    callout(s,P(e2[0],e2[1],30),P(e2[0],e2[1],30)[0]+300,P(e2[0],e2[1],30)[1]+160,'JM131 ×4',LS);
+
+    s.setAttribute('viewBox','-1330 -1760 3880 4100');
+  })();
+
+  /* ───────────── STRUTTURA C — PIANTA ───────────── */
+  (function(){
+    var s=document.getElementById('piantaC');
+    var LS=110, CW=2200, L1=1100, L2=1800;
+    tube(s,[17,17],[CW-17,17]);
+    tube(s,[17,17],[17,L1-17]);
+    tube(s,[CW-17,17],[CW-17,L2-17]);
+    [[17,17],[CW-17,17],[17,L1-17],[CW-17,L2-17]].forEach(function(q){
+      var c=el(s,'circle',{cx:q[0],cy:q[1],r:34});
+      c.style.fill='var(--fit-body)'; c.style.stroke='var(--fit-edge)'; c.style.strokeWidth=9;
+    });
+    arrow(s,[CW/2,L2+620],[CW/2,L2+250],44,'var(--accent)');
+    txt(s,CW/2,L2+800,'LATO APERTO',LS*0.85);
+
+    dim(s,[0,0],[CW,0],'220',LS,[0,-260]);
+    dim(s,[0,0],[0,L1],'110',LS,[-260,0]);
+    dim(s,[CW,0],[CW,L2],'180',LS,[260,0]);
+
+    s.setAttribute('viewBox','-620 -520 3400 3300');
   })();
 })();
 </script>
