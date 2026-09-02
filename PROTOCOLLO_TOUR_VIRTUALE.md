@@ -68,6 +68,22 @@ Richiesta di Matteo: "tutto in automatico come coi render". Schema identico al p
   profilo fughe sulla fascia basi, nitidezza laterale vs centro. NB: crediti app e
   crediti API sono separati; l'API può andare in overage fatturato a fine mese → una
   generazione per volta e controllo `credits` prima di ogni giro.
+- **ANELLO VIDEO (collaudato il 02/09/2026): Veo 3.1 via API Gemini, zero mani.**
+  Chiave Google AI Studio di Matteo (serve fatturazione attiva: senza, l'API risponde
+  429 RESOURCE_EXHAUSTED). Nota di rete: `generativelanguage.googleapis.com` è
+  raggiungibile DIRETTAMENTE dalla sessione Claude (a differenza di worldlabs) →
+  niente sandbox per Veo. Flusso: render collaudato → base64 →
+  `models/veo-3.1-fast-generate-preview:predictLongRunning` (header `x-goog-api-key`,
+  instances[{prompt, image}], parameters {aspectRatio 16:9, resolution 720p,
+  durationSeconds 8, negativePrompt anti-invenzioni}) → polling `v1beta/{operation}` →
+  URI file `:download?alt=media` → mp4. Primo test cucina: generata in ~45 s,
+  collaudo a occhio sui fotogrammi 0/4/7,5 s: PROMOSSA (frame 0 = il render, carrellata
+  stabile, niente mobili inventati). Costo ~0,5-0,8 €/clip 8 s (fast 720p);
+  modelli disponibili anche `veo-3.1-generate-preview` (qualità piena) e `-lite`.
+  Prompt tipo: "Slow, smooth dolly-in ... keep every cabinet exactly as in the
+  reference image; do not add or remove any furniture" + negative "people, text,
+  warped geometry, extra cabinets". La chiave NON va mai nel repo (repo pubblico);
+  a fine progetto Matteo la rigenera.
 - Brief pronti in `DINO_CHIESA_truck/`: `BRIEF_MANUS_MARBLE.md` (fallback via Manus,
   se mai servisse il browser).
 
