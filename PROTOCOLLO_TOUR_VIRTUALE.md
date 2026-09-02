@@ -121,6 +121,19 @@ Richiesta di Matteo: "tutto in automatico come coi render". Schema identico al p
 - Il tour è marketing, NON tavola tecnica: in pagina la dicitura "ambientazione indicativa";
   le misure contrattuali restano su DXF/preventivo.
 
+## 6-bis. Tour video completo (prodotto il 02/09/2026)
+
+`TOUR_APPARTAMENTO_DINO_CHIESA.mp4` — 1:05, 720p24, stile Abitativo: copertina DINO CHIESA,
+8 ambienti dai render FINALE 26-A011 (Portale → Ingresso → Parete porta → Parete TV →
+Cucina → Lavanderia → Libreria ufficio → Bagno), etichette per stanza (PNG+overlay:
+il build ffmpeg di imageio NON ha drawtext), dissolvenze xfade 0,6 s, chiusura con QR
+alla demo camminabile. Clip: Veo 3.1 Fast 8 s/720p dai FINALE (prompt "slow dolly" +
+anti-invenzioni), ~0,70 €/clip → tour ≈ 5 €. Collaudo fotogrammi finali: 7/8 promosse
+piene; lavanderia promossa con riserva (chiusura su dettaglio mensola — eventualmente
+rigenerare con carrellata più corta). Le clip Veo portano audio ambientale AAC nativo:
+NON collaudabile da Claude (non ascolta) → consegna MUTA, musica da aggiungere a parte.
+Limite quota Veo osservato: ~3 generazioni in parallelo, poi 429 → lavorare a coppie.
+
 ## 7. Stato commessa DINO CHIESA (02/09/2026)
 
 | Voce | Stato |
