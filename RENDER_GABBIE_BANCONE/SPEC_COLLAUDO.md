@@ -62,6 +62,24 @@ la allega Matteo al brief; qui in cartella: `rif_scena_angolata.jpg` (vista ango
 
 ## Storico giri
 
+Esecuzione diretta Claude (fotoinserimento deterministico PIL, `render_tunnel.py`) sulla foto
+angolata `rif_scena_angolata.jpg` — Manus non necessario, 0 crediti.
+
 | Giro | Esito | Crediti | Note |
 |---|---|---|---|
-| — | — | — | brief pronto (`BRIEF_MANUS.md`), in attesa del giro 1 |
+| v1 | ✗ | 0 | struttura ok; clonazioni scatoloni/cubo visibili, filo piano troppo chiaro |
+| v2 | ✗ | 0 | piastrellatura muro sbagliata (tile grigi); gabbia meno sventagliata |
+| v3 | ✗ | 0 | muro stirato per colonne ok; residui fondi scatole SOTTO il filo del piano |
+| v4 | ✓ | 0 | **PROMOSSO**: collaudo superato, vedi sotto |
+
+## Collaudo v4 (esito)
+
+- 7 verticali fronte C ✓ · 6 campate uguali ✓ · 13 verticali C totali ✓ (5+1+3 intermedi + 4 angoli)
+- gabbia: 4 montanti ✓, 2 livelli di correnti su 3 lati ✓, fronte APERTO verso camera ✓
+- h C = h bancone (per costruzione) ✓ · h gabbia / h cubo = 3,11 vs 3,29 (−5,5%, entro ±10%) ✓
+- flange e manicotti sui nodi ✓ · nero opaco ✓ · scena/camera/luci intatte ✓ · grata nel vano ✓
+- **Residui dichiarati**: (1) la gabbia DX non è in campo — la foto angolata inquadra solo il
+  cubo SX; per la vista con entrambe serve il file della foto frontale; (2) lieve banda tonale
+  sotto il filo del piano e cucitura a x≈768 visibili solo a zoom forte; (3) leggera toppa sul
+  piano del cubo dove c'era l'attrezzo; (4) nessun riflesso dei tubi sul pavimento (tubi sopra
+  cubo/bancone, impatto minimo).
