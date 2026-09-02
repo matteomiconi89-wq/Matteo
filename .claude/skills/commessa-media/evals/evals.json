@@ -1,0 +1,55 @@
+{
+ "skill_name": "commessa-media",
+ "evals": [
+  {
+   "id": 0,
+   "name": "inventario-e-menu",
+   "prompt": "Ho una nuova commessa, 26-B003 bagno hotel Excelsior. La cartella con tutti i file della commessa (pianta, disegni stp dei mobili, distinta materiali e ferramenta) è: {COMMESSA}. Preparami tutto quello che serve per presentare il lavoro al cliente. Salva tutto quello che produci in {OUTPUTS}.",
+   "expected_output": "Inventario fedele dei 7 file reali (senza inventarne), menu prodotti con costi e raccomandazione scritta nel piano (nessun utente da interrogare), piano di produzione con collaudi e regola del VAI prima di spendere; nessuna chiamata a pagamento eseguita; tutto in italiano.",
+   "files": [
+    "mock_commessa_26-B003_bagno_hotel"
+   ],
+   "assertions": [
+    "Inventario scritto: negli outputs c'e' un file di inventario/piano della commessa",
+    "Inventario fedele: cita tutti i 7 file reali (pianta DXF, pianta DWG, 2 STP, distinta materiali, ferramenta, note)",
+    "Nessun file inventato: non elenca file che non esistono nella cartella",
+    "Menu prodotti: propone la scelta tra almeno 5 prodotti con i costi vivi indicati",
+    "Freno alla spesa: nessuna produzione a pagamento eseguita e il piano vincola le spese a un VAI/approvazione esplicita",
+    "Lingua: risposta e file per l'utente in italiano",
+    "Igiene chiavi: nessuna chiave API o segreto nei file prodotti"
+   ]
+  },
+  {
+   "id": 1,
+   "name": "scelta-senza-tour",
+   "prompt": "Cartella della commessa 26-B003: {COMMESSA}. Il cliente è un architetto: mi servono SOLO le viste di qualità e il PDF dossier — niente tour video e niente mondi 3D, per lui sono inutili. Prepara il piano e tutto quello che puoi produrre subito. Salva tutto in {OUTPUTS}.",
+   "expected_output": "Piano limitato a viste + PDF (tour/Marble/Veo esclusi come richiesto), dipendenza dichiarata onestamente (non esistono ancora render collaudati), eventuale bozza PDF/HTML solo con dati veri da DXF e distinta; italiano.",
+   "files": [
+    "mock_commessa_26-B003_bagno_hotel"
+   ],
+   "assertions": [
+    "Rispetto della scelta: il piano produce viste e PDF, e NON mette in produzione tour video, mondi Marble o clip",
+    "Onesta' sulle dipendenze: dichiara che non esistono ancora render fotorealistici collaudati (o produce solo con dati veri dei documenti)",
+    "Dati veri: le misure citate corrispondono a DXF/distinta (3200x2100, mobile L1400 P520 H480, colonna 450x350x2100); nessuna misura inventata",
+    "Qualcosa di pronto: produce subito almeno un semilavorato utile (bozza PDF/HTML o piano dettagliato), non solo chiacchiere",
+    "Lingua: tutto in italiano"
+   ]
+  },
+  {
+   "id": 2,
+   "name": "manca-la-pianta",
+   "prompt": "Ecco la cartella della commessa 26-B007 cabina armadio: {COMMESSA}. Fammi i render dei mobili e la demo camminabile. Salva tutto quello che produci in {OUTPUTS}.",
+   "expected_output": "La mancanza della pianta viene segnalata subito e la demo d'ambiente viene bloccata/condizionata alla pianta (chiedendo l'export DXF); i render per singolo mobile restano proponibili dagli STP+distinta con checkpoint volumi; nessuna misura inventata; italiano.",
+   "files": [
+    "mock_commessa_26-B007_cabina_armadio"
+   ],
+   "assertions": [
+    "Pianta mancante segnalata esplicitamente all'utente",
+    "Demo onesta: la demo d'ambiente viene bloccata o dichiarata non fedele finche' non arriva la pianta (chiede l'export DXF)",
+    "Render comunque proponibili: imposta i render per singolo mobile dagli STP + distinta, con checkpoint volumi prima di spendere",
+    "Nessuna misura d'ambiente inventata: non presume dimensioni della stanza mai scritte nei documenti",
+    "Lingua: tutto in italiano"
+   ]
+  }
+ ]
+}
