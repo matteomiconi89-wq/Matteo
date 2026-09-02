@@ -74,7 +74,8 @@
 <div class="chip" id="mappa"><div class="eti">PIANTA</div><canvas id="mappaCv"></canvas></div>
 
 <div class="chip" id="aiuto"><b>Trascina</b> per guardarti intorno · <b>WASD / frecce</b> per camminare ·
-tocca i <b>cerchi numerati</b> a terra per cambiare stanza · tocca <b style="color:var(--brass)">ⓘ</b> sui mobili per la scheda</div>
+tocca i <b>cerchi numerati</b> a terra per cambiare stanza · tocca <b style="color:var(--brass)">ⓘ</b> per la scheda ·
+<b style="color:var(--brass)">tocca le ante</b> di cucina e bagno per aprirle</div>
 <button id="btnAiuto" aria-label="Mostra aiuto">?</button>
 
 <div id="scheda" hidden>
@@ -220,6 +221,21 @@ var M = {
 
 /* ---------- helper ---------- */
 var solidi = [];
+var porte = [], porteMesh = [];
+/* anta incernierata: pivot sul bordo, si apre/chiude al click.
+   lato: +1 mobili su parete sinistra (aprono verso +x), -1 parete destra.
+   dirZ: +1 il pannello si estende dal cardine verso +z, -1 verso -z. */
+function anta(mat, spess, alt, lung, px, py, pz, lato, dirZ){
+  var g = new THREE.Group();
+  g.position.set(px, py, pz);
+  var m = new THREE.Mesh(new THREE.BoxGeometry(spess, alt, lung), mat);
+  m.position.z = dirZ * lung/2;
+  g.add(m); scena.add(g);
+  g.userData = {aperta:false, chiuso:0, aperto: lato * dirZ * 1.62, vel:0};
+  m.userData = {porta:g};
+  porte.push(g); porteMesh.push(m);
+  return g;
+}
 function blocca(x1,x2,z1,z2){ solidi.push({x1:x1,x2:x2,z1:z1,z2:z2}); }
 function box(w,h,d,mat,x,y,z,ry,rx){
   var m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
@@ -379,11 +395,15 @@ logoRe.position.set(0, 2.0, Z-.075); logoRe.rotation.y = Math.PI; scena.add(logo
 /* ---------- CUCINA (4.6 .. 2.7) — lineare a sinistra ---------- */
 (function(){
   var xw=-X;
-  // colonna frigo/dispensa
-  box(.62,2.30,.55, M.legno, xw+.31, 1.15, 4.275);
-  box(.02,1.9,.5, M.acciaio, xw+.625, 1.15, 4.275);
-  // basi con top
-  box(.62,.78,.90, M.legno, xw+.31, .43, 3.55);
+  // colonna frigo/dispensa (porta apribile)
+  box(.60,2.30,.55, M.legno, xw+.30, 1.15, 4.275);
+  anta(M.acciaio, .025, 1.9, .50, xw+.615, 1.15, 4.525, 1, -1);
+  // basi con top e due ante apribili (dietro: carcassa scura con ripiano)
+  box(.58,.78,.90, M.legno, xw+.29, .43, 3.55);
+  box(.50,.70,.82, new THREE.MeshStandardMaterial({color:0x2e2a26, roughness:.9}), xw+.27, .43, 3.55);
+  box(.44,.02,.78, M.bianco, xw+.28, .43, 3.55);         // ripiano interno
+  anta(M.legno, .022, .72, .43, xw+.592, .45, 3.115, 1,  1);
+  anta(M.legno, .022, .72, .43, xw+.592, .45, 3.985, 1, -1);
   box(.60,.02,.86, M.nero,  xw+.315, .855, 3.55);       // gola
   box(.66,.04,.94, M.nero,  xw+.33, .87, 3.55);         // top nero
   // lavello + miscelatore
@@ -433,7 +453,10 @@ logoRe.position.set(0, 2.0, Z-.075); logoRe.rotation.y = Math.PI; scena.add(logo
 (function(){
   // mobile lavabo sospeso + specchiera (destra)
   var xw=X;
-  box(.46,.42,.90, M.legno, xw-.24, .56, .75);
+  box(.44,.42,.90, M.legno, xw-.25, .56, .75);
+  box(.36,.36,.82, new THREE.MeshStandardMaterial({color:0x2e2a26, roughness:.9}), xw-.25, .56, .75);
+  anta(M.legno, .02, .38, .43, xw-.035, .56, .315, -1,  1);
+  anta(M.legno, .02, .38, .43, xw-.035, .56, 1.185, -1, -1);
   box(.44,.025,.86, M.nero,  xw-.245, .372, .75);
   box(.48,.03,.94, M.bianco, xw-.25, .785, .75);
   box(.34,.105,.42, M.ceramica, xw-.26, .855, .75);
@@ -735,6 +758,11 @@ function clicca(px,py){
   ray.setFromCamera(ndc, camera);
   var hitH = ray.intersectObjects(hotspot, false);
   if(hitH.length){ apriScheda(hitH[0].object.userData.scheda); return; }
+  var hitP = ray.intersectObjects(porteMesh, false);
+  if(hitP.length && hitP[0].distance < 3.5){
+    var p = hitP[0].object.userData.porta.userData;
+    p.aperta = !p.aperta; return;
+  }
   var lista = []; dischi.forEach(function(d){ d.children.forEach(function(c){ lista.push(c); }); });
   var hitT = ray.intersectObjects(lista, false);
   if(hitT.length){ vaiATappa(hitT[0].object.userData.tappa); }
@@ -846,6 +874,11 @@ function anima(){
   }
   camera.rotation.y = yaw; camera.rotation.x = pitch;
 
+  for(var pi=0; pi<porte.length; pi++){
+    var pd = porte[pi].userData;
+    var obiettivo = pd.aperta ? pd.aperto : pd.chiuso;
+    porte[pi].rotation.y += (obiettivo - porte[pi].rotation.y) * Math.min(1, (riduciMotion?20:7)*dt);
+  }
   if(!riduciMotion){
     for(var i=0;i<hotspot.length;i++){
       var s = .17 + Math.sin(t*2.2 + i)*.012;
