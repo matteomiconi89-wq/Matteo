@@ -1,0 +1,1139 @@
+<title>Scocca 26A011</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f2f1ea; --sheet:#fbfaf5; --ink:#232e38; --muted:#67727e; --faint:#98a2ad;
+  --line:#d9d5c7; --line2:#e7e4d8;
+  --dim:#b23a2a; --glassc:#25798f; --glassf:rgba(47,143,168,.28);
+  --wood:#a5793f; --div:#bd7638; --wall2:#97a1ab; --wall3:#c2beb1;
+  --tA:rgba(178,58,42,.055); --tB:rgba(178,58,42,.12); --tC:rgba(178,58,42,.055);
+  --tI:rgba(63,158,148,.10); --tK:rgba(118,165,101,.12);
+  --chipbg:#eceade; --focus:#b23a2a;
+  --cond:"IBM Plex Sans Condensed","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#141a21; --sheet:#1a222c; --ink:#d7dde4; --muted:#93a0ac; --faint:#6b7885;
+    --line:#313d49; --line2:#26313c;
+    --dim:#e06b52; --glassc:#5cc4da; --glassf:rgba(92,196,218,.22);
+    --wood:#b98f55; --div:#cd8a4b; --wall2:#5c6874; --wall3:#414c57;
+    --tA:rgba(224,107,82,.07); --tB:rgba(224,107,82,.16); --tC:rgba(224,107,82,.07);
+    --tI:rgba(80,180,168,.12); --tK:rgba(139,182,120,.14);
+    --chipbg:#232e39;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141a21; --sheet:#1a222c; --ink:#d7dde4; --muted:#93a0ac; --faint:#6b7885;
+  --line:#313d49; --line2:#26313c;
+  --dim:#e06b52; --glassc:#5cc4da; --glassf:rgba(92,196,218,.22);
+  --wood:#b98f55; --div:#cd8a4b; --wall2:#5c6874; --wall3:#414c57;
+  --tA:rgba(224,107,82,.07); --tB:rgba(224,107,82,.16); --tC:rgba(224,107,82,.07);
+  --tI:rgba(80,180,168,.12); --tK:rgba(139,182,120,.14);
+  --chipbg:#232e39;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;margin:0;padding:0 20px 64px}
+.wrap{max-width:1180px;margin:0 auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--cond);font-weight:600;text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--cond);font-weight:500;text-transform:uppercase;letter-spacing:.16em;font-size:12.5px;color:var(--dim)}
+header.masthead{border:1.5px solid var(--ink);margin-top:28px;background:var(--sheet)}
+.mast-top{display:flex;flex-wrap:wrap;gap:8px 28px;align-items:baseline;justify-content:space-between;padding:20px 24px 14px;border-bottom:1px solid var(--line)}
+.mast-top h1{font-size:clamp(30px,5vw,44px);letter-spacing:.01em;line-height:1.05}
+.mast-sub{max-width:60ch;color:var(--muted);padding:12px 24px 18px;margin:0}
+.cartiglio{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));font-size:13px;border-top:1px solid var(--line)}
+.cartiglio>div{padding:10px 24px;border-right:1px solid var(--line)}
+.cartiglio>div:last-child{border-right:0}
+.cartiglio dt{font-family:var(--cond);text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--muted);margin:0 0 2px}
+.cartiglio dd{margin:0;font-family:var(--mono);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px;margin:22px 0 6px}
+.kpi{background:var(--sheet);border:1px solid var(--line);padding:16px 18px 13px}
+.kpi b{display:block;font-family:var(--mono);font-weight:500;font-size:clamp(22px,2.6vw,30px);letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.kpi b small{font-size:.55em;color:var(--muted);font-family:var(--cond);letter-spacing:.04em}
+.kpi span{font-family:var(--cond);text-transform:uppercase;letter-spacing:.1em;font-size:11.5px;color:var(--muted)}
+.sheet{background:var(--sheet);border:1.5px solid var(--ink);margin:26px 0}
+.sheet-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 16px;padding:12px 20px;border-bottom:1px solid var(--line)}
+.tavno{font-family:var(--mono);font-size:13px;color:var(--dim);font-weight:500}
+.sheet-head h2{font-size:21px;letter-spacing:.02em}
+.sheet-meta{margin-left:auto;font-family:var(--cond);text-transform:uppercase;letter-spacing:.1em;font-size:11.5px;color:var(--muted)}
+.sheet-body{padding:14px 14px 6px}
+.scrollx{overflow-x:auto}
+.scrollx svg{width:100%;min-width:880px;display:block}
+#tav03 .scrollx svg{min-width:640px;max-width:860px;margin:0 auto}
+#tav05 .scrollx svg{min-width:880px}
+.sheet-note{color:var(--muted);font-size:13.5px;padding:10px 20px 14px;margin:0;border-top:1px solid var(--line2);max-width:none}
+.sheet-note b{color:var(--ink);font-weight:600}
+/* ---------- 3D viewer ---------- */
+#stage{position:relative;height:540px;background:var(--paper)}
+#stage canvas{display:block;outline:none;touch-action:none;cursor:grab}
+#stage canvas:active{cursor:grabbing}
+#stage .hint{position:absolute;right:12px;bottom:10px;font-family:var(--cond);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);pointer-events:none}
+.vbar{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.vbar .lab{font-family:var(--cond);text-transform:uppercase;letter-spacing:.1em;font-size:11px;color:var(--muted);margin-right:2px}
+.seg{display:inline-flex;border:1px solid var(--ink)}
+.seg button{appearance:none;border:0;background:transparent;color:var(--ink);font-family:var(--cond);font-weight:600;text-transform:uppercase;letter-spacing:.07em;font-size:12.5px;padding:7px 14px;cursor:pointer}
+.seg button+button{border-left:1px solid var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--sheet)}
+.seg button:focus-visible,.chip:focus-visible,.vbtn:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.vbtn{appearance:none;border:1px solid var(--line);background:transparent;color:var(--muted);font-family:var(--cond);font-weight:500;text-transform:uppercase;letter-spacing:.07em;font-size:12px;padding:6px 11px;cursor:pointer}
+.vbtn:hover{border-color:var(--ink);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;padding:12px 16px;border-top:1px solid var(--line2)}
+.chip{appearance:none;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--chipbg);color:var(--ink);font-family:var(--cond);font-size:12.5px;letter-spacing:.03em;padding:5px 11px;cursor:pointer;border-radius:2px}
+.chip i{width:10px;height:10px;background:var(--sw);border-radius:1px;flex:none}
+.chip[aria-pressed="false"]{opacity:.42}
+.chip[aria-pressed="false"] i{background:transparent;border:1px solid var(--sw)}
+/* ---------- SVG plates ---------- */
+svg text{font-family:var(--mono);font-size:14.5px;fill:var(--muted)}
+svg .dim{stroke:var(--dim);stroke-width:1.1;fill:none}
+svg .ext{stroke:var(--faint);stroke-width:.7;fill:none;opacity:.75}
+svg .dimt{fill:var(--dim);font-size:14.5px;font-variant-numeric:tabular-nums}
+svg .cap{font-family:var(--cond);font-size:15px;letter-spacing:.14em;fill:var(--muted)}
+svg .lbl{font-size:13.5px;fill:var(--muted)}
+svg .lbls{font-family:var(--cond);font-size:13.5px;letter-spacing:.07em;fill:var(--ink)}
+svg .lblg{font-family:var(--cond);font-size:12.5px;letter-spacing:.05em;fill:var(--faint)}
+svg .lblw{font-family:var(--cond);font-size:13.5px;letter-spacing:.09em;fill:var(--sheet)}
+svg .zl{font-family:var(--cond);font-size:26px;letter-spacing:.12em;fill:var(--ink);opacity:.85}
+svg .zl2{font-family:var(--cond);font-size:17px;letter-spacing:.1em;fill:var(--ink);opacity:.85}
+svg .s0{fill:var(--ink)}
+svg .s0l{stroke:var(--ink);stroke-width:2;fill:none}
+svg .s1{fill:var(--wall2)}
+svg .s2{fill:var(--wall3)}
+svg .wood{fill:var(--wood)}
+svg .gl{fill:var(--glassf);stroke:var(--glassc);stroke-width:1.2}
+svg .dv{fill:var(--div)}
+svg .dvh{fill:none;stroke:var(--div);stroke-width:1.6;stroke-dasharray:6 4}
+svg .dash{stroke:var(--faint);stroke-width:.9;stroke-dasharray:7 5;fill:none}
+svg .dashr{stroke:var(--dim);stroke-width:1;stroke-dasharray:9 6;fill:none}
+svg .hair{stroke:var(--line);stroke-width:1;fill:none}
+svg .ghost{fill:none;stroke:var(--faint);stroke-width:1;stroke-dasharray:5 4;opacity:.8}
+svg .ghostb{fill:var(--glassf);stroke:var(--glassc);stroke-width:1;stroke-dasharray:5 4}
+svg .ghostc{fill:none;stroke:var(--faint);stroke-width:1.1;stroke-dasharray:6 5}
+svg .wheel{fill:var(--paper);stroke:var(--ink);stroke-width:2}
+svg .wheelh{fill:none;stroke:var(--muted);stroke-width:1.2}
+svg .man{fill:var(--muted);opacity:.6;stroke:none}
+svg .sb0{fill:var(--ink)}
+svg .sb1{fill:none;stroke:var(--ink);stroke-width:1}
+svg .tintA{fill:var(--tA)} svg .tintB{fill:var(--tB)} svg .tintC{fill:var(--tC)}
+svg .tintI{fill:var(--tI)} svg .tintK{fill:var(--tK)}
+/* ---------- tables ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media (max-width:900px){.grid2{grid-template-columns:1fr}}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th,td{text-align:left;padding:7px 12px;border-bottom:1px solid var(--line2);vertical-align:top}
+thead th{font-family:var(--cond);text-transform:uppercase;letter-spacing:.09em;font-size:11.5px;color:var(--muted);border-bottom:1px solid var(--ink)}
+td.n,th.n{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td.nw{white-space:normal}
+tbody tr:last-child td{border-bottom:0}
+td .sub{color:var(--muted);font-size:12.5px}
+.tbl-wrap{overflow-x:auto;padding:4px 20px 14px}
+.zdot{display:inline-block;width:9px;height:9px;border-radius:1px;margin-right:7px;vertical-align:baseline}
+/* ---------- vincoli ---------- */
+ol.vinc{list-style:none;margin:0;padding:8px 20px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px 26px}
+ol.vinc li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line2)}
+ol.vinc li b.vid{font-family:var(--mono);color:var(--dim);font-weight:500;font-size:14px}
+ol.vinc li div{max-width:56ch}
+ol.vinc li strong{font-weight:600}
+.coord{margin:0 20px 18px;padding:14px 18px;border:1px dashed var(--faint);font-size:13.5px;max-width:none}
+.coord code{font-family:var(--mono);font-size:12.5px;background:var(--chipbg);padding:1px 5px}
+footer{margin-top:34px;border-top:1px solid var(--line);padding-top:14px;color:var(--muted);font-size:12.5px;display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between}
+footer .mono{font-family:var(--mono)}
+@media (max-width:640px){
+  body{padding:0 12px 48px}
+  #stage{height:400px}
+  .mast-top{padding:16px 16px 12px}
+  .mast-sub,.cartiglio>div{padding-left:16px;padding-right:16px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .chip,.vbtn,.seg button{transition:opacity .15s,border-color .15s,background .15s}
+}
+</style>
+
+<div class="wrap">
+
+<header class="masthead">
+  <div class="mast-top">
+    <div>
+      <div class="eyebrow">Rilievo dimensionale · da DXF rev.06</div>
+      <h1>Scocca 26A011</h1>
+    </div>
+    <div class="eyebrow" style="color:var(--muted)">unità: millimetri</div>
+  </div>
+  <p class="mast-sub">Semirimorchio espandibile a doppio estrattore laterale. Modello 3D e tavole quotate ricavati
+  dalla geometria reale dei file <span style="font-family:var(--mono);font-size:.92em">scocca_26A011_rev06</span> (aperto / chiuso),
+  come riferimento di misure e proporzioni per il progetto d&rsquo;arredo interno.</p>
+  <dl class="cartiglio">
+    <div><dt>Progetto</dt><dd>26A011 · rev.06</dd></div>
+    <div><dt>Configurazioni</dt><dd>aperto / chiuso</dd></div>
+    <div><dt>Origine dati</dt><dd>2 file DXF · 163 mesh</dd></div>
+    <div><dt>Quota pavimento</dt><dd>+1.395 da terra</dd></div>
+    <div><dt>Data rilievo</dt><dd>02.09.2026</dd></div>
+  </dl>
+</header>
+
+<div class="kpis">
+  <div class="kpi"><b>13.989 <small>mm</small></b><span>Lunghezza totale</span></div>
+  <div class="kpi"><b>2.540 → 4.840 <small>mm</small></b><span>Larghezza chiuso → aperto</span></div>
+  <div class="kpi"><b>2.251 <small>mm</small></b><span>Altezza interna zona centrale</span></div>
+  <div class="kpi"><b>≈ 58,6 <small>m²</small></b><span>Superficie utile da aperto</span></div>
+</div>
+
+<!-- ============================ TAV.01 · 3D ============================ -->
+<section class="sheet" id="tav01">
+  <header class="sheet-head"><span class="tavno">TAV.01</span><h2>Modello 3D interattivo</h2><span class="sheet-meta">geometria reale dai DXF</span></header>
+  <div class="vbar" role="toolbar" aria-label="Controlli vista 3D">
+    <span class="lab">Config.</span>
+    <span class="seg" id="cfgseg">
+      <button type="button" data-cfg="aperto" aria-pressed="true">Aperto</button>
+      <button type="button" data-cfg="chiuso" aria-pressed="false">Chiuso</button>
+    </span>
+    <span class="lab" style="margin-left:10px">Vista</span>
+    <button type="button" class="vbtn" data-view="axo">Assonometria</button>
+    <button type="button" class="vbtn" data-view="top">Pianta</button>
+    <button type="button" class="vbtn" data-view="ing">Lato ingresso</button>
+    <button type="button" class="vbtn" data-view="cuc">Lato cucina</button>
+    <button type="button" class="vbtn" data-view="front">Fronte</button>
+  </div>
+  <div id="stage">
+    <div class="hint">trascina = ruota · rotella = zoom · maiusc+trascina = sposta</div>
+  </div>
+  <div class="chips" id="chips" role="group" aria-label="Layer visibili"></div>
+  <p class="sheet-note">Le due sagome grigie sono persone di <b>1.750&nbsp;mm</b>: una a terra davanti al fronte, una in piedi sul
+  pavimento interno (che sta a <b>+1.395&nbsp;mm</b> da terra). Griglia a terra: maglia da <b>1&nbsp;metro</b>.</p>
+</section>
+
+<!-- ============================ TAV.02 · PIANTA APERTA ============================ -->
+<section class="sheet" id="tav02">
+  <header class="sheet-head"><span class="tavno">TAV.02</span><h2>Pianta — configurazione aperta</h2><span class="sheet-meta">quote in mm · vista dall&rsquo;alto</span></header>
+  <div class="sheet-body scrollx"><svg viewBox="0 0 1512 760" role="img" aria-label="Pianta configurazione aperta" preserveAspectRatio="xMidYMid meet">
+<rect x="191.5" y="244.5" width="843.6" height="217.3" class="tintA"/>
+<rect x="1042.5" y="244.5" width="82.3" height="217.3" class="tintB"/>
+<rect x="1132.1" y="244.5" width="242.1" height="217.3" class="tintC"/>
+<rect x="196.8" y="467.5" width="259.8" height="99.0" class="tintI"/>
+<rect x="506.4" y="467.5" width="829.8" height="99.0" class="tintI"/>
+<rect x="196.8" y="137.5" width="259.8" height="99.0" class="tintK"/>
+<rect x="506.4" y="137.5" width="829.8" height="99.0" class="tintK"/>
+<rect x="931.7" y="416.2" width="86.4" height="40.0" class="ghost"/>
+<rect x="931.7" y="236.1" width="86.4" height="40.0" class="ghost"/>
+<rect x="1086.3" y="416.2" width="86.4" height="40.0" class="ghost"/>
+<rect x="1086.3" y="236.1" width="86.4" height="40.0" class="ghost"/>
+<rect x="108.0" y="236.5" width="81.5" height="230.9" class="s0"/>
+<rect x="463.9" y="461.7" width="35.2" height="5.7" class="s0"/>
+<rect x="463.9" y="236.5" width="35.2" height="7.9" class="s0"/>
+<rect x="1343.5" y="461.7" width="30.7" height="5.7" class="s0"/>
+<rect x="1343.5" y="236.5" width="30.7" height="7.9" class="s0"/>
+<rect x="1374.2" y="236.5" width="5.5" height="230.9" class="s0"/>
+<line x1="189.5" y1="467.5" x2="463.9" y2="467.5" class="dash"/>
+<line x1="499.1" y1="467.5" x2="1343.5" y2="467.5" class="dash"/>
+<line x1="189.5" y1="461.7" x2="463.9" y2="461.7" class="dash"/>
+<line x1="499.1" y1="461.7" x2="1343.5" y2="461.7" class="dash"/>
+<line x1="189.5" y1="244.5" x2="463.9" y2="244.5" class="dash"/>
+<line x1="499.1" y1="244.5" x2="1343.5" y2="244.5" class="dash"/>
+<line x1="189.5" y1="236.5" x2="463.9" y2="236.5" class="dash"/>
+<line x1="499.1" y1="236.5" x2="1343.5" y2="236.5" class="dash"/>
+<rect x="191.4" y="566.5" width="270.7" height="5.5" class="s1"/>
+<rect x="500.9" y="566.5" width="840.7" height="5.5" class="s1"/>
+<rect x="191.4" y="467.5" width="5.5" height="99.0" class="s1"/>
+<rect x="456.6" y="467.5" width="5.5" height="99.0" class="s1"/>
+<rect x="500.9" y="467.5" width="5.5" height="99.0" class="s1"/>
+<rect x="1336.2" y="467.5" width="5.5" height="99.0" class="s1"/>
+<rect x="983.8" y="567.3" width="142.7" height="3.8" class="gl"/>
+<rect x="193.7" y="469.7" width="0.9" height="38.2" class="gl"/>
+<rect x="191.4" y="132.0" width="270.7" height="5.5" class="s1"/>
+<rect x="500.9" y="132.0" width="840.7" height="5.5" class="s1"/>
+<rect x="191.4" y="137.5" width="5.5" height="99.0" class="s1"/>
+<rect x="456.6" y="137.5" width="5.5" height="99.0" class="s1"/>
+<rect x="500.9" y="137.5" width="5.5" height="99.0" class="s1"/>
+<rect x="1336.2" y="137.5" width="5.5" height="99.0" class="s1"/>
+<rect x="349.7" y="132.8" width="79.1" height="3.8" class="gl"/>
+<rect x="624.3" y="132.8" width="206.4" height="3.8" class="gl"/>
+<rect x="931.5" y="132.8" width="65.5" height="3.8" class="gl"/>
+<rect x="1089.7" y="132.8" width="88.2" height="3.8" class="gl"/>
+<rect x="193.7" y="196.1" width="0.9" height="38.2" class="gl"/>
+<rect x="862.8" y="137.5" width="3.6" height="106.9" class="dv"/>
+<rect x="962.6" y="461.7" width="3.6" height="104.7" class="dv"/>
+<rect x="1002.2" y="240.8" width="179.5" height="3.6" class="dv"/>
+<rect x="1035.2" y="244.5" width="7.3" height="217.3" class="dv"/>
+<rect x="1062.8" y="137.5" width="3.6" height="106.9" class="dv"/>
+<rect x="1124.7" y="244.5" width="7.4" height="217.3" class="dv"/>
+<rect x="1137.9" y="461.7" width="5.3" height="104.7" class="dv"/>
+<rect x="865.0" y="240.8" width="61.4" height="3.6" class="dvh"/>
+<rect x="1182.2" y="186.7" width="1.6" height="48.8" class="gl"/>
+<rect x="1257.8" y="186.7" width="1.6" height="55.0" class="gl"/>
+<rect x="1259.6" y="243.5" width="71.7" height="0.9" class="gl"/>
+<rect x="227.8" y="324.7" width="59.1" height="54.5" class="ghostb"/>
+<rect x="555.4" y="324.7" width="70.9" height="54.5" class="ghostb"/>
+<rect x="681.0" y="322.5" width="117.5" height="59.1" class="ghostb"/>
+<rect x="861.4" y="324.7" width="67.3" height="54.5" class="ghostb"/>
+<rect x="1226.4" y="324.7" width="62.7" height="54.5" class="ghostb"/>
+<rect x="258.1" y="274.7" width="81.8" height="142.9" class="ghost"/>
+<rect x="961.8" y="274.7" width="81.8" height="142.9" class="ghost"/>
+<text x="612.5" y="344.7" text-anchor="middle" class="zl">ZONA A</text>
+<text x="612.5" y="372.9" text-anchor="middle" class="lbl">9.280 × 2.390 · h 2.251</text>
+<text x="1083.5" y="333.8" text-anchor="middle" class="zl2">ZONA B</text>
+<text x="1083.5" y="360.2" text-anchor="middle" class="lbl">905 × 2.390</text>
+<text x="1253.5" y="344.7" text-anchor="middle" class="zl">ZONA C</text>
+<text x="1253.5" y="372.9" text-anchor="middle" class="lbl">2.663 × 2.390</text>
+<text x="326.2" y="523.8" text-anchor="middle" class="lbls">BAIA INGRESSO · MOD. ANTERIORE</text>
+<text x="326.2" y="544.7" text-anchor="middle" class="lbl">2.858 × 1.089</text>
+<text x="735.3" y="523.8" text-anchor="middle" class="lbls">BAIA INGRESSO · profondità utile 1.152</text>
+<text x="326.2" y="180.2" text-anchor="middle" class="lbls">BAIA CUCINA · MOD. ANTERIORE</text>
+<text x="326.2" y="202.9" text-anchor="middle" class="lbl">2.858 × 1.089</text>
+<text x="680.7" y="180.2" text-anchor="middle" class="lbls">BAIA CUCINA · profondità utile 1.176</text>
+<text x="148.7" y="352.0" text-anchor="middle" class="lblw">VANO</text>
+<text x="148.7" y="373.8" text-anchor="middle" class="lblw">TECNICO</text>
+<text x="739.7" y="348.0" text-anchor="middle" class="lblg">oblò ×5</text>
+<text x="299.0" y="346.2" text-anchor="middle" class="lblg">clima</text>
+<text x="1002.7" y="346.2" text-anchor="middle" class="lblg">clima</text>
+<text x="1295.3" y="210.2" text-anchor="middle" class="lblg">vetrata</text>
+<text x="1055.2" y="555.6" text-anchor="middle" class="lblg">vetrina</text>
+<text x="945.6" y="118.4" text-anchor="middle" class="lblg">vetrine</text>
+<line x1="103.0" y1="36.0" x2="1384.7" y2="36.0" class="dim"/>
+<line x1="103.5" y1="40.5" x2="112.5" y2="31.5" class="dim"/>
+<line x1="1375.2" y1="40.5" x2="1384.2" y2="31.5" class="dim"/>
+<text x="743.9" y="31.0" text-anchor="middle" class="dimt">13989</text>
+<line x1="108.0" y1="236.5" x2="108.0" y2="31.0" class="ext"/>
+<line x1="1379.7" y1="236.5" x2="1379.7" y2="31.0" class="ext"/>
+<line x1="103.0" y1="70.0" x2="196.4" y2="70.0" class="dim"/>
+<line x1="103.5" y1="74.5" x2="112.5" y2="65.5" class="dim"/>
+<line x1="186.9" y1="74.5" x2="195.9" y2="65.5" class="dim"/>
+<text x="149.7" y="65.0" text-anchor="middle" class="dimt">917</text>
+<line x1="186.4" y1="70.0" x2="467.1" y2="70.0" class="dim"/>
+<line x1="186.9" y1="74.5" x2="195.9" y2="65.5" class="dim"/>
+<line x1="457.6" y1="74.5" x2="466.6" y2="65.5" class="dim"/>
+<text x="326.7" y="65.0" text-anchor="middle" class="dimt">2978</text>
+<line x1="457.1" y1="70.0" x2="505.9" y2="70.0" class="dim"/>
+<line x1="457.6" y1="74.5" x2="466.6" y2="65.5" class="dim"/>
+<line x1="496.4" y1="74.5" x2="505.4" y2="65.5" class="dim"/>
+<text x="481.5" y="65.0" text-anchor="middle" class="dimt">427</text>
+<line x1="495.9" y1="70.0" x2="1346.6" y2="70.0" class="dim"/>
+<line x1="496.4" y1="74.5" x2="505.4" y2="65.5" class="dim"/>
+<line x1="1337.1" y1="74.5" x2="1346.1" y2="65.5" class="dim"/>
+<text x="921.3" y="65.0" text-anchor="middle" class="dimt">9248</text>
+<line x1="1336.6" y1="70.0" x2="1384.7" y2="70.0" class="dim"/>
+<line x1="1337.1" y1="74.5" x2="1346.1" y2="65.5" class="dim"/>
+<line x1="1375.2" y1="74.5" x2="1384.2" y2="65.5" class="dim"/>
+<text x="1360.7" y="65.0" text-anchor="middle" class="dimt">419</text>
+<line x1="108.0" y1="120.0" x2="108.0" y2="75.0" class="ext"/>
+<line x1="191.4" y1="120.0" x2="191.4" y2="75.0" class="ext"/>
+<line x1="462.1" y1="120.0" x2="462.1" y2="75.0" class="ext"/>
+<line x1="500.9" y1="120.0" x2="500.9" y2="75.0" class="ext"/>
+<line x1="1341.6" y1="120.0" x2="1341.6" y2="75.0" class="ext"/>
+<line x1="1379.7" y1="120.0" x2="1379.7" y2="75.0" class="ext"/>
+<line x1="501.4" y1="104.0" x2="867.8" y2="104.0" class="dim"/>
+<line x1="501.9" y1="108.5" x2="510.9" y2="99.5" class="dim"/>
+<line x1="858.3" y1="108.5" x2="867.3" y2="99.5" class="dim"/>
+<text x="684.6" y="99.0" text-anchor="middle" class="dimt">3921</text>
+<line x1="861.5" y1="104.0" x2="1067.8" y2="104.0" class="dim"/>
+<line x1="862.0" y1="108.5" x2="871.0" y2="99.5" class="dim"/>
+<line x1="1058.3" y1="108.5" x2="1067.3" y2="99.5" class="dim"/>
+<text x="964.6" y="99.0" text-anchor="middle" class="dimt">2160</text>
+<line x1="1061.5" y1="104.0" x2="1341.2" y2="104.0" class="dim"/>
+<line x1="1062.0" y1="108.5" x2="1071.0" y2="99.5" class="dim"/>
+<line x1="1331.7" y1="108.5" x2="1340.7" y2="99.5" class="dim"/>
+<text x="1201.3" y="99.0" text-anchor="middle" class="dimt">2967</text>
+<line x1="506.4" y1="120.0" x2="506.4" y2="109.0" class="ext"/>
+<line x1="862.8" y1="120.0" x2="862.8" y2="109.0" class="ext"/>
+<line x1="866.5" y1="120.0" x2="866.5" y2="109.0" class="ext"/>
+<line x1="1062.8" y1="120.0" x2="1062.8" y2="109.0" class="ext"/>
+<line x1="1066.5" y1="120.0" x2="1066.5" y2="109.0" class="ext"/>
+<line x1="1336.2" y1="120.0" x2="1336.2" y2="109.0" class="ext"/>
+<line x1="501.4" y1="606.0" x2="967.6" y2="606.0" class="dim"/>
+<line x1="501.9" y1="610.5" x2="510.9" y2="601.5" class="dim"/>
+<line x1="958.1" y1="610.5" x2="967.1" y2="601.5" class="dim"/>
+<text x="734.5" y="621.0" text-anchor="middle" class="dimt">5019</text>
+<line x1="961.3" y1="606.0" x2="1142.9" y2="606.0" class="dim"/>
+<line x1="961.8" y1="610.5" x2="970.8" y2="601.5" class="dim"/>
+<line x1="1133.4" y1="610.5" x2="1142.4" y2="601.5" class="dim"/>
+<text x="1052.1" y="621.0" text-anchor="middle" class="dimt">1888</text>
+<line x1="1138.2" y1="606.0" x2="1341.2" y2="606.0" class="dim"/>
+<line x1="1138.7" y1="610.5" x2="1147.7" y2="601.5" class="dim"/>
+<line x1="1331.7" y1="610.5" x2="1340.7" y2="601.5" class="dim"/>
+<text x="1239.7" y="621.0" text-anchor="middle" class="dimt">2123</text>
+<line x1="506.4" y1="584.0" x2="506.4" y2="601.0" class="ext"/>
+<line x1="962.6" y1="584.0" x2="962.6" y2="601.0" class="ext"/>
+<line x1="966.3" y1="584.0" x2="966.3" y2="601.0" class="ext"/>
+<line x1="1137.9" y1="584.0" x2="1137.9" y2="601.0" class="ext"/>
+<line x1="1143.2" y1="584.0" x2="1143.2" y2="601.0" class="ext"/>
+<line x1="1336.2" y1="584.0" x2="1336.2" y2="601.0" class="ext"/>
+<line x1="186.5" y1="642.0" x2="1040.2" y2="642.0" class="dim"/>
+<line x1="187.0" y1="646.5" x2="196.0" y2="637.5" class="dim"/>
+<line x1="1030.7" y1="646.5" x2="1039.7" y2="637.5" class="dim"/>
+<text x="613.4" y="657.0" text-anchor="middle" class="dimt">9280</text>
+<line x1="1037.5" y1="642.0" x2="1129.7" y2="642.0" class="dim"/>
+<line x1="1038.0" y1="646.5" x2="1047.0" y2="637.5" class="dim"/>
+<line x1="1120.2" y1="646.5" x2="1129.2" y2="637.5" class="dim"/>
+<text x="1083.6" y="657.0" text-anchor="middle" class="dimt">905</text>
+<line x1="1127.1" y1="642.0" x2="1379.2" y2="642.0" class="dim"/>
+<line x1="1127.6" y1="646.5" x2="1136.6" y2="637.5" class="dim"/>
+<line x1="1369.7" y1="646.5" x2="1378.7" y2="637.5" class="dim"/>
+<text x="1253.1" y="657.0" text-anchor="middle" class="dimt">2663</text>
+<line x1="191.5" y1="584.0" x2="191.5" y2="637.0" class="ext"/>
+<line x1="1035.2" y1="584.0" x2="1035.2" y2="637.0" class="ext"/>
+<line x1="1042.5" y1="584.0" x2="1042.5" y2="637.0" class="ext"/>
+<line x1="1124.7" y1="584.0" x2="1124.7" y2="637.0" class="ext"/>
+<line x1="1132.1" y1="584.0" x2="1132.1" y2="637.0" class="ext"/>
+<line x1="1374.2" y1="584.0" x2="1374.2" y2="637.0" class="ext"/>
+<line x1="74.0" y1="462.5" x2="74.0" y2="577.0" class="dim"/>
+<line x1="69.5" y1="576.5" x2="78.5" y2="567.5" class="dim"/>
+<line x1="69.5" y1="472.0" x2="78.5" y2="463.0" class="dim"/>
+<text x="68.0" y="519.7" text-anchor="middle" class="dimt" transform="rotate(-90 68.0 519.7)">1150</text>
+<line x1="74.0" y1="231.5" x2="74.0" y2="472.5" class="dim"/>
+<line x1="69.5" y1="472.0" x2="78.5" y2="463.0" class="dim"/>
+<line x1="69.5" y1="241.0" x2="78.5" y2="232.0" class="dim"/>
+<text x="68.0" y="352.0" text-anchor="middle" class="dimt" transform="rotate(-90 68.0 352.0)">2540</text>
+<line x1="74.0" y1="127.0" x2="74.0" y2="241.5" class="dim"/>
+<line x1="69.5" y1="241.0" x2="78.5" y2="232.0" class="dim"/>
+<line x1="69.5" y1="136.5" x2="78.5" y2="127.5" class="dim"/>
+<text x="68.0" y="184.3" text-anchor="middle" class="dimt" transform="rotate(-90 68.0 184.3)">1150</text>
+<line x1="100.0" y1="572.0" x2="69.0" y2="572.0" class="ext"/>
+<line x1="100.0" y1="467.5" x2="69.0" y2="467.5" class="ext"/>
+<line x1="100.0" y1="236.5" x2="69.0" y2="236.5" class="ext"/>
+<line x1="100.0" y1="132.0" x2="69.0" y2="132.0" class="ext"/>
+<line x1="38.0" y1="127.0" x2="38.0" y2="577.0" class="dim"/>
+<line x1="33.5" y1="576.5" x2="42.5" y2="567.5" class="dim"/>
+<line x1="33.5" y1="136.5" x2="42.5" y2="127.5" class="dim"/>
+<text x="32.0" y="352.0" text-anchor="middle" class="dimt" transform="rotate(-90 32.0 352.0)">4840</text>
+<line x1="100.0" y1="572.0" x2="33.0" y2="572.0" class="ext"/>
+<line x1="100.0" y1="132.0" x2="33.0" y2="132.0" class="ext"/>
+<line x1="1419.7" y1="456.7" x2="1419.7" y2="571.5" class="dim"/>
+<line x1="1415.2" y1="571.0" x2="1424.2" y2="562.0" class="dim"/>
+<line x1="1415.2" y1="466.2" x2="1424.2" y2="457.2" class="dim"/>
+<text x="1425.7" y="514.1" text-anchor="middle" class="dimt" transform="rotate(-90 1425.7 514.1)">1152</text>
+<line x1="1419.7" y1="239.5" x2="1419.7" y2="466.7" class="dim"/>
+<line x1="1415.2" y1="466.2" x2="1424.2" y2="457.2" class="dim"/>
+<line x1="1415.2" y1="249.0" x2="1424.2" y2="240.0" class="dim"/>
+<text x="1425.7" y="353.1" text-anchor="middle" class="dimt" transform="rotate(-90 1425.7 353.1)">2390</text>
+<line x1="1419.7" y1="132.5" x2="1419.7" y2="249.5" class="dim"/>
+<line x1="1415.2" y1="249.0" x2="1424.2" y2="240.0" class="dim"/>
+<line x1="1415.2" y1="142.0" x2="1424.2" y2="133.0" class="dim"/>
+<text x="1425.7" y="191.0" text-anchor="middle" class="dimt" transform="rotate(-90 1425.7 191.0)">1176</text>
+<line x1="1347.6" y1="566.5" x2="1424.7" y2="566.5" class="ext"/>
+<line x1="1385.7" y1="461.7" x2="1424.7" y2="461.7" class="ext"/>
+<line x1="1385.7" y1="244.5" x2="1424.7" y2="244.5" class="ext"/>
+<line x1="1347.6" y1="137.5" x2="1424.7" y2="137.5" class="ext"/>
+<text x="743.9" y="16.0" text-anchor="middle" class="cap">LATO CUCINA — estrattore aperto (+1.150)</text>
+<text x="743.9" y="672.0" text-anchor="middle" class="cap">LATO INGRESSO — estrattore aperto (+1.150)</text>
+<text x="46.2" y="352.0" text-anchor="middle" class="cap" transform="rotate(-90 46.2 352.0)">FRONTE</text>
+<text x="1437.1" y="352.0" text-anchor="middle" class="cap" transform="rotate(90 1437.1 352.0)">RETRO</text>
+<rect x="108.0" y="732.0" width="45.5" height="8.0" class="sb0"/>
+<rect x="153.5" y="732.0" width="45.5" height="8.0" class="sb1"/>
+<rect x="198.9" y="732.0" width="45.5" height="8.0" class="sb0"/>
+<rect x="244.4" y="732.0" width="45.5" height="8.0" class="sb1"/>
+<text x="108.0" y="754.0" text-anchor="middle" class="dimt">0</text>
+<text x="289.8" y="754.0" text-anchor="middle" class="dimt">2 m</text>
+</svg></div>
+  <p class="sheet-note"><b>Come leggerla:</b> il corpo fisso (nero) resta largo 2.540; i due estrattori (grigio) escono di
+  <b>1.150&nbsp;mm per lato</b> e portano la larghezza a 4.840. Le campiture colorate sono le zone utili; i rettangoli
+  arancio i divisori esistenti; l&rsquo;azzurro le vetrate; tratteggiati gli elementi fuori dal piano di taglio
+  (oblò e clima sul tetto, ruote sotto il pavimento, pannello sospeso lato cucina).</p>
+</section>
+
+<!-- ============================ TAV.03 · SEZIONE ============================ -->
+<section class="sheet" id="tav03">
+  <header class="sheet-head"><span class="tavno">TAV.03</span><h2>Sezione trasversale — aperto</h2><span class="sheet-meta">quote in mm · taglio a X ≈ 7.000</span></header>
+  <div class="sheet-body scrollx"><svg viewBox="0 0 950 700" role="img" aria-label="Sezione trasversale, configurazione aperta" preserveAspectRatio="xMidYMid meet">
+<line x1="48.6" y1="640.0" x2="859.7" y2="640.0" class="s0l"/>
+<line x1="55.5" y1="640.0" x2="43.0" y2="649.0" class="hair"/>
+<line x1="76.3" y1="640.0" x2="63.8" y2="649.0" class="hair"/>
+<line x1="97.2" y1="640.0" x2="84.7" y2="649.0" class="hair"/>
+<line x1="118.0" y1="640.0" x2="105.5" y2="649.0" class="hair"/>
+<line x1="138.8" y1="640.0" x2="126.3" y2="649.0" class="hair"/>
+<line x1="159.7" y1="640.0" x2="147.2" y2="649.0" class="hair"/>
+<line x1="180.5" y1="640.0" x2="168.0" y2="649.0" class="hair"/>
+<line x1="201.3" y1="640.0" x2="188.8" y2="649.0" class="hair"/>
+<line x1="222.2" y1="640.0" x2="209.7" y2="649.0" class="hair"/>
+<line x1="243.0" y1="640.0" x2="230.5" y2="649.0" class="hair"/>
+<line x1="263.8" y1="640.0" x2="251.3" y2="649.0" class="hair"/>
+<line x1="284.7" y1="640.0" x2="272.2" y2="649.0" class="hair"/>
+<line x1="305.5" y1="640.0" x2="293.0" y2="649.0" class="hair"/>
+<line x1="326.3" y1="640.0" x2="313.8" y2="649.0" class="hair"/>
+<line x1="347.2" y1="640.0" x2="334.7" y2="649.0" class="hair"/>
+<line x1="368.0" y1="640.0" x2="355.5" y2="649.0" class="hair"/>
+<line x1="388.8" y1="640.0" x2="376.3" y2="649.0" class="hair"/>
+<line x1="409.7" y1="640.0" x2="397.2" y2="649.0" class="hair"/>
+<line x1="430.5" y1="640.0" x2="418.0" y2="649.0" class="hair"/>
+<line x1="451.3" y1="640.0" x2="438.8" y2="649.0" class="hair"/>
+<line x1="472.2" y1="640.0" x2="459.7" y2="649.0" class="hair"/>
+<line x1="493.0" y1="640.0" x2="480.5" y2="649.0" class="hair"/>
+<line x1="513.8" y1="640.0" x2="501.3" y2="649.0" class="hair"/>
+<line x1="534.7" y1="640.0" x2="522.2" y2="649.0" class="hair"/>
+<line x1="555.5" y1="640.0" x2="543.0" y2="649.0" class="hair"/>
+<line x1="576.3" y1="640.0" x2="563.8" y2="649.0" class="hair"/>
+<line x1="597.2" y1="640.0" x2="584.7" y2="649.0" class="hair"/>
+<line x1="618.0" y1="640.0" x2="605.5" y2="649.0" class="hair"/>
+<line x1="638.8" y1="640.0" x2="626.3" y2="649.0" class="hair"/>
+<line x1="659.7" y1="640.0" x2="647.2" y2="649.0" class="hair"/>
+<line x1="680.5" y1="640.0" x2="668.0" y2="649.0" class="hair"/>
+<line x1="701.3" y1="640.0" x2="688.8" y2="649.0" class="hair"/>
+<line x1="722.2" y1="640.0" x2="709.7" y2="649.0" class="hair"/>
+<line x1="743.0" y1="640.0" x2="730.5" y2="649.0" class="hair"/>
+<line x1="763.8" y1="640.0" x2="751.3" y2="649.0" class="hair"/>
+<line x1="784.7" y1="640.0" x2="772.2" y2="649.0" class="hair"/>
+<line x1="805.5" y1="640.0" x2="793.0" y2="649.0" class="hair"/>
+<line x1="826.3" y1="640.0" x2="813.8" y2="649.0" class="hair"/>
+<line x1="847.2" y1="640.0" x2="834.7" y2="649.0" class="hair"/>
+<circle cx="325.5" cy="574.0" r="66.0" class="ghostc"/>
+<circle cx="600.6" cy="574.0" r="66.0" class="ghostc"/>
+<rect x="372.9" y="508.1" width="12.5" height="16.7" class="s0"/>
+<rect x="535.4" y="508.1" width="12.5" height="16.7" class="s0"/>
+<rect x="277.9" y="453.5" width="352.5" height="54.6" class="s1"/>
+<rect x="118.0" y="446.2" width="672.2" height="7.2" class="wood"/>
+<rect x="286.5" y="453.5" width="8.8" height="54.6" class="s0"/>
+<rect x="607.9" y="453.5" width="8.8" height="54.6" class="s0"/>
+<rect x="277.7" y="128.2" width="8.8" height="5.4" class="s0"/>
+<rect x="618.4" y="128.2" width="12.1" height="5.4" class="s0"/>
+<rect x="286.5" y="128.2" width="331.9" height="5.4" class="s2"/>
+<rect x="277.7" y="84.4" width="352.8" height="43.8" class="s1"/>
+<rect x="409.0" y="84.2" width="90.3" height="49.7" class="gl"/>
+<rect x="118.0" y="453.5" width="8.5" height="34.9" class="s1"/>
+<rect x="118.0" y="307.4" width="8.5" height="146.1" class="s1"/>
+<rect x="118.0" y="217.5" width="8.5" height="89.9" class="s1"/>
+<rect x="118.0" y="138.6" width="8.5" height="78.9" class="s1"/>
+<rect x="781.8" y="453.5" width="8.5" height="34.9" class="s1"/>
+<rect x="781.8" y="307.4" width="8.5" height="146.1" class="s1"/>
+<rect x="784.7" y="217.5" width="2.8" height="89.9" class="gl"/>
+<rect x="781.8" y="138.6" width="8.5" height="78.9" class="s1"/>
+<polygon points="126.5,154.2 298.7,147.5 298.7,136.7 126.5,143.3" class="s1"/>
+<polygon points="781.8,154.2 609.5,147.5 609.5,136.7 781.8,143.3" class="s1"/>
+<circle cx="520.8" cy="219.9" r="16.0" class="man"/>
+<polygon points="499.9,446.2 512.4,446.2 513.1,337.9 528.4,337.9 529.1,446.2 541.6,446.2 543.7,321.2 554.8,282.4 544.4,246.2 497.2,246.2 486.8,282.4 497.9,321.2" class="man"/>
+<text x="520.8" y="177.2" text-anchor="middle" class="dimt">1.750</text>
+<line x1="454.1" y1="128.6" x2="454.1" y2="451.2" class="dim"/>
+<line x1="449.6" y1="450.8" x2="458.6" y2="441.8" class="dim"/>
+<line x1="449.6" y1="138.1" x2="458.6" y2="129.1" class="dim"/>
+<text x="448.1" y="289.9" text-anchor="middle" class="dimt" transform="rotate(-90 448.1 289.9)">2.251</text>
+<line x1="165.2" y1="149.2" x2="165.2" y2="451.2" class="dim"/>
+<line x1="160.7" y1="450.8" x2="169.7" y2="441.8" class="dim"/>
+<line x1="160.7" y1="158.7" x2="169.7" y2="149.7" class="dim"/>
+<text x="159.2" y="300.2" text-anchor="middle" class="dimt" transform="rotate(-90 159.2 300.2)">2.103</text>
+<line x1="273.6" y1="142.5" x2="273.6" y2="451.2" class="dim"/>
+<line x1="269.1" y1="450.8" x2="278.1" y2="441.8" class="dim"/>
+<line x1="269.1" y1="152.0" x2="278.1" y2="143.0" class="dim"/>
+<text x="267.6" y="296.9" text-anchor="middle" class="dimt" transform="rotate(-90 267.6 296.9)">2.151</text>
+<line x1="751.3" y1="302.4" x2="751.3" y2="451.2" class="dim"/>
+<line x1="746.8" y1="450.8" x2="755.8" y2="441.8" class="dim"/>
+<line x1="746.8" y1="311.9" x2="755.8" y2="302.9" class="dim"/>
+<text x="745.3" y="376.8" text-anchor="middle" class="dimt" transform="rotate(-90 745.3 376.8)">1.000</text>
+<line x1="751.3" y1="212.5" x2="751.3" y2="312.4" class="dim"/>
+<line x1="746.8" y1="311.9" x2="755.8" y2="302.9" class="dim"/>
+<line x1="746.8" y1="222.0" x2="755.8" y2="213.0" class="dim"/>
+<text x="745.3" y="262.4" text-anchor="middle" class="dimt" transform="rotate(-90 745.3 262.4)">647</text>
+<line x1="781.8" y1="307.4" x2="746.3" y2="307.4" class="ext"/>
+<line x1="781.8" y1="217.5" x2="746.3" y2="217.5" class="ext"/>
+<line x1="829.1" y1="503.1" x2="829.1" y2="645.0" class="dim"/>
+<line x1="824.6" y1="644.5" x2="833.6" y2="635.5" class="dim"/>
+<line x1="824.6" y1="512.6" x2="833.6" y2="503.6" class="dim"/>
+<text x="835.1" y="574.0" text-anchor="middle" class="dimt" transform="rotate(-90 835.1 574.0)">950</text>
+<line x1="829.1" y1="441.2" x2="829.1" y2="513.1" class="dim"/>
+<line x1="824.6" y1="512.6" x2="833.6" y2="503.6" class="dim"/>
+<line x1="824.6" y1="450.8" x2="833.6" y2="441.8" class="dim"/>
+<text x="835.1" y="477.2" text-anchor="middle" class="dimt" transform="rotate(-90 835.1 477.2)">445</text>
+<line x1="829.1" y1="79.4" x2="829.1" y2="451.2" class="dim"/>
+<line x1="824.6" y1="450.8" x2="833.6" y2="441.8" class="dim"/>
+<line x1="824.6" y1="88.9" x2="833.6" y2="79.9" class="dim"/>
+<text x="835.1" y="265.3" text-anchor="middle" class="dimt" transform="rotate(-90 835.1 265.3)">2.605</text>
+<line x1="858.3" y1="79.4" x2="858.3" y2="645.0" class="dim"/>
+<line x1="853.8" y1="644.5" x2="862.8" y2="635.5" class="dim"/>
+<line x1="853.8" y1="88.9" x2="862.8" y2="79.9" class="dim"/>
+<text x="864.3" y="362.2" text-anchor="middle" class="dimt" transform="rotate(-90 864.3 362.2)">4.000</text>
+<line x1="791.6" y1="640.0" x2="834.1" y2="640.0" class="ext"/>
+<line x1="791.6" y1="508.1" x2="834.1" y2="508.1" class="ext"/>
+<line x1="791.6" y1="446.2" x2="834.1" y2="446.2" class="ext"/>
+<line x1="791.6" y1="84.4" x2="834.1" y2="84.4" class="ext"/>
+<line x1="791.6" y1="84.4" x2="863.3" y2="84.4" class="ext"/>
+<line x1="791.6" y1="640.0" x2="863.3" y2="640.0" class="ext"/>
+<line x1="113.0" y1="38.2" x2="795.2" y2="38.2" class="dim"/>
+<line x1="113.5" y1="42.7" x2="122.5" y2="33.7" class="dim"/>
+<line x1="785.7" y1="42.7" x2="794.7" y2="33.7" class="dim"/>
+<text x="454.1" y="33.2" text-anchor="middle" class="dimt">4.840</text>
+<line x1="118.0" y1="138.6" x2="118.0" y2="43.2" class="ext"/>
+<line x1="790.2" y1="138.6" x2="790.2" y2="43.2" class="ext"/>
+<line x1="272.7" y1="66.2" x2="635.5" y2="66.2" class="dim"/>
+<line x1="273.2" y1="70.7" x2="282.2" y2="61.7" class="dim"/>
+<line x1="626.0" y1="70.7" x2="635.0" y2="61.7" class="dim"/>
+<text x="454.1" y="61.2" text-anchor="middle" class="dimt">2.540</text>
+<line x1="277.7" y1="84.4" x2="277.7" y2="71.2" class="ext"/>
+<line x1="630.5" y1="84.4" x2="630.5" y2="71.2" class="ext"/>
+<line x1="113.0" y1="66.2" x2="282.7" y2="66.2" class="dim"/>
+<line x1="113.5" y1="70.7" x2="122.5" y2="61.7" class="dim"/>
+<line x1="273.2" y1="70.7" x2="282.2" y2="61.7" class="dim"/>
+<text x="197.9" y="61.2" text-anchor="middle" class="dimt">1.150</text>
+<line x1="625.5" y1="66.2" x2="795.2" y2="66.2" class="dim"/>
+<line x1="626.0" y1="70.7" x2="635.0" y2="61.7" class="dim"/>
+<line x1="785.7" y1="70.7" x2="794.7" y2="61.7" class="dim"/>
+<text x="710.4" y="61.2" text-anchor="middle" class="dimt">1.150</text>
+<line x1="73.6" y1="441.2" x2="73.6" y2="645.0" class="dim"/>
+<line x1="69.1" y1="644.5" x2="78.1" y2="635.5" class="dim"/>
+<line x1="69.1" y1="450.8" x2="78.1" y2="441.8" class="dim"/>
+<text x="67.6" y="543.1" text-anchor="middle" class="dimt" transform="rotate(-90 67.6 543.1)">1.395</text>
+<line x1="118.0" y1="640.0" x2="68.6" y2="640.0" class="ext"/>
+<line x1="118.0" y1="446.2" x2="68.6" y2="446.2" class="ext"/>
+<text x="202.7" y="542.8" text-anchor="middle" class="lbls">BAIA INGRESSO</text>
+<text x="705.5" y="542.8" text-anchor="middle" class="lbls">BAIA CUCINA</text>
+<text x="202.7" y="580.3" text-anchor="middle" class="lblg">sez. estrattore</text>
+<text x="705.5" y="580.3" text-anchor="middle" class="lblg">sez. estrattore</text>
+<text x="454.1" y="606.7" text-anchor="middle" class="lblg">carrello · Ø ruote 950</text>
+<text x="454.1" y="62.2" text-anchor="middle" class="lblg">oblò</text>
+<text x="786.1" y="262.5" text-anchor="middle" class="lblg"></text>
+</svg></div>
+  <p class="sheet-note"><b>Altezze utili:</b> 2.251 nella fascia centrale (sotto controsoffitto); nelle baie il soffitto è
+  inclinato e scende da <b>2.151</b> (bordo interno) a <b>2.103</b> (parete esterna). La fascia vetrata delle baie parte a
+  <b>+1.000 dal pavimento</b> ed è alta 647: sotto-finestra libero per basi e banconi.</p>
+</section>
+
+<!-- ============================ TAV.04 · PROSPETTO ============================ -->
+<section class="sheet" id="tav04">
+  <header class="sheet-head"><span class="tavno">TAV.04</span><h2>Prospetto laterale — lato cucina</h2><span class="sheet-meta">quote in mm · aperto</span></header>
+  <div class="sheet-body scrollx"><svg viewBox="0 0 1512 560" role="img" aria-label="Prospetto laterale, lato cucina" preserveAspectRatio="xMidYMid meet">
+<line x1="44.4" y1="480.0" x2="1462.5" y2="480.0" class="s0l"/>
+<line x1="48.9" y1="480.0" x2="36.2" y2="489.0" class="hair"/>
+<line x1="72.5" y1="480.0" x2="59.8" y2="489.0" class="hair"/>
+<line x1="96.2" y1="480.0" x2="83.5" y2="489.0" class="hair"/>
+<line x1="119.8" y1="480.0" x2="107.1" y2="489.0" class="hair"/>
+<line x1="143.5" y1="480.0" x2="130.7" y2="489.0" class="hair"/>
+<line x1="167.1" y1="480.0" x2="154.4" y2="489.0" class="hair"/>
+<line x1="190.7" y1="480.0" x2="178.0" y2="489.0" class="hair"/>
+<line x1="214.4" y1="480.0" x2="201.6" y2="489.0" class="hair"/>
+<line x1="238.0" y1="480.0" x2="225.3" y2="489.0" class="hair"/>
+<line x1="261.6" y1="480.0" x2="248.9" y2="489.0" class="hair"/>
+<line x1="285.3" y1="480.0" x2="272.5" y2="489.0" class="hair"/>
+<line x1="308.9" y1="480.0" x2="296.2" y2="489.0" class="hair"/>
+<line x1="332.5" y1="480.0" x2="319.8" y2="489.0" class="hair"/>
+<line x1="356.2" y1="480.0" x2="343.5" y2="489.0" class="hair"/>
+<line x1="379.8" y1="480.0" x2="367.1" y2="489.0" class="hair"/>
+<line x1="403.5" y1="480.0" x2="390.7" y2="489.0" class="hair"/>
+<line x1="427.1" y1="480.0" x2="414.4" y2="489.0" class="hair"/>
+<line x1="450.7" y1="480.0" x2="438.0" y2="489.0" class="hair"/>
+<line x1="474.4" y1="480.0" x2="461.6" y2="489.0" class="hair"/>
+<line x1="498.0" y1="480.0" x2="485.3" y2="489.0" class="hair"/>
+<line x1="521.6" y1="480.0" x2="508.9" y2="489.0" class="hair"/>
+<line x1="545.3" y1="480.0" x2="532.5" y2="489.0" class="hair"/>
+<line x1="568.9" y1="480.0" x2="556.2" y2="489.0" class="hair"/>
+<line x1="592.5" y1="480.0" x2="579.8" y2="489.0" class="hair"/>
+<line x1="616.2" y1="480.0" x2="603.5" y2="489.0" class="hair"/>
+<line x1="639.8" y1="480.0" x2="627.1" y2="489.0" class="hair"/>
+<line x1="663.5" y1="480.0" x2="650.7" y2="489.0" class="hair"/>
+<line x1="687.1" y1="480.0" x2="674.4" y2="489.0" class="hair"/>
+<line x1="710.7" y1="480.0" x2="698.0" y2="489.0" class="hair"/>
+<line x1="734.4" y1="480.0" x2="721.6" y2="489.0" class="hair"/>
+<line x1="758.0" y1="480.0" x2="745.3" y2="489.0" class="hair"/>
+<line x1="781.6" y1="480.0" x2="768.9" y2="489.0" class="hair"/>
+<line x1="805.3" y1="480.0" x2="792.5" y2="489.0" class="hair"/>
+<line x1="828.9" y1="480.0" x2="816.2" y2="489.0" class="hair"/>
+<line x1="852.5" y1="480.0" x2="839.8" y2="489.0" class="hair"/>
+<line x1="876.2" y1="480.0" x2="863.5" y2="489.0" class="hair"/>
+<line x1="899.8" y1="480.0" x2="887.1" y2="489.0" class="hair"/>
+<line x1="923.5" y1="480.0" x2="910.7" y2="489.0" class="hair"/>
+<line x1="947.1" y1="480.0" x2="934.4" y2="489.0" class="hair"/>
+<line x1="970.7" y1="480.0" x2="958.0" y2="489.0" class="hair"/>
+<line x1="994.4" y1="480.0" x2="981.6" y2="489.0" class="hair"/>
+<line x1="1018.0" y1="480.0" x2="1005.3" y2="489.0" class="hair"/>
+<line x1="1041.6" y1="480.0" x2="1028.9" y2="489.0" class="hair"/>
+<line x1="1065.3" y1="480.0" x2="1052.5" y2="489.0" class="hair"/>
+<line x1="1088.9" y1="480.0" x2="1076.2" y2="489.0" class="hair"/>
+<line x1="1112.5" y1="480.0" x2="1099.8" y2="489.0" class="hair"/>
+<line x1="1136.2" y1="480.0" x2="1123.5" y2="489.0" class="hair"/>
+<line x1="1159.8" y1="480.0" x2="1147.1" y2="489.0" class="hair"/>
+<line x1="1183.5" y1="480.0" x2="1170.7" y2="489.0" class="hair"/>
+<line x1="1207.1" y1="480.0" x2="1194.4" y2="489.0" class="hair"/>
+<line x1="1230.7" y1="480.0" x2="1218.0" y2="489.0" class="hair"/>
+<line x1="1254.4" y1="480.0" x2="1241.6" y2="489.0" class="hair"/>
+<line x1="1278.0" y1="480.0" x2="1265.3" y2="489.0" class="hair"/>
+<line x1="1301.6" y1="480.0" x2="1288.9" y2="489.0" class="hair"/>
+<line x1="1325.3" y1="480.0" x2="1312.5" y2="489.0" class="hair"/>
+<line x1="1348.9" y1="480.0" x2="1336.2" y2="489.0" class="hair"/>
+<line x1="1372.5" y1="480.0" x2="1359.8" y2="489.0" class="hair"/>
+<line x1="1396.2" y1="480.0" x2="1383.5" y2="489.0" class="hair"/>
+<line x1="1419.8" y1="480.0" x2="1407.1" y2="489.0" class="hair"/>
+<line x1="1443.5" y1="480.0" x2="1430.7" y2="489.0" class="hair"/>
+<rect x="108.0" y="116.4" width="1271.7" height="28.6" class="s1"/>
+<rect x="108.0" y="145.0" width="81.5" height="322.2" class="s0"/>
+<rect x="1374.2" y="145.0" width="5.5" height="236.8" class="s0"/>
+<rect x="1343.5" y="145.0" width="30.7" height="208.2" class="s0"/>
+<rect x="463.9" y="145.0" width="35.2" height="208.2" class="s0"/>
+<rect x="167.5" y="393.6" width="1212.3" height="10.9" class="s0"/>
+<rect x="191.4" y="357.9" width="270.7" height="22.8" class="s1"/>
+<rect x="191.4" y="262.3" width="270.7" height="95.6" class="s1"/>
+<rect x="191.4" y="151.8" width="270.7" height="51.6" class="s1"/>
+<polygon points="191.4,162.0 462.1,162.0 462.1,154.9 191.4,154.9" class="s1"/>
+<rect x="500.9" y="357.9" width="840.7" height="22.8" class="s1"/>
+<rect x="500.9" y="262.3" width="840.7" height="95.6" class="s1"/>
+<rect x="500.9" y="151.8" width="840.7" height="51.6" class="s1"/>
+<polygon points="500.9,162.0 1341.6,162.0 1341.6,154.9 500.9,154.9" class="s1"/>
+<rect x="191.4" y="203.5" width="270.7" height="58.8" class="s1"/>
+<rect x="428.8" y="203.5" width="33.3" height="58.8" class="s1"/>
+<rect x="500.9" y="203.5" width="123.4" height="58.8" class="s1"/>
+<rect x="830.6" y="203.5" width="100.9" height="58.8" class="s1"/>
+<rect x="997.0" y="203.5" width="92.7" height="58.8" class="s1"/>
+<rect x="1177.9" y="203.5" width="163.7" height="58.8" class="s1"/>
+<rect x="349.7" y="203.5" width="79.1" height="58.8" class="gl"/>
+<rect x="624.3" y="203.5" width="206.4" height="58.8" class="gl"/>
+<rect x="931.5" y="203.5" width="65.5" height="58.8" class="gl"/>
+<rect x="1089.7" y="203.5" width="88.2" height="58.8" class="gl"/>
+<rect x="258.1" y="120.0" width="81.8" height="25.0" class="s2"/>
+<rect x="961.8" y="120.0" width="81.8" height="25.0" class="s2"/>
+<text x="299.0" y="133.6" text-anchor="middle" class="lblg">clima</text>
+<text x="1002.7" y="133.6" text-anchor="middle" class="lblg">clima</text>
+<circle cx="974.9" cy="436.8" r="43.2" class="wheel"/>
+<circle cx="974.9" cy="436.8" r="23.6" class="wheelh"/>
+<circle cx="1129.5" cy="436.8" r="43.2" class="wheel"/>
+<circle cx="1129.5" cy="436.8" r="23.6" class="wheelh"/>
+<line x1="167.5" y1="353.2" x2="1374.2" y2="353.2" class="dashr"/>
+<text x="280.7" y="369.2" text-anchor="start" class="lblg">piano pavimento +1.395</text>
+<circle cx="68.9" cy="331.8" r="10.5" class="man"/>
+<polygon points="55.3,480.0 63.5,480.0 63.9,409.1 73.9,409.1 74.4,480.0 82.5,480.0 83.9,398.2 91.2,372.7 84.4,349.1 53.5,349.1 46.6,372.7 53.9,398.2" class="man"/>
+<line x1="103.0" y1="76.2" x2="1384.7" y2="76.2" class="dim"/>
+<line x1="103.5" y1="80.7" x2="112.5" y2="71.7" class="dim"/>
+<line x1="1375.2" y1="80.7" x2="1384.2" y2="71.7" class="dim"/>
+<text x="743.9" y="71.2" text-anchor="middle" class="dimt">13.989</text>
+<line x1="108.0" y1="116.4" x2="108.0" y2="81.2" class="ext"/>
+<line x1="1379.7" y1="145.0" x2="1379.7" y2="81.2" class="ext"/>
+<line x1="103.0" y1="520.0" x2="979.9" y2="520.0" class="dim"/>
+<line x1="103.5" y1="524.5" x2="112.5" y2="515.5" class="dim"/>
+<line x1="970.4" y1="524.5" x2="979.4" y2="515.5" class="dim"/>
+<text x="541.5" y="535.0" text-anchor="middle" class="dimt">9.536</text>
+<line x1="969.9" y1="520.0" x2="1134.5" y2="520.0" class="dim"/>
+<line x1="970.4" y1="524.5" x2="979.4" y2="515.5" class="dim"/>
+<line x1="1125.0" y1="524.5" x2="1134.0" y2="515.5" class="dim"/>
+<text x="1052.2" y="535.0" text-anchor="middle" class="dimt">1.700</text>
+<line x1="1124.5" y1="520.0" x2="1384.7" y2="520.0" class="dim"/>
+<line x1="1125.0" y1="524.5" x2="1134.0" y2="515.5" class="dim"/>
+<line x1="1375.2" y1="524.5" x2="1384.2" y2="515.5" class="dim"/>
+<text x="1254.6" y="535.0" text-anchor="middle" class="dimt">2.753</text>
+<line x1="108.0" y1="492.0" x2="108.0" y2="515.0" class="ext"/>
+<line x1="974.9" y1="492.0" x2="974.9" y2="515.0" class="ext"/>
+<line x1="1129.5" y1="492.0" x2="1129.5" y2="515.0" class="ext"/>
+<line x1="1379.7" y1="492.0" x2="1379.7" y2="515.0" class="ext"/>
+<line x1="1418.9" y1="111.4" x2="1418.9" y2="485.0" class="dim"/>
+<line x1="1414.4" y1="484.5" x2="1423.4" y2="475.5" class="dim"/>
+<line x1="1414.4" y1="120.9" x2="1423.4" y2="111.9" class="dim"/>
+<text x="1424.9" y="298.2" text-anchor="middle" class="dimt" transform="rotate(-90 1424.9 298.2)">4.000</text>
+<line x1="1379.7" y1="116.4" x2="1423.9" y2="116.4" class="ext"/>
+<line x1="1406.2" y1="480.0" x2="1423.9" y2="480.0" class="ext"/>
+<line x1="1393.5" y1="198.5" x2="1393.5" y2="267.3" class="dim"/>
+<line x1="1389.0" y1="266.8" x2="1398.0" y2="257.8" class="dim"/>
+<line x1="1389.0" y1="208.0" x2="1398.0" y2="199.0" class="dim"/>
+<text x="1399.5" y="232.9" text-anchor="middle" class="dimt" transform="rotate(-90 1399.5 232.9)">647</text>
+<line x1="1379.7" y1="262.3" x2="1398.5" y2="262.3" class="ext"/>
+<line x1="1379.7" y1="203.5" x2="1398.5" y2="203.5" class="ext"/>
+<text x="743.9" y="30.0" text-anchor="middle" class="cap">VISTA LATO CUCINA — configurazione aperta</text>
+<text x="148.9" y="298.2" text-anchor="middle" class="lblg" transform="rotate(-90 148.9 298.2)">vano tecnico</text>
+</svg></div>
+  <p class="sheet-note">Carrello a <b>2 assi</b> (interasse 1.700, ruote Ø950) con primo asse a 9.536 dal fronte;
+  sbalzo posteriore 2.753. Le quattro vetrine del lato cucina sono alle posizioni X reali del modello
+  (luci 870 / 2.270 / 720 / 970).</p>
+</section>
+
+<!-- ============================ TAV.05 · PIANTA CHIUSA ============================ -->
+<section class="sheet" id="tav05">
+  <header class="sheet-head"><span class="tavno">TAV.05</span><h2>Pianta — configurazione chiusa</h2><span class="sheet-meta">quote in mm · marcia</span></header>
+  <div class="sheet-body scrollx"><svg viewBox="0 0 1512 420" role="img" aria-label="Pianta configurazione chiusa" preserveAspectRatio="xMidYMid meet">
+<rect x="108.0" y="96.0" width="81.5" height="230.9" class="s0"/>
+<rect x="463.9" y="321.2" width="35.2" height="5.7" class="s0"/>
+<rect x="463.9" y="96.0" width="35.2" height="7.9" class="s0"/>
+<rect x="1343.5" y="321.2" width="30.7" height="5.7" class="s0"/>
+<rect x="1343.5" y="96.0" width="30.7" height="7.9" class="s0"/>
+<rect x="1374.2" y="96.0" width="5.5" height="230.9" class="s0"/>
+<line x1="189.5" y1="326.9" x2="463.9" y2="326.9" class="hair"/>
+<line x1="499.1" y1="326.9" x2="1343.5" y2="326.9" class="hair"/>
+<line x1="189.5" y1="96.0" x2="463.9" y2="96.0" class="hair"/>
+<line x1="499.1" y1="96.0" x2="1343.5" y2="96.0" class="hair"/>
+<rect x="191.4" y="321.4" width="270.7" height="5.5" class="s1"/>
+<rect x="191.4" y="96.0" width="270.7" height="5.5" class="s1"/>
+<rect x="500.9" y="321.4" width="840.7" height="5.5" class="s1"/>
+<rect x="500.9" y="96.0" width="840.7" height="5.5" class="s1"/>
+<rect x="191.4" y="222.4" width="5.5" height="99.0" class="s1"/>
+<rect x="191.4" y="101.5" width="5.5" height="99.0" class="s1"/>
+<rect x="456.6" y="222.4" width="5.5" height="99.0" class="s1"/>
+<rect x="456.6" y="101.5" width="5.5" height="99.0" class="s1"/>
+<rect x="500.9" y="222.4" width="5.5" height="99.0" class="s1"/>
+<rect x="500.9" y="101.5" width="5.5" height="99.0" class="s1"/>
+<rect x="1336.2" y="222.4" width="5.5" height="99.0" class="s1"/>
+<rect x="1336.2" y="101.5" width="5.5" height="99.0" class="s1"/>
+<rect x="349.7" y="97.8" width="79.1" height="1.8" class="gl"/>
+<rect x="624.3" y="97.8" width="206.4" height="1.8" class="gl"/>
+<rect x="931.5" y="97.8" width="65.5" height="1.8" class="gl"/>
+<rect x="1089.7" y="97.8" width="88.2" height="1.8" class="gl"/>
+<rect x="983.8" y="323.3" width="142.7" height="1.8" class="gl"/>
+<rect x="1035.2" y="103.9" width="7.3" height="217.3" class="dv"/>
+<rect x="1124.7" y="103.9" width="7.4" height="217.3" class="dv"/>
+<text x="739.8" y="310.0" text-anchor="middle" class="lblg">estrattori rientrati — corridoio residuo 240 mm</text>
+<line x1="103.0" y1="62.0" x2="1384.7" y2="62.0" class="dim"/>
+<line x1="103.5" y1="66.5" x2="112.5" y2="57.5" class="dim"/>
+<line x1="1375.2" y1="66.5" x2="1384.2" y2="57.5" class="dim"/>
+<text x="743.9" y="57.0" text-anchor="middle" class="dimt">13.989</text>
+<line x1="108.0" y1="96.0" x2="108.0" y2="67.0" class="ext"/>
+<line x1="1379.7" y1="96.0" x2="1379.7" y2="67.0" class="ext"/>
+<line x1="72.0" y1="91.0" x2="72.0" y2="331.9" class="dim"/>
+<line x1="67.5" y1="331.4" x2="76.5" y2="322.4" class="dim"/>
+<line x1="67.5" y1="100.5" x2="76.5" y2="91.5" class="dim"/>
+<text x="66.0" y="211.5" text-anchor="middle" class="dimt" transform="rotate(-90 66.0 211.5)">2.540</text>
+<line x1="100.0" y1="326.9" x2="67.0" y2="326.9" class="ext"/>
+<line x1="100.0" y1="96.0" x2="67.0" y2="96.0" class="ext"/>
+<line x1="926.7" y1="364.9" x2="1177.6" y2="364.9" class="dim"/>
+<line x1="927.2" y1="369.4" x2="936.2" y2="360.4" class="dim"/>
+<line x1="1168.1" y1="369.4" x2="1177.1" y2="360.4" class="dim"/>
+<text x="1052.2" y="379.9" text-anchor="middle" class="dimt">carrello 2 assi · interasse 1.700</text>
+<text x="743.9" y="410.9" text-anchor="middle" class="cap">CONFIGURAZIONE DI MARCIA — sagoma stradale 13.989 × 2.540 × h 4.000</text>
+</svg></div>
+  <p class="sheet-note">Da chiuso i due estrattori rientrano completamente nel corpo fisso: resta solo un corridoio
+  tecnico di <b>240&nbsp;mm</b>. La configurazione chiusa serve al trasporto, non alla disposizione dell&rsquo;arredo:
+  <b>tutti i mobili vanno pensati nella configurazione aperta</b>, dentro le sagome degli estrattori o della zona centrale.</p>
+</section>
+
+<!-- ============================ TAV.06 · QUADRO MISURE ============================ -->
+<section class="sheet" id="tav06">
+  <header class="sheet-head"><span class="tavno">TAV.06</span><h2>Quadro delle misure</h2><span class="sheet-meta">tutte le quote in mm</span></header>
+
+  <div class="grid2" style="padding:6px 0 0">
+    <div class="tbl-wrap">
+      <table aria-label="Ingombri esterni">
+        <thead><tr><th>Ingombri esterni</th><th class="n">Chiuso</th><th class="n">Aperto</th></tr></thead>
+        <tbody>
+          <tr><td>Lunghezza</td><td class="n">13.989</td><td class="n">13.989</td></tr>
+          <tr><td>Larghezza</td><td class="n">2.540</td><td class="n">4.840</td></tr>
+          <tr><td>Altezza da terra</td><td class="n">4.000</td><td class="n">4.000</td></tr>
+          <tr><td>Corsa estrattori (per lato)</td><td class="n">—</td><td class="n">+1.150</td></tr>
+          <tr><td>Piano pavimento interno</td><td class="n">+1.395</td><td class="n">+1.395</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table aria-label="Quote verticali">
+        <thead><tr><th>Quote verticali</th><th class="n">da terra</th><th class="n">dal pavim.</th></tr></thead>
+        <tbody>
+          <tr><td>Pavimento finito</td><td class="n">1.395</td><td class="n">0</td></tr>
+          <tr><td>Davanzale fascia vetrata (baie)</td><td class="n">2.395</td><td class="n">+1.000</td></tr>
+          <tr><td>Testa fascia vetrata</td><td class="n">3.042</td><td class="n">+1.647</td></tr>
+          <tr><td>Soffitto baie — filo esterno</td><td class="n">3.498</td><td class="n">+2.103</td></tr>
+          <tr><td>Soffitto baie — filo interno</td><td class="n">3.546</td><td class="n">+2.151</td></tr>
+          <tr><td>Controsoffitto zona centrale</td><td class="n">3.646</td><td class="n">+2.251</td></tr>
+          <tr><td>Colmo tetto</td><td class="n">4.000</td><td class="n">+2.605</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tbl-wrap">
+    <table aria-label="Zone interne in configurazione aperta">
+      <thead><tr><th>Zona (aperto)</th><th class="n">X da → a</th><th class="n">Netto L × P</th><th class="n">Sup.</th><th class="n">H utile</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td><i class="zdot" style="background:var(--tA);border:1px solid var(--dim)"></i><b>Zona A</b> — sala principale</td>
+            <td class="n">919 → 10.199</td><td class="n">9.280 × 2.390</td><td class="n">22,2 m²</td><td class="n">2.251</td>
+            <td>fascia centrale; si apre su entrambe le baie</td></tr>
+        <tr><td><i class="zdot" style="background:var(--tB);border:1px solid var(--dim)"></i><b>Zona B</b> — locale intermedio</td>
+            <td class="n">10.279 → 11.184</td><td class="n">905 × 2.390</td><td class="n">2,2 m²</td><td class="n">2.251</td>
+            <td>tra i due divisori pieni; chiusa verso la baia cucina</td></tr>
+        <tr><td><i class="zdot" style="background:var(--tC);border:1px solid var(--dim)"></i><b>Zona C</b> — locale posteriore</td>
+            <td class="n">11.265 → 13.928</td><td class="n">2.663 × 2.390</td><td class="n">6,4 m²</td><td class="n">2.251</td>
+            <td>con vetrata interna a L (luci 537 / 605 / 789)</td></tr>
+        <tr><td><i class="zdot" style="background:var(--tI);border:1px solid var(--glassc)"></i><b>Baia ingresso</b> — mod. anteriore</td>
+            <td class="n">977 → 3.835</td><td class="n">2.858 × 1.089</td><td class="n">3,1 m²</td><td class="n">2.103–2.151</td>
+            <td>pannello vetrato in testata (luce 420)</td></tr>
+        <tr><td><i class="zdot" style="background:var(--tI);border:1px solid var(--glassc)"></i><b>Baia ingresso</b> — mod. principale</td>
+            <td class="n">4.382 → 13.510</td><td class="n">9.128 × 1.152</td><td class="n">10,5 m²</td><td class="n">2.103–2.151</td>
+            <td>settori 5.019 / 1.888 / 2.123 (divisori a X 9.401 e 11.329)</td></tr>
+        <tr><td><i class="zdot" style="background:var(--tK);border:1px solid var(--glassc)"></i><b>Baia cucina</b> — mod. anteriore</td>
+            <td class="n">977 → 3.835</td><td class="n">2.858 × 1.089</td><td class="n">3,1 m²</td><td class="n">2.103–2.151</td>
+            <td>pannello vetrato in testata (luce 420)</td></tr>
+        <tr><td><i class="zdot" style="background:var(--tK);border:1px solid var(--glassc)"></i><b>Baia cucina</b> — mod. principale</td>
+            <td class="n">4.382 → 13.510</td><td class="n">9.128 × 1.176</td><td class="n">10,7 m²</td><td class="n">2.103–2.151</td>
+            <td>settori 3.921 / 2.160 / 2.967 (divisori a X 8.303 e 10.503)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="grid2">
+    <div class="tbl-wrap">
+      <table aria-label="Vetrate">
+        <thead><tr><th>Vetrate</th><th class="n">Posizione X</th><th class="n">Luce</th><th class="n">Quota (dal pav.)</th></tr></thead>
+        <tbody>
+          <tr><td>Vetrina cucina 1</td><td class="n">2.659 → 3.529</td><td class="n">870</td><td class="n">+1.000 / +1.647</td></tr>
+          <tr><td>Vetrina cucina 2</td><td class="n">5.679 → 7.949</td><td class="n">2.270</td><td class="n">+1.000 / +1.647</td></tr>
+          <tr><td>Vetrina cucina 3</td><td class="n">9.059 → 9.779</td><td class="n">720</td><td class="n">+1.000 / +1.647</td></tr>
+          <tr><td>Vetrina cucina 4</td><td class="n">10.799 → 11.769</td><td class="n">970</td><td class="n">+1.000 / +1.647</td></tr>
+          <tr><td>Vetrina ingresso</td><td class="n">9.634 → 11.204</td><td class="n">1.570</td><td class="n">+1.000 / +1.647</td></tr>
+          <tr><td>Testate anteriori (×2)</td><td class="n">X ≈ 948</td><td class="n">420</td><td class="n nw">tutta altezza</td></tr>
+          <tr><td>Vetrata interna zona C</td><td class="n nw">11.825 · 12.657 · 12.668 → 13.457</td><td class="n nw">537 · 605 · 789</td><td class="n nw">tutta altezza</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table aria-label="Oblò a soffitto">
+        <thead><tr><th>Oblò a soffitto</th><th class="n">Posizione X</th><th class="n">Dimensioni</th></tr></thead>
+        <tbody>
+          <tr><td>Oblò 1</td><td class="n">1.318 → 1.968</td><td class="n">650 × 600</td></tr>
+          <tr><td>Oblò 2</td><td class="n">4.921 → 5.701</td><td class="n">780 × 600</td></tr>
+          <tr><td>Oblò 3</td><td class="n">6.303 → 7.595</td><td class="n">1.292 × 650</td></tr>
+          <tr><td>Oblò 4</td><td class="n">8.287 → 9.027</td><td class="n">740 × 600</td></tr>
+          <tr><td>Oblò 5</td><td class="n">12.302 → 12.992</td><td class="n">690 × 600</td></tr>
+          <tr><td colspan="3"><span class="sub">Tutti in corsia centrale (Y 2.095–2.745), a filo controsoffitto.</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ TAV.07 · VINCOLI ============================ -->
+<section class="sheet" id="tav07">
+  <header class="sheet-head"><span class="tavno">TAV.07</span><h2>Vincoli per il progetto d&rsquo;arredo</h2><span class="sheet-meta">registro V1–V8</span></header>
+  <ol class="vinc">
+    <li><b class="vid">V1</b><div><strong>Altezze utili.</strong> 2.251 in zona centrale; nelle baie soffitto inclinato
+      2.103–2.151. Colonne e armadi ≥ 2.100 solo nella fascia centrale (larga 2.390).</div></li>
+    <li><b class="vid">V2</b><div><strong>Fascia vetrata.</strong> Sulle pareti esterne delle baie il vetro va da +1.000 a
+      +1.647 dal pavimento: contro parete esterna solo basi/banconi h ≤ 1.000; non ostruire le vetrine.</div></li>
+    <li><b class="vid">V3</b><div><strong>Pavimento unico.</strong> Da aperto il piano è continuo a +1.395 da terra, senza
+      gradini; le ruote restano interamente sotto quota pavimento (nessun passaruota in pianta).</div></li>
+    <li><b class="vid">V4</b><div><strong>Elementi fissi.</strong> Blocco frontale X 0–897 (vano tecnico), pilastri
+      X 3.915–4.302 e X 13.590–13.928, parete di fondo X 13.928: non spostabili.</div></li>
+    <li><b class="vid">V5</b><div><strong>Divisori esistenti.</strong> Spessori 40–81 alle X di TAV.02 (8.303 · 9.401 ·
+      10.199 · 10.503 · 11.184 · 11.329 + parete lato cucina 9.836–11.811): verificare prima di modificarli.</div></li>
+    <li><b class="vid">V6</b><div><strong>Oblò.</strong> 5 aperture di luce in corsia centrale: niente pensili o
+      controsoffitti pieni sotto le posizioni di TAV.06.</div></li>
+    <li><b class="vid">V7</b><div><strong>Pannello sospeso.</strong> Lato cucina, X 8.327–9.002: elemento a parete da
+      +715 dal pavimento fino al soffitto (varco/passavivande sotto).</div></li>
+    <li><b class="vid">V8</b><div><strong>Carichi.</strong> Arredi pesanti preferibilmente sopra il carrello
+      (X 9.061–11.711); da validare con il costruttore della scocca.</div></li>
+  </ol>
+  <p class="coord"><strong>Sistema di coordinate</strong> (identico nei due DXF e in tutte le tavole) —
+    <code>X=0</code> fronte scocca lato motrice, X cresce verso il retro ·
+    <code>Y=0</code> filo esterno dell&rsquo;estrattore ingresso aperto (corpo fisso: Y 1.150–3.690) ·
+    <code>Z=0</code> terra, pavimento finito a <code>Z=1.395</code>: per l&rsquo;arredo usare il pavimento come quota zero.</p>
+</section>
+
+<footer>
+  <span>Rilievo generato dalla geometria dei DXF — nessuna quota stimata a vista.</span>
+  <span class="mono">scocca_26A011_rev06_aperto.dxf · scocca_26A011_rev06_chiuso.dxf</span>
+</footer>
+
+</div>
+
+<script id="geo" type="application/json">{"aperto":[{"l":"VOL_TELAIO","v":[[654.0,1835.0,830.0],[13989.0,1835.0,830.0],[13989.0,1925.0,830.0],[654.0,1925.0,830.0],[654.0,1835.0,950.0],[13989.0,1835.0,950.0],[13989.0,1925.0,950.0],[654.0,1925.0,950.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_TELAIO","v":[[654.0,3005.0,830.0],[13989.0,3005.0,830.0],[13989.0,3095.0,830.0],[654.0,3095.0,830.0],[654.0,3005.0,950.0],[13989.0,3005.0,950.0],[13989.0,3095.0,950.0],[654.0,3095.0,950.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_TELAIO","v":[[10011.0,1274.0,475.0],[9994.8,1274.0,597.9],[9947.4,1274.0,712.5],[9871.9,1274.0,810.9],[9773.5,1274.0,886.4],[9658.9,1274.0,933.8],[9536.0,1274.0,950.0],[9413.1,1274.0,933.8],[9298.5,1274.0,886.4],[9200.1,1274.0,810.9],[9124.6,1274.0,712.5],[9077.2,1274.0,597.9],[9061.0,1274.0,475.0],[9077.2,1274.0,352.1],[9124.6,1274.0,237.5],[9200.1,1274.0,139.1],[9298.5,1274.0,63.6],[9413.1,1274.0,16.2],[9536.0,1274.0,0.0],[9658.9,1274.0,16.2],[9773.5,1274.0,63.6],[9871.9,1274.0,139.1],[9947.4,1274.0,237.5],[9994.8,1274.0,352.1],[9994.8,1714.0,352.1],[10011.0,1714.0,475.0],[9947.4,1714.0,237.5],[9871.9,1714.0,139.1],[9773.5,1714.0,63.6],[9658.9,1714.0,16.2],[9536.0,1714.0,0.0],[9413.1,1714.0,16.2],[9298.5,1714.0,63.6],[9200.1,1714.0,139.1],[9124.6,1714.0,237.5],[9077.2,1714.0,352.1],[9061.0,1714.0,475.0],[9077.2,1714.0,597.9],[9124.6,1714.0,712.5],[9200.1,1714.0,810.9],[9298.5,1714.0,886.4],[9413.1,1714.0,933.8],[9536.0,1714.0,950.0],[9658.9,1714.0,933.8],[9773.5,1714.0,886.4],[9871.9,1714.0,810.9],[9947.4,1714.0,712.5],[9994.8,1714.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_TELAIO","v":[[10011.0,3262.0,475.0],[9994.8,3262.0,597.9],[9947.4,3262.0,712.5],[9871.9,3262.0,810.9],[9773.5,3262.0,886.4],[9658.9,3262.0,933.8],[9536.0,3262.0,950.0],[9413.1,3262.0,933.8],[9298.5,3262.0,886.4],[9200.1,3262.0,810.9],[9124.6,3262.0,712.5],[9077.2,3262.0,597.9],[9061.0,3262.0,475.0],[9077.2,3262.0,352.1],[9124.6,3262.0,237.5],[9200.1,3262.0,139.1],[9298.5,3262.0,63.6],[9413.1,3262.0,16.2],[9536.0,3262.0,0.0],[9658.9,3262.0,16.2],[9773.5,3262.0,63.6],[9871.9,3262.0,139.1],[9947.4,3262.0,237.5],[9994.8,3262.0,352.1],[9994.8,3688.0,352.1],[10011.0,3688.0,475.0],[9947.4,3688.0,237.5],[9871.9,3688.0,139.1],[9773.5,3688.0,63.6],[9658.9,3688.0,16.2],[9536.0,3688.0,0.0],[9413.1,3688.0,16.2],[9298.5,3688.0,63.6],[9200.1,3688.0,139.1],[9124.6,3688.0,237.5],[9077.2,3688.0,352.1],[9061.0,3688.0,475.0],[9077.2,3688.0,597.9],[9124.6,3688.0,712.5],[9200.1,3688.0,810.9],[9298.5,3688.0,886.4],[9413.1,3688.0,933.8],[9536.0,3688.0,950.0],[9658.9,3688.0,933.8],[9773.5,3688.0,886.4],[9871.9,3688.0,810.9],[9947.4,3688.0,712.5],[9994.8,3688.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_TELAIO","v":[[11711.0,1274.0,475.0],[11694.8,1274.0,597.9],[11647.4,1274.0,712.5],[11571.9,1274.0,810.9],[11473.5,1274.0,886.4],[11358.9,1274.0,933.8],[11236.0,1274.0,950.0],[11113.1,1274.0,933.8],[10998.5,1274.0,886.4],[10900.1,1274.0,810.9],[10824.6,1274.0,712.5],[10777.2,1274.0,597.9],[10761.0,1274.0,475.0],[10777.2,1274.0,352.1],[10824.6,1274.0,237.5],[10900.1,1274.0,139.1],[10998.5,1274.0,63.6],[11113.1,1274.0,16.2],[11236.0,1274.0,0.0],[11358.9,1274.0,16.2],[11473.5,1274.0,63.6],[11571.9,1274.0,139.1],[11647.4,1274.0,237.5],[11694.8,1274.0,352.1],[11694.8,1714.0,352.1],[11711.0,1714.0,475.0],[11647.4,1714.0,237.5],[11571.9,1714.0,139.1],[11473.5,1714.0,63.6],[11358.9,1714.0,16.2],[11236.0,1714.0,0.0],[11113.1,1714.0,16.2],[10998.5,1714.0,63.6],[10900.1,1714.0,139.1],[10824.6,1714.0,237.5],[10777.2,1714.0,352.1],[10761.0,1714.0,475.0],[10777.2,1714.0,597.9],[10824.6,1714.0,712.5],[10900.1,1714.0,810.9],[10998.5,1714.0,886.4],[11113.1,1714.0,933.8],[11236.0,1714.0,950.0],[11358.9,1714.0,933.8],[11473.5,1714.0,886.4],[11571.9,1714.0,810.9],[11647.4,1714.0,712.5],[11694.8,1714.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_TELAIO","v":[[11711.0,3262.0,475.0],[11694.8,3262.0,597.9],[11647.4,3262.0,712.5],[11571.9,3262.0,810.9],[11473.5,3262.0,886.4],[11358.9,3262.0,933.8],[11236.0,3262.0,950.0],[11113.1,3262.0,933.8],[10998.5,3262.0,886.4],[10900.1,3262.0,810.9],[10824.6,3262.0,712.5],[10777.2,3262.0,597.9],[10761.0,3262.0,475.0],[10777.2,3262.0,352.1],[10824.6,3262.0,237.5],[10900.1,3262.0,139.1],[10998.5,3262.0,63.6],[11113.1,3262.0,16.2],[11236.0,3262.0,0.0],[11358.9,3262.0,16.2],[11473.5,3262.0,63.6],[11571.9,3262.0,139.1],[11647.4,3262.0,237.5],[11694.8,3262.0,352.1],[11694.8,3688.0,352.1],[11711.0,3688.0,475.0],[11647.4,3688.0,237.5],[11571.9,3688.0,139.1],[11473.5,3688.0,63.6],[11358.9,3688.0,16.2],[11236.0,3688.0,0.0],[11113.1,3688.0,16.2],[10998.5,3688.0,63.6],[10900.1,3688.0,139.1],[10824.6,3688.0,237.5],[10777.2,3688.0,352.1],[10761.0,3688.0,475.0],[10777.2,3688.0,597.9],[10824.6,3688.0,712.5],[10900.1,3688.0,810.9],[10998.5,3688.0,886.4],[11113.1,3688.0,933.8],[11236.0,3688.0,950.0],[11358.9,3688.0,933.8],[11473.5,3688.0,886.4],[11571.9,3688.0,810.9],[11647.4,3688.0,712.5],[11694.8,3688.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_CASSONE","v":[[0.0,1150.0,141.0],[897.0,1150.0,141.0],[897.0,3690.0,141.0],[0.0,3690.0,141.0],[0.0,1150.0,3685.0],[897.0,1150.0,3685.0],[897.0,3690.0,3685.0],[0.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[13928.0,1150.0,1080.0],[13989.0,1150.0,1080.0],[13989.0,3690.0,1080.0],[13928.0,3690.0,1080.0],[13928.0,1150.0,3685.0],[13989.0,1150.0,3685.0],[13989.0,3690.0,3685.0],[13928.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[3915.0,1150.0,1395.0],[4302.0,1150.0,1395.0],[4302.0,1213.0,1395.0],[3915.0,1213.0,1395.0],[3915.0,1150.0,3685.0],[4302.0,1150.0,3685.0],[4302.0,1213.0,3685.0],[3915.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[3915.0,3603.0,1395.0],[4302.0,3603.0,1395.0],[4302.0,3690.0,1395.0],[3915.0,3690.0,1395.0],[3915.0,3603.0,3685.0],[4302.0,3603.0,3685.0],[4302.0,3690.0,3685.0],[3915.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[13590.0,1150.0,1395.0],[13928.0,1150.0,1395.0],[13928.0,1213.0,1395.0],[13590.0,1213.0,1395.0],[13590.0,1150.0,3685.0],[13928.0,1150.0,3685.0],[13928.0,1213.0,3685.0],[13590.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[13590.0,3603.0,1395.0],[13928.0,3603.0,1395.0],[13928.0,3690.0,1395.0],[13590.0,3690.0,1395.0],[13590.0,3603.0,3685.0],[13928.0,3603.0,3685.0],[13928.0,3690.0,3685.0],[13590.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,1150.0,3646.0],[3915.0,1150.0,3646.0],[3915.0,1213.0,3646.0],[897.0,1213.0,3646.0],[897.0,1150.0,3685.0],[3915.0,1150.0,3685.0],[3915.0,1213.0,3685.0],[897.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,1150.0,3646.0],[13590.0,1150.0,3646.0],[13590.0,1213.0,3646.0],[4302.0,1213.0,3646.0],[4302.0,1150.0,3685.0],[13590.0,1150.0,3685.0],[13590.0,1213.0,3685.0],[4302.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,3603.0,3646.0],[3915.0,3603.0,3646.0],[3915.0,3690.0,3646.0],[897.0,3690.0,3646.0],[897.0,3603.0,3685.0],[3915.0,3603.0,3685.0],[3915.0,3690.0,3685.0],[897.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,3603.0,3646.0],[13590.0,3603.0,3646.0],[13590.0,3690.0,3646.0],[4302.0,3690.0,3646.0],[4302.0,3603.0,3685.0],[13590.0,3603.0,3685.0],[13590.0,3690.0,3685.0],[4302.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,1213.0,950.0],[3915.0,1213.0,950.0],[3915.0,1276.0,950.0],[897.0,1276.0,950.0],[897.0,1213.0,1343.0],[3915.0,1213.0,1343.0],[3915.0,1276.0,1343.0],[897.0,1276.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,1213.0,950.0],[13590.0,1213.0,950.0],[13590.0,1276.0,950.0],[4302.0,1276.0,950.0],[4302.0,1213.0,1343.0],[13590.0,1213.0,1343.0],[13590.0,1276.0,1343.0],[4302.0,1276.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,3527.0,950.0],[3915.0,3527.0,950.0],[3915.0,3590.0,950.0],[897.0,3590.0,950.0],[897.0,3527.0,1343.0],[3915.0,3527.0,1343.0],[3915.0,3590.0,1343.0],[897.0,3590.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,3527.0,950.0],[13590.0,3527.0,950.0],[13590.0,3590.0,950.0],[4302.0,3590.0,950.0],[4302.0,3527.0,1343.0],[13590.0,3527.0,1343.0],[13590.0,3590.0,1343.0],[4302.0,3590.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[654.0,1151.0,950.0],[13928.0,1151.0,950.0],[13928.0,3689.0,950.0],[654.0,3689.0,950.0],[654.0,1151.0,1343.0],[13928.0,1151.0,1343.0],[13928.0,3689.0,1343.0],[654.0,3689.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[654.0,2340.0,1343.0],[13928.0,2340.0,1343.0],[13928.0,2500.0,1343.0],[654.0,2500.0,1343.0],[654.0,2340.0,1395.0],[13928.0,2340.0,1395.0],[13928.0,2500.0,1395.0],[654.0,2500.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[3895.0,1150.0,1343.0],[4322.0,1150.0,1343.0],[4322.0,3690.0,1343.0],[3895.0,3690.0,1343.0],[3895.0,1150.0,1395.0],[4322.0,1150.0,1395.0],[4322.0,3690.0,1395.0],[3895.0,3690.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[13570.0,1150.0,1343.0],[13928.0,1150.0,1343.0],[13928.0,3690.0,1343.0],[13570.0,3690.0,1343.0],[13570.0,1150.0,1395.0],[13928.0,1150.0,1395.0],[13928.0,3690.0,1395.0],[13570.0,3690.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[654.0,1150.0,1343.0],[917.0,1150.0,1343.0],[917.0,3690.0,1343.0],[654.0,3690.0,1343.0],[654.0,1150.0,1395.0],[917.0,1150.0,1395.0],[917.0,3690.0,1395.0],[654.0,3690.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_TETTO","v":[[0.0,1150.0,3685.0],[13989.0,1150.0,3685.0],[13989.0,3690.0,3685.0],[0.0,3690.0,3685.0],[0.0,1150.0,4000.0],[13989.0,1150.0,4000.0],[13989.0,3690.0,4000.0],[0.0,3690.0,4000.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CONTROSOFFITTO","v":[[919.0,1213.0,3646.0],[3915.0,1213.0,3646.0],[3915.0,3603.0,3646.0],[919.0,3603.0,3646.0],[919.0,1213.0,3685.0],[3915.0,1213.0,3685.0],[3915.0,3603.0,3685.0],[919.0,3603.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CONTROSOFFITTO","v":[[4302.0,1213.0,3646.0],[9836.0,1213.0,3646.0],[9836.0,3603.0,3646.0],[4302.0,3603.0,3646.0],[4302.0,1213.0,3685.0],[9836.0,1213.0,3685.0],[9836.0,3603.0,3685.0],[4302.0,3603.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CONTROSOFFITTO","v":[[11265.0,1213.0,3646.0],[13928.0,1213.0,3646.0],[13928.0,3603.0,3646.0],[11265.0,3603.0,3646.0],[11265.0,1213.0,3685.0],[13928.0,1213.0,3685.0],[13928.0,3603.0,3685.0],[11265.0,3603.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[1318.0,2120.0,3644.0],[1968.0,2120.0,3644.0],[1968.0,2720.0,3644.0],[1318.0,2720.0,3644.0],[1318.0,2120.0,4002.0],[1968.0,2120.0,4002.0],[1968.0,2720.0,4002.0],[1318.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[4921.0,2120.0,3644.0],[5701.0,2120.0,3644.0],[5701.0,2720.0,3644.0],[4921.0,2720.0,3644.0],[4921.0,2120.0,4002.0],[5701.0,2120.0,4002.0],[5701.0,2720.0,4002.0],[4921.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[8287.0,2120.0,3644.0],[9027.0,2120.0,3644.0],[9027.0,2720.0,3644.0],[8287.0,2720.0,3644.0],[8287.0,2120.0,4002.0],[9027.0,2120.0,4002.0],[9027.0,2720.0,4002.0],[8287.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[12302.0,2120.0,3644.0],[12992.0,2120.0,3644.0],[12992.0,2720.0,3644.0],[12302.0,2720.0,3644.0],[12302.0,2120.0,4002.0],[12992.0,2120.0,4002.0],[12992.0,2720.0,4002.0],[12302.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[6303.0,2095.0,3644.0],[7595.0,2095.0,3644.0],[7595.0,2745.0,3644.0],[6303.0,2745.0,3644.0],[6303.0,2095.0,4002.0],[7595.0,2095.0,4002.0],[7595.0,2745.0,4002.0],[6303.0,2745.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_IMPIANTO_CLIMA","v":[[1651.0,1698.0,3685.0],[2551.0,1698.0,3685.0],[2551.0,3270.0,3685.0],[1651.0,3270.0,3685.0],[1651.0,1698.0,3960.0],[2551.0,1698.0,3960.0],[2551.0,3270.0,3960.0],[1651.0,3270.0,3960.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_IMPIANTO_CLIMA","v":[[9392.0,1698.0,3685.0],[10292.0,1698.0,3685.0],[10292.0,3270.0,3685.0],[9392.0,3270.0,3685.0],[9392.0,1698.0,3960.0],[10292.0,1698.0,3960.0],[10292.0,3270.0,3960.0],[9392.0,3270.0,3960.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[11184.0,1213.0,1395.0],[11265.0,1213.0,1395.0],[11265.0,3603.0,1395.0],[11184.0,3603.0,1395.0],[11184.0,1213.0,3646.0],[11265.0,1213.0,3646.0],[11265.0,3603.0,3646.0],[11184.0,3603.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[10199.0,1213.0,1395.0],[10279.0,1213.0,1395.0],[10279.0,3603.0,1395.0],[10199.0,3603.0,1395.0],[10199.0,1213.0,3646.0],[10279.0,1213.0,3646.0],[10279.0,3603.0,3646.0],[10199.0,3603.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[8303.0,3603.0,1395.0],[8343.0,3603.0,1395.0],[8343.0,4779.0,1395.0],[8303.0,4779.0,1395.0],[8303.0,3603.0,3646.0],[8343.0,3603.0,3646.0],[8343.0,4779.0,3646.0],[8303.0,4779.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[10503.0,3603.0,1395.0],[10543.0,3603.0,1395.0],[10543.0,4779.0,1395.0],[10503.0,4779.0,1395.0],[10503.0,3603.0,3646.0],[10543.0,3603.0,3646.0],[10543.0,4779.0,3646.0],[10503.0,4779.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[9836.0,3603.0,1395.0],[11811.0,3603.0,1395.0],[11811.0,3643.0,1395.0],[9836.0,3643.0,1395.0],[9836.0,3603.0,3646.0],[11811.0,3603.0,3646.0],[11811.0,3643.0,3646.0],[9836.0,3643.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[8327.0,3603.0,2110.0],[9002.0,3603.0,2110.0],[9002.0,3643.0,2110.0],[8327.0,3643.0,2110.0],[8327.0,3603.0,3646.0],[9002.0,3603.0,3646.0],[9002.0,3643.0,3646.0],[8327.0,3643.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[9401.0,61.0,1395.0],[9441.0,61.0,1395.0],[9441.0,1213.0,1395.0],[9401.0,1213.0,1395.0],[9401.0,61.0,3646.0],[9441.0,61.0,3646.0],[9441.0,1213.0,3646.0],[9401.0,1213.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[11329.0,61.0,1395.0],[11387.0,61.0,1395.0],[11387.0,1213.0,1395.0],[11329.0,1213.0,1395.0],[11329.0,61.0,3646.0],[11387.0,61.0,3646.0],[11387.0,1213.0,3646.0],[11329.0,1213.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[943.0,705.0,1395.0],[953.0,705.0,1395.0],[953.0,1125.0,1395.0],[943.0,1125.0,1395.0],[943.0,705.0,3646.0],[953.0,705.0,3646.0],[953.0,1125.0,3646.0],[943.0,1125.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[943.0,3715.0,1395.0],[953.0,3715.0,1395.0],[953.0,4135.0,1395.0],[943.0,4135.0,1395.0],[943.0,3715.0,3646.0],[953.0,3715.0,3646.0],[953.0,4135.0,3646.0],[943.0,4135.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[11816.0,3701.0,1395.0],[11834.0,3701.0,1395.0],[11834.0,4238.0,1395.0],[11816.0,4238.0,1395.0],[11816.0,3701.0,3646.0],[11834.0,3701.0,3646.0],[11834.0,4238.0,3646.0],[11816.0,4238.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[12648.0,3633.0,1395.0],[12666.0,3633.0,1395.0],[12666.0,4238.0,1395.0],[12648.0,4238.0,1395.0],[12648.0,3633.0,3646.0],[12666.0,3633.0,3646.0],[12666.0,4238.0,3646.0],[12648.0,4238.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[12668.0,3604.0,1395.0],[13457.0,3604.0,1395.0],[13457.0,3614.0,1395.0],[12668.0,3614.0,1395.0],[12668.0,3604.0,3646.0],[13457.0,3604.0,3646.0],[13457.0,3614.0,3646.0],[12668.0,3614.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[917.0,0.0,1343.0],[3895.0,0.0,1343.0],[3895.0,61.0,1343.0],[917.0,61.0,1343.0],[917.0,0.0,3610.0],[3895.0,0.0,3610.0],[3895.0,61.0,3610.0],[917.0,61.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[917.0,0.0,1092.0],[3895.0,0.0,1092.0],[3895.0,61.0,1092.0],[917.0,61.0,1092.0],[917.0,0.0,1343.0],[3895.0,0.0,1343.0],[3895.0,61.0,1343.0],[917.0,61.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[917.0,0.0,1343.0],[3895.0,0.0,1343.0],[3895.0,2340.0,1343.0],[917.0,2340.0,1343.0],[917.0,0.0,1395.0],[3895.0,0.0,1395.0],[3895.0,2340.0,1395.0],[917.0,2340.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[917.0,61.0,3498.0],[917.0,1150.0,3540.0],[917.0,1150.0,1395.0],[917.0,61.0,1395.0],[977.0,61.0,1395.0],[977.0,1150.0,1395.0],[977.0,1150.0,3540.0],[977.0,61.0,3498.0],[917.0,61.0,1395.0],[917.0,1150.0,1395.0],[977.0,1150.0,1395.0],[977.0,61.0,1395.0],[917.0,1150.0,1395.0],[917.0,1150.0,3540.0],[977.0,1150.0,3540.0],[977.0,1150.0,1395.0],[917.0,1150.0,3540.0],[917.0,61.0,3498.0],[977.0,61.0,3498.0],[977.0,1150.0,3540.0],[917.0,61.0,3498.0],[917.0,61.0,1395.0],[977.0,61.0,1395.0],[977.0,61.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[3835.0,61.0,3498.0],[3835.0,1150.0,3540.0],[3835.0,1150.0,1395.0],[3835.0,61.0,1395.0],[3895.0,61.0,1395.0],[3895.0,1150.0,1395.0],[3895.0,1150.0,3540.0],[3895.0,61.0,3498.0],[3835.0,61.0,1395.0],[3835.0,1150.0,1395.0],[3895.0,1150.0,1395.0],[3895.0,61.0,1395.0],[3835.0,1150.0,1395.0],[3835.0,1150.0,3540.0],[3895.0,1150.0,3540.0],[3895.0,1150.0,1395.0],[3835.0,1150.0,3540.0],[3835.0,61.0,3498.0],[3895.0,61.0,3498.0],[3895.0,1150.0,3540.0],[3835.0,61.0,3498.0],[3835.0,61.0,1395.0],[3895.0,61.0,1395.0],[3895.0,61.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,0.0,1343.0],[13570.0,0.0,1343.0],[13570.0,61.0,1343.0],[4322.0,61.0,1343.0],[4322.0,0.0,2395.0],[13570.0,0.0,2395.0],[13570.0,61.0,2395.0],[4322.0,61.0,2395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,0.0,3042.0],[13570.0,0.0,3042.0],[13570.0,61.0,3042.0],[4322.0,61.0,3042.0],[4322.0,0.0,3610.0],[13570.0,0.0,3610.0],[13570.0,61.0,3610.0],[4322.0,61.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,0.0,2395.0],[9634.0,0.0,2395.0],[9634.0,61.0,2395.0],[4322.0,61.0,2395.0],[4322.0,0.0,3042.0],[9634.0,0.0,3042.0],[9634.0,61.0,3042.0],[4322.0,61.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[11204.0,0.0,2395.0],[13570.0,0.0,2395.0],[13570.0,61.0,2395.0],[11204.0,61.0,2395.0],[11204.0,0.0,3042.0],[13570.0,0.0,3042.0],[13570.0,61.0,3042.0],[11204.0,61.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[9634.0,20.0,2395.0],[11204.0,20.0,2395.0],[11204.0,40.0,2395.0],[9634.0,40.0,2395.0],[9634.0,20.0,3042.0],[11204.0,20.0,3042.0],[11204.0,40.0,3042.0],[9634.0,40.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,0.0,1092.0],[13570.0,0.0,1092.0],[13570.0,61.0,1092.0],[4322.0,61.0,1092.0],[4322.0,0.0,1343.0],[13570.0,0.0,1343.0],[13570.0,61.0,1343.0],[4322.0,61.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,0.0,1343.0],[13570.0,0.0,1343.0],[13570.0,2340.0,1343.0],[4322.0,2340.0,1343.0],[4322.0,0.0,1395.0],[13570.0,0.0,1395.0],[13570.0,2340.0,1395.0],[4322.0,2340.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,61.0,3498.0],[4322.0,1150.0,3540.0],[4322.0,1150.0,1395.0],[4322.0,61.0,1395.0],[4382.0,61.0,1395.0],[4382.0,1150.0,1395.0],[4382.0,1150.0,3540.0],[4382.0,61.0,3498.0],[4322.0,61.0,1395.0],[4322.0,1150.0,1395.0],[4382.0,1150.0,1395.0],[4382.0,61.0,1395.0],[4322.0,1150.0,1395.0],[4322.0,1150.0,3540.0],[4382.0,1150.0,3540.0],[4382.0,1150.0,1395.0],[4322.0,1150.0,3540.0],[4322.0,61.0,3498.0],[4382.0,61.0,3498.0],[4382.0,1150.0,3540.0],[4322.0,61.0,3498.0],[4322.0,61.0,1395.0],[4382.0,61.0,1395.0],[4382.0,61.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[13510.0,61.0,3498.0],[13510.0,1150.0,3540.0],[13510.0,1150.0,1395.0],[13510.0,61.0,1395.0],[13570.0,61.0,1395.0],[13570.0,1150.0,1395.0],[13570.0,1150.0,3540.0],[13570.0,61.0,3498.0],[13510.0,61.0,1395.0],[13510.0,1150.0,1395.0],[13570.0,1150.0,1395.0],[13570.0,61.0,1395.0],[13510.0,1150.0,1395.0],[13510.0,1150.0,3540.0],[13570.0,1150.0,3540.0],[13570.0,1150.0,1395.0],[13510.0,1150.0,3540.0],[13510.0,61.0,3498.0],[13570.0,61.0,3498.0],[13570.0,1150.0,3540.0],[13510.0,61.0,3498.0],[13510.0,61.0,1395.0],[13570.0,61.0,1395.0],[13570.0,61.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,4779.0,1343.0],[3895.0,4779.0,1343.0],[3895.0,4840.0,1343.0],[917.0,4840.0,1343.0],[917.0,4779.0,2395.0],[3895.0,4779.0,2395.0],[3895.0,4840.0,2395.0],[917.0,4840.0,2395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,4779.0,3042.0],[3895.0,4779.0,3042.0],[3895.0,4840.0,3042.0],[917.0,4840.0,3042.0],[917.0,4779.0,3610.0],[3895.0,4779.0,3610.0],[3895.0,4840.0,3610.0],[917.0,4840.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,4779.0,2395.0],[2659.0,4779.0,2395.0],[2659.0,4840.0,2395.0],[917.0,4840.0,2395.0],[917.0,4779.0,3042.0],[2659.0,4779.0,3042.0],[2659.0,4840.0,3042.0],[917.0,4840.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[3529.0,4779.0,2395.0],[3895.0,4779.0,2395.0],[3895.0,4840.0,2395.0],[3529.0,4840.0,2395.0],[3529.0,4779.0,3042.0],[3895.0,4779.0,3042.0],[3895.0,4840.0,3042.0],[3529.0,4840.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[2659.0,4800.0,2395.0],[3529.0,4800.0,2395.0],[3529.0,4820.0,2395.0],[2659.0,4820.0,2395.0],[2659.0,4800.0,3042.0],[3529.0,4800.0,3042.0],[3529.0,4820.0,3042.0],[2659.0,4820.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,4779.0,1092.0],[3895.0,4779.0,1092.0],[3895.0,4840.0,1092.0],[917.0,4840.0,1092.0],[917.0,4779.0,1343.0],[3895.0,4779.0,1343.0],[3895.0,4840.0,1343.0],[917.0,4840.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,2500.0,1343.0],[3895.0,2500.0,1343.0],[3895.0,4840.0,1343.0],[917.0,4840.0,1343.0],[917.0,2500.0,1395.0],[3895.0,2500.0,1395.0],[3895.0,4840.0,1395.0],[917.0,4840.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,3690.0,3540.0],[917.0,4779.0,3498.0],[917.0,4779.0,1395.0],[917.0,3690.0,1395.0],[977.0,3690.0,1395.0],[977.0,4779.0,1395.0],[977.0,4779.0,3498.0],[977.0,3690.0,3540.0],[917.0,3690.0,1395.0],[917.0,4779.0,1395.0],[977.0,4779.0,1395.0],[977.0,3690.0,1395.0],[917.0,4779.0,1395.0],[917.0,4779.0,3498.0],[977.0,4779.0,3498.0],[977.0,4779.0,1395.0],[917.0,4779.0,3498.0],[917.0,3690.0,3540.0],[977.0,3690.0,3540.0],[977.0,4779.0,3498.0],[917.0,3690.0,3540.0],[917.0,3690.0,1395.0],[977.0,3690.0,1395.0],[977.0,3690.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[3835.0,3690.0,3540.0],[3835.0,4779.0,3498.0],[3835.0,4779.0,1395.0],[3835.0,3690.0,1395.0],[3895.0,3690.0,1395.0],[3895.0,4779.0,1395.0],[3895.0,4779.0,3498.0],[3895.0,3690.0,3540.0],[3835.0,3690.0,1395.0],[3835.0,4779.0,1395.0],[3895.0,4779.0,1395.0],[3895.0,3690.0,1395.0],[3835.0,4779.0,1395.0],[3835.0,4779.0,3498.0],[3895.0,4779.0,3498.0],[3895.0,4779.0,1395.0],[3835.0,4779.0,3498.0],[3835.0,3690.0,3540.0],[3895.0,3690.0,3540.0],[3895.0,4779.0,3498.0],[3835.0,3690.0,3540.0],[3835.0,3690.0,1395.0],[3895.0,3690.0,1395.0],[3895.0,3690.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,4779.0,1343.0],[13570.0,4779.0,1343.0],[13570.0,4840.0,1343.0],[4322.0,4840.0,1343.0],[4322.0,4779.0,2395.0],[13570.0,4779.0,2395.0],[13570.0,4840.0,2395.0],[4322.0,4840.0,2395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,4779.0,3042.0],[13570.0,4779.0,3042.0],[13570.0,4840.0,3042.0],[4322.0,4840.0,3042.0],[4322.0,4779.0,3610.0],[13570.0,4779.0,3610.0],[13570.0,4840.0,3610.0],[4322.0,4840.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,4779.0,2395.0],[5679.0,4779.0,2395.0],[5679.0,4840.0,2395.0],[4322.0,4840.0,2395.0],[4322.0,4779.0,3042.0],[5679.0,4779.0,3042.0],[5679.0,4840.0,3042.0],[4322.0,4840.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[5679.0,4800.0,2395.0],[7949.0,4800.0,2395.0],[7949.0,4820.0,2395.0],[5679.0,4820.0,2395.0],[5679.0,4800.0,3042.0],[7949.0,4800.0,3042.0],[7949.0,4820.0,3042.0],[5679.0,4820.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[7949.0,4779.0,2395.0],[9059.0,4779.0,2395.0],[9059.0,4840.0,2395.0],[7949.0,4840.0,2395.0],[7949.0,4779.0,3042.0],[9059.0,4779.0,3042.0],[9059.0,4840.0,3042.0],[7949.0,4840.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[9059.0,4800.0,2395.0],[9779.0,4800.0,2395.0],[9779.0,4820.0,2395.0],[9059.0,4820.0,2395.0],[9059.0,4800.0,3042.0],[9779.0,4800.0,3042.0],[9779.0,4820.0,3042.0],[9059.0,4820.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[9779.0,4779.0,2395.0],[10799.0,4779.0,2395.0],[10799.0,4840.0,2395.0],[9779.0,4840.0,2395.0],[9779.0,4779.0,3042.0],[10799.0,4779.0,3042.0],[10799.0,4840.0,3042.0],[9779.0,4840.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[10799.0,4800.0,2395.0],[11769.0,4800.0,2395.0],[11769.0,4820.0,2395.0],[10799.0,4820.0,2395.0],[10799.0,4800.0,3042.0],[11769.0,4800.0,3042.0],[11769.0,4820.0,3042.0],[10799.0,4820.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[11769.0,4779.0,2395.0],[13570.0,4779.0,2395.0],[13570.0,4840.0,2395.0],[11769.0,4840.0,2395.0],[11769.0,4779.0,3042.0],[13570.0,4779.0,3042.0],[13570.0,4840.0,3042.0],[11769.0,4840.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,4779.0,1092.0],[13570.0,4779.0,1092.0],[13570.0,4840.0,1092.0],[4322.0,4840.0,1092.0],[4322.0,4779.0,1343.0],[13570.0,4779.0,1343.0],[13570.0,4840.0,1343.0],[4322.0,4840.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,2500.0,1343.0],[13570.0,2500.0,1343.0],[13570.0,4840.0,1343.0],[4322.0,4840.0,1343.0],[4322.0,2500.0,1395.0],[13570.0,2500.0,1395.0],[13570.0,4840.0,1395.0],[4322.0,4840.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,3690.0,3540.0],[4322.0,4779.0,3498.0],[4322.0,4779.0,1395.0],[4322.0,3690.0,1395.0],[4382.0,3690.0,1395.0],[4382.0,4779.0,1395.0],[4382.0,4779.0,3498.0],[4382.0,3690.0,3540.0],[4322.0,3690.0,1395.0],[4322.0,4779.0,1395.0],[4382.0,4779.0,1395.0],[4382.0,3690.0,1395.0],[4322.0,4779.0,1395.0],[4322.0,4779.0,3498.0],[4382.0,4779.0,3498.0],[4382.0,4779.0,1395.0],[4322.0,4779.0,3498.0],[4322.0,3690.0,3540.0],[4382.0,3690.0,3540.0],[4382.0,4779.0,3498.0],[4322.0,3690.0,3540.0],[4322.0,3690.0,1395.0],[4382.0,3690.0,1395.0],[4382.0,3690.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[13510.0,3690.0,3540.0],[13510.0,4779.0,3498.0],[13510.0,4779.0,1395.0],[13510.0,3690.0,1395.0],[13570.0,3690.0,1395.0],[13570.0,4779.0,1395.0],[13570.0,4779.0,3498.0],[13570.0,3690.0,3540.0],[13510.0,3690.0,1395.0],[13510.0,4779.0,1395.0],[13570.0,4779.0,1395.0],[13570.0,3690.0,1395.0],[13510.0,4779.0,1395.0],[13510.0,4779.0,3498.0],[13570.0,4779.0,3498.0],[13570.0,4779.0,1395.0],[13510.0,4779.0,3498.0],[13510.0,3690.0,3540.0],[13570.0,3690.0,3540.0],[13570.0,4779.0,3498.0],[13510.0,3690.0,3540.0],[13510.0,3690.0,1395.0],[13570.0,3690.0,1395.0],[13570.0,3690.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[917.0,61.0,3576.0],[917.0,1301.0,3624.0],[917.0,1301.0,3546.0],[917.0,61.0,3498.0],[3895.0,61.0,3498.0],[3895.0,1301.0,3546.0],[3895.0,1301.0,3624.0],[3895.0,61.0,3576.0],[917.0,61.0,3498.0],[917.0,1301.0,3546.0],[3895.0,1301.0,3546.0],[3895.0,61.0,3498.0],[917.0,1301.0,3546.0],[917.0,1301.0,3624.0],[3895.0,1301.0,3624.0],[3895.0,1301.0,3546.0],[917.0,1301.0,3624.0],[917.0,61.0,3576.0],[3895.0,61.0,3576.0],[3895.0,1301.0,3624.0],[917.0,61.0,3576.0],[917.0,61.0,3498.0],[3895.0,61.0,3498.0],[3895.0,61.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[4322.0,61.0,3576.0],[4322.0,1301.0,3624.0],[4322.0,1301.0,3546.0],[4322.0,61.0,3498.0],[13570.0,61.0,3498.0],[13570.0,1301.0,3546.0],[13570.0,1301.0,3624.0],[13570.0,61.0,3576.0],[4322.0,61.0,3498.0],[4322.0,1301.0,3546.0],[13570.0,1301.0,3546.0],[13570.0,61.0,3498.0],[4322.0,1301.0,3546.0],[4322.0,1301.0,3624.0],[13570.0,1301.0,3624.0],[13570.0,1301.0,3546.0],[4322.0,1301.0,3624.0],[4322.0,61.0,3576.0],[13570.0,61.0,3576.0],[13570.0,1301.0,3624.0],[4322.0,61.0,3576.0],[4322.0,61.0,3498.0],[13570.0,61.0,3498.0],[13570.0,61.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[917.0,4779.0,3576.0],[917.0,3539.0,3624.0],[917.0,3539.0,3546.0],[917.0,4779.0,3498.0],[3895.0,4779.0,3498.0],[3895.0,3539.0,3546.0],[3895.0,3539.0,3624.0],[3895.0,4779.0,3576.0],[917.0,4779.0,3498.0],[917.0,3539.0,3546.0],[3895.0,3539.0,3546.0],[3895.0,4779.0,3498.0],[917.0,3539.0,3546.0],[917.0,3539.0,3624.0],[3895.0,3539.0,3624.0],[3895.0,3539.0,3546.0],[917.0,3539.0,3624.0],[917.0,4779.0,3576.0],[3895.0,4779.0,3576.0],[3895.0,3539.0,3624.0],[917.0,4779.0,3576.0],[917.0,4779.0,3498.0],[3895.0,4779.0,3498.0],[3895.0,4779.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[4322.0,4779.0,3576.0],[4322.0,3539.0,3624.0],[4322.0,3539.0,3546.0],[4322.0,4779.0,3498.0],[13570.0,4779.0,3498.0],[13570.0,3539.0,3546.0],[13570.0,3539.0,3624.0],[13570.0,4779.0,3576.0],[4322.0,4779.0,3498.0],[4322.0,3539.0,3546.0],[13570.0,3539.0,3546.0],[13570.0,4779.0,3498.0],[4322.0,3539.0,3546.0],[4322.0,3539.0,3624.0],[13570.0,3539.0,3624.0],[13570.0,3539.0,3546.0],[4322.0,3539.0,3624.0],[4322.0,4779.0,3576.0],[13570.0,4779.0,3576.0],[13570.0,3539.0,3624.0],[4322.0,4779.0,3576.0],[4322.0,4779.0,3498.0],[13570.0,4779.0,3498.0],[13570.0,4779.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]}],"chiuso":[{"l":"VOL_TELAIO","v":[[654.0,1835.0,830.0],[13989.0,1835.0,830.0],[13989.0,1925.0,830.0],[654.0,1925.0,830.0],[654.0,1835.0,950.0],[13989.0,1835.0,950.0],[13989.0,1925.0,950.0],[654.0,1925.0,950.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_TELAIO","v":[[654.0,3005.0,830.0],[13989.0,3005.0,830.0],[13989.0,3095.0,830.0],[654.0,3095.0,830.0],[654.0,3005.0,950.0],[13989.0,3005.0,950.0],[13989.0,3095.0,950.0],[654.0,3095.0,950.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_TELAIO","v":[[10011.0,1274.0,475.0],[9994.8,1274.0,597.9],[9947.4,1274.0,712.5],[9871.9,1274.0,810.9],[9773.5,1274.0,886.4],[9658.9,1274.0,933.8],[9536.0,1274.0,950.0],[9413.1,1274.0,933.8],[9298.5,1274.0,886.4],[9200.1,1274.0,810.9],[9124.6,1274.0,712.5],[9077.2,1274.0,597.9],[9061.0,1274.0,475.0],[9077.2,1274.0,352.1],[9124.6,1274.0,237.5],[9200.1,1274.0,139.1],[9298.5,1274.0,63.6],[9413.1,1274.0,16.2],[9536.0,1274.0,0.0],[9658.9,1274.0,16.2],[9773.5,1274.0,63.6],[9871.9,1274.0,139.1],[9947.4,1274.0,237.5],[9994.8,1274.0,352.1],[9994.8,1714.0,352.1],[10011.0,1714.0,475.0],[9947.4,1714.0,237.5],[9871.9,1714.0,139.1],[9773.5,1714.0,63.6],[9658.9,1714.0,16.2],[9536.0,1714.0,0.0],[9413.1,1714.0,16.2],[9298.5,1714.0,63.6],[9200.1,1714.0,139.1],[9124.6,1714.0,237.5],[9077.2,1714.0,352.1],[9061.0,1714.0,475.0],[9077.2,1714.0,597.9],[9124.6,1714.0,712.5],[9200.1,1714.0,810.9],[9298.5,1714.0,886.4],[9413.1,1714.0,933.8],[9536.0,1714.0,950.0],[9658.9,1714.0,933.8],[9773.5,1714.0,886.4],[9871.9,1714.0,810.9],[9947.4,1714.0,712.5],[9994.8,1714.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_TELAIO","v":[[10011.0,3262.0,475.0],[9994.8,3262.0,597.9],[9947.4,3262.0,712.5],[9871.9,3262.0,810.9],[9773.5,3262.0,886.4],[9658.9,3262.0,933.8],[9536.0,3262.0,950.0],[9413.1,3262.0,933.8],[9298.5,3262.0,886.4],[9200.1,3262.0,810.9],[9124.6,3262.0,712.5],[9077.2,3262.0,597.9],[9061.0,3262.0,475.0],[9077.2,3262.0,352.1],[9124.6,3262.0,237.5],[9200.1,3262.0,139.1],[9298.5,3262.0,63.6],[9413.1,3262.0,16.2],[9536.0,3262.0,0.0],[9658.9,3262.0,16.2],[9773.5,3262.0,63.6],[9871.9,3262.0,139.1],[9947.4,3262.0,237.5],[9994.8,3262.0,352.1],[9994.8,3688.0,352.1],[10011.0,3688.0,475.0],[9947.4,3688.0,237.5],[9871.9,3688.0,139.1],[9773.5,3688.0,63.6],[9658.9,3688.0,16.2],[9536.0,3688.0,0.0],[9413.1,3688.0,16.2],[9298.5,3688.0,63.6],[9200.1,3688.0,139.1],[9124.6,3688.0,237.5],[9077.2,3688.0,352.1],[9061.0,3688.0,475.0],[9077.2,3688.0,597.9],[9124.6,3688.0,712.5],[9200.1,3688.0,810.9],[9298.5,3688.0,886.4],[9413.1,3688.0,933.8],[9536.0,3688.0,950.0],[9658.9,3688.0,933.8],[9773.5,3688.0,886.4],[9871.9,3688.0,810.9],[9947.4,3688.0,712.5],[9994.8,3688.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_TELAIO","v":[[11711.0,1274.0,475.0],[11694.8,1274.0,597.9],[11647.4,1274.0,712.5],[11571.9,1274.0,810.9],[11473.5,1274.0,886.4],[11358.9,1274.0,933.8],[11236.0,1274.0,950.0],[11113.1,1274.0,933.8],[10998.5,1274.0,886.4],[10900.1,1274.0,810.9],[10824.6,1274.0,712.5],[10777.2,1274.0,597.9],[10761.0,1274.0,475.0],[10777.2,1274.0,352.1],[10824.6,1274.0,237.5],[10900.1,1274.0,139.1],[10998.5,1274.0,63.6],[11113.1,1274.0,16.2],[11236.0,1274.0,0.0],[11358.9,1274.0,16.2],[11473.5,1274.0,63.6],[11571.9,1274.0,139.1],[11647.4,1274.0,237.5],[11694.8,1274.0,352.1],[11694.8,1714.0,352.1],[11711.0,1714.0,475.0],[11647.4,1714.0,237.5],[11571.9,1714.0,139.1],[11473.5,1714.0,63.6],[11358.9,1714.0,16.2],[11236.0,1714.0,0.0],[11113.1,1714.0,16.2],[10998.5,1714.0,63.6],[10900.1,1714.0,139.1],[10824.6,1714.0,237.5],[10777.2,1714.0,352.1],[10761.0,1714.0,475.0],[10777.2,1714.0,597.9],[10824.6,1714.0,712.5],[10900.1,1714.0,810.9],[10998.5,1714.0,886.4],[11113.1,1714.0,933.8],[11236.0,1714.0,950.0],[11358.9,1714.0,933.8],[11473.5,1714.0,886.4],[11571.9,1714.0,810.9],[11647.4,1714.0,712.5],[11694.8,1714.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_TELAIO","v":[[11711.0,3262.0,475.0],[11694.8,3262.0,597.9],[11647.4,3262.0,712.5],[11571.9,3262.0,810.9],[11473.5,3262.0,886.4],[11358.9,3262.0,933.8],[11236.0,3262.0,950.0],[11113.1,3262.0,933.8],[10998.5,3262.0,886.4],[10900.1,3262.0,810.9],[10824.6,3262.0,712.5],[10777.2,3262.0,597.9],[10761.0,3262.0,475.0],[10777.2,3262.0,352.1],[10824.6,3262.0,237.5],[10900.1,3262.0,139.1],[10998.5,3262.0,63.6],[11113.1,3262.0,16.2],[11236.0,3262.0,0.0],[11358.9,3262.0,16.2],[11473.5,3262.0,63.6],[11571.9,3262.0,139.1],[11647.4,3262.0,237.5],[11694.8,3262.0,352.1],[11694.8,3688.0,352.1],[11711.0,3688.0,475.0],[11647.4,3688.0,237.5],[11571.9,3688.0,139.1],[11473.5,3688.0,63.6],[11358.9,3688.0,16.2],[11236.0,3688.0,0.0],[11113.1,3688.0,16.2],[10998.5,3688.0,63.6],[10900.1,3688.0,139.1],[10824.6,3688.0,237.5],[10777.2,3688.0,352.1],[10761.0,3688.0,475.0],[10777.2,3688.0,597.9],[10824.6,3688.0,712.5],[10900.1,3688.0,810.9],[10998.5,3688.0,886.4],[11113.1,3688.0,933.8],[11236.0,3688.0,950.0],[11358.9,3688.0,933.8],[11473.5,3688.0,886.4],[11571.9,3688.0,810.9],[11647.4,3688.0,712.5],[11694.8,3688.0,597.9]],"f":[[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,0],[0,23,24,25],[23,22,26,24],[22,21,27,26],[21,20,28,27],[20,19,29,28],[19,18,30,29],[18,17,31,30],[17,16,32,31],[16,15,33,32],[15,14,34,33],[14,13,35,34],[13,12,36,35],[12,11,37,36],[11,10,38,37],[10,9,39,38],[9,8,40,39],[8,7,41,40],[7,6,42,41],[6,5,43,42],[5,4,44,43],[4,3,45,44],[3,2,46,45],[2,1,47,46],[1,0,25,47],[25,24,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,25]]},{"l":"VOL_CASSONE","v":[[0.0,1150.0,141.0],[897.0,1150.0,141.0],[897.0,3690.0,141.0],[0.0,3690.0,141.0],[0.0,1150.0,3685.0],[897.0,1150.0,3685.0],[897.0,3690.0,3685.0],[0.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[13928.0,1150.0,1080.0],[13989.0,1150.0,1080.0],[13989.0,3690.0,1080.0],[13928.0,3690.0,1080.0],[13928.0,1150.0,3685.0],[13989.0,1150.0,3685.0],[13989.0,3690.0,3685.0],[13928.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[3915.0,1150.0,1395.0],[4302.0,1150.0,1395.0],[4302.0,1213.0,1395.0],[3915.0,1213.0,1395.0],[3915.0,1150.0,3685.0],[4302.0,1150.0,3685.0],[4302.0,1213.0,3685.0],[3915.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[3915.0,3603.0,1395.0],[4302.0,3603.0,1395.0],[4302.0,3690.0,1395.0],[3915.0,3690.0,1395.0],[3915.0,3603.0,3685.0],[4302.0,3603.0,3685.0],[4302.0,3690.0,3685.0],[3915.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[13590.0,1150.0,1395.0],[13928.0,1150.0,1395.0],[13928.0,1213.0,1395.0],[13590.0,1213.0,1395.0],[13590.0,1150.0,3685.0],[13928.0,1150.0,3685.0],[13928.0,1213.0,3685.0],[13590.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[13590.0,3603.0,1395.0],[13928.0,3603.0,1395.0],[13928.0,3690.0,1395.0],[13590.0,3690.0,1395.0],[13590.0,3603.0,3685.0],[13928.0,3603.0,3685.0],[13928.0,3690.0,3685.0],[13590.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,1150.0,3646.0],[3915.0,1150.0,3646.0],[3915.0,1213.0,3646.0],[897.0,1213.0,3646.0],[897.0,1150.0,3685.0],[3915.0,1150.0,3685.0],[3915.0,1213.0,3685.0],[897.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,1150.0,3646.0],[13590.0,1150.0,3646.0],[13590.0,1213.0,3646.0],[4302.0,1213.0,3646.0],[4302.0,1150.0,3685.0],[13590.0,1150.0,3685.0],[13590.0,1213.0,3685.0],[4302.0,1213.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,3603.0,3646.0],[3915.0,3603.0,3646.0],[3915.0,3690.0,3646.0],[897.0,3690.0,3646.0],[897.0,3603.0,3685.0],[3915.0,3603.0,3685.0],[3915.0,3690.0,3685.0],[897.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,3603.0,3646.0],[13590.0,3603.0,3646.0],[13590.0,3690.0,3646.0],[4302.0,3690.0,3646.0],[4302.0,3603.0,3685.0],[13590.0,3603.0,3685.0],[13590.0,3690.0,3685.0],[4302.0,3690.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,1213.0,950.0],[3915.0,1213.0,950.0],[3915.0,1276.0,950.0],[897.0,1276.0,950.0],[897.0,1213.0,1343.0],[3915.0,1213.0,1343.0],[3915.0,1276.0,1343.0],[897.0,1276.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,1213.0,950.0],[13590.0,1213.0,950.0],[13590.0,1276.0,950.0],[4302.0,1276.0,950.0],[4302.0,1213.0,1343.0],[13590.0,1213.0,1343.0],[13590.0,1276.0,1343.0],[4302.0,1276.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[897.0,3527.0,950.0],[3915.0,3527.0,950.0],[3915.0,3590.0,950.0],[897.0,3590.0,950.0],[897.0,3527.0,1343.0],[3915.0,3527.0,1343.0],[3915.0,3590.0,1343.0],[897.0,3590.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CASSONE","v":[[4302.0,3527.0,950.0],[13590.0,3527.0,950.0],[13590.0,3590.0,950.0],[4302.0,3590.0,950.0],[4302.0,3527.0,1343.0],[13590.0,3527.0,1343.0],[13590.0,3590.0,1343.0],[4302.0,3590.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[654.0,1151.0,950.0],[13928.0,1151.0,950.0],[13928.0,3689.0,950.0],[654.0,3689.0,950.0],[654.0,1151.0,1343.0],[13928.0,1151.0,1343.0],[13928.0,3689.0,1343.0],[654.0,3689.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[654.0,2340.0,1343.0],[13928.0,2340.0,1343.0],[13928.0,2500.0,1343.0],[654.0,2500.0,1343.0],[654.0,2340.0,1395.0],[13928.0,2340.0,1395.0],[13928.0,2500.0,1395.0],[654.0,2500.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[3895.0,1150.0,1343.0],[4322.0,1150.0,1343.0],[4322.0,3690.0,1343.0],[3895.0,3690.0,1343.0],[3895.0,1150.0,1395.0],[4322.0,1150.0,1395.0],[4322.0,3690.0,1395.0],[3895.0,3690.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[13570.0,1150.0,1343.0],[13928.0,1150.0,1343.0],[13928.0,3690.0,1343.0],[13570.0,3690.0,1343.0],[13570.0,1150.0,1395.0],[13928.0,1150.0,1395.0],[13928.0,3690.0,1395.0],[13570.0,3690.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_PAVIMENTO","v":[[654.0,1150.0,1343.0],[917.0,1150.0,1343.0],[917.0,3690.0,1343.0],[654.0,3690.0,1343.0],[654.0,1150.0,1395.0],[917.0,1150.0,1395.0],[917.0,3690.0,1395.0],[654.0,3690.0,1395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_TETTO","v":[[0.0,1150.0,3685.0],[13989.0,1150.0,3685.0],[13989.0,3690.0,3685.0],[0.0,3690.0,3685.0],[0.0,1150.0,4000.0],[13989.0,1150.0,4000.0],[13989.0,3690.0,4000.0],[0.0,3690.0,4000.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CONTROSOFFITTO","v":[[919.0,1213.0,3646.0],[3915.0,1213.0,3646.0],[3915.0,3603.0,3646.0],[919.0,3603.0,3646.0],[919.0,1213.0,3685.0],[3915.0,1213.0,3685.0],[3915.0,3603.0,3685.0],[919.0,3603.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CONTROSOFFITTO","v":[[4302.0,1213.0,3646.0],[9836.0,1213.0,3646.0],[9836.0,3603.0,3646.0],[4302.0,3603.0,3646.0],[4302.0,1213.0,3685.0],[9836.0,1213.0,3685.0],[9836.0,3603.0,3685.0],[4302.0,3603.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_CONTROSOFFITTO","v":[[11265.0,1213.0,3646.0],[13928.0,1213.0,3646.0],[13928.0,3603.0,3646.0],[11265.0,3603.0,3646.0],[11265.0,1213.0,3685.0],[13928.0,1213.0,3685.0],[13928.0,3603.0,3685.0],[11265.0,3603.0,3685.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[1318.0,2120.0,3644.0],[1968.0,2120.0,3644.0],[1968.0,2720.0,3644.0],[1318.0,2720.0,3644.0],[1318.0,2120.0,4002.0],[1968.0,2120.0,4002.0],[1968.0,2720.0,4002.0],[1318.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[4921.0,2120.0,3644.0],[5701.0,2120.0,3644.0],[5701.0,2720.0,3644.0],[4921.0,2720.0,3644.0],[4921.0,2120.0,4002.0],[5701.0,2120.0,4002.0],[5701.0,2720.0,4002.0],[4921.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[8287.0,2120.0,3644.0],[9027.0,2120.0,3644.0],[9027.0,2720.0,3644.0],[8287.0,2720.0,3644.0],[8287.0,2120.0,4002.0],[9027.0,2120.0,4002.0],[9027.0,2720.0,4002.0],[8287.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[12302.0,2120.0,3644.0],[12992.0,2120.0,3644.0],[12992.0,2720.0,3644.0],[12302.0,2720.0,3644.0],[12302.0,2120.0,4002.0],[12992.0,2120.0,4002.0],[12992.0,2720.0,4002.0],[12302.0,2720.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_OBLO","v":[[6303.0,2095.0,3644.0],[7595.0,2095.0,3644.0],[7595.0,2745.0,3644.0],[6303.0,2745.0,3644.0],[6303.0,2095.0,4002.0],[7595.0,2095.0,4002.0],[7595.0,2745.0,4002.0],[6303.0,2745.0,4002.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_IMPIANTO_CLIMA","v":[[1651.0,1698.0,3685.0],[2551.0,1698.0,3685.0],[2551.0,3270.0,3685.0],[1651.0,3270.0,3685.0],[1651.0,1698.0,3960.0],[2551.0,1698.0,3960.0],[2551.0,3270.0,3960.0],[1651.0,3270.0,3960.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_IMPIANTO_CLIMA","v":[[9392.0,1698.0,3685.0],[10292.0,1698.0,3685.0],[10292.0,3270.0,3685.0],[9392.0,3270.0,3685.0],[9392.0,1698.0,3960.0],[10292.0,1698.0,3960.0],[10292.0,3270.0,3960.0],[9392.0,3270.0,3960.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[11184.0,1213.0,1395.0],[11265.0,1213.0,1395.0],[11265.0,3603.0,1395.0],[11184.0,3603.0,1395.0],[11184.0,1213.0,3646.0],[11265.0,1213.0,3646.0],[11265.0,3603.0,3646.0],[11184.0,3603.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_DIVISORI","v":[[10199.0,1213.0,1395.0],[10279.0,1213.0,1395.0],[10279.0,3603.0,1395.0],[10199.0,3603.0,1395.0],[10199.0,1213.0,3646.0],[10279.0,1213.0,3646.0],[10279.0,3603.0,3646.0],[10199.0,3603.0,3646.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[917.0,1150.0,1343.0],[3895.0,1150.0,1343.0],[3895.0,1211.0,1343.0],[917.0,1211.0,1343.0],[917.0,1150.0,3610.0],[3895.0,1150.0,3610.0],[3895.0,1211.0,3610.0],[917.0,1211.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[917.0,1150.0,1092.0],[3895.0,1150.0,1092.0],[3895.0,1211.0,1092.0],[917.0,1211.0,1092.0],[917.0,1150.0,1343.0],[3895.0,1150.0,1343.0],[3895.0,1211.0,1343.0],[917.0,1211.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[917.0,1211.0,3498.0],[917.0,2300.0,3540.0],[917.0,2300.0,1395.0],[917.0,1211.0,1395.0],[977.0,1211.0,1395.0],[977.0,2300.0,1395.0],[977.0,2300.0,3540.0],[977.0,1211.0,3498.0],[917.0,1211.0,1395.0],[917.0,2300.0,1395.0],[977.0,2300.0,1395.0],[977.0,1211.0,1395.0],[917.0,2300.0,1395.0],[917.0,2300.0,3540.0],[977.0,2300.0,3540.0],[977.0,2300.0,1395.0],[917.0,2300.0,3540.0],[917.0,1211.0,3498.0],[977.0,1211.0,3498.0],[977.0,2300.0,3540.0],[917.0,1211.0,3498.0],[917.0,1211.0,1395.0],[977.0,1211.0,1395.0],[977.0,1211.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[3835.0,1211.0,3498.0],[3835.0,2300.0,3540.0],[3835.0,2300.0,1395.0],[3835.0,1211.0,1395.0],[3895.0,1211.0,1395.0],[3895.0,2300.0,1395.0],[3895.0,2300.0,3540.0],[3895.0,1211.0,3498.0],[3835.0,1211.0,1395.0],[3835.0,2300.0,1395.0],[3895.0,2300.0,1395.0],[3895.0,1211.0,1395.0],[3835.0,2300.0,1395.0],[3835.0,2300.0,3540.0],[3895.0,2300.0,3540.0],[3895.0,2300.0,1395.0],[3835.0,2300.0,3540.0],[3835.0,1211.0,3498.0],[3895.0,1211.0,3498.0],[3895.0,2300.0,3540.0],[3835.0,1211.0,3498.0],[3835.0,1211.0,1395.0],[3895.0,1211.0,1395.0],[3895.0,1211.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,1150.0,1343.0],[13570.0,1150.0,1343.0],[13570.0,1211.0,1343.0],[4322.0,1211.0,1343.0],[4322.0,1150.0,2395.0],[13570.0,1150.0,2395.0],[13570.0,1211.0,2395.0],[4322.0,1211.0,2395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,1150.0,3042.0],[13570.0,1150.0,3042.0],[13570.0,1211.0,3042.0],[4322.0,1211.0,3042.0],[4322.0,1150.0,3610.0],[13570.0,1150.0,3610.0],[13570.0,1211.0,3610.0],[4322.0,1211.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,1150.0,2395.0],[9634.0,1150.0,2395.0],[9634.0,1211.0,2395.0],[4322.0,1211.0,2395.0],[4322.0,1150.0,3042.0],[9634.0,1150.0,3042.0],[9634.0,1211.0,3042.0],[4322.0,1211.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[11204.0,1150.0,2395.0],[13570.0,1150.0,2395.0],[13570.0,1211.0,2395.0],[11204.0,1211.0,2395.0],[11204.0,1150.0,3042.0],[13570.0,1150.0,3042.0],[13570.0,1211.0,3042.0],[11204.0,1211.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[9634.0,1170.0,2395.0],[11204.0,1170.0,2395.0],[11204.0,1190.0,2395.0],[9634.0,1190.0,2395.0],[9634.0,1170.0,3042.0],[11204.0,1170.0,3042.0],[11204.0,1190.0,3042.0],[9634.0,1190.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,1150.0,1092.0],[13570.0,1150.0,1092.0],[13570.0,1211.0,1092.0],[4322.0,1211.0,1092.0],[4322.0,1150.0,1343.0],[13570.0,1150.0,1343.0],[13570.0,1211.0,1343.0],[4322.0,1211.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[4322.0,1211.0,3498.0],[4322.0,2300.0,3540.0],[4322.0,2300.0,1395.0],[4322.0,1211.0,1395.0],[4382.0,1211.0,1395.0],[4382.0,2300.0,1395.0],[4382.0,2300.0,3540.0],[4382.0,1211.0,3498.0],[4322.0,1211.0,1395.0],[4322.0,2300.0,1395.0],[4382.0,2300.0,1395.0],[4382.0,1211.0,1395.0],[4322.0,2300.0,1395.0],[4322.0,2300.0,3540.0],[4382.0,2300.0,3540.0],[4382.0,2300.0,1395.0],[4322.0,2300.0,3540.0],[4322.0,1211.0,3498.0],[4382.0,1211.0,3498.0],[4382.0,2300.0,3540.0],[4322.0,1211.0,3498.0],[4322.0,1211.0,1395.0],[4382.0,1211.0,1395.0],[4382.0,1211.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_INGRESSO","v":[[13510.0,1211.0,3498.0],[13510.0,2300.0,3540.0],[13510.0,2300.0,1395.0],[13510.0,1211.0,1395.0],[13570.0,1211.0,1395.0],[13570.0,2300.0,1395.0],[13570.0,2300.0,3540.0],[13570.0,1211.0,3498.0],[13510.0,1211.0,1395.0],[13510.0,2300.0,1395.0],[13570.0,2300.0,1395.0],[13570.0,1211.0,1395.0],[13510.0,2300.0,1395.0],[13510.0,2300.0,3540.0],[13570.0,2300.0,3540.0],[13570.0,2300.0,1395.0],[13510.0,2300.0,3540.0],[13510.0,1211.0,3498.0],[13570.0,1211.0,3498.0],[13570.0,2300.0,3540.0],[13510.0,1211.0,3498.0],[13510.0,1211.0,1395.0],[13570.0,1211.0,1395.0],[13570.0,1211.0,3498.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,3629.0,1343.0],[3895.0,3629.0,1343.0],[3895.0,3690.0,1343.0],[917.0,3690.0,1343.0],[917.0,3629.0,2395.0],[3895.0,3629.0,2395.0],[3895.0,3690.0,2395.0],[917.0,3690.0,2395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,3629.0,3042.0],[3895.0,3629.0,3042.0],[3895.0,3690.0,3042.0],[917.0,3690.0,3042.0],[917.0,3629.0,3610.0],[3895.0,3629.0,3610.0],[3895.0,3690.0,3610.0],[917.0,3690.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,3629.0,2395.0],[2659.0,3629.0,2395.0],[2659.0,3690.0,2395.0],[917.0,3690.0,2395.0],[917.0,3629.0,3042.0],[2659.0,3629.0,3042.0],[2659.0,3690.0,3042.0],[917.0,3690.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[3529.0,3629.0,2395.0],[3895.0,3629.0,2395.0],[3895.0,3690.0,2395.0],[3529.0,3690.0,2395.0],[3529.0,3629.0,3042.0],[3895.0,3629.0,3042.0],[3895.0,3690.0,3042.0],[3529.0,3690.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[2659.0,3650.0,2395.0],[3529.0,3650.0,2395.0],[3529.0,3670.0,2395.0],[2659.0,3670.0,2395.0],[2659.0,3650.0,3042.0],[3529.0,3650.0,3042.0],[3529.0,3670.0,3042.0],[2659.0,3670.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,3629.0,1092.0],[3895.0,3629.0,1092.0],[3895.0,3690.0,1092.0],[917.0,3690.0,1092.0],[917.0,3629.0,1343.0],[3895.0,3629.0,1343.0],[3895.0,3690.0,1343.0],[917.0,3690.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[917.0,2540.0,3540.0],[917.0,3629.0,3498.0],[917.0,3629.0,1395.0],[917.0,2540.0,1395.0],[977.0,2540.0,1395.0],[977.0,3629.0,1395.0],[977.0,3629.0,3498.0],[977.0,2540.0,3540.0],[917.0,2540.0,1395.0],[917.0,3629.0,1395.0],[977.0,3629.0,1395.0],[977.0,2540.0,1395.0],[917.0,3629.0,1395.0],[917.0,3629.0,3498.0],[977.0,3629.0,3498.0],[977.0,3629.0,1395.0],[917.0,3629.0,3498.0],[917.0,2540.0,3540.0],[977.0,2540.0,3540.0],[977.0,3629.0,3498.0],[917.0,2540.0,3540.0],[917.0,2540.0,1395.0],[977.0,2540.0,1395.0],[977.0,2540.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[3835.0,2540.0,3540.0],[3835.0,3629.0,3498.0],[3835.0,3629.0,1395.0],[3835.0,2540.0,1395.0],[3895.0,2540.0,1395.0],[3895.0,3629.0,1395.0],[3895.0,3629.0,3498.0],[3895.0,2540.0,3540.0],[3835.0,2540.0,1395.0],[3835.0,3629.0,1395.0],[3895.0,3629.0,1395.0],[3895.0,2540.0,1395.0],[3835.0,3629.0,1395.0],[3835.0,3629.0,3498.0],[3895.0,3629.0,3498.0],[3895.0,3629.0,1395.0],[3835.0,3629.0,3498.0],[3835.0,2540.0,3540.0],[3895.0,2540.0,3540.0],[3895.0,3629.0,3498.0],[3835.0,2540.0,3540.0],[3835.0,2540.0,1395.0],[3895.0,2540.0,1395.0],[3895.0,2540.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,3629.0,1343.0],[13570.0,3629.0,1343.0],[13570.0,3690.0,1343.0],[4322.0,3690.0,1343.0],[4322.0,3629.0,2395.0],[13570.0,3629.0,2395.0],[13570.0,3690.0,2395.0],[4322.0,3690.0,2395.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,3629.0,3042.0],[13570.0,3629.0,3042.0],[13570.0,3690.0,3042.0],[4322.0,3690.0,3042.0],[4322.0,3629.0,3610.0],[13570.0,3629.0,3610.0],[13570.0,3690.0,3610.0],[4322.0,3690.0,3610.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,3629.0,2395.0],[5679.0,3629.0,2395.0],[5679.0,3690.0,2395.0],[4322.0,3690.0,2395.0],[4322.0,3629.0,3042.0],[5679.0,3629.0,3042.0],[5679.0,3690.0,3042.0],[4322.0,3690.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[5679.0,3650.0,2395.0],[7949.0,3650.0,2395.0],[7949.0,3670.0,2395.0],[5679.0,3670.0,2395.0],[5679.0,3650.0,3042.0],[7949.0,3650.0,3042.0],[7949.0,3670.0,3042.0],[5679.0,3670.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[7949.0,3629.0,2395.0],[9059.0,3629.0,2395.0],[9059.0,3690.0,2395.0],[7949.0,3690.0,2395.0],[7949.0,3629.0,3042.0],[9059.0,3629.0,3042.0],[9059.0,3690.0,3042.0],[7949.0,3690.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[9059.0,3650.0,2395.0],[9779.0,3650.0,2395.0],[9779.0,3670.0,2395.0],[9059.0,3670.0,2395.0],[9059.0,3650.0,3042.0],[9779.0,3650.0,3042.0],[9779.0,3670.0,3042.0],[9059.0,3670.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[9779.0,3629.0,2395.0],[10799.0,3629.0,2395.0],[10799.0,3690.0,2395.0],[9779.0,3690.0,2395.0],[9779.0,3629.0,3042.0],[10799.0,3629.0,3042.0],[10799.0,3690.0,3042.0],[9779.0,3690.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_VETRO","v":[[10799.0,3650.0,2395.0],[11769.0,3650.0,2395.0],[11769.0,3670.0,2395.0],[10799.0,3670.0,2395.0],[10799.0,3650.0,3042.0],[11769.0,3650.0,3042.0],[11769.0,3670.0,3042.0],[10799.0,3670.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[11769.0,3629.0,2395.0],[13570.0,3629.0,2395.0],[13570.0,3690.0,2395.0],[11769.0,3690.0,2395.0],[11769.0,3629.0,3042.0],[13570.0,3629.0,3042.0],[13570.0,3690.0,3042.0],[11769.0,3690.0,3042.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,3629.0,1092.0],[13570.0,3629.0,1092.0],[13570.0,3690.0,1092.0],[4322.0,3690.0,1092.0],[4322.0,3629.0,1343.0],[13570.0,3629.0,1343.0],[13570.0,3690.0,1343.0],[4322.0,3690.0,1343.0]],"f":[[0,3,2,1],[1,2,6,5],[3,7,6,2],[0,4,7,3],[0,1,5,4],[4,5,6,7]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[4322.0,2540.0,3540.0],[4322.0,3629.0,3498.0],[4322.0,3629.0,1395.0],[4322.0,2540.0,1395.0],[4382.0,2540.0,1395.0],[4382.0,3629.0,1395.0],[4382.0,3629.0,3498.0],[4382.0,2540.0,3540.0],[4322.0,2540.0,1395.0],[4322.0,3629.0,1395.0],[4382.0,3629.0,1395.0],[4382.0,2540.0,1395.0],[4322.0,3629.0,1395.0],[4322.0,3629.0,3498.0],[4382.0,3629.0,3498.0],[4382.0,3629.0,1395.0],[4322.0,3629.0,3498.0],[4322.0,2540.0,3540.0],[4382.0,2540.0,3540.0],[4382.0,3629.0,3498.0],[4322.0,2540.0,3540.0],[4322.0,2540.0,1395.0],[4382.0,2540.0,1395.0],[4382.0,2540.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_ESTRATTORE_CUCINA","v":[[13510.0,2540.0,3540.0],[13510.0,3629.0,3498.0],[13510.0,3629.0,1395.0],[13510.0,2540.0,1395.0],[13570.0,2540.0,1395.0],[13570.0,3629.0,1395.0],[13570.0,3629.0,3498.0],[13570.0,2540.0,3540.0],[13510.0,2540.0,1395.0],[13510.0,3629.0,1395.0],[13570.0,3629.0,1395.0],[13570.0,2540.0,1395.0],[13510.0,3629.0,1395.0],[13510.0,3629.0,3498.0],[13570.0,3629.0,3498.0],[13570.0,3629.0,1395.0],[13510.0,3629.0,3498.0],[13510.0,2540.0,3540.0],[13570.0,2540.0,3540.0],[13570.0,3629.0,3498.0],[13510.0,2540.0,3540.0],[13510.0,2540.0,1395.0],[13570.0,2540.0,1395.0],[13570.0,2540.0,3540.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[917.0,1211.0,3576.0],[917.0,2451.0,3624.0],[917.0,2451.0,3546.0],[917.0,1211.0,3498.0],[3895.0,1211.0,3498.0],[3895.0,2451.0,3546.0],[3895.0,2451.0,3624.0],[3895.0,1211.0,3576.0],[917.0,1211.0,3498.0],[917.0,2451.0,3546.0],[3895.0,2451.0,3546.0],[3895.0,1211.0,3498.0],[917.0,2451.0,3546.0],[917.0,2451.0,3624.0],[3895.0,2451.0,3624.0],[3895.0,2451.0,3546.0],[917.0,2451.0,3624.0],[917.0,1211.0,3576.0],[3895.0,1211.0,3576.0],[3895.0,2451.0,3624.0],[917.0,1211.0,3576.0],[917.0,1211.0,3498.0],[3895.0,1211.0,3498.0],[3895.0,1211.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[4322.0,1211.0,3576.0],[4322.0,2451.0,3624.0],[4322.0,2451.0,3546.0],[4322.0,1211.0,3498.0],[13570.0,1211.0,3498.0],[13570.0,2451.0,3546.0],[13570.0,2451.0,3624.0],[13570.0,1211.0,3576.0],[4322.0,1211.0,3498.0],[4322.0,2451.0,3546.0],[13570.0,2451.0,3546.0],[13570.0,1211.0,3498.0],[4322.0,2451.0,3546.0],[4322.0,2451.0,3624.0],[13570.0,2451.0,3624.0],[13570.0,2451.0,3546.0],[4322.0,2451.0,3624.0],[4322.0,1211.0,3576.0],[13570.0,1211.0,3576.0],[13570.0,2451.0,3624.0],[4322.0,1211.0,3576.0],[4322.0,1211.0,3498.0],[13570.0,1211.0,3498.0],[13570.0,1211.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[917.0,3629.0,3576.0],[917.0,2389.0,3624.0],[917.0,2389.0,3546.0],[917.0,3629.0,3498.0],[3895.0,3629.0,3498.0],[3895.0,2389.0,3546.0],[3895.0,2389.0,3624.0],[3895.0,3629.0,3576.0],[917.0,3629.0,3498.0],[917.0,2389.0,3546.0],[3895.0,2389.0,3546.0],[3895.0,3629.0,3498.0],[917.0,2389.0,3546.0],[917.0,2389.0,3624.0],[3895.0,2389.0,3624.0],[3895.0,2389.0,3546.0],[917.0,2389.0,3624.0],[917.0,3629.0,3576.0],[3895.0,3629.0,3576.0],[3895.0,2389.0,3624.0],[917.0,3629.0,3576.0],[917.0,3629.0,3498.0],[3895.0,3629.0,3498.0],[3895.0,3629.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]},{"l":"VOL_TETTO_ESTR_INCLINATO","v":[[4322.0,3629.0,3576.0],[4322.0,2389.0,3624.0],[4322.0,2389.0,3546.0],[4322.0,3629.0,3498.0],[13570.0,3629.0,3498.0],[13570.0,2389.0,3546.0],[13570.0,2389.0,3624.0],[13570.0,3629.0,3576.0],[4322.0,3629.0,3498.0],[4322.0,2389.0,3546.0],[13570.0,2389.0,3546.0],[13570.0,3629.0,3498.0],[4322.0,2389.0,3546.0],[4322.0,2389.0,3624.0],[13570.0,2389.0,3624.0],[13570.0,2389.0,3546.0],[4322.0,2389.0,3624.0],[4322.0,3629.0,3576.0],[13570.0,3629.0,3576.0],[13570.0,2389.0,3624.0],[4322.0,3629.0,3576.0],[4322.0,3629.0,3498.0],[13570.0,3629.0,3498.0],[13570.0,3629.0,3576.0]],"f":[[0,1,2,3],[4,5,6,7],[8,9,10,11],[12,13,14,15],[16,17,18,19],[20,21,22,23]]}]}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+if(!window.THREE){ document.getElementById('stage').innerHTML =
+  '<p style="padding:24px;color:var(--muted)">Impossibile caricare il motore 3D: le tavole TAV.02–07 restano valide.</p>'; return; }
+
+var DATA = JSON.parse(document.getElementById('geo').textContent);
+var LAYERS = [
+  ['VOL_CASSONE',            'Cassone (corpo fisso)', 0x8593a0, 1],
+  ['VOL_ESTRATTORE_INGRESSO','Estrattore ingresso',   0x3f9e94, 1],
+  ['VOL_ESTRATTORE_CUCINA',  'Estrattore cucina',     0x76a565, 1],
+  ['VOL_TETTO_ESTR_INCLINATO','Tetto estrattori',     0xcaa15e, 1],
+  ['VOL_PAVIMENTO',          'Pavimento',             0xa5793f, 1],
+  ['VOL_TELAIO',             'Telaio e ruote',        0x454c54, 1],
+  ['VOL_TETTO',              'Tetto',                 0xaab4bc, 1],
+  ['VOL_CONTROSOFFITTO',     'Controsoffitto',        0xd8d2c4, 1],
+  ['VOL_DIVISORI',           'Divisori',              0xc07b3c, 1],
+  ['VOL_VETRO',              'Vetrate',               0x4fc3de, .3],
+  ['VOL_OBLO',               'Oblò',                  0x63c3dc, .45],
+  ['VOL_IMPIANTO_CLIMA',     'Clima',                 0x5b83ad, 1]
+];
+
+var stage = document.getElementById('stage');
+var renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, 2));
+stage.insertBefore(renderer.domElement, stage.firstChild);
+var scene = new THREE.Scene();
+var camera = new THREE.PerspectiveCamera(42, 1, 100, 400000);
+camera.up.set(0,0,1);
+
+scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8a7a, .95));
+var sun = new THREE.DirectionalLight(0xffffff, .55);
+sun.position.set(9000, -14000, 18000); scene.add(sun);
+var sun2 = new THREE.DirectionalLight(0xffffff, .22);
+sun2.position.set(-6000, 12000, 8000); scene.add(sun2);
+
+var edgeMat = new THREE.LineBasicMaterial({color:0x232e38, transparent:true, opacity:.45});
+var mats = {};
+LAYERS.forEach(function(L){
+  mats[L[0]] = new THREE.MeshLambertMaterial({
+    color:L[2], side:THREE.DoubleSide,
+    transparent:L[3]<1, opacity:L[3],
+    polygonOffset:true, polygonOffsetFactor:1, polygonOffsetUnits:1
+  });
+});
+
+function buildConfig(list){
+  var byLayer = {};
+  list.forEach(function(m){
+    var pos = [];
+    m.f.forEach(function(face){
+      for(var i=1;i<face.length-1;i++){
+        [face[0],face[i],face[i+1]].forEach(function(idx){
+          var v = m.v[idx]; pos.push(v[0],v[1],v[2]);
+        });
+      }
+    });
+    var g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos,3));
+    g.computeVertexNormals();
+    if(!byLayer[m.l]) byLayer[m.l] = new THREE.Group();
+    byLayer[m.l].add(new THREE.Mesh(g, mats[m.l] || mats.VOL_CASSONE));
+    var eg = new THREE.EdgesGeometry(g, 28);
+    byLayer[m.l].add(new THREE.LineSegments(eg, edgeMat));
+  });
+  var root = new THREE.Group();
+  Object.keys(byLayer).forEach(function(k){ root.add(byLayer[k]); });
+  root.userData.byLayer = byLayer;
+  scene.add(root);
+  return root;
+}
+var roots = { aperto: buildConfig(DATA.aperto), chiuso: buildConfig(DATA.chiuso) };
+roots.chiuso.visible = false;
+
+// ground grid, 1 m
+var gridMat  = new THREE.LineBasicMaterial({color:0xcccccc, transparent:true, opacity:.55});
+var gridMat5 = new THREE.LineBasicMaterial({color:0xbbbbbb, transparent:true, opacity:.85});
+(function(){
+  var minor=[], major=[], x, y;
+  for(x=-2000; x<=16000; x+=1000) (x%5000===0?major:minor).push(x,-3000,0, x,8000,0);
+  for(y=-3000; y<=8000; y+=1000) (y%5000===0?major:minor).push(-2000,y,0, 16000,y,0);
+  [[minor,gridMat],[major,gridMat5]].forEach(function(p){
+    var g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(p[0],3));
+    scene.add(new THREE.LineSegments(g, p[1]));
+  });
+})();
+
+// scale figures (1.750 mm)
+var personMat = new THREE.MeshLambertMaterial({color:0x777777});
+function person(x,y,z){
+  var g = new THREE.Group();
+  var body = new THREE.Mesh(new THREE.CylinderGeometry(160,145,1210,16), personMat);
+  body.rotation.x = Math.PI/2; body.position.set(0,0,905); g.add(body);
+  var legs = new THREE.Mesh(new THREE.CylinderGeometry(120,120,300,12), personMat);
+  legs.rotation.x = Math.PI/2; legs.position.set(0,0,150); g.add(legs);
+  var head = new THREE.Mesh(new THREE.SphereGeometry(120,16,12), personMat);
+  head.position.set(0,0,1630); g.add(head);
+  g.position.set(x,y,z);
+  scene.add(g); return g;
+}
+person(-900, 1000, 0);
+var insidePerson = person(6500, 2420, 1395);
+
+// ---- controls ----
+var target = new THREE.Vector3(6995, 2420, 1500);
+var az=-2.05, el=.40, r=19500;
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function render(){ renderer.render(scene, camera); }
+function apply(){
+  el = clamp(el, -.05, 1.555); r = clamp(r, 2500, 90000);
+  var ce = Math.cos(el);
+  camera.position.set(target.x + r*ce*Math.cos(az), target.y + r*ce*Math.sin(az), target.z + r*Math.sin(el));
+  camera.up.set(0,0,1); camera.lookAt(target); render();
+}
+function resize(){
+  var w = stage.clientWidth, h = stage.clientHeight;
+  renderer.setSize(w, h); camera.aspect = w/h; camera.updateProjectionMatrix(); apply();
+}
+new ResizeObserver(resize).observe(stage);
+
+var el3 = renderer.domElement, pointers = {}, lastPinch = 0;
+el3.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+el3.addEventListener('pointerdown', function(e){
+  el3.setPointerCapture(e.pointerId);
+  pointers[e.pointerId] = {x:e.clientX, y:e.clientY, b:e.button, sh:e.shiftKey};
+});
+function pan(dx,dy){
+  var dir = new THREE.Vector3(); camera.getWorldDirection(dir);
+  var right = new THREE.Vector3().crossVectors(dir, camera.up).normalize();
+  var upv = new THREE.Vector3().crossVectors(right, dir).normalize();
+  var f = r*.0014;
+  target.addScaledVector(right, -dx*f).addScaledVector(upv, dy*f);
+}
+el3.addEventListener('pointermove', function(e){
+  var p = pointers[e.pointerId]; if(!p) return;
+  var ids = Object.keys(pointers);
+  if(ids.length === 2){
+    var o = pointers[ids[0]===String(e.pointerId)?ids[1]:ids[0]];
+    var d = Math.hypot(e.clientX-o.x, e.clientY-o.y);
+    if(lastPinch) r *= lastPinch/d;
+    lastPinch = d;
+    p.x=e.clientX; p.y=e.clientY; apply(); return;
+  }
+  var dx=e.clientX-p.x, dy=e.clientY-p.y;
+  if(p.b===2 || p.b===1 || p.sh){ pan(dx,dy); }
+  else { az -= dx*.0052; el += dy*.0052; }
+  p.x=e.clientX; p.y=e.clientY; apply();
+});
+function drop(e){ delete pointers[e.pointerId]; lastPinch=0; }
+el3.addEventListener('pointerup', drop); el3.addEventListener('pointercancel', drop);
+el3.addEventListener('wheel', function(e){
+  e.preventDefault(); r *= Math.exp((e.deltaMode===1? e.deltaY*24 : e.deltaY)*.0011); apply();
+}, {passive:false});
+
+var VIEWS = {
+  axo:  {az:-2.05, el:.40, r:19500, t:[6995,2420,1500]},
+  top:  {az:-Math.PI/2, el:1.55, r:17500, t:[6995,2420,0]},
+  ing:  {az:-Math.PI/2, el:.10, r:18500, t:[6995,2420,1800]},
+  cuc:  {az: Math.PI/2, el:.10, r:18500, t:[6995,2420,1800]},
+  front:{az: Math.PI+.0001, el:.12, r:12500, t:[6995,2420,1800]}
+};
+document.querySelectorAll('.vbtn').forEach(function(b){
+  b.addEventListener('click', function(){
+    var v = VIEWS[b.dataset.view];
+    az=v.az; el=v.el; r=v.r; target.set(v.t[0],v.t[1],v.t[2]); apply();
+  });
+});
+
+// config toggle
+document.querySelectorAll('#cfgseg button').forEach(function(b){
+  b.addEventListener('click', function(){
+    document.querySelectorAll('#cfgseg button').forEach(function(x){ x.setAttribute('aria-pressed', String(x===b)); });
+    roots.aperto.visible = b.dataset.cfg==='aperto';
+    roots.chiuso.visible = b.dataset.cfg==='chiuso';
+    insidePerson.visible = b.dataset.cfg==='aperto';
+    syncLayers(); render();
+  });
+});
+
+// layer chips
+var chipBox = document.getElementById('chips');
+var layerOn = {};
+LAYERS.forEach(function(L){
+  layerOn[L[0]] = true;
+  var c = document.createElement('button');
+  c.type='button'; c.className='chip'; c.setAttribute('aria-pressed','true');
+  c.style.setProperty('--sw', '#'+L[2].toString(16).padStart(6,'0'));
+  c.innerHTML = '<i></i>'+L[1];
+  c.addEventListener('click', function(){
+    layerOn[L[0]] = !layerOn[L[0]];
+    c.setAttribute('aria-pressed', String(layerOn[L[0]]));
+    syncLayers(); render();
+  });
+  chipBox.appendChild(c);
+});
+function syncLayers(){
+  ['aperto','chiuso'].forEach(function(cfg){
+    var by = roots[cfg].userData.byLayer;
+    Object.keys(by).forEach(function(k){ by[k].visible = layerOn[k]!==false; });
+  });
+}
+
+// theme
+function cssvar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+function theme(){
+  var dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  var dt = document.documentElement.getAttribute('data-theme');
+  if(dt==='dark') dark=true; if(dt==='light') dark=false;
+  scene.background = new THREE.Color(cssvar('--paper')||(dark?'#141a21':'#f2f1ea'));
+  edgeMat.color.set(dark?0x0c1014:0x232e38);
+  edgeMat.opacity = dark?.6:.45;
+  gridMat.color.set(dark?0x2b3540:0xd6d2c4);
+  gridMat5.color.set(dark?0x39434f:0xc7c2b2);
+  personMat.color.set(dark?0x9aa5ae:0x6f7a84);
+  render();
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', theme);
+new MutationObserver(theme).observe(document.documentElement, {attributes:true, attributeFilter:['data-theme']});
+
+resize(); theme(); apply();
+})();
+</script>
