@@ -1,0 +1,616 @@
+<title>Truck Showroom DINO CHIESA</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+  :root{
+    --ink:#0c0e11; --panel:rgba(17,19,24,.94); --panel-line:rgba(255,255,255,.14);
+    --text:#f1ede6; --muted:#9b948a; --brass:#d0a355; --brass-dim:rgba(208,163,85,.22);
+    --sans:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  }
+  html,body{height:100%;}
+  body{margin:0;background:var(--ink);color:var(--text);font-family:var(--sans);overflow:hidden;
+       -webkit-user-select:none;user-select:none;touch-action:none;}
+  #scena{position:fixed;inset:0;display:block;cursor:grab;}
+  #scena.trascina{cursor:grabbing;}
+
+  .chip{position:fixed;z-index:5;background:var(--panel);border:1px solid var(--panel-line);
+        border-radius:10px;padding:10px 14px;backdrop-filter:blur(8px);}
+  #testata{top:14px;left:14px;max-width:min(74vw,460px);}
+  #testata .demo-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.14em;
+        color:var(--brass);border:1px solid var(--brass-dim);background:var(--brass-dim);
+        border-radius:4px;padding:2px 7px;margin-bottom:6px;}
+  #testata h1{margin:0;font-size:15px;font-weight:800;letter-spacing:.02em;line-height:1.2;}
+  #testata p{margin:3px 0 0;font-size:11px;color:var(--muted);line-height:1.35;}
+  #zona{top:14px;right:14px;text-align:right;padding:8px 14px;}
+  #zona .eti{font-size:9px;font-weight:600;letter-spacing:.16em;color:var(--muted);}
+  #zona .nome{font-size:14px;font-weight:800;color:var(--brass);letter-spacing:.03em;}
+
+  #aiuto{bottom:16px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);
+         max-width:88vw;text-align:center;line-height:1.5;transition:opacity .8s;padding:9px 16px;}
+  #aiuto b{color:var(--text);font-weight:600;}
+  #aiuto.spento{opacity:0;pointer-events:none;}
+  #btnAiuto{bottom:16px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--panel-line);
+         background:var(--panel);color:var(--muted);font:600 15px var(--sans);cursor:pointer;position:fixed;z-index:5;}
+  #btnAiuto:hover,#btnAiuto:focus-visible{color:var(--brass);border-color:var(--brass-dim);outline:none;}
+
+  #scheda{position:fixed;z-index:8;right:14px;bottom:64px;width:min(330px,calc(100vw - 28px));
+          background:var(--panel);border:1px solid var(--panel-line);border-radius:14px;
+          padding:16px 18px;backdrop-filter:blur(10px);box-shadow:0 18px 50px rgba(0,0,0,.5);}
+  #scheda .cat{font-size:9px;font-weight:600;letter-spacing:.18em;color:var(--brass);}
+  #scheda h2{margin:4px 0 8px;font-size:17px;font-weight:800;line-height:1.2;letter-spacing:.01em;}
+  #scheda dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:12px;}
+  #scheda dt{color:var(--muted);}
+  #scheda dd{margin:0;font-family:var(--mono);font-size:11.5px;}
+  #scheda .nota{margin:10px 0 0;font-size:10.5px;color:var(--muted);border-top:1px dashed var(--panel-line);
+          padding-top:8px;line-height:1.4;}
+  #scheda .chiudi{position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:8px;border:none;
+          background:transparent;color:var(--muted);font-size:16px;cursor:pointer;}
+  #scheda .chiudi:hover,#scheda .chiudi:focus-visible{color:var(--text);background:rgba(255,255,255,.08);outline:none;}
+
+  #stick{position:fixed;z-index:6;width:110px;height:110px;border-radius:50%;border:1.5px solid var(--panel-line);
+         background:rgba(17,19,24,.35);display:none;}
+  #stick .pomo{position:absolute;left:50%;top:50%;width:46px;height:46px;border-radius:50%;
+         background:var(--brass-dim);border:1.5px solid var(--brass);transform:translate(-50%,-50%);}
+  @media (pointer:coarse){ #aiuto{bottom:150px;} }
+</style>
+
+<canvas id="scena"></canvas>
+
+<div class="chip" id="testata">
+  <span class="demo-tag">DEMO TECNICA · DATI D'ESEMPIO</span>
+  <h1>Truck Showroom DINO CHIESA</h1>
+  <p>Prototipo di camminata virtuale nel camion allestito — l'estetica finale arriverà dai render Manus / dalla scansione reale.</p>
+</div>
+
+<div class="chip" id="zona"><div class="eti">TI TROVI IN</div><div class="nome">Accoglienza</div></div>
+
+<div class="chip" id="aiuto"><b>Trascina</b> per guardarti intorno · <b>WASD / frecce</b> per camminare ·
+tocca i <b>cerchi numerati</b> a terra per spostarti · tocca <b style="color:var(--brass)">ⓘ</b> sui mobili per la scheda</div>
+<button id="btnAiuto" aria-label="Mostra aiuto">?</button>
+
+<div id="scheda" hidden>
+  <button class="chiudi" aria-label="Chiudi scheda">✕</button>
+  <div class="cat"></div><h2></h2><dl></dl>
+  <p class="nota">Dati d'esempio della demo — verranno sostituiti con gli articoli reali DINO CHIESA.</p>
+</div>
+
+<div id="stick"><div class="pomo"></div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+'use strict';
+var riduciMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- misure del vano (m): semirimorchio interno ---------- */
+var L = 10.4, W = 2.42, H = 2.45;          // lunghezza (z), larghezza (x), altezza (y)
+var X = W/2, Z = L/2;                       // semiestensioni
+var OCCHIO = 1.60;                          // altezza occhi
+
+/* ---------- renderer / scena ---------- */
+var canvas = document.getElementById('scena');
+var renderer = new THREE.WebGLRenderer({canvas:canvas, antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+
+var scena = new THREE.Scene();
+scena.background = new THREE.Color(0x101216);
+scena.fog = new THREE.Fog(0x101216, 11, 24);
+
+var camera = new THREE.PerspectiveCamera(68, 1, 0.05, 60);
+camera.rotation.order = 'YXZ';
+camera.position.set(-0.2, OCCHIO, 4.55);
+var yaw = 0, pitch = 0;
+
+/* ---------- texture procedurali ---------- */
+function tex(w,h,disegna){
+  var c = document.createElement('canvas'); c.width=w; c.height=h;
+  disegna(c.getContext('2d'), w, h);
+  var t = new THREE.CanvasTexture(c);
+  t.wrapS = t.wrapT = THREE.RepeatWrapping; t.encoding = THREE.sRGBEncoding;
+  t.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  return t;
+}
+function rumore(g,w,h,alfa,n){ // granulosità leggera
+  for(var i=0;i<n;i++){ g.fillStyle='rgba('+(Math.random()<.5?'0,0,0':'255,255,255')+','+(Math.random()*alfa)+')';
+    g.fillRect(Math.random()*w, Math.random()*h, 1+Math.random()*2, 1+Math.random()*2); }
+}
+var texLegno = tex(512,512,function(g,w,h){       // laminato greige "CERA"
+  g.fillStyle='#b3a48e'; g.fillRect(0,0,w,h);
+  for(var i=0;i<90;i++){ var x=Math.random()*w;
+    g.strokeStyle='rgba('+(Math.random()<.5?'90,78,60':'218,208,190')+','+(0.05+Math.random()*0.08)+')';
+    g.lineWidth=1+Math.random()*3; g.beginPath(); g.moveTo(x,0);
+    g.bezierCurveTo(x+8,h*.33, x-8,h*.66, x+4,h); g.stroke(); }
+  rumore(g,w,h,.05,900);
+});
+var texPietra = tex(512,512,function(g,w,h){      // effetto pietra scura
+  g.fillStyle='#3a3835'; g.fillRect(0,0,w,h);
+  for(var i=0;i<40;i++){ g.fillStyle='rgba('+(Math.random()<.6?'255,255,255':'0,0,0')+','+(Math.random()*0.05)+')';
+    var x=Math.random()*w, y=Math.random()*h, r=20+Math.random()*90;
+    g.beginPath(); g.ellipse(x,y,r,r*.4,Math.random()*3,0,7); g.fill(); }
+  rumore(g,w,h,.06,1400);
+});
+var texPavimento = tex(512,512,function(g,w,h){   // gres grande formato con fuga
+  g.fillStyle='#4a4642'; g.fillRect(0,0,w,h);
+  for(var i=0;i<50;i++){ g.fillStyle='rgba('+(Math.random()<.5?'255,255,255':'0,0,0')+','+(Math.random()*0.04)+')';
+    var x=Math.random()*w, y=Math.random()*h, r=30+Math.random()*120;
+    g.beginPath(); g.ellipse(x,y,r,r*.3,Math.random()*3,0,7); g.fill(); }
+  g.strokeStyle='rgba(15,13,11,.9)'; g.lineWidth=4;
+  g.strokeRect(2,2,w-4,h-4); g.beginPath(); g.moveTo(w/2,0); g.lineTo(w/2,h); g.stroke();
+  rumore(g,w,h,.05,1200);
+});
+texPavimento.repeat.set(2.2, 9);
+var texDoghe = tex(512,512,function(g,w,h){       // doghe legno a soffitto/parete
+  g.fillStyle='#8d7a60'; g.fillRect(0,0,w,h);
+  var nd=8, pd=w/nd;
+  for(var i=0;i<nd;i++){ g.fillStyle='rgba(40,30,18,.85)'; g.fillRect(i*pd,0,3,h);
+    g.fillStyle='rgba(255,240,215,.07)'; g.fillRect(i*pd+3,0,2,h); }
+  for(var j=0;j<70;j++){ g.strokeStyle='rgba(60,45,25,'+(0.04+Math.random()*0.06)+')';
+    g.lineWidth=1; var x=Math.random()*w; g.beginPath(); g.moveTo(x,0); g.lineTo(x+4,h); g.stroke(); }
+});
+texDoghe.repeat.set(1,6);
+
+/* ---------- materiali ---------- */
+var M = {
+  parete:  new THREE.MeshStandardMaterial({color:0xece8e1, roughness:.92}),
+  costola: new THREE.MeshStandardMaterial({color:0xdfdad2, roughness:.9}),
+  soffitto:new THREE.MeshStandardMaterial({color:0xf2efe9, roughness:.95}),
+  pavimento:new THREE.MeshStandardMaterial({map:texPavimento, roughness:.55, metalness:.08}),
+  legno:   new THREE.MeshStandardMaterial({map:texLegno, roughness:.62}),
+  doghe:   new THREE.MeshStandardMaterial({map:texDoghe, roughness:.7}),
+  bianco:  new THREE.MeshStandardMaterial({color:0xf6f4f0, roughness:.35}),
+  ceramica:new THREE.MeshStandardMaterial({color:0xf8f7f4, roughness:.18}),
+  pietra:  new THREE.MeshStandardMaterial({map:texPietra, roughness:.8}),
+  ottone:  new THREE.MeshStandardMaterial({color:0xc9a15f, roughness:.32, metalness:.85}),
+  cromo:   new THREE.MeshStandardMaterial({color:0xd8dde0, roughness:.15, metalness:.9}),
+  nero:    new THREE.MeshStandardMaterial({color:0x23211f, roughness:.5, metalness:.3}),
+  specchio:new THREE.MeshStandardMaterial({color:0xdfe9ee, roughness:.08, metalness:.6}),
+  vetro:   new THREE.MeshStandardMaterial({color:0xd7e8ea, roughness:.06, metalness:.1,
+             transparent:true, opacity:.16, side:THREE.DoubleSide}),
+  led:     new THREE.MeshBasicMaterial({color:0xfff1da}),
+  ombra:   new THREE.MeshBasicMaterial({color:0x000000, transparent:true, opacity:.22})
+};
+
+/* ---------- ambiente riflessi (IBL) per metalli e specchi ---------- */
+(function(){
+  var pm = new THREE.PMREMGenerator(renderer);
+  var es = new THREE.Scene();
+  es.add(new THREE.Mesh(new THREE.BoxGeometry(20,10,20),
+      new THREE.MeshBasicMaterial({color:0x3a352e, side:THREE.BackSide})));
+  function pannello(w,h,c,x,y,z,ry,rx){
+    var p = new THREE.Mesh(new THREE.PlaneGeometry(w,h), new THREE.MeshBasicMaterial({color:c}));
+    p.position.set(x,y,z); if(ry)p.rotation.y=ry; if(rx)p.rotation.x=rx; es.add(p);
+  }
+  pannello(8,8,0xfff4e0, 0,4.9,0, 0, Math.PI/2);
+  pannello(6,3,0xffe8c8, -9,2,0,  Math.PI/2, 0);
+  pannello(6,3,0xcfd8de,  9,2,0, -Math.PI/2, 0);
+  scena.environment = pm.fromScene(es, .04).texture;
+  pm.dispose();
+  ['parete','costola','soffitto','pavimento','legno','doghe','pietra'].forEach(function(k){ M[k].envMapIntensity = .25; });
+  ['bianco','ceramica'].forEach(function(k){ M[k].envMapIntensity = .5; });
+})();
+
+/* ---------- helper geometrie ---------- */
+function box(w,h,d,mat,x,y,z,ry){
+  var m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
+  m.position.set(x,y,z); if(ry) m.rotation.y = ry; scena.add(m); return m;
+}
+function cil(rT,rB,h,mat,x,y,z,seg){
+  var m = new THREE.Mesh(new THREE.CylinderGeometry(rT,rB,h,seg||24), mat);
+  m.position.set(x,y,z); scena.add(m); return m;
+}
+function ombra(x,z,rx,rz){
+  var m = new THREE.Mesh(new THREE.CircleGeometry(1,24), M.ombra);
+  m.scale.set(rx,rz,1); m.rotation.x = -Math.PI/2; m.position.set(x,.012,z);
+  m.renderOrder = 1; scena.add(m); return m;
+}
+
+/* ---------- guscio del camion ---------- */
+(function(){
+  var pav = new THREE.Mesh(new THREE.PlaneGeometry(W,L), M.pavimento);
+  pav.rotation.x = -Math.PI/2; scena.add(pav);
+  var sof = new THREE.Mesh(new THREE.PlaneGeometry(W,L), M.soffitto);
+  sof.rotation.x = Math.PI/2; sof.position.y = H; scena.add(sof);
+  box(1.0,.02,L, M.doghe, 0, H-.012, 0);                      // fascia doghe centrale a soffitto
+
+  var pSx = new THREE.Mesh(new THREE.PlaneGeometry(L,H), M.parete);
+  pSx.rotation.y = Math.PI/2; pSx.position.set(-X, H/2, 0); scena.add(pSx);
+  var pDx = new THREE.Mesh(new THREE.PlaneGeometry(L,H), M.parete);
+  pDx.rotation.y = -Math.PI/2; pDx.position.set(X, H/2, 0); scena.add(pDx);
+  var pFr = new THREE.Mesh(new THREE.PlaneGeometry(W,H), M.parete);
+  pFr.position.set(0, H/2, -Z); scena.add(pFr);
+  var pRe = new THREE.Mesh(new THREE.PlaneGeometry(W,H), M.parete);
+  pRe.rotation.y = Math.PI; pRe.position.set(0, H/2, Z); scena.add(pRe);
+
+  for(var z=-Z+0.9; z<Z-0.4; z+=1.15){                        // costole verticali del furgone
+    box(.03,H,.09, M.costola, -X+.016, H/2, z);
+    box(.03,H,.09, M.costola,  X-.016, H/2, z);
+  }
+  // gole LED perimetrali in quota
+  box(.05,.04,L-.2, M.led, -X+.09, H-.13, 0);
+  box(.05,.04,L-.2, M.led,  X-.09, H-.13, 0);
+  // zoccolo scuro perimetrale
+  box(.02,.09,L, M.nero, -X+.01, .045, 0);
+  box(.02,.09,L, M.nero,  X-.01, .045, 0);
+
+  // portellone d'ingresso (fondale posteriore)
+  box(1.3,2.15,.04, M.nero, 0, 1.075, Z-.03);
+  box(1.34,.06,.06, M.ottone, 0, 2.2, Z-.05);
+})();
+
+/* ---------- insegne (canvas text) ---------- */
+function insegna(testo, sub, wPx, colore){
+  var t = tex(1024, 256, function(g,w,h){
+    g.clearRect(0,0,w,h);
+    g.fillStyle = colore || '#efe9df'; g.textAlign='center';
+    g.font = '800 92px Archivo, system-ui, sans-serif';
+    var sp = 14; g.save(); g.translate(w/2,0);
+    // lettere spaziate a mano
+    var tot=0, i; for(i=0;i<testo.length;i++) tot += g.measureText(testo[i]).width + sp;
+    var x = -tot/2;
+    for(i=0;i<testo.length;i++){ var lw=g.measureText(testo[i]).width;
+      g.fillText(testo[i], x+lw/2, 118); x += lw + sp; }
+    g.restore();
+    if(sub){ g.font='500 34px Archivo, system-ui, sans-serif';
+      g.fillStyle='rgba(200,160,90,.95)'; g.fillText(sub, w/2, 190); }
+  });
+  t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
+  var m = new THREE.Mesh(new THREE.PlaneGeometry(wPx, wPx/4),
+    new THREE.MeshBasicMaterial({map:t, transparent:true}));
+  return m;
+}
+
+/* ---------- arredi ---------- */
+var solidi = [];  // AABB collisioni {x1,x2,z1,z2}
+function blocca(x1,x2,z1,z2){ solidi.push({x1:x1,x2:x2,z1:z1,z2:z2}); }
+
+function mobileLavabo(zc){
+  var xw = -X;                                   // parete sinistra
+  box(.46,.42,.90, M.legno, xw+.24, .56, zc);    // corpo sospeso
+  box(.44,.025,.86, M.nero,  xw+.245, .372, zc); // gola sotto
+  box(.48,.03,.94, M.bianco, xw+.25, .785, zc);  // top
+  box(.34,.105,.42, M.ceramica, xw+.26, .855, zc); // bacino d'appoggio
+  cil(.012,.012,.30, M.ottone, xw+.11, .95, zc-.28);   // miscelatore
+  var bocc = cil(.010,.010,.16, M.ottone, xw+.19, 1.085, zc-.28);
+  bocc.rotation.z = Math.PI/2;
+  // specchiera con quinte LED
+  box(.012,.90,.70, M.specchio, xw+.03, 1.55, zc);
+  box(.014,.94,.035, M.led, xw+.026, 1.55, zc-.37);
+  box(.014,.94,.035, M.led, xw+.026, 1.55, zc+.37);
+  ombra(xw+.26, zc, .34, .5);
+  blocca(-X, -X+.52, zc-.5, zc+.5);
+}
+mobileLavabo( 2.2); mobileLavabo(0); mobileLavabo(-2.2);
+
+(function doccia(){                               // parete destra, z 3.3
+  var zc = 3.3, xw = X;
+  box(.03,2.2,1.1, M.pietra, xw-.02, 1.1, zc);           // pannello pietra
+  box(.92,.07,.96, M.bianco, xw-.47, .035, zc);          // piatto
+  cil(.02,.02,2.05, M.ottone, xw-.10, 1.06, zc+.38);     // colonna
+  var braccio = cil(.014,.014,.34, M.ottone, xw-.26, 2.06, zc+.38); braccio.rotation.z = Math.PI/2;
+  var soff = cil(.13,.13,.02, M.ottone, xw-.42, 2.05, zc+.38); // soffione
+  // cristalli
+  var v1 = new THREE.Mesh(new THREE.PlaneGeometry(.96,2.0), M.vetro);
+  v1.rotation.y = Math.PI/2; v1.position.set(xw-.93, 1.0, zc); scena.add(v1);
+  var v2 = new THREE.Mesh(new THREE.PlaneGeometry(.9,2.0), M.vetro);
+  v2.position.set(xw-.47, 1.0, zc-.48); scena.add(v2);
+  box(.02,2.0,.02, M.ottone, xw-.93, 1.0, zc-.48);
+  box(.02,2.0,.02, M.ottone, xw-.93, 1.0, zc+.48);
+  ombra(xw-.47, zc, .5, .52);
+  blocca(X-1.0, X, zc-.52, zc+.52);
+})();
+
+(function sanitari(){                             // parete destra, z 0 — muretto tecnico
+  var xw = X;
+  box(.26,1.15,1.9, M.legno, xw-.13, .575, 0);           // muretto
+  box(.30,.03,1.94, M.bianco, xw-.15, 1.165, 0);         // cimasa
+  function vaso(zc, lung){
+    var pod = cil(.17,.19,lung, M.ceramica, xw-.44, .43, zc, 28);
+    pod.rotation.z = Math.PI/2; pod.scale.y = .72;
+    box(.22,.05,.36, M.ceramica, xw-.35, .55, zc);       // sedile
+    box(.002,.14,.20, M.cromo, xw-.272, .95, zc);        // placca
+  }
+  vaso(-.45, .52); vaso(.45, .44);                        // vaso + bidet
+  ombra(xw-.42, -.45, .3, .26); ombra(xw-.42, .45, .3, .24);
+  blocca(X-.72, X, -.95, .95);
+})();
+
+(function rubinetterie(){                         // parete destra, z -2.2
+  var xw = X, zc = -2.2;
+  box(.04,2.05,1.6, M.pietra, xw-.03, 1.03, zc);
+  var fin = [M.ottone, M.cromo, M.nero];
+  for(var i=0;i<3;i++){
+    var zz = zc - .5 + i*.5;
+    box(.28,.03,.4, M.legno, xw-.19, 1.05, zz);          // mensola
+    cil(.016,.02,.24, fin[i], xw-.22, 1.185, zz);        // corpo miscelatore
+    var arco = new THREE.Mesh(new THREE.TorusGeometry(.09,.011,10,24,Math.PI), fin[i]);
+    arco.position.set(xw-.31, 1.305, zz); scena.add(arco);
+  }
+  blocca(X-.4, X, zc-.85, zc+.85);
+})();
+
+(function suiteVasca(){                           // fondale anteriore
+  box(2.42,2.45,.06, M.doghe, 0, 1.225, -Z+.03); // parete doghe
+  var logo = insegna('DINO CHIESA','SHOWROOM ITINERANTE · ARREDO BAGNO', 1.9);
+  logo.position.set(0, 1.78, -Z+.075); scena.add(logo);
+  box(2.0,.05,.05, M.led, 0, 2.28, -Z+.09);
+  // vasca freestanding (lathe ellittico: lunga in x)
+  var pts = [];
+  pts.push(new THREE.Vector2(.14,0));
+  pts.push(new THREE.Vector2(.40,.02)); pts.push(new THREE.Vector2(.50,.10));
+  pts.push(new THREE.Vector2(.55,.28)); pts.push(new THREE.Vector2(.56,.46));
+  pts.push(new THREE.Vector2(.54,.55)); pts.push(new THREE.Vector2(.48,.55));
+  pts.push(new THREE.Vector2(.46,.30)); pts.push(new THREE.Vector2(.40,.12));
+  pts.push(new THREE.Vector2(.20,.10)); pts.push(new THREE.Vector2(.02,.10));
+  var vasca = new THREE.Mesh(new THREE.LatheGeometry(pts, 40),
+      new THREE.MeshStandardMaterial({color:0xf6f4f0, roughness:.28, side:THREE.DoubleSide}));
+  vasca.scale.set(1.5,1,.66); vasca.position.set(0,.005,-4.55); scena.add(vasca);
+  cil(.018,.018,.85, M.ottone, .62, .43, -4.25);         // colonna a pavimento
+  var bo = cil(.012,.012,.22, M.ottone, .54, .84, -4.25); bo.rotation.z = Math.PI/2;
+  ombra(0,-4.55,.9,.44);
+  // piante quinte
+  function pianta(x,z){ cil(.09,.11,.26, M.nero, x,.13,z);
+    var f = new THREE.Mesh(new THREE.ConeGeometry(.22,.8,8),
+      new THREE.MeshStandardMaterial({color:0x51684a, roughness:.9}));
+    f.position.set(x,.66,z); scena.add(f); blocca(x-.24,x+.24,z-.24,z+.24); }
+  pianta(-1.0,-4.05); pianta(1.0,-4.85);
+  blocca(-.92,.92,-5.2,-4.1);
+})();
+
+(function accoglienza(){                          // bancone al portellone
+  box(.5,1.02,1.0, M.legno, .78, .51, 4.32);
+  box(.56,.04,1.06, M.bianco, .78, 1.05, 4.32);
+  box(.02,.5,.62, M.ottone, .52, .55, 4.32);
+  var logo2 = insegna('DINO CHIESA','', 1.15, '#e9e2d5');
+  logo2.position.set(0, 2.0, Z-.06); logo2.rotation.y = Math.PI; scena.add(logo2);
+  ombra(.78, 4.32, .35, .55);
+  blocca(.5, 1.1, 3.78, 4.86);
+})();
+
+/* ---------- luci ---------- */
+scena.add(new THREE.HemisphereLight(0xfff2e2, 0x35302a, .75));
+scena.add(new THREE.AmbientLight(0xfff6ea, .16));
+[[0,3.6],[0,1.2],[0,-1.2],[0,-3.9]].forEach(function(p){
+  var l = new THREE.PointLight(0xffe2b8, .65, 7.5, 2);
+  l.position.set(p[0], H-.22, p[1]); scena.add(l);
+});
+// faretti decorativi
+for(var fz=-4.4; fz<=4.4; fz+=1.1){
+  cil(.05,.05,.02, M.nero, -.62, H-.015, fz);
+  cil(.05,.05,.02, M.nero,  .62, H-.015, fz);
+  cil(.035,.035,.006, M.led, -.62, H-.022, fz);
+  cil(.035,.035,.006, M.led,  .62, H-.022, fz);
+}
+
+/* ---------- hotspot ⓘ ---------- */
+function spriteTondo(testo, colore){
+  var t = tex(128,128,function(g){
+    g.clearRect(0,0,128,128);
+    g.beginPath(); g.arc(64,64,46,0,7); g.fillStyle='rgba(12,14,17,.82)'; g.fill();
+    g.lineWidth=5; g.strokeStyle=colore; g.stroke();
+    g.fillStyle='#f1ede6'; g.font='600 52px Archivo, system-ui, sans-serif';
+    g.textAlign='center'; g.textBaseline='middle'; g.fillText(testo,64,68);
+  });
+  t.wrapS=t.wrapT=THREE.ClampToEdgeWrapping;
+  var s = new THREE.Sprite(new THREE.SpriteMaterial({map:t, depthTest:false, transparent:true}));
+  s.renderOrder = 5; return s;
+}
+var SCHEDE = [
+ {p:[-.86,1.05, 0.0], cat:'MOBILI BAGNO', nome:'Mobile lavabo sospeso DC-L90',
+  dati:[['Misure','L 900 × P 460 × H 420 mm'],['Finitura','laminato opaco greige “CERA”'],
+        ['Interno','bianco'],['Top','HPL + lavabo d’appoggio in ceramica']]},
+ {p:[-1.05,1.62, 2.2], cat:'SPECCHIERE', nome:'Specchiera LED DC-S80',
+  dati:[['Misure','700 × 900 mm'],['Luce','LED 4000 K dimmerabile'],['Comando','touch, antiappannamento']]},
+ {p:[ .78,1.75, 3.3], cat:'ZONA DOCCIA', nome:'Colonna doccia Pioggia 25',
+  dati:[['Soffione','Ø 250 mm, ottone spazzolato'],['Piatto','900 × 900 mm effetto pietra'],['Cristallo','8 mm trasparente']]},
+ {p:[ .70, .95, 0.0], cat:'SANITARI', nome:'Sospesi su muretto tecnico',
+  dati:[['Muretto','H 1150 mm, cassetta a incasso'],['Vaso','rimless, sedile soft-close'],['Placca','a due quantità']]},
+ {p:[ .92,1.45,-2.2], cat:'RUBINETTERIE', nome:'Parete miscelatori',
+  dati:[['Finiture','ottone spazzolato · cromo · nero opaco'],['Tipo','bocca alta per lavabo d’appoggio']]},
+ {p:[ 0.0, .95,-4.55], cat:'SUITE', nome:'Vasca freestanding Onda 170',
+  dati:[['Misure','1700 × 750 × H 550 mm'],['Materiale','acrilico bianco opaco'],['Erogazione','colonna a pavimento in ottone']]}
+];
+var hotspot = [];
+SCHEDE.forEach(function(s,i){
+  var sp = spriteTondo('i', '#d0a355');
+  sp.position.set(s.p[0], s.p[1], s.p[2]);
+  sp.scale.set(.17,.17,1); sp.userData = {scheda:i}; scena.add(sp); hotspot.push(sp);
+});
+
+/* ---------- tappe di teletrasporto ---------- */
+var TAPPE = [
+ {p:[-0.35, 4.55], guarda:[0,-Z],      nome:'Accoglienza'},
+ {p:[ 0.10, 2.2],  guarda:[-1.2, 2.2], nome:'Zona lavabi'},
+ {p:[-0.25, 0.0],  guarda:[ 1.2, 0.0], nome:'Zona sanitari'},
+ {p:[ 0.0, -2.2],  guarda:[ 1.2,-2.2], nome:'Rubinetterie'},
+ {p:[ 0.0, -3.55], guarda:[ 0,-4.6],   nome:'Suite vasca'}
+];
+var dischi = [];
+TAPPE.forEach(function(t,i){
+  var g = new THREE.Group();
+  var anello = new THREE.Mesh(new THREE.RingGeometry(.13,.165,32),
+     new THREE.MeshBasicMaterial({color:0xd0a355, transparent:true, opacity:.9, side:THREE.DoubleSide}));
+  anello.rotation.x = -Math.PI/2;
+  var disco = new THREE.Mesh(new THREE.CircleGeometry(.125,32),
+     new THREE.MeshBasicMaterial({color:0x14161a, transparent:true, opacity:.72}));
+  disco.rotation.x = -Math.PI/2; disco.position.y = -.001;
+  var sp = spriteTondo(String(i+1), '#f1ede6'); sp.scale.set(.12,.12,1); sp.position.y = .09;
+  g.add(anello); g.add(disco); g.add(sp);
+  g.position.set(t.p[0], .015, t.p[1]);
+  g.userData = {tappa:i};
+  anello.userData = disco.userData = sp.userData = g.userData;
+  scena.add(g); dischi.push(g);
+});
+
+/* ---------- input: sguardo, tasti, joystick ---------- */
+var tasti = {};
+addEventListener('keydown', function(e){ tasti[e.code]=true;
+  if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].indexOf(e.code)>=0) e.preventDefault(); });
+addEventListener('keyup',   function(e){ tasti[e.code]=false; });
+
+var trascino=null, mosso=0;
+var stick = document.getElementById('stick'), pomo = stick.firstElementChild;
+var joy = {attivo:false, id:null, cx:0, cy:0, vx:0, vy:0};
+
+function suGiu(e){ return e.changedTouches ? Array.prototype.slice.call(e.changedTouches) : [e]; }
+
+canvas.addEventListener('pointerdown', function(e){
+  if(e.pointerType==='touch' && e.clientX < innerWidth*.42 && e.clientY > innerHeight*.45 && !joy.attivo){
+    joy.attivo=true; joy.id=e.pointerId; joy.cx=e.clientX; joy.cy=e.clientY; joy.vx=joy.vy=0;
+    stick.style.display='block';
+    stick.style.left=(e.clientX-55)+'px'; stick.style.top=(e.clientY-55)+'px';
+    return;
+  }
+  trascino = {id:e.pointerId, x:e.clientX, y:e.clientY}; mosso = 0;
+  canvas.classList.add('trascina');
+});
+addEventListener('pointermove', function(e){
+  if(joy.attivo && e.pointerId===joy.id){
+    var dx=e.clientX-joy.cx, dy=e.clientY-joy.cy, l=Math.hypot(dx,dy), max=42;
+    if(l>max){ dx*=max/l; dy*=max/l; }
+    joy.vx=dx/max; joy.vy=dy/max;
+    pomo.style.transform='translate(calc(-50% + '+dx+'px), calc(-50% + '+dy+'px))';
+    return;
+  }
+  if(!trascino || e.pointerId!==trascino.id) return;
+  var dx = e.clientX-trascino.x, dy = e.clientY-trascino.y;
+  trascino.x=e.clientX; trascino.y=e.clientY; mosso += Math.abs(dx)+Math.abs(dy);
+  yaw   += dx*0.0042;
+  pitch += dy*0.0042;
+  pitch = Math.max(-1.15, Math.min(1.15, pitch));
+});
+function fineTocco(e){
+  if(joy.attivo && e.pointerId===joy.id){ joy.attivo=false; joy.vx=joy.vy=0;
+    stick.style.display='none'; pomo.style.transform='translate(-50%,-50%)'; return; }
+  if(trascino && e.pointerId===trascino.id){
+    canvas.classList.remove('trascina');
+    if(mosso < 7) clicca(e.clientX, e.clientY);
+    trascino=null;
+  }
+}
+addEventListener('pointerup', fineTocco);
+addEventListener('pointercancel', fineTocco);
+
+/* ---------- raycast click ---------- */
+var ray = new THREE.Raycaster(); var ndc = new THREE.Vector2();
+var scheda = document.getElementById('scheda');
+scheda.querySelector('.chiudi').addEventListener('click', function(){ scheda.hidden = true; });
+
+function apriScheda(i){
+  var s = SCHEDE[i];
+  scheda.querySelector('.cat').textContent = s.cat;
+  scheda.querySelector('h2').textContent = s.nome;
+  var dl = scheda.querySelector('dl'); dl.innerHTML='';
+  s.dati.forEach(function(r){
+    var dt=document.createElement('dt'); dt.textContent=r[0];
+    var dd=document.createElement('dd'); dd.textContent=r[1];
+    dl.appendChild(dt); dl.appendChild(dd);
+  });
+  scheda.hidden = false;
+}
+var viaggio = null;
+function vaiATappa(i){
+  var t = TAPPE[i];
+  var y2 = Math.atan2(-(t.guarda[0]-t.p[0]), -(t.guarda[1]-t.p[1]));
+  var dy = y2 - yaw; while(dy>Math.PI) dy-=2*Math.PI; while(dy<-Math.PI) dy+=2*Math.PI;
+  viaggio = {t:0, dur: riduciMotion? .01 : .85,
+    x0:camera.position.x, z0:camera.position.z, x1:t.p[0], z1:t.p[1],
+    y0:yaw, y1:yaw+dy, p0:pitch};
+}
+function clicca(px,py){
+  ndc.set(px/innerWidth*2-1, -(py/innerHeight)*2+1);
+  ray.setFromCamera(ndc, camera);
+  var hitH = ray.intersectObjects(hotspot, false);
+  if(hitH.length){ apriScheda(hitH[0].object.userData.scheda); return; }
+  var lista = []; dischi.forEach(function(d){ d.children.forEach(function(c){ lista.push(c); }); });
+  var hitT = ray.intersectObjects(lista, false);
+  if(hitT.length){ vaiATappa(hitT[0].object.userData.tappa); }
+}
+
+/* ---------- collisioni & movimento ---------- */
+var RAGGIO = .2, LIMX = X-.3, LIMZ = Z-.32;
+function libero(x,z){
+  if(x<-LIMX||x>LIMX||z<-LIMZ||z>LIMZ) return false;
+  for(var i=0;i<solidi.length;i++){ var s=solidi[i];
+    if(x>s.x1-RAGGIO && x<s.x2+RAGGIO && z>s.z1-RAGGIO && z<s.z2+RAGGIO) return false; }
+  return true;
+}
+var vel = new THREE.Vector3();
+var avanti = new THREE.Vector3(), destra = new THREE.Vector3();
+
+/* ---------- zona corrente ---------- */
+var zonaEl = document.querySelector('#zona .nome');
+var zonaCorrente = '';
+function aggiornaZona(){
+  var z = camera.position.z, n;
+  if(z> 3.9) n='Accoglienza';
+  else if(z> 2.6) n='Zona doccia';
+  else if(z> 1.0) n='Zona lavabi';
+  else if(z>-1.2) n='Zona sanitari';
+  else if(z>-3.4) n='Rubinetterie';
+  else n='Suite vasca';
+  if(n!==zonaCorrente){ zonaCorrente=n; zonaEl.textContent=n; }
+}
+
+/* ---------- aiuto ---------- */
+var aiuto = document.getElementById('aiuto');
+var timerAiuto = setTimeout(function(){ aiuto.classList.add('spento'); }, 9000);
+document.getElementById('btnAiuto').addEventListener('click', function(){
+  clearTimeout(timerAiuto); aiuto.classList.remove('spento');
+  timerAiuto = setTimeout(function(){ aiuto.classList.add('spento'); }, 9000);
+});
+
+/* ---------- loop ---------- */
+var orologio = new THREE.Clock();
+function ridimensiona(){
+  camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+}
+addEventListener('resize', ridimensiona); ridimensiona();
+
+function anima(){
+  requestAnimationFrame(anima);
+  var dt = Math.min(orologio.getDelta(), .05);
+  var t  = orologio.elapsedTime;
+
+  if(viaggio){
+    viaggio.t += dt/viaggio.dur;
+    var k = viaggio.t>=1 ? 1 : (1-Math.pow(1-viaggio.t,3));
+    camera.position.x = viaggio.x0+(viaggio.x1-viaggio.x0)*k;
+    camera.position.z = viaggio.z0+(viaggio.z1-viaggio.z0)*k;
+    yaw = viaggio.y0+(viaggio.y1-viaggio.y0)*k;
+    pitch = viaggio.p0*(1-k);
+    if(viaggio.t>=1) viaggio=null;
+  } else {
+    var ix = (tasti.KeyD||tasti.ArrowRight? 1:0) - (tasti.KeyA||tasti.ArrowLeft? 1:0) + joy.vx;
+    var iz = (tasti.KeyW||tasti.ArrowUp  ? 1:0) - (tasti.KeyS||tasti.ArrowDown? 1:0) - joy.vy;
+    ix = Math.max(-1,Math.min(1,ix)); iz = Math.max(-1,Math.min(1,iz));
+    avanti.set(0,0,-1).applyQuaternion(camera.quaternion); avanti.y=0; avanti.normalize();
+    destra.set(1,0, 0).applyQuaternion(camera.quaternion); destra.y=0; destra.normalize();
+    var vTarget = new THREE.Vector3()
+        .addScaledVector(avanti, iz).addScaledVector(destra, ix);
+    if(vTarget.lengthSq()>1) vTarget.normalize();
+    vTarget.multiplyScalar(2.1);
+    vel.lerp(vTarget, 1-Math.pow(.0001, dt));
+    var nx = camera.position.x + vel.x*dt;
+    var nz = camera.position.z + vel.z*dt;
+    if(libero(nx, camera.position.z)) camera.position.x = nx;
+    if(libero(camera.position.x, nz)) camera.position.z = nz;
+  }
+  camera.rotation.y = yaw; camera.rotation.x = pitch;
+
+  if(!riduciMotion){
+    for(var i=0;i<hotspot.length;i++){
+      var s = .17 + Math.sin(t*2.2 + i)*.012;
+      hotspot[i].scale.set(s,s,1);
+    }
+  }
+  aggiornaZona();
+  renderer.render(scena, camera);
+}
+
+anima();
+})();
+</script>
