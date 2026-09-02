@@ -15,7 +15,7 @@
 
   .chip{position:fixed;z-index:5;background:var(--panel);border:1px solid var(--panel-line);
         border-radius:10px;padding:10px 14px;backdrop-filter:blur(8px);}
-  #testata{top:14px;left:14px;max-width:min(74vw,460px);}
+  #testata{top:14px;left:14px;max-width:min(74vw,470px);}
   #testata .demo-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.14em;
         color:var(--brass);border:1px solid var(--brass-dim);background:var(--brass-dim);
         border-radius:4px;padding:2px 7px;margin-bottom:6px;}
@@ -25,8 +25,12 @@
   #zona .eti{font-size:9px;font-weight:600;letter-spacing:.16em;color:var(--muted);}
   #zona .nome{font-size:14px;font-weight:800;color:var(--brass);letter-spacing:.03em;}
 
+  #mappa{left:14px;bottom:16px;padding:8px 10px 6px;pointer-events:none;}
+  #mappa .eti{font-size:8.5px;font-weight:600;letter-spacing:.16em;color:var(--muted);margin-bottom:4px;}
+  #mappa canvas{display:block;}
+
   #aiuto{bottom:16px;left:50%;transform:translateX(-50%);font-size:12px;color:var(--muted);
-         max-width:88vw;text-align:center;line-height:1.5;transition:opacity .8s;padding:9px 16px;}
+         max-width:min(88vw,560px);text-align:center;line-height:1.5;transition:opacity .8s;padding:9px 16px;}
   #aiuto b{color:var(--text);font-weight:600;}
   #aiuto.spento{opacity:0;pointer-events:none;}
   #btnAiuto{bottom:16px;right:14px;width:34px;height:34px;border-radius:50%;border:1px solid var(--panel-line);
@@ -47,11 +51,13 @@
           background:transparent;color:var(--muted);font-size:16px;cursor:pointer;}
   #scheda .chiudi:hover,#scheda .chiudi:focus-visible{color:var(--text);background:rgba(255,255,255,.08);outline:none;}
 
+  #velo{position:fixed;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .2s;z-index:7;}
+
   #stick{position:fixed;z-index:6;width:110px;height:110px;border-radius:50%;border:1.5px solid var(--panel-line);
          background:rgba(17,19,24,.35);display:none;}
   #stick .pomo{position:absolute;left:50%;top:50%;width:46px;height:46px;border-radius:50%;
          background:var(--brass-dim);border:1.5px solid var(--brass);transform:translate(-50%,-50%);}
-  @media (pointer:coarse){ #aiuto{bottom:150px;} }
+  @media (pointer:coarse){ #aiuto{bottom:150px;} #mappa{bottom:auto;top:74px;} }
 </style>
 
 <canvas id="scena"></canvas>
@@ -59,13 +65,16 @@
 <div class="chip" id="testata">
   <span class="demo-tag">DEMO TECNICA · DATI D'ESEMPIO</span>
   <h1>Truck Showroom DINO CHIESA</h1>
-  <p>Prototipo di camminata virtuale nel camion allestito — l'estetica finale arriverà dai render Manus / dalla scansione reale.</p>
+  <p>Appartamento completo su semirimorchio: salone, cucina, lavanderia, 2 bagni, ufficio e 2 camere.
+  L'estetica finale arriverà dai render Manus / dalla scansione reale.</p>
 </div>
 
-<div class="chip" id="zona"><div class="eti">TI TROVI IN</div><div class="nome">Accoglienza</div></div>
+<div class="chip" id="zona"><div class="eti">TI TROVI IN</div><div class="nome">Salone</div></div>
+
+<div class="chip" id="mappa"><div class="eti">PIANTA</div><canvas id="mappaCv"></canvas></div>
 
 <div class="chip" id="aiuto"><b>Trascina</b> per guardarti intorno · <b>WASD / frecce</b> per camminare ·
-tocca i <b>cerchi numerati</b> a terra per spostarti · tocca <b style="color:var(--brass)">ⓘ</b> sui mobili per la scheda</div>
+tocca i <b>cerchi numerati</b> a terra per cambiare stanza · tocca <b style="color:var(--brass)">ⓘ</b> sui mobili per la scheda</div>
 <button id="btnAiuto" aria-label="Mostra aiuto">?</button>
 
 <div id="scheda" hidden>
@@ -74,6 +83,7 @@ tocca i <b>cerchi numerati</b> a terra per spostarti · tocca <b style="color:va
   <p class="nota">Dati d'esempio della demo — verranno sostituiti con gli articoli reali DINO CHIESA.</p>
 </div>
 
+<div id="velo"></div>
 <div id="stick"><div class="pomo"></div></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -82,10 +92,10 @@ tocca i <b>cerchi numerati</b> a terra per spostarti · tocca <b style="color:va
 'use strict';
 var riduciMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- misure del vano (m): semirimorchio interno ---------- */
-var L = 10.4, W = 2.42, H = 2.45;          // lunghezza (z), larghezza (x), altezza (y)
-var X = W/2, Z = L/2;                       // semiestensioni
-var OCCHIO = 1.60;                          // altezza occhi
+/* ---------- misure del vano (m): semirimorchio 13,6 m ---------- */
+var L = 13.6, W = 2.42, H = 2.45;
+var X = W/2, Z = L/2;
+var OCCHIO = 1.60;
 
 /* ---------- renderer / scena ---------- */
 var canvas = document.getElementById('scena');
@@ -97,11 +107,11 @@ renderer.toneMappingExposure = 1.05;
 
 var scena = new THREE.Scene();
 scena.background = new THREE.Color(0x101216);
-scena.fog = new THREE.Fog(0x101216, 11, 24);
+scena.fog = new THREE.Fog(0x101216, 12, 28);
 
 var camera = new THREE.PerspectiveCamera(68, 1, 0.05, 60);
 camera.rotation.order = 'YXZ';
-camera.position.set(-0.2, OCCHIO, 4.55);
+camera.position.set(0.0, OCCHIO, 6.3);
 var yaw = 0, pitch = 0;
 
 /* ---------- texture procedurali ---------- */
@@ -113,7 +123,7 @@ function tex(w,h,disegna){
   t.anisotropy = renderer.capabilities.getMaxAnisotropy();
   return t;
 }
-function rumore(g,w,h,alfa,n){ // granulosità leggera
+function rumore(g,w,h,alfa,n){
   for(var i=0;i<n;i++){ g.fillStyle='rgba('+(Math.random()<.5?'0,0,0':'255,255,255')+','+(Math.random()*alfa)+')';
     g.fillRect(Math.random()*w, Math.random()*h, 1+Math.random()*2, 1+Math.random()*2); }
 }
@@ -132,7 +142,7 @@ var texPietra = tex(512,512,function(g,w,h){      // effetto pietra scura
     g.beginPath(); g.ellipse(x,y,r,r*.4,Math.random()*3,0,7); g.fill(); }
   rumore(g,w,h,.06,1400);
 });
-var texPavimento = tex(512,512,function(g,w,h){   // gres grande formato con fuga
+var texGres = tex(512,512,function(g,w,h){        // gres grande formato con fuga
   g.fillStyle='#4a4642'; g.fillRect(0,0,w,h);
   for(var i=0;i<50;i++){ g.fillStyle='rgba('+(Math.random()<.5?'255,255,255':'0,0,0')+','+(Math.random()*0.04)+')';
     var x=Math.random()*w, y=Math.random()*h, r=30+Math.random()*120;
@@ -141,8 +151,19 @@ var texPavimento = tex(512,512,function(g,w,h){   // gres grande formato con fug
   g.strokeRect(2,2,w-4,h-4); g.beginPath(); g.moveTo(w/2,0); g.lineTo(w/2,h); g.stroke();
   rumore(g,w,h,.05,1200);
 });
-texPavimento.repeat.set(2.2, 9);
-var texDoghe = tex(512,512,function(g,w,h){       // doghe legno a soffitto/parete
+var texRovere = tex(512,512,function(g,w,h){      // parquet rovere chiaro
+  g.fillStyle='#c9b493'; g.fillRect(0,0,w,h);
+  var np=5, pp=h/np;
+  for(var i=0;i<np;i++){
+    g.fillStyle='rgba(70,52,30,.55)'; g.fillRect(0,i*pp,w,2);
+    g.fillStyle='rgba(255,244,224,'+(0.03+Math.random()*0.05)+')'; g.fillRect(0,i*pp+2,w,pp*.4);
+  }
+  for(var j=0;j<120;j++){ g.strokeStyle='rgba(96,72,44,'+(0.05+Math.random()*0.07)+')';
+    g.lineWidth=1; var y=Math.random()*h; g.beginPath(); g.moveTo(0,y);
+    g.bezierCurveTo(w*.3,y+3, w*.6,y-3, w,y+2); g.stroke(); }
+  rumore(g,w,h,.04,800);
+});
+var texDoghe = tex(512,512,function(g,w,h){       // doghe legno
   g.fillStyle='#8d7a60'; g.fillRect(0,0,w,h);
   var nd=8, pd=w/nd;
   for(var i=0;i<nd;i++){ g.fillStyle='rgba(40,30,18,.85)'; g.fillRect(i*pd,0,3,h);
@@ -157,7 +178,8 @@ var M = {
   parete:  new THREE.MeshStandardMaterial({color:0xece8e1, roughness:.92}),
   costola: new THREE.MeshStandardMaterial({color:0xdfdad2, roughness:.9}),
   soffitto:new THREE.MeshStandardMaterial({color:0xf2efe9, roughness:.95}),
-  pavimento:new THREE.MeshStandardMaterial({map:texPavimento, roughness:.55, metalness:.08}),
+  gres:    new THREE.MeshStandardMaterial({map:texGres, roughness:.55, metalness:.08}),
+  rovere:  new THREE.MeshStandardMaterial({map:texRovere, roughness:.7}),
   legno:   new THREE.MeshStandardMaterial({map:texLegno, roughness:.62}),
   doghe:   new THREE.MeshStandardMaterial({map:texDoghe, roughness:.7}),
   bianco:  new THREE.MeshStandardMaterial({color:0xf6f4f0, roughness:.35}),
@@ -165,15 +187,19 @@ var M = {
   pietra:  new THREE.MeshStandardMaterial({map:texPietra, roughness:.8}),
   ottone:  new THREE.MeshStandardMaterial({color:0xc9a15f, roughness:.32, metalness:.85}),
   cromo:   new THREE.MeshStandardMaterial({color:0xd8dde0, roughness:.15, metalness:.9}),
+  acciaio: new THREE.MeshStandardMaterial({color:0xb8bcbf, roughness:.35, metalness:.8}),
   nero:    new THREE.MeshStandardMaterial({color:0x23211f, roughness:.5, metalness:.3}),
   specchio:new THREE.MeshStandardMaterial({color:0xdfe9ee, roughness:.08, metalness:.6}),
   vetro:   new THREE.MeshStandardMaterial({color:0xd7e8ea, roughness:.06, metalness:.1,
              transparent:true, opacity:.16, side:THREE.DoubleSide}),
+  tessuto: new THREE.MeshStandardMaterial({color:0xc7bba8, roughness:.95}),
+  lino:    new THREE.MeshStandardMaterial({color:0xefe9dc, roughness:.95}),
+  salvia:  new THREE.MeshStandardMaterial({color:0xa8b39a, roughness:.95}),
   led:     new THREE.MeshBasicMaterial({color:0xfff1da}),
   ombra:   new THREE.MeshBasicMaterial({color:0x000000, transparent:true, opacity:.22})
 };
 
-/* ---------- ambiente riflessi (IBL) per metalli e specchi ---------- */
+/* ---------- ambiente riflessi (IBL) ---------- */
 (function(){
   var pm = new THREE.PMREMGenerator(renderer);
   var es = new THREE.Scene();
@@ -188,67 +214,118 @@ var M = {
   pannello(6,3,0xcfd8de,  9,2,0, -Math.PI/2, 0);
   scena.environment = pm.fromScene(es, .04).texture;
   pm.dispose();
-  ['parete','costola','soffitto','pavimento','legno','doghe','pietra'].forEach(function(k){ M[k].envMapIntensity = .25; });
-  ['bianco','ceramica'].forEach(function(k){ M[k].envMapIntensity = .5; });
+  ['parete','costola','soffitto','gres','rovere','legno','doghe','pietra','tessuto','lino','salvia'].forEach(function(k){ M[k].envMapIntensity = .25; });
+  ['bianco','ceramica','acciaio'].forEach(function(k){ M[k].envMapIntensity = .5; });
 })();
 
-/* ---------- helper geometrie ---------- */
-function box(w,h,d,mat,x,y,z,ry){
+/* ---------- helper ---------- */
+var solidi = [];
+function blocca(x1,x2,z1,z2){ solidi.push({x1:x1,x2:x2,z1:z1,z2:z2}); }
+function box(w,h,d,mat,x,y,z,ry,rx){
   var m = new THREE.Mesh(new THREE.BoxGeometry(w,h,d), mat);
-  m.position.set(x,y,z); if(ry) m.rotation.y = ry; scena.add(m); return m;
+  m.position.set(x,y,z); if(ry) m.rotation.y=ry; if(rx) m.rotation.x=rx; scena.add(m); return m;
 }
 function cil(rT,rB,h,mat,x,y,z,seg){
   var m = new THREE.Mesh(new THREE.CylinderGeometry(rT,rB,h,seg||24), mat);
   m.position.set(x,y,z); scena.add(m); return m;
 }
+function piano(w,h,mat,x,y,z,ry){
+  var m = new THREE.Mesh(new THREE.PlaneGeometry(w,h), mat);
+  m.position.set(x,y,z); if(ry!==undefined) m.rotation.y=ry; scena.add(m); return m;
+}
 function ombra(x,z,rx,rz){
   var m = new THREE.Mesh(new THREE.CircleGeometry(1,24), M.ombra);
-  m.scale.set(rx,rz,1); m.rotation.x = -Math.PI/2; m.position.set(x,.012,z);
-  m.renderOrder = 1; scena.add(m); return m;
+  m.scale.set(rx,rz,1); m.rotation.x=-Math.PI/2; m.position.set(x,.012,z);
+  m.renderOrder=1; scena.add(m); return m;
 }
 
-/* ---------- guscio del camion ---------- */
+/* ---------- ambienti (z decrescente dal portellone al muso) ---------- */
+var ROOMS = [
+ {n:'Salone',        z1: 6.8, z2: 4.6, pav:'rovere'},
+ {n:'Cucina',        z1: 4.6, z2: 2.7, pav:'gres'},
+ {n:'Lavanderia',    z1: 2.7, z2: 1.4, pav:'gres'},
+ {n:'Bagno ospiti',  z1: 1.4, z2: 0.0, pav:'gres'},
+ {n:'Ufficio',       z1: 0.0, z2:-1.6, pav:'rovere'},
+ {n:'Cameretta',     z1:-1.6, z2:-3.1, pav:'rovere'},
+ {n:'Bagno master',  z1:-3.1, z2:-4.6, pav:'gres'},
+ {n:'Camera master', z1:-4.6, z2:-6.8, pav:'rovere'}
+];
+var PARTS = [                                   // pareti divisorie: z + luce porta [x1,x2]
+ {z: 4.6, d:[ 0.30, 1.10]},
+ {z: 2.7, d:[-1.05,-0.25]},
+ {z: 1.4, d:[-1.05,-0.25]},
+ {z: 0.0, d:[-0.55, 0.25]},
+ {z:-1.6, d:[ 0.25, 1.05]},
+ {z:-3.1, d:[-1.05,-0.25]},
+ {z:-4.6, d:[-1.05,-0.25]}
+];
+
+/* ---------- guscio ---------- */
 (function(){
-  var pav = new THREE.Mesh(new THREE.PlaneGeometry(W,L), M.pavimento);
-  pav.rotation.x = -Math.PI/2; scena.add(pav);
-  var sof = new THREE.Mesh(new THREE.PlaneGeometry(W,L), M.soffitto);
-  sof.rotation.x = Math.PI/2; sof.position.y = H; scena.add(sof);
-  box(1.0,.02,L, M.doghe, 0, H-.012, 0);                      // fascia doghe centrale a soffitto
+  // pavimenti per ambiente
+  ROOMS.forEach(function(r){
+    var len = r.z1-r.z2, base = (r.pav==='gres') ? texGres : texRovere;
+    var t = base.clone(); t.needsUpdate = true; t.repeat.set(2, Math.max(1, len/1.2));
+    var mat = new THREE.MeshStandardMaterial({map:t,
+        roughness:(r.pav==='gres')?.55:.7, metalness:(r.pav==='gres')?.08:0, envMapIntensity:.25});
+    var p = piano(W, len, mat, 0, 0, (r.z1+r.z2)/2);
+    p.rotation.x = -Math.PI/2;
+  });
+  var sof = piano(W, L, M.soffitto, 0, H, 0); sof.rotation.x = Math.PI/2;
+  box(1.0,.02,L, M.doghe, 0, H-.012, 0);        // fascia doghe a soffitto
 
-  var pSx = new THREE.Mesh(new THREE.PlaneGeometry(L,H), M.parete);
-  pSx.rotation.y = Math.PI/2; pSx.position.set(-X, H/2, 0); scena.add(pSx);
-  var pDx = new THREE.Mesh(new THREE.PlaneGeometry(L,H), M.parete);
-  pDx.rotation.y = -Math.PI/2; pDx.position.set(X, H/2, 0); scena.add(pDx);
-  var pFr = new THREE.Mesh(new THREE.PlaneGeometry(W,H), M.parete);
-  pFr.position.set(0, H/2, -Z); scena.add(pFr);
-  var pRe = new THREE.Mesh(new THREE.PlaneGeometry(W,H), M.parete);
-  pRe.rotation.y = Math.PI; pRe.position.set(0, H/2, Z); scena.add(pRe);
+  var pSx = piano(L, H, M.parete, -X, H/2, 0,  Math.PI/2);
+  var pDx = piano(L, H, M.parete,  X, H/2, 0, -Math.PI/2);
+  piano(W, H, M.parete, 0, H/2, -Z, 0);
+  var pRe = piano(W, H, M.parete, 0, H/2, Z, Math.PI);
 
-  for(var z=-Z+0.9; z<Z-0.4; z+=1.15){                        // costole verticali del furgone
+  for(var z=-Z+0.9; z<Z-0.4; z+=1.32){          // costole del furgone
     box(.03,H,.09, M.costola, -X+.016, H/2, z);
     box(.03,H,.09, M.costola,  X-.016, H/2, z);
   }
-  // gole LED perimetrali in quota
-  box(.05,.04,L-.2, M.led, -X+.09, H-.13, 0);
-  box(.05,.04,L-.2, M.led,  X-.09, H-.13, 0);
-  // zoccolo scuro perimetrale
+  // zoccolino scuro
   box(.02,.09,L, M.nero, -X+.01, .045, 0);
   box(.02,.09,L, M.nero,  X-.01, .045, 0);
 
-  // portellone d'ingresso (fondale posteriore)
+  // gole LED per ambiente (segmenti tra le pareti)
+  ROOMS.forEach(function(r){
+    var len = r.z1-r.z2-.24, zc=(r.z1+r.z2)/2;
+    box(.05,.04,len, M.led, -X+.09, H-.13, zc);
+    box(.05,.04,len, M.led,  X-.09, H-.13, zc);
+  });
+
+  // portellone d'ingresso con portale greige (fondale posteriore)
   box(1.3,2.15,.04, M.nero, 0, 1.075, Z-.03);
-  box(1.34,.06,.06, M.ottone, 0, 2.2, Z-.05);
+  box(.09,2.22,.09, M.legno, -.70, 1.11, Z-.06);
+  box(.09,2.22,.09, M.legno,  .70, 1.11, Z-.06);
+  box(1.49,.09,.09, M.legno, 0, 2.26, Z-.06);
 })();
 
+/* ---------- pareti divisorie con porta ---------- */
+PARTS.forEach(function(p){
+  function seg(x1,x2){
+    if(x2-x1 < .02) return;
+    var wl = x2-x1;
+    box(wl, H, .09, M.parete, (x1+x2)/2, H/2, p.z);
+    blocca(x1, x2, p.z-.045, p.z+.045);
+  }
+  seg(-X, p.d[0]); seg(p.d[1], X);
+  var dw = p.d[1]-p.d[0], dc = (p.d[0]+p.d[1])/2;
+  box(dw, H-2.08, .09, M.parete, dc, (H+2.08)/2, p.z);   // sopraluce
+  box(.06, 2.08, .12, M.legno, p.d[0]-.035, 1.04, p.z);  // stipiti greige
+  box(.06, 2.08, .12, M.legno, p.d[1]+.035, 1.04, p.z);
+  box(dw+.13, .06, .12, M.legno, dc, 2.08, p.z);
+});
+
 /* ---------- insegne (canvas text) ---------- */
-function insegna(testo, sub, wPx, colore){
-  var t = tex(1024, 256, function(g,w,h){
+function testoTex(testo, sub, colore){
+  return tex(1024, 256, function(g,w,h){
     g.clearRect(0,0,w,h);
     g.fillStyle = colore || '#efe9df'; g.textAlign='center';
     g.font = '800 92px Archivo, system-ui, sans-serif';
-    var sp = 14; g.save(); g.translate(w/2,0);
-    // lettere spaziate a mano
-    var tot=0, i; for(i=0;i<testo.length;i++) tot += g.measureText(testo[i]).width + sp;
+    var sp = 14, tot=0, i;
+    for(i=0;i<testo.length;i++) tot += g.measureText(testo[i]).width + sp;
+    g.save(); g.translate(w/2,0);
     var x = -tot/2;
     for(i=0;i<testo.length;i++){ var lw=g.measureText(testo[i]).width;
       g.fillText(testo[i], x+lw/2, 118); x += lw + sp; }
@@ -256,128 +333,242 @@ function insegna(testo, sub, wPx, colore){
     if(sub){ g.font='500 34px Archivo, system-ui, sans-serif';
       g.fillStyle='rgba(200,160,90,.95)'; g.fillText(sub, w/2, 190); }
   });
+}
+function insegna(testo, sub, wM, colore){
+  var t = testoTex(testo, sub, colore);
   t.wrapS = t.wrapT = THREE.ClampToEdgeWrapping;
-  var m = new THREE.Mesh(new THREE.PlaneGeometry(wPx, wPx/4),
+  return new THREE.Mesh(new THREE.PlaneGeometry(wM, wM/4),
     new THREE.MeshBasicMaterial({map:t, transparent:true}));
-  return m;
 }
+var logoRe = insegna('DINO CHIESA','ARREDO CASA · SHOWROOM ITINERANTE', 1.6);
+logoRe.position.set(0, 2.0, Z-.075); logoRe.rotation.y = Math.PI; scena.add(logoRe);
 
-/* ---------- arredi ---------- */
-var solidi = [];  // AABB collisioni {x1,x2,z1,z2}
-function blocca(x1,x2,z1,z2){ solidi.push({x1:x1,x2:x2,z1:z1,z2:z2}); }
-
-function mobileLavabo(zc){
-  var xw = -X;                                   // parete sinistra
-  box(.46,.42,.90, M.legno, xw+.24, .56, zc);    // corpo sospeso
-  box(.44,.025,.86, M.nero,  xw+.245, .372, zc); // gola sotto
-  box(.48,.03,.94, M.bianco, xw+.25, .785, zc);  // top
-  box(.34,.105,.42, M.ceramica, xw+.26, .855, zc); // bacino d'appoggio
-  cil(.012,.012,.30, M.ottone, xw+.11, .95, zc-.28);   // miscelatore
-  var bocc = cil(.010,.010,.16, M.ottone, xw+.19, 1.085, zc-.28);
-  bocc.rotation.z = Math.PI/2;
-  // specchiera con quinte LED
-  box(.012,.90,.70, M.specchio, xw+.03, 1.55, zc);
-  box(.014,.94,.035, M.led, xw+.026, 1.55, zc-.37);
-  box(.014,.94,.035, M.led, xw+.026, 1.55, zc+.37);
-  ombra(xw+.26, zc, .34, .5);
-  blocca(-X, -X+.52, zc-.5, zc+.5);
-}
-mobileLavabo( 2.2); mobileLavabo(0); mobileLavabo(-2.2);
-
-(function doccia(){                               // parete destra, z 3.3
-  var zc = 3.3, xw = X;
-  box(.03,2.2,1.1, M.pietra, xw-.02, 1.1, zc);           // pannello pietra
-  box(.92,.07,.96, M.bianco, xw-.47, .035, zc);          // piatto
-  cil(.02,.02,2.05, M.ottone, xw-.10, 1.06, zc+.38);     // colonna
-  var braccio = cil(.014,.014,.34, M.ottone, xw-.26, 2.06, zc+.38); braccio.rotation.z = Math.PI/2;
-  var soff = cil(.13,.13,.02, M.ottone, xw-.42, 2.05, zc+.38); // soffione
-  // cristalli
-  var v1 = new THREE.Mesh(new THREE.PlaneGeometry(.96,2.0), M.vetro);
-  v1.rotation.y = Math.PI/2; v1.position.set(xw-.93, 1.0, zc); scena.add(v1);
-  var v2 = new THREE.Mesh(new THREE.PlaneGeometry(.9,2.0), M.vetro);
-  v2.position.set(xw-.47, 1.0, zc-.48); scena.add(v2);
-  box(.02,2.0,.02, M.ottone, xw-.93, 1.0, zc-.48);
-  box(.02,2.0,.02, M.ottone, xw-.93, 1.0, zc+.48);
-  ombra(xw-.47, zc, .5, .52);
-  blocca(X-1.0, X, zc-.52, zc+.52);
+/* ---------- SALONE (6.8 .. 4.6) ---------- */
+(function(){
+  // divano pensile (parete sinistra)
+  box(.78,.16,1.80, M.legno, -.80,.34, 5.75);            // base sospesa
+  box(.02,.05,1.80, M.led,  -.44,.27, 5.75);             // LED sotto seduta
+  for(var i=0;i<3;i++) box(.68,.13,.56, M.tessuto, -.83,.475, 5.17+i*.58);
+  for(var j=0;j<3;j++){ var c=box(.14,.52,.56, M.tessuto, -1.12,.73, 5.17+j*.58); c.rotation.z=-.12; }
+  box(.30,.10,.44, M.salvia, -.85,.53, 5.30, .3);        // plaid
+  ombra(-.8,5.75,.5,1.0);
+  blocca(-X,-.41, 4.85, 6.65);
+  // parete TV + boiserie doghe (destra)
+  box(.025,2.2,1.2, M.doghe, X-.02, 1.15, 5.4);
+  var tvT = testoTex('DINO CHIESA','', '#d0a355');
+  tvT.wrapS=tvT.wrapT=THREE.ClampToEdgeWrapping;
+  var tv = piano(1.05,.60, new THREE.MeshBasicMaterial({color:0x0a0a0c}), X-.045, 1.38, 5.4, -Math.PI/2);
+  var tvL = new THREE.Mesh(new THREE.PlaneGeometry(.72,.18), new THREE.MeshBasicMaterial({map:tvT, transparent:true, opacity:.85}));
+  tvL.position.set(X-.05, 1.38, 5.4); tvL.rotation.y = -Math.PI/2; scena.add(tvL);
+  box(.30,.04,1.1, M.nero, X-.16, .82, 5.4);             // mensola
+  blocca(X-.34, X, 4.8, 6.0);
+  // tavolino + tappeto
+  var rug = piano(1,1, new THREE.MeshStandardMaterial({color:0xb9ad97, roughness:.98}), .15,.008,5.35);
+  rug.rotation.x=-Math.PI/2; rug.scale.set(1.5,1.15,1);
+  cil(.30,.30,.03, M.legno, .15,.37,5.35); cil(.025,.03,.36, M.nero, .15,.18,5.35);
+  cil(.05,.06,.12, M.ceramica, .15,.445,5.35);
+  ombra(.15,5.35,.34,.34);
+  blocca(-.15,.45, 5.05, 5.65);
+  // mobile ingresso (destra, al portellone)
+  box(.5,2.2,.44, M.legno, X-.25, 1.1, 6.50);
+  box(.44,.025,.40, M.nero, X-.25, 1.32, 6.50);
+  ombra(X-.25,6.50,.3,.28);
+  blocca(X-.5, X, 6.28, 6.72);
 })();
 
-(function sanitari(){                             // parete destra, z 0 — muretto tecnico
-  var xw = X;
-  box(.26,1.15,1.9, M.legno, xw-.13, .575, 0);           // muretto
-  box(.30,.03,1.94, M.bianco, xw-.15, 1.165, 0);         // cimasa
-  function vaso(zc, lung){
-    var pod = cil(.17,.19,lung, M.ceramica, xw-.44, .43, zc, 28);
-    pod.rotation.z = Math.PI/2; pod.scale.y = .72;
-    box(.22,.05,.36, M.ceramica, xw-.35, .55, zc);       // sedile
-    box(.002,.14,.20, M.cromo, xw-.272, .95, zc);        // placca
+/* ---------- CUCINA (4.6 .. 2.7) — lineare a sinistra ---------- */
+(function(){
+  var xw=-X;
+  // colonna frigo/dispensa
+  box(.62,2.30,.55, M.legno, xw+.31, 1.15, 4.275);
+  box(.02,1.9,.5, M.acciaio, xw+.625, 1.15, 4.275);
+  // basi con top
+  box(.62,.78,.90, M.legno, xw+.31, .43, 3.55);
+  box(.60,.02,.86, M.nero,  xw+.315, .855, 3.55);       // gola
+  box(.66,.04,.94, M.nero,  xw+.33, .87, 3.55);         // top nero
+  // lavello + miscelatore
+  box(.34,.02,.30, M.acciaio, xw+.30, .885, 3.78);
+  cil(.012,.012,.28, M.ottone, xw+.14, 1.0, 3.78);
+  var bc = cil(.010,.010,.15, M.ottone, xw+.215, 1.13, 3.78); bc.rotation.z = Math.PI/2;
+  // piano cottura
+  box(.40,.015,.34, new THREE.MeshStandardMaterial({color:0x101012, roughness:.2}), xw+.31, .895, 3.30);
+  cil(.055,.055,.01, M.nero, xw+.24,.905,3.24); cil(.055,.055,.01, M.nero, xw+.38,.905,3.24);
+  cil(.055,.055,.01, M.nero, xw+.24,.905,3.37); cil(.055,.055,.01, M.nero, xw+.38,.905,3.37);
+  // schienale + pensili
+  box(.02,.90,.90, M.pietra, xw+.035, 1.32, 3.55);
+  box(.36,.62,.90, M.legno, xw+.18, 2.06, 3.55);
+  box(.02,.03,.90, M.led,  xw+.37, 1.74, 3.55);          // LED sottopensile
+  ombra(xw+.33,3.8,.42,.85);
+  blocca(-X, -X+.66, 3.10, 4.56);
+})();
+
+/* ---------- LAVANDERIA (2.7 .. 1.4) — a destra ---------- */
+(function(){
+  var xw=X;
+  // colonna lavatrice + asciugatrice
+  box(.64,2.0,.64, M.bianco, xw-.32, 1.0, 2.32);
+  function oblo(y){
+    var an = new THREE.Mesh(new THREE.TorusGeometry(.155,.022,12,28), M.cromo);
+    an.position.set(xw-.645,y,2.32); an.rotation.y = Math.PI/2; scena.add(an);
+    var v = piano(.27,.27, new THREE.MeshStandardMaterial({color:0x14161a, roughness:.15, metalness:.4}), xw-.643,y,2.32, -Math.PI/2);
+    v.scale.set(1,1,1);
   }
-  vaso(-.45, .52); vaso(.45, .44);                        // vaso + bidet
-  ombra(xw-.42, -.45, .3, .26); ombra(xw-.42, .45, .3, .24);
-  blocca(X-.72, X, -.95, .95);
+  oblo(.62); oblo(1.55);
+  box(.64,.06,.64, M.legno, xw-.32, 2.03, 2.32);
+  // mobile lavabo lavanderia (vasca profonda)
+  box(.55,.80,.56, M.legno, xw-.275, .43, 1.72);
+  box(.59,.03,.60, M.bianco, xw-.295, .85, 1.72);
+  box(.42,.16,.44, M.ceramica, xw-.27, .93, 1.72);
+  cil(.012,.012,.30, M.cromo, xw-.10, 1.03, 1.72);
+  var bl = cil(.010,.010,.16, M.cromo, xw-.18, 1.17, 1.72); bl.rotation.z=Math.PI/2;
+  // mensola con ceste
+  box(.34,.03,1.0, M.legno, xw-.19, 1.55, 1.95);
+  box(.26,.18,.30, M.tessuto, xw-.19, 1.66, 1.72);
+  box(.26,.18,.30, M.salvia,  xw-.19, 1.66, 2.16);
+  ombra(xw-.3,2.0,.4,.65);
+  blocca(X-.66, X, 1.44, 2.66);
 })();
 
-(function rubinetterie(){                         // parete destra, z -2.2
-  var xw = X, zc = -2.2;
-  box(.04,2.05,1.6, M.pietra, xw-.03, 1.03, zc);
-  var fin = [M.ottone, M.cromo, M.nero];
-  for(var i=0;i<3;i++){
-    var zz = zc - .5 + i*.5;
-    box(.28,.03,.4, M.legno, xw-.19, 1.05, zz);          // mensola
-    cil(.016,.02,.24, fin[i], xw-.22, 1.185, zz);        // corpo miscelatore
-    var arco = new THREE.Mesh(new THREE.TorusGeometry(.09,.011,10,24,Math.PI), fin[i]);
-    arco.position.set(xw-.31, 1.305, zz); scena.add(arco);
+/* ---------- BAGNO OSPITI (1.4 .. 0) — lavabo a destra, doccia a sinistra ---------- */
+(function(){
+  // mobile lavabo sospeso + specchiera (destra)
+  var xw=X;
+  box(.46,.42,.90, M.legno, xw-.24, .56, .75);
+  box(.44,.025,.86, M.nero,  xw-.245, .372, .75);
+  box(.48,.03,.94, M.bianco, xw-.25, .785, .75);
+  box(.34,.105,.42, M.ceramica, xw-.26, .855, .75);
+  cil(.012,.012,.30, M.ottone, xw-.11, .95, .75);
+  var b1 = cil(.010,.010,.16, M.ottone, xw-.19, 1.085, .75); b1.rotation.z=Math.PI/2;
+  box(.012,.90,.70, M.specchio, xw-.03, 1.55, .75);
+  box(.014,.94,.035, M.led, xw-.026, 1.55, .38);
+  box(.014,.94,.035, M.led, xw-.026, 1.55, 1.12);
+  ombra(xw-.26,.75,.34,.5);
+  blocca(X-.52, X, .25, 1.25);
+  // doccia (sinistra)
+  var xs=-X;
+  box(.03,2.2,.84, M.pietra, xs+.02, 1.1, .5);
+  box(.82,.07,.84, M.bianco, xs+.43, .035, .5);
+  cil(.02,.02,2.05, M.ottone, xs+.10, 1.06, .82);
+  var br = cil(.014,.014,.30, M.ottone, xs+.24, 2.06, .82); br.rotation.z=Math.PI/2;
+  cil(.12,.12,.02, M.ottone, xs+.38, 2.05, .82);
+  var v1 = piano(.84,2.0, M.vetro, xs+.84, 1.0, .5, Math.PI/2);
+  piano(.82,2.0, M.vetro, xs+.43, 1.0, .92);
+  box(.02,2.0,.02, M.ottone, xs+.84, 1.0, .08);
+  box(.02,2.0,.02, M.ottone, xs+.84, 1.0, .92);
+  ombra(xs+.43,.5,.46,.46);
+  blocca(-X, -X+.86, .06, .94);
+})();
+
+/* ---------- UFFICIO (0 .. -1.6) — scrivania sx, libreria dx ---------- */
+(function(){
+  // scrivania
+  box(.55,.05,1.0, M.legno, -X+.335, .74, -.8);
+  cil(.02,.02,.72, M.nero, -X+.56, .37, -.36);
+  cil(.02,.02,.72, M.nero, -X+.56, .37, -1.24);
+  box(.02,.68,1.0, M.legno, -X+.07, .40, -.8);
+  piano(.52,.31, new THREE.MeshStandardMaterial({color:0x0c0e12, roughness:.2}), -X+.28, 1.08, -.8, Math.PI/2);
+  cil(.02,.02,.18, M.nero, -X+.24, .83, -.8); box(.16,.02,.10, M.nero, -X+.24, .755,-.8);
+  // sedia
+  box(.42,.06,.42, M.salvia, -.62,.46,-.8); box(.42,.5,.05, M.salvia, -.62,.72,-.58);
+  cil(.02,.02,.42, M.cromo, -.62,.22,-.8); cil(.26,.26,.015, M.cromo, -.62,.02,-.8);
+  ombra(-.75,-.8,.5,.6);
+  blocca(-X, -X+.62, -1.30, -.30);
+  // libreria a giorno con anta a specchio
+  var xw=X;
+  box(.30,2.24,1.36, M.legno, xw-.15, 1.12, -.83);
+  for(var r=0;r<4;r++) box(.26,.025,1.28, M.bianco, xw-.15, .38+r*.5, -.83);
+  for(var c=0;c<3;c++) box(.26,1.9,.02, M.bianco, xw-.15, 1.2, -.41-.32-c*.42+.32);
+  box(.015,1.55,.40, M.specchio, xw-.305, .95, -1.24);   // anta specchio
+  var colori=[0x8a5a44,0x51684a,0xb98a3d,0x39506b,0x8e8578,0x6b4a54];
+  for(var k=0;k<14;k++){
+    var hh=.16+Math.random()*.12;
+    box(.16,hh,.035, new THREE.MeshStandardMaterial({color:colori[k%6], roughness:.9}),
+        xw-.14, .41+ (k%4)*.5 + hh/2, -.35-(k*.067)%0.8);
   }
-  blocca(X-.4, X, zc-.85, zc+.85);
+  ombra(xw-.2,-.83,.28,.75);
+  blocca(X-.31, X, -1.45, -.15);
 })();
 
-(function suiteVasca(){                           // fondale anteriore
-  box(2.42,2.45,.06, M.doghe, 0, 1.225, -Z+.03); // parete doghe
-  var logo = insegna('DINO CHIESA','SHOWROOM ITINERANTE · ARREDO BAGNO', 1.9);
-  logo.position.set(0, 1.78, -Z+.075); scena.add(logo);
-  box(2.0,.05,.05, M.led, 0, 2.28, -Z+.09);
-  // vasca freestanding (lathe ellittico: lunga in x)
-  var pts = [];
-  pts.push(new THREE.Vector2(.14,0));
-  pts.push(new THREE.Vector2(.40,.02)); pts.push(new THREE.Vector2(.50,.10));
-  pts.push(new THREE.Vector2(.55,.28)); pts.push(new THREE.Vector2(.56,.46));
-  pts.push(new THREE.Vector2(.54,.55)); pts.push(new THREE.Vector2(.48,.55));
-  pts.push(new THREE.Vector2(.46,.30)); pts.push(new THREE.Vector2(.40,.12));
-  pts.push(new THREE.Vector2(.20,.10)); pts.push(new THREE.Vector2(.02,.10));
-  var vasca = new THREE.Mesh(new THREE.LatheGeometry(pts, 40),
-      new THREE.MeshStandardMaterial({color:0xf6f4f0, roughness:.28, side:THREE.DoubleSide}));
-  vasca.scale.set(1.5,1,.66); vasca.position.set(0,.005,-4.55); scena.add(vasca);
-  cil(.018,.018,.85, M.ottone, .62, .43, -4.25);         // colonna a pavimento
-  var bo = cil(.012,.012,.22, M.ottone, .54, .84, -4.25); bo.rotation.z = Math.PI/2;
-  ombra(0,-4.55,.9,.44);
-  // piante quinte
-  function pianta(x,z){ cil(.09,.11,.26, M.nero, x,.13,z);
-    var f = new THREE.Mesh(new THREE.ConeGeometry(.22,.8,8),
-      new THREE.MeshStandardMaterial({color:0x51684a, roughness:.9}));
-    f.position.set(x,.66,z); scena.add(f); blocca(x-.24,x+.24,z-.24,z+.24); }
-  pianta(-1.0,-4.05); pianta(1.0,-4.85);
-  blocca(-.92,.92,-5.2,-4.1);
+/* ---------- CAMERETTA (-1.6 .. -3.1) — letto a sinistra ---------- */
+(function(){
+  box(.06,1.1,.95, M.legno, -X+.03, .55, -2.195);        // testata a parete
+  box(1.66,.26,.93, M.legno, -X+.87, .20, -2.195);       // giroletto
+  box(1.60,.14,.87, M.lino,  -X+.87, .40, -2.195);       // materasso
+  box(1.10,.10,.89, M.salvia,-X+1.14, .47, -2.195);      // piumone
+  box(.34,.10,.5,  M.lino,  -X+.28, .49, -2.195);        // cuscino
+  ombra(-X+.87,-2.195,.9,.5);
+  blocca(-X, -X+1.70, -2.67, -1.72);
+  // mensole + quadretti (parete destra, lato corridoio)
+  box(.24,.03,.80, M.legno, X-.13, 1.25, -2.5);
+  box(.24,.03,.60, M.legno, X-.13, 1.65, -2.4);
+  box(.02,.28,.22, new THREE.MeshStandardMaterial({color:0x51684a, roughness:.9}), X-.02, 1.45, -1.95);
+  box(.02,.22,.18, new THREE.MeshStandardMaterial({color:0xb98a3d, roughness:.9}), X-.02, 1.85, -2.75);
+  var rug = piano(1,1, new THREE.MeshStandardMaterial({color:0xcabfa8, roughness:.98}), -.2,.008,-2.85);
+  rug.rotation.x=-Math.PI/2; rug.scale.set(.9,.35,1);
 })();
 
-(function accoglienza(){                          // bancone al portellone
-  box(.5,1.02,1.0, M.legno, .78, .51, 4.32);
-  box(.56,.04,1.06, M.bianco, .78, 1.05, 4.32);
-  box(.02,.5,.62, M.ottone, .52, .55, 4.32);
-  var logo2 = insegna('DINO CHIESA','', 1.15, '#e9e2d5');
-  logo2.position.set(0, 2.0, Z-.06); logo2.rotation.y = Math.PI; scena.add(logo2);
-  ombra(.78, 4.32, .35, .55);
-  blocca(.5, 1.1, 3.78, 4.86);
+/* ---------- BAGNO MASTER (-3.1 .. -4.6) — vasca a isola + muretto Geberit ---------- */
+(function(){
+  // vasca freestanding a isola (lunga in z)
+  var pts=[new THREE.Vector2(.14,0),new THREE.Vector2(.40,.02),new THREE.Vector2(.50,.10),
+    new THREE.Vector2(.55,.28),new THREE.Vector2(.56,.46),new THREE.Vector2(.54,.55),
+    new THREE.Vector2(.48,.55),new THREE.Vector2(.46,.30),new THREE.Vector2(.40,.12),
+    new THREE.Vector2(.20,.10),new THREE.Vector2(.02,.10)];
+  var vs = new THREE.Mesh(new THREE.LatheGeometry(pts,40),
+    new THREE.MeshStandardMaterial({color:0xf6f4f0, roughness:.28, side:THREE.DoubleSide}));
+  vs.scale.set(.58,1,1.15); vs.position.set(0,.005,-3.92); scena.add(vs);
+  cil(.018,.018,.85, M.ottone, .40,.43,-3.44);
+  var bo = cil(.012,.012,.20, M.ottone, .32,.84,-3.44); bo.rotation.z=Math.PI/2;
+  ombra(0,-3.92,.44,.76);
+  blocca(-.33,.33,-4.57,-3.27);
+  // muretto tecnico + sanitari sospesi (destra)
+  var xw=X;
+  box(.26,1.15,1.0, M.legno, xw-.13, .575, -3.9);
+  box(.30,.03,1.04, M.bianco, xw-.15, 1.165, -3.9);
+  function vaso(zc,lung){
+    var pod = cil(.17,.19,lung, M.ceramica, xw-.44,.43, zc, 28);
+    pod.rotation.z=Math.PI/2; pod.scale.y=.72;
+    box(.22,.05,.36, M.ceramica, xw-.35,.55, zc);
+    box(.002,.14,.20, M.cromo, xw-.272,.95, zc);
+  }
+  vaso(-3.68,.50); vaso(-4.12,.44);
+  ombra(xw-.42,-3.68,.3,.26); ombra(xw-.42,-4.12,.3,.24);
+  blocca(X-.72, X, -4.42, -3.38);
+  // pannello pietra dietro la vasca (parete sinistra)
+  box(.025,2.2,1.3, M.pietra, -X+.02, 1.1, -3.95);
+})();
+
+/* ---------- CAMERA MASTER (-4.6 .. -6.8) — letto a destra, boiserie sul muso ---------- */
+(function(){
+  box(2.42,2.45,.05, M.doghe, 0, 1.225, -Z+.028);        // boiserie fondale
+  box(2.0,.05,.05, M.led, 0, 2.28, -Z+.075);
+  // letto matrimoniale (testata sul fondale)
+  box(1.46,.90,.07, M.tessuto, .51, .62, -Z+.09);        // testiera imbottita
+  box(1.42,.26,1.94, M.legno, .51, .20, -5.77);          // giroletto
+  box(1.36,.15,1.88, M.lino,  .51, .41, -5.77);          // materasso
+  box(1.38,.10,1.30, M.tessuto, .51, .48, -5.55);        // piumone
+  box(.56,.11,.36, M.lino, .24, .52, -6.42);             // cuscini
+  box(.56,.11,.36, M.lino, .80, .52, -6.42);
+  box(1.38,.06,.44, M.salvia, .51, .47, -5.05);          // runner
+  ombra(.51,-5.77,.85,1.05);
+  blocca(-.22, X, -6.75, -4.78);
+  // lampade a sospensione + comodino sospeso
+  cil(.006,.006,.75, M.nero, -.05, 2.08, -6.35); cil(.07,.09,.12, M.ottone, -.05, 1.66, -6.35);
+  cil(.006,.006,.55, M.nero, 1.10, 2.18, -6.35); cil(.07,.09,.12, M.ottone, 1.10, 1.86, -6.35);
+  box(.40,.14,.34, M.legno, -.46, .52, -6.60);           // comodino sospeso
+  blocca(-.66,-.26,-6.77,-6.43);
+  var rug = piano(1,1, new THREE.MeshStandardMaterial({color:0xcabfa8, roughness:.98}), -.55,.008,-5.5);
+  rug.rotation.x=-Math.PI/2; rug.scale.set(.55,1.2,1);
 })();
 
 /* ---------- luci ---------- */
 scena.add(new THREE.HemisphereLight(0xfff2e2, 0x35302a, .75));
 scena.add(new THREE.AmbientLight(0xfff6ea, .16));
-[[0,3.6],[0,1.2],[0,-1.2],[0,-3.9]].forEach(function(p){
-  var l = new THREE.PointLight(0xffe2b8, .65, 7.5, 2);
-  l.position.set(p[0], H-.22, p[1]); scena.add(l);
+[5.7, 3.4, 0.7, -2.3, -5.5].forEach(function(z){
+  var l = new THREE.PointLight(0xffe2b8, .6, 7, 2);
+  l.position.set(0, H-.22, z); scena.add(l);
 });
-// faretti decorativi
-for(var fz=-4.4; fz<=4.4; fz+=1.1){
+for(var fz=-6.2; fz<=6.2; fz+=1.24){
   cil(.05,.05,.02, M.nero, -.62, H-.015, fz);
   cil(.05,.05,.02, M.nero,  .62, H-.015, fz);
   cil(.035,.035,.006, M.led, -.62, H-.022, fz);
@@ -398,19 +589,30 @@ function spriteTondo(testo, colore){
   s.renderOrder = 5; return s;
 }
 var SCHEDE = [
- {p:[-.86,1.05, 0.0], cat:'MOBILI BAGNO', nome:'Mobile lavabo sospeso DC-L90',
-  dati:[['Misure','L 900 × P 460 × H 420 mm'],['Finitura','laminato opaco greige “CERA”'],
-        ['Interno','bianco'],['Top','HPL + lavabo d’appoggio in ceramica']]},
- {p:[-1.05,1.62, 2.2], cat:'SPECCHIERE', nome:'Specchiera LED DC-S80',
-  dati:[['Misure','700 × 900 mm'],['Luce','LED 4000 K dimmerabile'],['Comando','touch, antiappannamento']]},
- {p:[ .78,1.75, 3.3], cat:'ZONA DOCCIA', nome:'Colonna doccia Pioggia 25',
-  dati:[['Soffione','Ø 250 mm, ottone spazzolato'],['Piatto','900 × 900 mm effetto pietra'],['Cristallo','8 mm trasparente']]},
- {p:[ .70, .95, 0.0], cat:'SANITARI', nome:'Sospesi su muretto tecnico',
-  dati:[['Muretto','H 1150 mm, cassetta a incasso'],['Vaso','rimless, sedile soft-close'],['Placca','a due quantità']]},
- {p:[ .92,1.45,-2.2], cat:'RUBINETTERIE', nome:'Parete miscelatori',
-  dati:[['Finiture','ottone spazzolato · cromo · nero opaco'],['Tipo','bocca alta per lavabo d’appoggio']]},
- {p:[ 0.0, .95,-4.55], cat:'SUITE', nome:'Vasca freestanding Onda 170',
-  dati:[['Misure','1700 × 750 × H 550 mm'],['Materiale','acrilico bianco opaco'],['Erogazione','colonna a pavimento in ottone']]}
+ {p:[-.75,.95, 5.75], cat:'SALONE', nome:'Divano pensile DC-D180',
+  dati:[['Misure','L 1800 × P 780 mm, sospeso'],['Struttura','laminato greige “CERA”'],['Seduta','tessuto sabbia sfoderabile'],['Luce','LED sotto seduta']]},
+ {p:[ .98,1.62, 5.4], cat:'SALONE', nome:'Parete TV con boiserie',
+  dati:[['Doghe','rovere, passo 60 mm'],['Predisposizione','TV 55″ + soundbar'],['Mensola','verniciata BVN nero']]},
+ {p:[-.80,1.15, 3.6], cat:'CUCINA', nome:'Cucina lineare CERA',
+  dati:[['Composizione','basi L 900 + colonna frigo'],['Fronti','laminato opaco greige “CERA”'],['Top','nero opaco, gola integrata'],['Schienale','effetto pietra']]},
+ {p:[ .85,1.25, 2.32], cat:'LAVANDERIA', nome:'Colonna lavaggio',
+  dati:[['Vani','lavatrice + asciugatrice'],['Misure','L 640 × H 2000 mm'],['Finitura','bianco opaco, top greige']]},
+ {p:[ .85,1.05, 1.72], cat:'LAVANDERIA', nome:'Lavabo lavanderia 26-A011',
+  dati:[['Vasca','ceramica, extra-profonda'],['Base','L 550 mm, greige “CERA”'],['Mensola','con ceste portabiancheria']]},
+ {p:[ .90,1.05, 0.75], cat:'BAGNO OSPITI', nome:'Mobile lavabo DC-L90',
+  dati:[['Misure','L 900 × P 460 × H 420 mm'],['Finitura','greige “CERA”, interno bianco'],['Specchiera','LED 4000 K touch']]},
+ {p:[-.80,1.72, 0.5], cat:'BAGNO OSPITI', nome:'Doccia Pioggia 25',
+  dati:[['Soffione','Ø 250 mm ottone spazzolato'],['Piatto','800 × 800 mm effetto pietra'],['Cristallo','8 mm trasparente']]},
+ {p:[ .95,1.45, -.85], cat:'UFFICIO', nome:'Libreria con anta specchio',
+  dati:[['Misure','L 1360 × H 2240 mm'],['Moduli','a giorno + anta a specchio'],['Struttura','greige, ripiani bianchi']]},
+ {p:[-.45,.95,-2.2], cat:'CAMERETTA', nome:'Letto singolo con testata',
+  dati:[['Rete','800 × 1900 mm'],['Giroletto','greige “CERA”'],['Testata','pannello a parete H 1100']]},
+ {p:[ 0.0,.95,-3.95], cat:'BAGNO MASTER', nome:'Vasca a isola Onda 155',
+  dati:[['Misure','1550 × 700 × H 550 mm'],['Materiale','acrilico bianco opaco'],['Erogazione','colonna a pavimento ottone']]},
+ {p:[ .85,.95,-3.9], cat:'BAGNO MASTER', nome:'Sanitari su muretto tecnico',
+  dati:[['Muretto','H 1150 mm, cassetta a incasso'],['Vaso','rimless + bidet sospesi'],['Placca','a due quantità']]},
+ {p:[ .50,1.15,-5.9], cat:'CAMERA MASTER', nome:'Letto + parete boiserie',
+  dati:[['Letto','1400 × 2000 mm, testiera imbottita'],['Boiserie','doghe a tutta parete + LED'],['Comodino','sospeso, luci a pendolo']]}
 ];
 var hotspot = [];
 SCHEDE.forEach(function(s,i){
@@ -419,13 +621,16 @@ SCHEDE.forEach(function(s,i){
   sp.scale.set(.17,.17,1); sp.userData = {scheda:i}; scena.add(sp); hotspot.push(sp);
 });
 
-/* ---------- tappe di teletrasporto ---------- */
+/* ---------- tappe ---------- */
 var TAPPE = [
- {p:[-0.35, 4.55], guarda:[0,-Z],      nome:'Accoglienza'},
- {p:[ 0.10, 2.2],  guarda:[-1.2, 2.2], nome:'Zona lavabi'},
- {p:[-0.25, 0.0],  guarda:[ 1.2, 0.0], nome:'Zona sanitari'},
- {p:[ 0.0, -2.2],  guarda:[ 1.2,-2.2], nome:'Rubinetterie'},
- {p:[ 0.0, -3.55], guarda:[ 0,-4.6],   nome:'Suite vasca'}
+ {p:[ 0.30, 6.10], guarda:[-0.6, 5.2]},
+ {p:[ 0.50, 3.70], guarda:[-1.2, 3.6]},
+ {p:[-0.55, 2.10], guarda:[ 1.2, 2.1]},
+ {p:[ 0.10, 0.65], guarda:[ 1.2, 0.75]},
+ {p:[ 0.00,-0.80], guarda:[ 1.2,-0.85]},
+ {p:[ 0.85,-2.20], guarda:[-0.5,-2.2]},
+ {p:[-0.72,-3.90], guarda:[ 0.4,-4.0]},
+ {p:[-0.70,-5.35], guarda:[ 0.5,-5.8]}
 ];
 var dischi = [];
 TAPPE.forEach(function(t,i){
@@ -444,7 +649,7 @@ TAPPE.forEach(function(t,i){
   scena.add(g); dischi.push(g);
 });
 
-/* ---------- input: sguardo, tasti, joystick ---------- */
+/* ---------- input ---------- */
 var tasti = {};
 addEventListener('keydown', function(e){ tasti[e.code]=true;
   if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space'].indexOf(e.code)>=0) e.preventDefault(); });
@@ -453,8 +658,6 @@ addEventListener('keyup',   function(e){ tasti[e.code]=false; });
 var trascino=null, mosso=0;
 var stick = document.getElementById('stick'), pomo = stick.firstElementChild;
 var joy = {attivo:false, id:null, cx:0, cy:0, vx:0, vy:0};
-
-function suGiu(e){ return e.changedTouches ? Array.prototype.slice.call(e.changedTouches) : [e]; }
 
 canvas.addEventListener('pointerdown', function(e){
   if(e.pointerType==='touch' && e.clientX < innerWidth*.42 && e.clientY > innerHeight*.45 && !joy.attivo){
@@ -493,9 +696,10 @@ function fineTocco(e){
 addEventListener('pointerup', fineTocco);
 addEventListener('pointercancel', fineTocco);
 
-/* ---------- raycast click ---------- */
+/* ---------- raycast / schede / teletrasporto ---------- */
 var ray = new THREE.Raycaster(); var ndc = new THREE.Vector2();
 var scheda = document.getElementById('scheda');
+var velo = document.getElementById('velo');
 scheda.querySelector('.chiudi').addEventListener('click', function(){ scheda.hidden = true; });
 
 function apriScheda(i){
@@ -510,14 +714,21 @@ function apriScheda(i){
   });
   scheda.hidden = false;
 }
-var viaggio = null;
+var inViaggio = false;
 function vaiATappa(i){
+  if(inViaggio) return;
   var t = TAPPE[i];
   var y2 = Math.atan2(-(t.guarda[0]-t.p[0]), -(t.guarda[1]-t.p[1]));
-  var dy = y2 - yaw; while(dy>Math.PI) dy-=2*Math.PI; while(dy<-Math.PI) dy+=2*Math.PI;
-  viaggio = {t:0, dur: riduciMotion? .01 : .85,
-    x0:camera.position.x, z0:camera.position.z, x1:t.p[0], z1:t.p[1],
-    y0:yaw, y1:yaw+dy, p0:pitch};
+  function salta(){
+    camera.position.x = t.p[0]; camera.position.z = t.p[1];
+    yaw = y2; pitch = 0;
+  }
+  if(riduciMotion){ salta(); return; }
+  inViaggio = true;
+  velo.style.opacity = 1;
+  setTimeout(function(){ salta(); velo.style.opacity = 0;
+    setTimeout(function(){ inViaggio=false; }, 220);
+  }, 210);
 }
 function clicca(px,py){
   ndc.set(px/innerWidth*2-1, -(py/innerHeight)*2+1);
@@ -544,14 +755,56 @@ var avanti = new THREE.Vector3(), destra = new THREE.Vector3();
 var zonaEl = document.querySelector('#zona .nome');
 var zonaCorrente = '';
 function aggiornaZona(){
-  var z = camera.position.z, n;
-  if(z> 3.9) n='Accoglienza';
-  else if(z> 2.6) n='Zona doccia';
-  else if(z> 1.0) n='Zona lavabi';
-  else if(z>-1.2) n='Zona sanitari';
-  else if(z>-3.4) n='Rubinetterie';
-  else n='Suite vasca';
+  var z = camera.position.z, n = ROOMS[ROOMS.length-1].n;
+  for(var i=0;i<ROOMS.length;i++){ if(z<=ROOMS[i].z1 && z>ROOMS[i].z2){ n=ROOMS[i].n; break; } }
+  if(z>ROOMS[0].z1) n = ROOMS[0].n;
   if(n!==zonaCorrente){ zonaCorrente=n; zonaEl.textContent=n; }
+}
+
+/* ---------- minimappa ---------- */
+var mcv = document.getElementById('mappaCv');
+var MW = 252, MH = 58, MPAD = 5, MS = (MW-2*MPAD)/L;
+var mdpr = Math.min(devicePixelRatio,2);
+mcv.width = MW*mdpr; mcv.height = MH*mdpr;
+mcv.style.width = MW+'px'; mcv.style.height = MH+'px';
+var mg = mcv.getContext('2d');
+var mappaBase = document.createElement('canvas');
+mappaBase.width = MW*mdpr; mappaBase.height = MH*mdpr;
+(function(){
+  var g = mappaBase.getContext('2d'); g.scale(mdpr,mdpr);
+  function mx(z){ return MPAD + (Z - z)*MS; }
+  function my(x){ return MH/2 + x*MS; }
+  g.strokeStyle = 'rgba(241,237,230,.75)'; g.lineWidth = 1.4;
+  g.strokeRect(mx(Z), my(-X), L*MS, W*MS);
+  g.strokeStyle = 'rgba(241,237,230,.45)'; g.lineWidth = 1;
+  PARTS.forEach(function(p){
+    g.beginPath();
+    g.moveTo(mx(p.z), my(-X)); g.lineTo(mx(p.z), my(p.d[0]));
+    g.moveTo(mx(p.z), my(p.d[1])); g.lineTo(mx(p.z), my(X));
+    g.stroke();
+  });
+  g.fillStyle = 'rgba(208,163,85,.34)';
+  solidi.forEach(function(s){
+    if(s.z2-s.z1 < .12) return;                 // le pareti divisorie sono già disegnate a linea
+    g.fillRect(mx(s.z2), my(s.x1), (s.z2-s.z1)*MS, (s.x2-s.x1)*MS);
+  });
+  g.fillStyle = 'rgba(241,237,230,.85)';
+  TAPPE.forEach(function(t){
+    g.beginPath(); g.arc(mx(t.p[1]), my(t.p[0]), 1.7, 0, 7); g.fill();
+  });
+})();
+function disegnaMappa(){
+  mg.setTransform(1,0,0,1,0,0);
+  mg.clearRect(0,0,mcv.width,mcv.height);
+  mg.drawImage(mappaBase,0,0);
+  mg.setTransform(mdpr,0,0,mdpr,0,0);
+  var px = MPAD + (Z - camera.position.z)*MS;
+  var py = MH/2 + camera.position.x*MS;
+  var a = -yaw;
+  mg.save(); mg.translate(px,py); mg.rotate(a);
+  mg.fillStyle = '#d0a355';
+  mg.beginPath(); mg.moveTo(4.6,0); mg.lineTo(-3,2.8); mg.lineTo(-3,-2.8); mg.closePath(); mg.fill();
+  mg.restore();
 }
 
 /* ---------- aiuto ---------- */
@@ -575,15 +828,7 @@ function anima(){
   var dt = Math.min(orologio.getDelta(), .05);
   var t  = orologio.elapsedTime;
 
-  if(viaggio){
-    viaggio.t += dt/viaggio.dur;
-    var k = viaggio.t>=1 ? 1 : (1-Math.pow(1-viaggio.t,3));
-    camera.position.x = viaggio.x0+(viaggio.x1-viaggio.x0)*k;
-    camera.position.z = viaggio.z0+(viaggio.z1-viaggio.z0)*k;
-    yaw = viaggio.y0+(viaggio.y1-viaggio.y0)*k;
-    pitch = viaggio.p0*(1-k);
-    if(viaggio.t>=1) viaggio=null;
-  } else {
+  if(!inViaggio){
     var ix = (tasti.KeyD||tasti.ArrowRight? 1:0) - (tasti.KeyA||tasti.ArrowLeft? 1:0) + joy.vx;
     var iz = (tasti.KeyW||tasti.ArrowUp  ? 1:0) - (tasti.KeyS||tasti.ArrowDown? 1:0) - joy.vy;
     ix = Math.max(-1,Math.min(1,ix)); iz = Math.max(-1,Math.min(1,iz));
@@ -608,9 +853,9 @@ function anima(){
     }
   }
   aggiornaZona();
+  disegnaMappa();
   renderer.render(scena, camera);
 }
-
 anima();
 })();
 </script>

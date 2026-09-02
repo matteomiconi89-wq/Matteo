@@ -1,7 +1,8 @@
 # PROTOCOLLO TOUR VIRTUALE — dal render Manus al camion esplorabile
 
-> Estensione del `PROTOCOLLO_RENDER_MANUS.md` per la commessa **DINO CHIESA**
-> (allestimento camion showroom di mobili sanitari). Obiettivo: far "camminare dentro"
+> Estensione del `PROTOCOLLO_RENDER_MANUS.md` per la commessa **DINO CHIESA**:
+> camion showroom allestito come **appartamento completo su ruote** — salone, cucina,
+> lavanderia, 2 bagni, ufficio e 2 camere. Obiettivo: far "camminare dentro"
 > il camion i clienti da un link/QR, partendo dai render che già produciamo.
 > Studio completo (tecnologie, costi, rischi): artifact **Tour Virtuale DINO CHIESA**
 > — https://claude.ai/code/artifact/2597d17d-5488-4771-8203-e0b58e75cf6f
@@ -45,11 +46,12 @@ I video veri e propri (passivi) si generano a parte per i social (image-to-video
 
 1. **DWG → solidi 3D** dell'allestimento: protocollo render invariato (bbox reali, codici dai
    MLEADER, checkpoint volumi approvato da Matteo in AutoCAD prima di spendere crediti).
-2. **Render Manus per zona**: 4–6 "viste eroe" ad **altezza occhio 1,60 m**, una per zona
-   espositiva (es. lavabi / sanitari / doccia / rubinetterie / suite vasca). Collaudo standard ±10%.
+2. **Render Manus per ambiente**: 8–10 "viste eroe" ad **altezza occhio 1,60 m**, una per
+   ambiente (salone → cucina → lavanderia → bagno ospiti → ufficio → cameretta →
+   bagno master → camera master: l'ordine di visita della demo). Collaudo standard ±10%.
 3. **[Opz.] Vista → panorama** con Skybox AI (remix dall'immagine collaudata).
-4. **Marble**: UN MONDO PER ZONA (non l'intero camion in un colpo — stessa filosofia dei giri
-   sui singoli mobili). Con Pro c'è l'espansione scena per allargare dopo.
+4. **Marble**: UN MONDO PER AMBIENTE, 8 in tutto (non l'intero camion in un colpo — stessa
+   filosofia dei giri sui singoli mobili). Con Pro c'è l'espansione scena per allargare dopo.
 5. **Collaudo camminata** (v. §5) prima di mostrare qualunque cosa.
 6. **Pagina tour**: mondo incorporato (splat 500k) o link Marble + tappe per zona + schede
    prodotto con le misure VERE dai DXF + contatti. Interfaccia = quella della demo
@@ -82,7 +84,7 @@ I video veri e propri (passivi) si generano a parte per i social (image-to-video
 | Demo esperienza camminabile | ✔ consegnata (artifact + `DINO_CHIESA_truck/demo_camminata.html`) |
 | Test Marble Free su render FINALE 26-A011 (es. cucina truck) | ☐ da fare — costo zero |
 | DWG allestimento camion | ☐ da ricevere da Matteo |
-| Scelta delle 5 zone/tappe con Matteo | ☐ da fare sul disegno |
+| Conferma degli 8 ambienti/tappe con Matteo | ☐ da fare sul disegno |
 | Primo giro Manus "viste 1,60 m" + Marble Pro | ☐ dopo l'ok sul test |
 
 ## 8. Come si riparte (per la prossima sessione Claude)
