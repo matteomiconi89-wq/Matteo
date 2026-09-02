@@ -58,4 +58,4 @@ ingresso aperto), Z = altezza da terra. **Pavimento finito Z 1.395 = quota zero 
 | Giro | Esito | Note |
 |---|---|---|
 | Rilievo (02/09) | ✓ | misure e tavole dai DXF rev.06; artifact + repo `26-A011_scocca` |
-| Manus giro 1 | **pronto, non lanciato** | brief in `BRIEF_MANUS.md` + `gabbia_pixel_scocca.png`; bloccato da API key Manus cancellata (Composio 401) — rigenerare la chiave e ricollegare |
+| Manus giro 1 | **lanciato 02/09 ~10:35 UTC** | task `WSLtwCSEyoi5azfnCcFKP5` (manus.im/app/WSLtwCSEyoi5azfnCcFKP5), account Composio `manus-render` (chiave rigenerata da Matteo), agent `manus-1.6` modo `agent`; 7 allegati: 5 tavole via URL GitHub raw + 2 render scena cucina via link Dropbox monouso; collaudo al ritiro |
