@@ -82,7 +82,7 @@ I video veri e propri (passivi) si generano a parte per i social (image-to-video
 |---|---|
 | Studio tecnologie + piano | ✔ consegnato (artifact + questo protocollo) |
 | Demo esperienza camminabile | ✔ consegnata (artifact + `DINO_CHIESA_truck/demo_camminata.html`) |
-| Test Marble Free su render FINALE 26-A011 (es. cucina truck) | ☐ da fare — costo zero |
+| Test Marble Free su render FINALE 26-A011 (cucina truck) | ☐ da fare — costo zero, ~5 min. **Kit pronto**: https://claude.ai/code/artifact/06870770-7271-4bc0-ba65-44241ba8e157 — file sorgente `render_v10_01_chiuso.png` (chiuso approvato, giro 10) in `/STEFANO/Matteo/RENDER_MANUS/26-A011_cucina/`; collaudo camminata sulle voci della SPEC (4 frontali, gola continua, 4 ribalte M8, M7 300, giunto M1/M2 10 mm, zoccolo LED) |
 | DWG allestimento camion | ☐ da ricevere da Matteo |
 | Conferma degli 8 ambienti/tappe con Matteo | ☐ da fare sul disegno |
 | Primo giro Manus "viste 1,60 m" + Marble Pro | ☐ dopo l'ok sul test |
