@@ -19,6 +19,12 @@
     --tube-hi:#55545e;
     --fit-edge:#0b0a0d;
     --fit-body:#3a3942;
+    --cube-top:#98969d;
+    --cube-r:#211f26;
+    --cube-l:#2c2a32;
+    --cube-edge:#0d0c10;
+    --grille-bg:#111014;
+    --grille-line:#4d4c56;
     --floor:rgba(24,22,27,.055);
     --ghost:#a5a1aa;
     --halo:#ffffff;
@@ -39,6 +45,12 @@
       --tube-hi:#75747f;
       --fit-edge:#131218;
       --fit-body:#5d5c68;
+      --cube-top:#84828c;
+      --cube-r:#35343d;
+      --cube-l:#454450;
+      --cube-edge:#101014;
+      --grille-bg:#191820;
+      --grille-line:#615f6c;
       --floor:rgba(236,235,240,.05);
       --ghost:#807d89;
       --halo:#1d1c22;
@@ -59,6 +71,12 @@
     --tube-hi:#75747f;
     --fit-edge:#131218;
     --fit-body:#5d5c68;
+    --cube-top:#84828c;
+    --cube-r:#35343d;
+    --cube-l:#454450;
+    --cube-edge:#101014;
+    --grille-bg:#191820;
+    --grille-line:#615f6c;
     --floor:rgba(236,235,240,.05);
     --ghost:#807d89;
     --halo:#1d1c22;
@@ -81,7 +99,7 @@
            letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
   h1{font-weight:800;font-size:clamp(26px,4vw,38px);letter-spacing:-.015em;
      margin:0 0 4px;text-wrap:balance}
-  .sub{color:var(--muted);margin:0 0 14px;max-width:62ch}
+  .sub{color:var(--muted);margin:0 0 14px;max-width:66ch}
   .chips{display:flex;flex-wrap:wrap;gap:8px}
   .chip{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;
         border:1px solid var(--line);border-radius:3px;padding:4px 10px;
@@ -158,6 +176,34 @@
     .cartiglio div{border-top:1px solid var(--line-soft)}}
 
   svg text{font-family:'IBM Plex Mono',ui-monospace,monospace}
+
+  /* ── stampa / PDF ───────────────────────── */
+  @page{size:A4;margin:9mm}
+  @media print{
+    html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{background:#fff}
+    .sheet{max-width:none;padding:0}
+    .head,.panel,.alert,.cartiglio{break-inside:avoid}
+    .head{padding:14px 18px 12px;margin-bottom:10px}
+    h1{font-size:24px}
+    .eyebrow{font-size:9px;margin-bottom:4px}
+    .sub{font-size:11.5px;margin-bottom:8px;line-height:1.45}
+    .chip{font-size:10px;padding:2px 7px}
+    .row{gap:10px;margin-bottom:10px}
+    .row.views{display:block}
+    .row.views > .panel{margin-bottom:10px}
+    .stack{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .row.three{grid-template-columns:1fr 1fr}
+    .row.three > .panel:last-child{grid-column:1 / -1}
+    figure svg{width:auto;max-width:100%;margin:0 auto}
+    #iso{max-height:640px}
+    #fronte,#lato{max-height:620px}
+    #pianta{max-height:340px}
+    #posa{max-height:280px}
+    table{min-width:0;font-size:11.5px}
+    td,th{padding:6px 8px}
+    .panel{padding:12px 14px}
+  }
 </style>
 
 <div class="sheet">
@@ -167,14 +213,20 @@
     <h1>Gabbia Tubolare B34</h1>
     <p class="sub">Struttura scenica in tubo d'acciaio nero opaco Ø&nbsp;34 con raccordi in ghisa:
        4 montanti, telaio superiore chiuso, 2 file di correnti che dividono l'altezza in 3 spazi,
-       un lato completamente aperto per l'ingresso di una persona con i materiali. Da realizzare in <b>2 esemplari uguali</b>.</p>
+       un lato completamente aperto per l'ingresso di una persona con i materiali.
+       Ogni gabbia appoggia su un <b>cubo nero 90 × 90 × h 70 cm</b> già realizzato, con piano
+       effetto cemento e <b>vano frontale per il subwoofer</b> chiuso da una <b>grata nera</b>.
+       Da realizzare in <b>2 esemplari uguali</b>: uno a destra e uno a sinistra del bancone.</p>
     <div class="chips">
       <span class="chip">pianta <b>90 × 90 cm</b></span>
-      <span class="chip">altezza <b>230 cm</b></span>
+      <span class="chip">gabbia <b>h 230 cm</b></span>
+      <span class="chip">cubo <b>h 70 cm</b></span>
+      <span class="chip">totale da terra <b>300 cm</b></span>
       <span class="chip">3 spazi da <b>≈ 76,7 cm</b></span>
       <span class="chip">tubo <b>Ø 33,7 × 2,6 mm</b></span>
       <span class="chip">finitura <b>nero opaco</b></span>
-      <span class="chip">peso <b>≈ 40 kg/gabbia</b></span>
+      <span class="chip">nel cubo <b>vano sub + grata</b></span>
+      <span class="chip">peso gabbia <b>≈ 40 kg</b></span>
     </div>
   </header>
 
@@ -182,9 +234,10 @@
     <div class="panel">
       <h2>Vista assonometrica <span class="tag">scala libera · quote in cm</span></h2>
       <figure>
-        <svg id="iso" role="img" aria-label="Assonometria della gabbia 90 per 90 per 230 cm: 4 montanti, telaio superiore chiuso sui 4 lati, correnti intermedi su 3 lati a due livelli, lato frontale aperto. Callout dei raccordi JM128, JM116, JM101, JM131."></svg>
-        <figcaption>Correnti intermedi solo su 3 lati; il lato aperto è chiuso soltanto dal corrente
-        di sommità del telaio superiore.</figcaption>
+        <svg id="iso" role="img" aria-label="Assonometria: gabbia 90 per 90 per 230 cm sopra un cubo nero 90 per 90 per 70 cm con piano effetto cemento e grata nera sul vano frontale del subwoofer. 4 montanti, telaio superiore chiuso sui 4 lati, correnti intermedi su 3 lati a due livelli, lato frontale aperto. Callout dei raccordi JM128, JM116, JM101, JM131."></svg>
+        <figcaption>La gabbia è avvitata sul piano del cubo tramite le 4 flange; sul fronte del cubo
+        la grata nera del vano sub. Correnti intermedi solo su 3 lati; il lato aperto è chiuso
+        soltanto dal corrente di sommità.</figcaption>
       </figure>
     </div>
 
@@ -192,15 +245,16 @@
       <div class="panel">
         <h2>Prospetto — lato aperto</h2>
         <figure>
-          <svg id="fronte" role="img" aria-label="Prospetto del lato aperto: due montanti e solo il corrente superiore; luce netta di passaggio circa 83 per 226 cm; sagoma di persona con cassa di materiali in scala."></svg>
-          <figcaption>Luce netta di passaggio ≈ 83 × 226 cm — persona h 175 in scala.</figcaption>
+          <svg id="fronte" role="img" aria-label="Prospetto del lato aperto: cubo nero alto 70 cm con grata nera del vano subwoofer, sopra due montanti e solo il corrente superiore; luce netta di passaggio circa 83 per 226 cm; sagoma di persona con cassa di materiali in scala sul piano del cubo."></svg>
+          <figcaption>Luce netta ≈ 83 × 226 cm — persona h 175 sul piano del cubo; sotto, la grata
+          nera del sub.</figcaption>
         </figure>
       </div>
       <div class="panel">
         <h2>Prospetto — lato chiuso</h2>
         <figure>
-          <svg id="lato" role="img" aria-label="Prospetto di un lato chiuso: correnti a 76,7 e 153,3 cm dividono l'altezza di 230 cm in tre spazi uguali."></svg>
-          <figcaption>I 2 correnti intermedi dividono i 230 cm in 3 spazi uguali (interassi).</figcaption>
+          <svg id="lato" role="img" aria-label="Prospetto di un lato chiuso: cubo di 70 cm, poi correnti che dividono i 230 cm della gabbia in tre spazi uguali; altezza totale da terra 300 cm."></svg>
+          <figcaption>I 2 correnti dividono i 230 cm in 3 spazi uguali; da terra si arriva a 300 cm.</figcaption>
         </figure>
       </div>
     </div>
@@ -210,8 +264,14 @@
     <div class="panel">
       <h2>Pianta</h2>
       <figure>
-        <svg id="pianta" role="img" aria-label="Pianta 90 per 90 cm: telaio superiore su tutti e 4 i lati, correnti intermedi tratteggiati su 3 lati, lato inferiore aperto con freccia di accesso."></svg>
-        <figcaption>Tratteggio = correnti intermedi (3 lati). In basso il lato di accesso.</figcaption>
+        <svg id="pianta" role="img" aria-label="Pianta 90 per 90 cm: telaio superiore su tutti e 4 i lati, correnti intermedi tratteggiati su 3 lati, lato inferiore aperto con freccia di accesso. Il cubo sottostante ha la stessa impronta."></svg>
+        <figcaption>Tratteggio = correnti intermedi (3 lati). Il cubo sotto ha la stessa impronta 90 × 90.
+        In basso il lato di accesso.</figcaption>
+      </figure>
+      <figure style="margin-top:14px">
+        <svg id="posa" role="img" aria-label="Schema di posa frontale: un cubo con gabbia a sinistra del bancone e uno a destra; in ogni cubo la grata nera del subwoofer."></svg>
+        <figcaption>Posa: 1 cubo + gabbia a sinistra e 1 a destra del bancone; nel vano di ogni cubo
+        il subwoofer dietro la grata nera.</figcaption>
       </figure>
     </div>
 
@@ -219,9 +279,10 @@
       <h2>Quote e tagli <span class="tag">indicativi</span></h2>
       <ul class="note-list">
         <li><span class="k">90,0</span><span>misura fuori tutto in pianta → interasse montanti <b>86,6 cm</b></span></li>
-        <li><span class="k">230,0</span><span>altezza fuori tutto → montanti tagliati a <b>230 cm</b> (la flangia JM131 resta a filo pavimento, l'angolo JM128 avvolge la sommità)</span></li>
+        <li><span class="k">230,0</span><span>altezza della gabbia → montanti tagliati a <b>230 cm</b> (la flangia JM131 resta a filo, l'angolo JM128 avvolge la sommità)</span></li>
+        <li><span class="k">300,0</span><span>altezza totale da terra: cubo 70 + gabbia 230; i correnti restano a <b>146,7</b> e <b>223,3 cm da terra</b></span></li>
         <li><span class="k">≈83,2</span><span>taglio dei 10 correnti orizzontali (86,6 − Ø 3,4): <b>verifica la battuta reale dei raccordi prima di tagliare</b> — meglio provare il primo pezzo a secco</span></li>
-        <li><span class="k">76,7</span><span>interasse dei livelli: correnti a <b>76,7</b> e <b>153,3 cm</b> da terra</span></li>
+        <li><span class="k">76,7</span><span>interasse dei livelli: correnti a <b>76,7</b> e <b>153,3 cm</b> dal piano del cubo</span></li>
         <li><span class="k">2 tagli</span><span>ogni barra da 200 cm rende 2 correnti da ≈ 83 cm</span></li>
       </ul>
     </div>
@@ -233,7 +294,8 @@
         <li><span>Monta il telaio superiore: 4 angoli <code>JM128</code> + 4 correnti da ≈ 83 cm, serrando poco i grani.</span></li>
         <li><span>Aggancia i 6 correnti intermedi a 76,7 e 153,3 cm sui 3 lati chiusi.</span></li>
         <li><span>Metti in squadra e a piombo, poi serra tutti i grani con chiave a brugola.</span></li>
-        <li><span>Per uso scenico fissa le flange a una pedana o zavorra: con un lato aperto il fissaggio a terra dà la rigidezza.</span></li>
+        <li><span>Avvita le 4 flange <code>JM131</code> al piano del cubo con viti robuste e <b>gommini antivibranti</b> sotto ogni flangia: dentro il cubo lavora il subwoofer e la gabbia non deve risuonare. Il piano (vano cavo sotto) deve reggere persona + materiali, ≈ 150 kg: rinforza se serve.</span></li>
+        <li><span>Monta la <b>grata nera</b> sul vano frontale del sub, fissata al telaio del cubo (viti o magneti), senza contatto con i tubi.</span></li>
       </ol>
     </div>
   </div>
@@ -282,7 +344,7 @@
             <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 8v24"/><ellipse cx="23" cy="36" rx="15" ry="5"/></svg>
             <div><span class="cod">JM131-B34</span><br><span class="desc">flangia di base</span></div>
           </div></td>
-          <td class="desc">piede dei 4 montanti — fissaggio a pavimento/pedana</td>
+          <td class="desc">piede dei 4 montanti — avvitata al piano del cubo</td>
           <td class="num qty">4</td><td class="num qty">8</td><td class="num">6,04</td>
         </tr>
 
@@ -303,6 +365,24 @@
           <td class="desc">4 telaio superiore + 6 intermedi (2 livelli × 3 lati)</td>
           <td class="num qty">10</td><td class="num qty">20</td><td class="num">28,69 / barra</td>
         </tr>
+
+        <tr class="section"><td colspan="5">Basamento — fornitura propria (non tubeo)</td></tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round"><path d="M23 5l15 8v16l-15 9-15-9V13z"/><path d="M8 13l15 8 15-8M23 21v17"/></svg>
+            <div><span class="cod">Cubo nero · 90 × 90 × h 70</span><br><span class="desc">già realizzato — piano effetto cemento, vano frontale per subwoofer</span></div>
+          </div></td>
+          <td class="desc">pedana sotto la gabbia — flange JM131 avvitate sul piano (con antivibranti)</td>
+          <td class="num qty">1</td><td class="num qty">2</td><td class="num">—</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><rect x="7" y="11" width="32" height="24" rx="2"/><path d="M15 11v24M23 11v24M31 11v24M7 19h32M7 27h32"/></svg>
+            <div><span class="cod">Grata nera · su misura</span><br><span class="desc">griglia metallica / lamiera forata nera per il vano sub</span></div>
+          </div></td>
+          <td class="desc">fronte del cubo, davanti al subwoofer</td>
+          <td class="num qty">1</td><td class="num qty">2</td><td class="num">—</td>
+        </tr>
       </tbody>
       <tfoot>
         <tr><td colspan="5">Carrello per 2 gabbie: raccordi 8×(6,71 + 6,80 + 4,58 + 6,04) = <b>193,04 €</b> ·
@@ -319,12 +399,12 @@
        e anche le 10 barre da 200 cm per i correnti. Le <b>8 barre da 150 cm</b> invece erano i montanti
        della versione alta 150: con l'altezza corretta a <b>230 cm</b> vanno sostituite con 8 barre
        da almeno 230 cm (es. 250 cm da accorciare, o la lunghezza disponibile più vicina nella
-       collezione tubi B34).</p>
+       collezione tubi B34). I 2 cubi neri 90 × 90 × 70 non sono materiale tubeo.</p>
   </div>
 
   <footer class="cartiglio">
-    <div><span class="lbl">Progetto</span><span class="val">Gabbia scenica ×2</span></div>
-    <div><span class="lbl">Ingombro</span><span class="val">90 × 90 × 230 cm</span></div>
+    <div><span class="lbl">Progetto</span><span class="val">Gabbia ×2 · lati bancone</span></div>
+    <div><span class="lbl">Ingombro</span><span class="val">90 × 90 × 300 cm</span></div>
     <div><span class="lbl">Materiale</span><span class="val">Tubo Ø 33,7 × 2,6</span></div>
     <div><span class="lbl">Finitura</span><span class="val">Nero opaco B34</span></div>
     <div><span class="lbl">Raccordi</span><span class="val">JM · tubeo.com</span></div>
@@ -336,7 +416,7 @@
 (function(){
   'use strict';
   var NS='http://www.w3.org/2000/svg';
-  var W=900, D=900, H=2300, Z1=767, Z2=1533;
+  var W=900, D=900, H=2300, Z1=767, Z2=1533, ZB=700, TH=ZB+H;
 
   function el(parent,tag,attrs){
     var n=document.createElementNS(NS,tag);
@@ -349,6 +429,12 @@
     l.style.strokeLinecap=cap||'round';
     if(dash) l.style.strokeDasharray=dash;
     return l;
+  }
+  function poly(p,pts,fill,stroke,w){
+    var g=el(p,'polygon',{points:pts.map(function(q){return q.join(',');}).join(' ')});
+    g.style.fill=fill;
+    if(stroke){ g.style.stroke=stroke; g.style.strokeWidth=w||8; g.style.strokeLinejoin='round'; }
+    return g;
   }
   function tube(p,a,b){
     seg(p,a,b,40,'var(--tube-edge)');
@@ -400,20 +486,28 @@
   (function(){
     var s=document.getElementById('iso');
     var P=function(x,y,z){ return [(x-y)*0.866,(x+y)*0.5-z]; };
-    var LS=52; // label size
+    var LS=52;
 
     // pavimento
-    var f=el(s,'polygon',{points:[P(-120,-120,0),P(W+320,-120,0),P(W+320,D+140,0),P(-120,D+140,0)]
-      .map(function(q){return q.join(',');}).join(' ')});
-    f.style.fill='var(--floor)';
+    poly(s,[P(-140,-140,0),P(W+340,-140,0),P(W+340,D+160,0),P(-140,D+160,0)],'var(--floor)');
+
+    // cubo basamento 90×90×70 (piano effetto cemento, vano sub sul fronte)
+    poly(s,[P(W,0,ZB),P(W,D,ZB),P(W,D,0),P(W,0,0)],'var(--cube-r)','var(--cube-edge)',8);
+    poly(s,[P(0,D,ZB),P(W,D,ZB),P(W,D,0),P(0,D,0)],'var(--cube-l)','var(--cube-edge)',8);
+    poly(s,[P(0,0,ZB),P(W,0,ZB),P(W,D,ZB),P(0,D,ZB)],'var(--cube-top)','var(--cube-edge)',8);
+    // grata nera del vano sub sulla faccia frontale
+    poly(s,[P(W,70,ZB-70),P(W,D-70,ZB-70),P(W,D-70,70),P(W,70,70)],'var(--grille-bg)','var(--cube-edge)',7);
+    for(var gy=160;gy<D-70;gy+=105){ seg(s,P(W,gy,ZB-70),P(W,gy,70),6,'var(--grille-line)',null,'butt'); }
+    for(var gz=160;gz<ZB-70;gz+=105){ seg(s,P(W,70,gz),P(W,D-70,gz),6,'var(--grille-line)',null,'butt'); }
 
     var posts={ p00:[0,0], p01:[0,D], p10:[W,0], p11:[W,D] };
     function flange(xy){
-      var e=el(s,'ellipse',{cx:P(xy[0],xy[1],0)[0],cy:P(xy[0],xy[1],0)[1],rx:105,ry:56});
+      var q=P(xy[0],xy[1],ZB);
+      var e=el(s,'ellipse',{cx:q[0],cy:q[1],rx:105,ry:56});
       e.style.fill='var(--fit-body)'; e.style.stroke='var(--fit-edge)'; e.style.strokeWidth=10;
-      fit(s,P(xy[0],xy[1],8),P(xy[0],xy[1],110));
+      fit(s,P(xy[0],xy[1],ZB+8),P(xy[0],xy[1],ZB+110));
     }
-    function post(xy){ tube(s,P(xy[0],xy[1],0),P(xy[0],xy[1],H)); }
+    function post(xy){ tube(s,P(xy[0],xy[1],ZB),P(xy[0],xy[1],TH)); }
     function sleeve(xy,z,dirs,top){
       fit(s,P(xy[0],xy[1],top?z-95:z-70),P(xy[0],xy[1],top?z+6:z+70));
       dirs.forEach(function(d){
@@ -421,31 +515,32 @@
       });
     }
     function rail(a,b,z){ tube(s,P(a[0],a[1],z),P(b[0],b[1],z)); }
+    var z1=ZB+Z1, z2=ZB+Z2;
 
     // dal fondo verso l'osservatore
     flange(posts.p00); post(posts.p00);
-    sleeve(posts.p00,Z1,[[1,0],[0,1]]); sleeve(posts.p00,Z2,[[1,0],[0,1]]);
-    rail(posts.p00,posts.p01,Z1); rail(posts.p00,posts.p01,Z2);
-    rail(posts.p00,posts.p10,Z1); rail(posts.p00,posts.p10,Z2);
-    rail(posts.p00,posts.p01,H); rail(posts.p00,posts.p10,H);
-    sleeve(posts.p00,H,[[1,0],[0,1]],true);
+    sleeve(posts.p00,z1,[[1,0],[0,1]]); sleeve(posts.p00,z2,[[1,0],[0,1]]);
+    rail(posts.p00,posts.p01,z1); rail(posts.p00,posts.p01,z2);
+    rail(posts.p00,posts.p10,z1); rail(posts.p00,posts.p10,z2);
+    rail(posts.p00,posts.p01,TH); rail(posts.p00,posts.p10,TH);
+    sleeve(posts.p00,TH,[[1,0],[0,1]],true);
 
     flange(posts.p01); post(posts.p01);
-    sleeve(posts.p01,Z1,[[0,-1],[1,0]]); sleeve(posts.p01,Z2,[[0,-1],[1,0]]);
+    sleeve(posts.p01,z1,[[0,-1],[1,0]]); sleeve(posts.p01,z2,[[0,-1],[1,0]]);
     flange(posts.p10); post(posts.p10);
-    sleeve(posts.p10,Z1,[[-1,0]]); sleeve(posts.p10,Z2,[[-1,0]]);
+    sleeve(posts.p10,z1,[[-1,0]]); sleeve(posts.p10,z2,[[-1,0]]);
 
-    rail(posts.p01,posts.p11,Z1); rail(posts.p01,posts.p11,Z2);
-    rail(posts.p01,posts.p11,H); rail(posts.p10,posts.p11,H);
-    sleeve(posts.p01,H,[[0,-1],[1,0]],true);
-    sleeve(posts.p10,H,[[-1,0],[0,1]],true);
+    rail(posts.p01,posts.p11,z1); rail(posts.p01,posts.p11,z2);
+    rail(posts.p01,posts.p11,TH); rail(posts.p10,posts.p11,TH);
+    sleeve(posts.p01,TH,[[0,-1],[1,0]],true);
+    sleeve(posts.p10,TH,[[-1,0],[0,1]],true);
 
     flange(posts.p11); post(posts.p11);
-    sleeve(posts.p11,Z1,[[-1,0]]); sleeve(posts.p11,Z2,[[-1,0]]);
-    sleeve(posts.p11,H,[[-1,0],[0,-1]],true);
+    sleeve(posts.p11,z1,[[-1,0]]); sleeve(posts.p11,z2,[[-1,0]]);
+    sleeve(posts.p11,TH,[[-1,0],[0,-1]],true);
 
     // lato aperto: freccia d'ingresso sulla faccia x=W
-    var aA=P(W+560,D/2,Z1+120), aB=P(W+120,D/2,Z1+120);
+    var aA=P(W+560,D/2,z1+120), aB=P(W+120,D/2,z1+120);
     arrow(s,aA,aB,26,'var(--accent)');
     txt(s,aA[0]+40,aA[1]-140,'LATO',LS,'start');
     txt(s,aA[0]+40,aA[1]-140+LS*1.25,'APERTO',LS,'start');
@@ -453,30 +548,41 @@
     // quote
     dim(s,P(0,D,0),P(W,D,0),'90',LS,[P(0,120,0)[0]-P(0,0,0)[0],P(0,120,0)[1]-P(0,0,0)[1]]);
     dim(s,P(W,0,0),P(W,D,0),'90',LS,[P(150,0,0)[0]-P(0,0,0)[0],P(150,0,0)[1]-P(0,0,0)[1]]);
-    dim(s,P(W,0,0),P(W,0,H),'230',LS,[P(320,0,0)[0]-P(0,0,0)[0],P(320,0,0)[1]-P(0,0,0)[1]]);
+    dim(s,P(W,0,0),P(W,0,ZB),'70',LS,[P(320,0,0)[0]-P(0,0,0)[0],P(320,0,0)[1]-P(0,0,0)[1]]);
+    dim(s,P(W,0,ZB),P(W,0,TH),'230',LS,[P(320,0,0)[0]-P(0,0,0)[0],P(320,0,0)[1]-P(0,0,0)[1]]);
 
     // callout raccordi
-    callout(s,P(W,D,H),P(W,D,H)[0]+240,P(W,D,H)[1]+210,'JM128 ×4',LS);
-    callout(s,P(0,D,Z2),P(0,D,Z2)[0]-290,P(0,D,Z2)[1]-260,'JM116 ×4',LS);
-    callout(s,P(W,D,Z2),P(W,D,Z2)[0]+300,P(W,D,Z2)[1]-60,'JM101 ×4',LS);
-    callout(s,P(W,D,30),P(W,D,30)[0]+280,P(W,D,30)[1]+120,'JM131 ×4',LS);
+    callout(s,P(W,D,TH),P(W,D,TH)[0]+240,P(W,D,TH)[1]+210,'JM128 ×4',LS);
+    callout(s,P(0,D,z2),P(0,D,z2)[0]-290,P(0,D,z2)[1]-260,'JM116 ×4',LS);
+    callout(s,P(W,D,z2),P(W,D,z2)[0]+300,P(W,D,z2)[1]-60,'JM101 ×4',LS);
+    callout(s,P(W,D,ZB+30),P(W,D,ZB+30)[0]-300,P(W,D,ZB+30)[1]+170,'JM131 ×4',LS);
+    callout(s,P(W,D/2,ZB-330),P(W,D/2,ZB-330)[0]+60,P(W,D/2,ZB-330)[1]+570,'GRATA NERA · VANO SUB',LS*0.82);
 
-    s.setAttribute('viewBox','-1500 -2560 2790 3700');
+    s.setAttribute('viewBox','-1500 -3140 2790 4330');
   })();
 
   /* ───────────── PROSPETTO LATO APERTO ───────────── */
   (function(){
     var s=document.getElementById('fronte');
-    var Y=function(z){ return H-z; };
+    var Y=function(z){ return TH-z; };
     var LS=64;
 
     // terra
-    seg(s,[-160,Y(0)+22],[D+160,Y(0)+22],7,'var(--line)',null,'butt');
+    seg(s,[-160,Y(0)+24],[D+160,Y(0)+24],7,'var(--line)',null,'butt');
+    // cubo basamento con grata del vano sub e piano effetto cemento
+    var cb=el(s,'rect',{x:0,y:Y(ZB),width:D,height:ZB});
+    cb.style.fill='var(--cube-r)'; cb.style.stroke='var(--cube-edge)'; cb.style.strokeWidth=8;
+    var gr=el(s,'rect',{x:70,y:Y(ZB-70),width:D-140,height:ZB-140});
+    gr.style.fill='var(--grille-bg)'; gr.style.stroke='var(--cube-edge)'; gr.style.strokeWidth=7;
+    for(var gx=160;gx<D-70;gx+=105){ seg(s,[gx,Y(ZB-70)],[gx,Y(70)],6,'var(--grille-line)',null,'butt'); }
+    for(var gz=160;gz<ZB-70;gz+=105){ seg(s,[70,Y(gz)],[D-70,Y(gz)],6,'var(--grille-line)',null,'butt'); }
+    var ct=el(s,'rect',{x:0,y:Y(ZB),width:D,height:36});
+    ct.style.fill='var(--cube-top)'; ct.style.stroke='var(--cube-edge)'; ct.style.strokeWidth=6;
     // correnti del lato chiuso dietro (tratteggiati)
-    [Z1,Z2].forEach(function(z){ seg(s,[20,Y(z)],[D-20,Y(z)],26,'var(--ghost)','52 40','butt'); });
-    // persona con cassa (dietro i montanti, dentro la gabbia)
+    [ZB+Z1,ZB+Z2].forEach(function(z){ seg(s,[20,Y(z)],[D-20,Y(z)],26,'var(--ghost)','52 40','butt'); });
+    // persona con cassa sul piano del cubo
     var g=el(s,'g',{}); g.style.opacity='0.85';
-    var px=D/2-40, hb=Y(0);
+    var px=D/2-40, hb=Y(ZB);
     var head=el(g,'circle',{cx:px,cy:hb-1640,r:92});
     head.style.fill='var(--ghost)';
     seg(g,[px,hb-1540],[px,hb-880],150,'var(--ghost)');           // torso
@@ -486,60 +592,66 @@
     seg(g,[px+60,hb-1430],[px+240,hb-1120],52,'var(--ghost)');
     var box=el(g,'rect',{x:px+120,y:hb-1230,width:300,height:250,rx:12});
     box.style.fill='none'; box.style.stroke='var(--ghost)'; box.style.strokeWidth=26;
-    dim(s,[px-320,Y(0)],[px-320,Y(1750)],'175',LS*0.82,[0,0]);
+    dim(s,[px-320,Y(ZB)],[px-320,Y(ZB+1750)],'175',LS*0.82,[0,0]);
 
     // montanti + corrente superiore
-    tube(s,[17,Y(0)],[17,Y(H)]); tube(s,[D-17,Y(0)],[D-17,Y(H)]);
-    tube(s,[17,Y(H-17)],[D-17,Y(H-17)]);
-    fit(s,[17,Y(H-90)],[17,Y(H)+6]); fit(s,[D-17,Y(H-90)],[D-17,Y(H)+6]);
-    fit(s,[-40,Y(H-17)],[100,Y(H-17)]); fit(s,[D-100,Y(H-17)],[D+40,Y(H-17)]);
-    // flange
+    tube(s,[17,Y(ZB)],[17,Y(TH)]); tube(s,[D-17,Y(ZB)],[D-17,Y(TH)]);
+    tube(s,[17,Y(TH-17)],[D-17,Y(TH-17)]);
+    fit(s,[17,Y(TH-90)],[17,Y(TH)+6]); fit(s,[D-17,Y(TH-90)],[D-17,Y(TH)+6]);
+    fit(s,[-40,Y(TH-17)],[100,Y(TH-17)]); fit(s,[D-100,Y(TH-17)],[D+40,Y(TH-17)]);
+    // flange sul piano del cubo
     [[17],[D-17]].forEach(function(q){
-      var b=el(s,'rect',{x:q[0]-95,y:Y(0)-2,width:190,height:26,rx:5});
+      var b=el(s,'rect',{x:q[0]-95,y:Y(ZB)-2,width:190,height:26,rx:5});
       b.style.fill='var(--fit-body)'; b.style.stroke='var(--fit-edge)'; b.style.strokeWidth=8;
-      fit(s,[q[0],Y(0)-4],[q[0],Y(110)]);
+      fit(s,[q[0],Y(ZB)-4],[q[0],Y(ZB+110)]);
     });
 
-    // freccia accesso
-    arrow(s,[D/2,Y(0)-260],[D/2,Y(0)-30],30,'var(--accent)');
-    txt(s,D/2,Y(0)-320,'ACCESSO',LS*0.9);
+    // freccia accesso (davanti, poi si sale sul cubo)
+    arrow(s,[D/2,Y(0)+280],[D/2,Y(0)-50],30,'var(--accent)');
+    txt(s,D/2,Y(0)+430,'ACCESSO',LS*0.9);
 
-    dim(s,[0,Y(0)],[D,Y(0)],'90',LS,[0,300]);
-    dim(s,[D,Y(0)],[D,Y(H)],'230',LS,[330,0]);
-    dim(s,[34,Y(1950)],[D-34,Y(1950)],'luce ≈83',LS*0.8,[0,0]);
+    dim(s,[0,Y(0)],[D,Y(0)],'90',LS,[0,560]);
+    dim(s,[D,Y(0)],[D,Y(ZB)],'70',LS,[330,0]);
+    dim(s,[D,Y(ZB)],[D,Y(TH)],'230',LS,[330,0]);
+    dim(s,[34,Y(ZB+1950)],[D-34,Y(ZB+1950)],'luce ≈83',LS*0.8,[0,0]);
 
-    s.setAttribute('viewBox','-360 -290 1720 3120');
+    s.setAttribute('viewBox','-360 -250 1780 3880');
   })();
 
   /* ───────────── PROSPETTO LATO CHIUSO ───────────── */
   (function(){
     var s=document.getElementById('lato');
-    var Y=function(z){ return H-z; };
+    var Y=function(z){ return TH-z; };
     var LS=64;
-    seg(s,[-160,Y(0)+22],[W+160,Y(0)+22],7,'var(--line)',null,'butt');
+    seg(s,[-160,Y(0)+24],[W+160,Y(0)+24],7,'var(--line)',null,'butt');
+    var cb=el(s,'rect',{x:0,y:Y(ZB),width:W,height:ZB});
+    cb.style.fill='var(--cube-l)'; cb.style.stroke='var(--cube-edge)'; cb.style.strokeWidth=8;
+    var ct=el(s,'rect',{x:0,y:Y(ZB),width:W,height:36});
+    ct.style.fill='var(--cube-top)'; ct.style.stroke='var(--cube-edge)'; ct.style.strokeWidth=6;
 
-    tube(s,[17,Y(0)],[17,Y(H)]); tube(s,[W-17,Y(0)],[W-17,Y(H)]);
-    tube(s,[17,Y(H-17)],[W-17,Y(H-17)]);
-    [Z1,Z2].forEach(function(z){
+    tube(s,[17,Y(ZB)],[17,Y(TH)]); tube(s,[W-17,Y(ZB)],[W-17,Y(TH)]);
+    tube(s,[17,Y(TH-17)],[W-17,Y(TH-17)]);
+    [ZB+Z1,ZB+Z2].forEach(function(z){
       tube(s,[34,Y(z)],[W-34,Y(z)]);
       fit(s,[17,Y(z+62)],[17,Y(z-62)]); fit(s,[W-17,Y(z+62)],[W-17,Y(z-62)]);
       fit(s,[17,Y(z)],[110,Y(z)]); fit(s,[W-110,Y(z)],[W-17,Y(z)]);
     });
-    fit(s,[17,Y(H-90)],[17,Y(H)+6]); fit(s,[W-17,Y(H-90)],[W-17,Y(H)+6]);
-    fit(s,[-40,Y(H-17)],[100,Y(H-17)]); fit(s,[W-100,Y(H-17)],[W+40,Y(H-17)]);
+    fit(s,[17,Y(TH-90)],[17,Y(TH)+6]); fit(s,[W-17,Y(TH-90)],[W-17,Y(TH)+6]);
+    fit(s,[-40,Y(TH-17)],[100,Y(TH-17)]); fit(s,[W-100,Y(TH-17)],[W+40,Y(TH-17)]);
     [[17],[W-17]].forEach(function(q){
-      var b=el(s,'rect',{x:q[0]-95,y:Y(0)-2,width:190,height:26,rx:5});
+      var b=el(s,'rect',{x:q[0]-95,y:Y(ZB)-2,width:190,height:26,rx:5});
       b.style.fill='var(--fit-body)'; b.style.stroke='var(--fit-edge)'; b.style.strokeWidth=8;
-      fit(s,[q[0],Y(0)-4],[q[0],Y(110)]);
+      fit(s,[q[0],Y(ZB)-4],[q[0],Y(ZB+110)]);
     });
 
-    dim(s,[W,Y(0)],[W,Y(Z1)],'76,7',LS*0.86,[300,0]);
-    dim(s,[W,Y(Z1)],[W,Y(Z2)],'76,7',LS*0.86,[300,0]);
-    dim(s,[W,Y(Z2)],[W,Y(H)],'76,7',LS*0.86,[300,0]);
-    dim(s,[0,Y(0)],[0,Y(H)],'230',LS,[-310,0]);
+    dim(s,[W,Y(0)],[W,Y(ZB)],'70',LS*0.86,[300,0]);
+    dim(s,[W,Y(ZB)],[W,Y(ZB+Z1)],'76,7',LS*0.86,[300,0]);
+    dim(s,[W,Y(ZB+Z1)],[W,Y(ZB+Z2)],'76,7',LS*0.86,[300,0]);
+    dim(s,[W,Y(ZB+Z2)],[W,Y(TH)],'76,7',LS*0.86,[300,0]);
+    dim(s,[0,Y(0)],[0,Y(TH)],'300',LS,[-310,0]);
     dim(s,[0,Y(0)],[W,Y(0)],'90',LS,[0,300]);
 
-    s.setAttribute('viewBox','-620 -160 2140 2990');
+    s.setAttribute('viewBox','-620 -160 2140 3760');
   })();
 
   /* ───────────── PIANTA ───────────── */
@@ -547,8 +659,8 @@
     var s=document.getElementById('pianta');
     var LS=60;
     // telaio superiore (tutti e 4 i lati)
-    tube(s,[17,17],[W-17,17]);       // lato chiuso posteriore (alto)
-    tube(s,[17,D-17],[W-17,D-17]);   // lato aperto (basso): solo corrente sommitale
+    tube(s,[17,17],[W-17,17]);
+    tube(s,[17,D-17],[W-17,D-17]);
     tube(s,[17,17],[17,D-17]); tube(s,[W-17,17],[W-17,D-17]);
     // correnti intermedi (3 lati) tratteggiati
     seg(s,[80,64],[W-80,64],22,'var(--ghost)','48 38','butt');
@@ -569,6 +681,48 @@
     txt(s,W/2,D/2+LS*0.9-40,'× 2 livelli',LS*0.72,'middle','var(--muted)','500');
 
     s.setAttribute('viewBox','-560 -470 2030 1990');
+  })();
+
+  /* ───────────── SCHEMA DI POSA ───────────── */
+  (function(){
+    var s=document.getElementById('posa');
+    var GY=3050, BW=1600, GAP=300, LS=130;
+    seg(s,[-120,GY+26],[2*900+2*GAP+BW+120,GY+26],10,'var(--line)',null,'butt');
+
+    function unita(x0){
+      // cubo con grata e piano cemento
+      var cb=el(s,'rect',{x:x0,y:GY-ZB,width:900,height:ZB});
+      cb.style.fill='var(--cube-r)'; cb.style.stroke='var(--cube-edge)'; cb.style.strokeWidth=8;
+      var gr=el(s,'rect',{x:x0+80,y:GY-ZB+90,width:740,height:ZB-170});
+      gr.style.fill='var(--grille-bg)'; gr.style.stroke='var(--cube-edge)'; gr.style.strokeWidth=6;
+      [x0+265,x0+450,x0+635].forEach(function(gx){
+        seg(s,[gx,GY-ZB+90],[gx,GY-80],6,'var(--grille-line)',null,'butt');
+      });
+      seg(s,[x0+80,GY-ZB/2],[x0+820,GY-ZB/2],6,'var(--grille-line)',null,'butt');
+      var ct=el(s,'rect',{x:x0,y:GY-ZB,width:900,height:38});
+      ct.style.fill='var(--cube-top)'; ct.style.stroke='var(--cube-edge)'; ct.style.strokeWidth=6;
+      // gabbia semplificata
+      var yTop=GY-ZB-H;
+      seg(s,[x0+20,GY-ZB],[x0+20,yTop],26,'var(--tube-body)');
+      seg(s,[x0+880,GY-ZB],[x0+880,yTop],26,'var(--tube-body)');
+      seg(s,[x0+20,yTop+13],[x0+880,yTop+13],26,'var(--tube-body)');
+      [GY-ZB-Z1,GY-ZB-Z2].forEach(function(y){
+        seg(s,[x0+40,y],[x0+860,y],20,'var(--ghost)','48 40','butt');
+      });
+    }
+    unita(0);
+    unita(900+2*GAP+BW);
+
+    // bancone esistente al centro
+    var bx=900+GAP, bh=1150;
+    var bc=el(s,'rect',{x:bx,y:GY-bh,width:BW,height:bh});
+    bc.style.fill='var(--cube-top)'; bc.style.stroke='var(--cube-edge)'; bc.style.strokeWidth=8;
+    txt(s,bx+BW/2,GY-bh/2+LS*0.3,'BANCONE',LS*0.8,'middle','var(--cube-edge)','600');
+
+    txt(s,450,GY+240,'SX',LS*0.85);
+    txt(s,900+2*GAP+BW+450,GY+240,'DX',LS*0.85);
+
+    s.setAttribute('viewBox','-140 -120 4280 3560');
   })();
 })();
 </script>
