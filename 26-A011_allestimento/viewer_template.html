@@ -289,7 +289,7 @@ canvas.addEventListener('wheel',function(e){e.preventDefault();
 
 /* ---- build UI ---- */
 var groupsEl=document.getElementById('groups');
-["reali","dett","box"].forEach(function(cat){
+["camera","living","cucina","bagni","pareti"].forEach(function(cat){
   var items=PIECES.filter(function(p){return p.cat===cat;});
   if(!items.length)return;
   var h=document.createElement('div');h.className='sec';h.textContent=CATS[cat];groupsEl.appendChild(h);

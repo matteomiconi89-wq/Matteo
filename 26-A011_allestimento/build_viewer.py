@@ -10,22 +10,33 @@ def dims(meshes):
 
 # metadati pezzi: key -> (label, hex color, categoria, fonte)
 META = {
- "divano":           ("Divano + pensile",              "#c86b45","reali","ricostruito da pianta+prospetto DWG"),
- "libreria":         ("Libreria ufficio",              "#3f7fae","reali","estruso da footprint pianta DWG"),
- "plo_ingresso":     ("Parete ingresso · PLO",         "#9b6fb0","reali","estruso da footprint pianta DWG"),
- "parete_letto":     ("Parete letto · camera master",  "#c7a34e","reali","estruso da footprint pianta DWG"),
- "parete_divisoria": ("Parete divisoria living/camera","#c05f86","reali","estruso da footprint pianta DWG"),
- "lavatrice":        ("Colonna lavatrice",             "#4fb0a0","reali","estruso da footprint pianta DWG"),
- "muretti_bagni":    ("Muretti bagni",                 "#8a8a52","reali","estruso da footprint pianta DWG"),
- "pli_lavanderia":   ("Parete/porta lavanderia · PLI", "#5cb85c","reali","estruso da footprint pianta DWG"),
- "mobile_lavabo_bagno":("Mobile lavabo bagno doppia",   "#c58fa3","reali","ricostruito da prospetto DWG"),
- "mobile_ingresso":  ("Mobile ingresso-living",        "#7a9a6d","dett","spec ESECUTIVI_3D (41 pann.)"),
- "lavabo_lavanderia":("Lavabo lavanderia",             "#5aa0a6","dett","volumi DXF (74 solidi)"),
- "cucina":           ("Cucina (7 moduli)",             "#b58b56","reali","ricostruita da prospetti DWG · validata"),
- "tavolo_sedie":     ("Tavolo + sedie",                "#8b8f96","box","ingombro planimetria"),
- "armadio_cam_doppia":("Armadio camera doppia",        "#8b8f96","box","ingombro planimetria"),
+ # camera master (fronte)
+ "parete_letto":     ("Letto camera master",           "#c7a34e","camera","piano letto da pianta DWG"),
+ "armadio_master":   ("Armadio camera master",         "#a8825a","camera","estruso da footprint DWG"),
+ "parete_div_master":("Parete divisoria living/master","#c05f86","pareti","estruso da footprint DWG"),
+ "bagno_ant":        ("Bagno anteriore (sanitari)",    "#9fb8c0","bagni","muri+sanitari da pianta DWG"),
+ "lavabo_bagno_ant": ("Lavabo bagno anteriore",        "#c58fa3","bagni","estruso da footprint DWG"),
+ # living / ingresso / ufficio
+ "divano":           ("Divano + pensile",              "#c86b45","living","ricostruito pianta+prospetto"),
+ "tavolo":           ("Tavolo",                        "#7d7f86","living","piano da pianta DWG"),
+ "mobile_ingresso":  ("Mobile ingresso-living",        "#7a9a6d","living","spec ESECUTIVI_3D (41 pann.)"),
+ "plo_ingresso":     ("Parete ingresso · PLO",         "#9b6fb0","pareti","estruso da footprint DWG"),
+ "libreria":         ("Libreria ufficio",              "#3f7fae","living","estruso da footprint DWG"),
+ # cucina + lavanderia (baia)
+ "cucina":           ("Cucina (7 moduli)",             "#b58b56","cucina","ricostruita da prospetti · validata"),
+ "lavabo_lavanderia":("Lavabo lavanderia",             "#5aa0a6","cucina","volumi DXF (74 solidi)"),
+ "lavatrice":        ("Colonna lavatrice",             "#4fb0a0","cucina","estruso da footprint DWG"),
+ "lavanderia":       ("Lavanderia (muri)",             "#8fb0a8","bagni","muri da pianta DWG"),
+ "pli_lavanderia":   ("Parete/porta lavanderia · PLI", "#5cb85c","pareti","estruso da footprint DWG"),
+ # camera doppia (retro) + bagno posteriore
+ "armadio_doppia":   ("Armadio camera doppia",         "#96733f","camera","estruso da footprint DWG"),
+ "parete_divisoria": ("Parete divisoria living/doppia","#c05f86","pareti","estruso da footprint DWG"),
+ "bagno_post":       ("Bagno posteriore (sanitari)",   "#9fb8c0","bagni","muri+sanitari da pianta DWG"),
+ "mobile_lavabo_bagno":("Mobile lavabo bagno post.",    "#c58fa3","bagni","ricostruito da prospetto"),
+ "lavabo_bagno_post":("Lavabo bagno posteriore",       "#b98298","bagni","estruso da footprint DWG"),
+ "muretti_bagni":    ("Muretti bagni",                 "#8a8a52","bagni","estruso da footprint DWG"),
 }
-CAT = {"reali":"Solidi ricostruiti dal DWG (2D→3D)","dett":"Solidi a livello pannello (specifiche)","box":"Ingombri (planimetria)"}
+CAT = {"camera":"Camere (letto · armadi)","living":"Living · ingresso · ufficio","cucina":"Cucina · lavanderia","bagni":"Bagni","pareti":"Pareti e divisori"}
 
 # costruisci lista pezzi per il viewer con dimensioni
 pieces=[]
