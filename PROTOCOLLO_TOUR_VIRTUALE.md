@@ -56,9 +56,20 @@ Richiesta di Matteo: "tutto in automatico come coi render". Schema identico al p
   Unico intervento umano irriducibile: login/captcha una tantum col **takeover** del
   browser di Manus (mai account con email inventate).
 - Vincolo d'ambiente verificato (02/09/2026): la rete della sessione Claude remota
-  blocca `marble.worldlabs.ai` e `api.worldlabs.ai` (403) → il browser è quello di Manus.
-  Se in futuro Marble espone chiavi API, il giro si può cablare senza browser.
-- Brief pronti in `DINO_CHIESA_truck/`: `BRIEF_MANUS_MARBLE.md` (giro 1: test cucina).
+  blocca `*.worldlabs.ai` (403 dal proxy) → le chiamate passano da un braccio esterno.
+- **VIA MAESTRA (collaudata il 02/09/2026): API World Labs, zero mani.** Matteo ha creato
+  la chiave API (piano free = 7.000 crediti API; ~1.580/mondo con `marble-1.1`).
+  Claude esegue tutto dal **sandbox Composio** (che raggiunge `api.worldlabs.ai`):
+  `media-assets:prepare_upload` → PUT del render (scaricato con link monouso Dropbox
+  generato al momento) → `worlds:generate` (`WLT-Api-Key`, permission
+  `allow_id_access:true`, seed fisso) → polling `operations/{id}` → `worlds/{id}` per
+  link navigabile + pano + splat `.spz` (500k/150k/100k). Collaudo numerico nel sandbox:
+  riproiezione equirect→prospettiva e correlazione col render sorgente (soglia ~0,6),
+  profilo fughe sulla fascia basi, nitidezza laterale vs centro. NB: crediti app e
+  crediti API sono separati; l'API può andare in overage fatturato a fine mese → una
+  generazione per volta e controllo `credits` prima di ogni giro.
+- Brief pronti in `DINO_CHIESA_truck/`: `BRIEF_MANUS_MARBLE.md` (fallback via Manus,
+  se mai servisse il browser).
 
 ## 4. Fase 1 — dai disegni (si parte senza aspettare l'allestimento fisico)
 
@@ -100,7 +111,7 @@ Richiesta di Matteo: "tutto in automatico come coi render". Schema identico al p
 |---|---|
 | Studio tecnologie + piano | ✔ consegnato (artifact + questo protocollo) |
 | Demo esperienza camminabile | ✔ consegnata (artifact + `DINO_CHIESA_truck/demo_camminata.html`) |
-| Test Marble su render FINALE cucina (via Manus, costo zero) | ☐ **brief pronto da incollare in Manus**: `DINO_CHIESA_truck/BRIEF_MANUS_MARBLE.md` — Manus fa tutto (download render, Marble, screenshot, auto-collaudo), Claude collauda al ritorno. Kit/criteri: https://claude.ai/code/artifact/06870770-7271-4bc0-ba65-44241ba8e157 |
+| Test Marble su render FINALE cucina | ✔ **ESEGUITO VIA API il 02/09/2026, tutto in automatico** (chiave API World Labs di Matteo + sandbox Composio come braccio, visto che la rete della sessione è chiusa). Mondo: https://marble.worldlabs.ai/world/cef33ce6-a424-4e43-8003-7f117c67139a — modello `marble-1.1`, seed 26011, costo 1.580 crediti (80 pano + 1.500 world), saldo residuo ~5.420. **Collaudo numerico: PROMOSSO** — riproiezione equirect→prospettiva: correlazione 0,701 col render a (fov 55°, yaw 0, pitch 0) = il centro del mondo È il render approvato; profilo fughe fascia basi 0,35 (struttura conservata, conteggio esatto frontali da confermare a occhio); tenuta laterale: un lato 106% della nitidezza del centro, +60° 77%, ±90° ~66-106%, retro 34-48% (riserva standard sul retro). Matteo ha fatto anche un mondo dall'app: https://marble.worldlabs.ai/world/9000c0fa-1f5f-4950-96be-e3dc452a9fff (non leggibile via API: app e API sono spazi separati). Brief Manus (`DINO_CHIESA_truck/BRIEF_MANUS_MARBLE.md`) resta come alternativa. |
 | DWG allestimento camion | ☐ da ricevere da Matteo |
 | Conferma degli 8 ambienti/tappe con Matteo | ☐ da fare sul disegno |
 | Primo giro Manus "viste 1,60 m" + Marble Pro | ☐ dopo l'ok sul test |
