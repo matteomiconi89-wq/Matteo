@@ -1,8 +1,9 @@
 # Come avviare una commessa (l'"exe")
 
-Un solo gesto: indichi la cartella della commessa (dentro: pianta DWG/DXF, disegni
-STP dei mobili, distinta materiali, ferramenta) e Claude fa il resto — inventario,
-menu di scelta, produzione, collaudo, consegna.
+Un solo gesto: indichi la cartella della commessa (dentro: pianta DWG/DXF e i
+disegni STP dei mobili — materiali e ferramenta Claude li legge DENTRO gli STP;
+distinte separate solo se vuoi) e Claude fa il resto — inventario, menu di
+scelta, produzione, collaudo, consegna.
 
 ## I tre modi (equivalenti)
 
@@ -42,8 +43,8 @@ a livello utente, cosi' funziona su qualunque cartella del PC.
 - Le **chiavi API** (Google/Veo, World Labs/Marble) le incolli in chat quando
   servono: non stanno mai nel repo (che e' pubblico) ne' nei file consegnati.
   A fine progetto vanno rigenerate.
-- Il passaggio **render Manus** resta manuale-assistito: Claude prepara il brief
-  pronto da incollare, tu incolli e riporti i render. Tutto il resto (Marble, Veo,
-  montaggio, PDF, demo) va da solo.
+- Anche i **render Manus** vanno da soli: Claude pilota Manus direttamente
+  (collegamento Composio "manus-render"), crea i task, segue i giri e collauda.
+  Come Marble, Veo, montaggio, PDF e demo. Tu approvi e basta.
 - Le regole complete stanno in `.claude/skills/commessa-media/SKILL.md` (+ i due
   protocolli storici `PROTOCOLLO_RENDER_MANUS.md` e `PROTOCOLLO_TOUR_VIRTUALE.md`).

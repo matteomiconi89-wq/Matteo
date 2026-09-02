@@ -61,6 +61,37 @@ Sono i dettagli che costano ore se riscoperti da zero.
   nitidezza laterale vs centro (retro sempre più debole: riserva standard).
 - Script pronto: `scripts/collaudo_marble.py`.
 
+## Manus via Composio — render pilotati, zero mani (collaudato 02/09/2026)
+
+- Toolkit `MANUS` su Composio; **più account collegati** → passare sempre
+  `account: "manus-render"` (senza, errore "Multiple manus accounts connected").
+- Strumenti: `MANUS_CREATE_TASK` (campi: `prompt`, `agent_profile` es.
+  `manus-1.6`/`-lite`/`-max`, `task_mode` "agent", `attachments` [{url|file_id|base64}],
+  `task_id` per CONTINUARE lo stesso task = multi-giro con scena conservata),
+  `MANUS_GET_TASK` (stato, messaggi, file di uscita, crediti usati),
+  `MANUS_LIST_TASKS`, `MANUS_CREATE_WEBHOOK`.
+- Trappola nota: HTTP 400 invalid-locale (code 3) su CREATE → riprovare SENZA
+  `locale` e payload minimo, poi riaggiungere i campi.
+- I file di ingresso/uscita stanno su `private-us-east-1.manuscdn.com` con URL
+  firmati a scadenza: **bloccato dalla rete di sessione** → scaricare/collaudare
+  dal sandbox Composio. Prompt lunghi finiscono in allegato
+  `pasted_content_*.txt`: scaricarlo per leggere il brief completo.
+- **Metodo "palcoscenico master"**: giro 1 = ambiente VUOTO da pianta+sezione+
+  assonometrie con gabbia pixel e camera obbligata (chiedere anche il salvataggio
+  scena, es. `.blend`); giri successivi sullo STESSO task: "same scene, same
+  camera, place <mobile>". Verificato: fuori dalla zona del mobile i due render
+  sono IDENTICI (NCC 1,000) e gli stacchi dei frontali cadono a ±1% dal passo
+  teorico. Costo osservato: 170 crediti Manus per 2 giri (geometria in Blender,
+  molto più economico dei giri di sola immagine).
+- Collaudo indipendente sempre: le auto-verifiche di Manus sono proiezioni della
+  scena, non misure sull'immagine → rifare le misure sui PNG (proiezione:
+  `px = 1200 + f·Y/d`, `py = 675 + f·(1,6−h)/d`, con f = 1651,658 px per
+  FOV 72° su 2400 px; d = X − X_camera).
+- Per PORTARE un'immagine dal sandbox alla sessione (per guardarla): ridurla
+  (800 px, JPEG q62) → `gzip -9` → `base64` → ricopiare il testo (l'entropia
+  alta della compressione rende fedele la copia) → verificare md5 di .gz e .jpg.
+  Senza gzip le ripetizioni del JPEG corrompono la copia.
+
 ## Dropbox (per dare i render ai bracci esterni)
 
 - `download_link` (MCP) = link MONOUSO, vita ~900 s: generarlo un attimo prima

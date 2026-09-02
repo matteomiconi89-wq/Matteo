@@ -38,9 +38,17 @@ Prima azione, sempre: scansiona la cartella indicata (ricorsivamente) e classifi
 | Cerca | Estensioni / indizi | Ruolo |
 |---|---|---|
 | Pianta / layout | `.dxf`, `.dwg`, PDF con "pianta/layout" nel nome | misure vere, posizioni mobili |
-| Solidi mobili | `.stp`, `.step` | geometria di riferimento, un file per mobile |
-| Distinta materiali | csv/xlsx/txt/pdf con "material/distinta/finiture" | finiture e colori per i prompt render |
-| Ferramenta | csv/xlsx/txt con "ferramenta/cerniere/guide" | dettagli che nei render devono esserci (o NON esserci: es. gola = niente maniglie) |
+| Solidi mobili | `.stp`, `.step` | geometria, misure, E ANCHE materiali+ferramenta (v. sotto) |
+| Distinta materiali | csv/xlsx/txt/pdf (FACOLTATIVA) | se c'è, comanda/integra ciò che dice l'STP |
+| Ferramenta | csv/xlsx/txt (FACOLTATIVA) | idem: l'STP è la fonte prima |
+
+**Materiali e ferramenta si leggono DAGLI STP** (direttiva di Matteo): gli export
+SolidWorks/CAD portano dentro nomi dei componenti (`PRODUCT('...')` — le cerniere,
+le guide, i profili gola compaiono come componenti dell'assieme), colori
+(`COLOUR_RGB`), descrizioni (`FILE_DESCRIPTION`). Aprire l'STP come testo e
+raccogliere: nome/misure dal header, elenco componenti = ferramenta, colori =
+finiture. Se un STP è "muto" (export senza materiali: dipende dalle impostazioni),
+chiederlo a Matteo o ripiegare sulle distinte — mai inventare.
 | Render/foto esistenti | png/jpg | se già collaudati, si riusano senza rifare |
 | Note/brief | txt/md | vincoli del cliente |
 
@@ -112,13 +120,23 @@ o le catture headless. Script pronti in `scripts/` (non riscriverli da zero):
 - `scripts/collaudo_marble.py` — collaudo numerico del mondo: riproiezione
   pano→prospettiva e correlazione col render sorgente (soglia 0,6).
 
-**A — Render (Manus)**: flusso del protocollo render. Misure dal DXF (ezdxf) →
-volumi 3D di controllo → **checkpoint: l'utente approva i volumi PRIMA di spendere
-crediti** → brief Manus pronto da incollare (geometria esatta in mm, materiali
-dalla distinta, dettaglio firma tipo gola/LED, righe di auto-verifica) → l'utente
-incolla e riporta i render → collaudo col righello sui pixel (proporzioni ±10%),
-codici SOLO dai documenti, mai letti dall'immagine. Max 3–4 correzioni per giro +
-lista anti-regressione. I brief vanno scritti in `OUTPUT_MEDIA/BRIEF_RENDER_<mobile>.md`.
+**A — Render (Manus, PILOTATO DA CLAUDE — l'utente non incolla nulla)**: Manus è
+collegato via Composio (toolkit `MANUS`, account **"manus-render"** — ci sono più
+account: specificare sempre quello). Flusso: misure dal DXF (ezdxf) → volumi 3D di
+controllo → **checkpoint: l'utente approva i volumi PRIMA di spendere crediti** →
+Claude crea il task con `MANUS_CREATE_TASK` (prompt = brief del protocollo:
+geometria esatta in mm, materiali/ferramenta letti dagli STP, dettaglio firma tipo
+gola/LED, righe di auto-verifica in pixel; `agent_profile` es. `manus-1.6`;
+allegati come URL o base64; per i giri successivi passare `task_id` = stesso task,
+così Manus riusa la SCENA salvata del giro prima) → polling `MANUS_GET_TASK` → i
+file escono su `manuscdn.com` (bloccato dalla sessione: scaricare dal sandbox) →
+collaudo col righello sui pixel (proporzioni ±10%), codici SOLO dai documenti.
+Max 3–4 correzioni per giro + lista anti-regressione. Metodo collaudato il
+02/09/2026: **giro "palcoscenico master"** — prima la stanza/scocca VUOTA con
+camera bloccata (Manus salva la scena `.blend`), poi un giro per mobile piazzato
+nella stessa scena: l'anti-regressione esce perfetta (NCC 1,000 fuori dalla zona
+del mobile). I brief restano scritti in `OUTPUT_MEDIA/BRIEF_RENDER_<mobile>.md`
+per tracciabilità. Dettagli e trappole: references/pipeline_api.md, sezione Manus.
 
 **B — Viste**: dalla demo C (cattura headless, trucchi nel reference) o, se la demo
 non è richiesta, impaginando i render collaudati a 1500 px con margini puliti.

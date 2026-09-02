@@ -49,12 +49,15 @@ Richiesta di Matteo: "tutto in automatico come coi render". Schema identico al p
 - **Claude** = progettista della spec, regista dei brief, collaudatore. Prepara brief
   **pronti da incollare** con dentro i link ai file (link Dropbox condivisi normali,
   NON monouso) e le istruzioni di auto-collaudo.
-- **Manus** = braccio operativo col browser: scarica i render, opera su Marble/Skybox,
-  genera i mondi, cattura gli screenshot, fa l'auto-collaudo in pixel e consegna
-  (link mondo + screenshot + report).
-- **Matteo** = incolla il brief in Manus e riporta la consegna nella chat di Claude.
-  Unico intervento umano irriducibile: login/captcha una tantum col **takeover** del
-  browser di Manus (mai account con email inventate).
+- **Manus** = braccio render. **DAL 02/09/2026 È PILOTATO DIRETTAMENTE DA CLAUDE
+  via Composio** (toolkit `MANUS`, account "manus-render"): `MANUS_CREATE_TASK`
+  con il brief + allegati, giri successivi sullo stesso `task_id` (scena
+  conservata), `MANUS_GET_TASK` per esiti e file (su manuscdn → si scaricano dal
+  sandbox). Matteo NON incolla più niente. Direttiva di Matteo dello stesso
+  giorno: materiali e ferramenta si leggono DAGLI STP (componenti/colori
+  nell'export), le distinte separate sono facoltative.
+- **Matteo** = approva i checkpoint (volumi/scena), dà il VAI sulle spese, occhio
+  del falegname sui collaudi. Basta.
 - Vincolo d'ambiente verificato (02/09/2026): la rete della sessione Claude remota
   blocca `*.worldlabs.ai` (403 dal proxy) → le chiamate passano da un braccio esterno.
 - **VIA MAESTRA (collaudata il 02/09/2026): API World Labs, zero mani.** Matteo ha creato
@@ -141,9 +144,11 @@ Limite quota Veo osservato: ~3 generazioni in parallelo, poi 429 → lavorare a 
 | Studio tecnologie + piano | ✔ consegnato (artifact + questo protocollo) |
 | Demo esperienza camminabile | ✔ consegnata (artifact + `DINO_CHIESA_truck/demo_camminata.html`) |
 | Test Marble su render FINALE cucina | ✔ **ESEGUITO VIA API il 02/09/2026, tutto in automatico** (chiave API World Labs di Matteo + sandbox Composio come braccio, visto che la rete della sessione è chiusa). Mondo: https://marble.worldlabs.ai/world/cef33ce6-a424-4e43-8003-7f117c67139a — modello `marble-1.1`, seed 26011, costo 1.580 crediti (80 pano + 1.500 world), saldo residuo ~5.420. **Collaudo numerico: PROMOSSO** — riproiezione equirect→prospettiva: correlazione 0,701 col render a (fov 55°, yaw 0, pitch 0) = il centro del mondo È il render approvato; profilo fughe fascia basi 0,35 (struttura conservata, conteggio esatto frontali da confermare a occhio); tenuta laterale: un lato 106% della nitidezza del centro, +60° 77%, ±90° ~66-106%, retro 34-48% (riserva standard sul retro). Matteo ha fatto anche un mondo dall'app: https://marble.worldlabs.ai/world/9000c0fa-1f5f-4950-96be-e3dc452a9fff (non leggibile via API: app e API sono spazi separati). Brief Manus (`DINO_CHIESA_truck/BRIEF_MANUS_MARBLE.md`) resta come alternativa. |
-| DWG allestimento camion | ☐ da ricevere da Matteo |
+| Disegni scocca camion (pianta aperta, sezione, assonometrie, gabbia pixel) | ✔ ESISTONO: allegati al task Manus `WSLtwCSEyoi5azfnCcFKP5` (scaricati e archiviati nel sandbox il 02/09) |
+| Collegamento diretto Manus via Composio | ✔ verificato il 02/09/2026 (account "manus-render"; l'altro account collegato non si tocca) |
+| Palcoscenico master del camion (giro 1 vuoto + giro 2 cucina piazzata) | ◐ collaudato da Claude il 02/09: **geometria PROMOSSA** (parete 9,2 m: teoria 962 px = misura 962; NCC 1,000 tra i giri fuori zona cucina; 4 frontali a passo 575 px vs 571 teorico, +1%) ma **fotorealismo BOCCIATO**: consegna in stile maquette bianca, non il mood dei render approvati richiesto dal brief → serve GIRO 3 "same scene, photoreal materials" (crediti Manus; 170 spesi per i giri 1-2) |
 | Conferma degli 8 ambienti/tappe con Matteo | ☐ da fare sul disegno |
-| Primo giro Manus "viste 1,60 m" + Marble Pro | ☐ dopo l'ok sul test |
+| Giri Manus per ambiente sul palcoscenico master + Marble Pro | ☐ dopo il giro 3 promosso |
 | Ricetta unica `/commessa-media` ("l'exe": cartella → inventario → menu con costi → produzione con collaudo) | ✔ consegnata e collaudata il 02/09/2026: 6 prove su 2 commesse finte (bagno hotel completo + cabina senza pianta) — **17/17 criteri con la ricetta** vs 15/17 senza, ~45% più veloce, ~40% meno gettoni; si attiva da sola descrivendo una cartella commessa. Skill in `.claude/skills/commessa-media/` + `AVVIA_COMMESSA.bat` + `COME_AVVIARE_UNA_COMMESSA.md`. I due errori del "senza": nessun menu di scelta e misure ipotizzate nelle tavole — esattamente ciò che la ricetta vieta. |
 | Quadro lavori con le spunte per Matteo | ✔ pagina viva: https://claude.ai/code/artifact/e4322eb6-6d18-4c85-9c34-1c84061939f1 (aggiornarla a ogni passo) + PDF procedura (3 pag.: giro completo, cosa dà Matteo, requisiti precisi DXF/STP) consegnato in chat il 02/09 |
 
