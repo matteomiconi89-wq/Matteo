@@ -24,30 +24,22 @@ PLACE = {
  "pli_lavanderia":   (8385,4100, False, "PLI porta/parete lavanderia (partizione corridoio)"),
 }
 
+def box_world(X0,X1,Y0,Y1,Z0,Z1,lab):
+    v=[[X0,Y0,Z0],[X1,Y0,Z0],[X1,Y1,Z0],[X0,Y1,Z0],
+       [X0,Y0,Z1],[X1,Y0,Z1],[X1,Y1,Z1],[X0,Y1,Z1]]
+    f=[[0,1,2,3],[4,5,6,7],[0,1,5,4],[2,3,7,6],[1,2,6,5],[0,3,7,4]]
+    return {"l":lab,"v":[[round(c,1) for c in p] for p in v],"f":f}
+
 def place_mesh(name):
+    # Solido estruso NETTO (senza forature): prisma alle quote reali esatte dello STL,
+    # posato al footprint della pianta, appoggiato a pavimento.
     P = PLACE[name]; X0,Y0,swap,note = P
     obj = COA[name]
-    V = obj["v"]; F = obj["f"]
-    wmin = obj["wmin"]; wmax = obj["wmax"]
-    # bbox reale dei vertici coarse (il clustering li ha ristretti verso l'interno)
-    amn = [min(p[a] for p in V) for a in range(3)]
-    amx = [max(p[a] for p in V) for a in range(3)]
-    def rescale(p):
-        r=[]
-        for a in range(3):
-            span = amx[a]-amn[a]
-            if span < 1e-6:
-                r.append(wmin[a])
-            else:
-                r.append(wmin[a] + (p[a]-amn[a])/span*(wmax[a]-wmin[a]))
-        return r
-    world_v = []
-    for p in V:
-        x,y,z = rescale(p)      # quote reali esatte (riempie il bbox vero)
-        if swap: X,Y = X0+y, Y0+x
-        else:    X,Y = X0+x, Y0+y
-        world_v.append([round(X,1),round(Y,1),round(PAV+z,1)])
-    return [{"l":"SOLID_"+name,"v":world_v,"f":F}]
+    dx = obj["wmax"][0]-obj["wmin"][0]
+    dy = obj["wmax"][1]-obj["wmin"][1]
+    dz = obj["wmax"][2]-obj["wmin"][2]
+    if swap: dx,dy = dy,dx
+    return [box_world(X0, X0+dx, Y0, Y0+dy, PAV, PAV+dz, "SOLID_"+name)]
 
 # ---- carica geometria esistente (guscio + mobili dettagliati) ----
 G = json.load(open(BASE/"arredo_geometry3.json"))
