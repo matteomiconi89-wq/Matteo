@@ -42,6 +42,24 @@ I video veri e propri (passivi) si generano a parte per i social (image-to-video
 - Manus: **non** fa mondi 3D né equirettangolari affidabili. Fa render (protocollo solito),
   video da prompt (per il livello A) e può assemblare la pagina web del tour.
 
+## 3-bis. Automazione: chi fa cosa (regola operativa dal 02/09/2026)
+
+Richiesta di Matteo: "tutto in automatico come coi render". Schema identico al protocollo render:
+
+- **Claude** = progettista della spec, regista dei brief, collaudatore. Prepara brief
+  **pronti da incollare** con dentro i link ai file (link Dropbox condivisi normali,
+  NON monouso) e le istruzioni di auto-collaudo.
+- **Manus** = braccio operativo col browser: scarica i render, opera su Marble/Skybox,
+  genera i mondi, cattura gli screenshot, fa l'auto-collaudo in pixel e consegna
+  (link mondo + screenshot + report).
+- **Matteo** = incolla il brief in Manus e riporta la consegna nella chat di Claude.
+  Unico intervento umano irriducibile: login/captcha una tantum col **takeover** del
+  browser di Manus (mai account con email inventate).
+- Vincolo d'ambiente verificato (02/09/2026): la rete della sessione Claude remota
+  blocca `marble.worldlabs.ai` e `api.worldlabs.ai` (403) → il browser è quello di Manus.
+  Se in futuro Marble espone chiavi API, il giro si può cablare senza browser.
+- Brief pronti in `DINO_CHIESA_truck/`: `BRIEF_MANUS_MARBLE.md` (giro 1: test cucina).
+
 ## 4. Fase 1 — dai disegni (si parte senza aspettare l'allestimento fisico)
 
 1. **DWG → solidi 3D** dell'allestimento: protocollo render invariato (bbox reali, codici dai
@@ -82,7 +100,7 @@ I video veri e propri (passivi) si generano a parte per i social (image-to-video
 |---|---|
 | Studio tecnologie + piano | ✔ consegnato (artifact + questo protocollo) |
 | Demo esperienza camminabile | ✔ consegnata (artifact + `DINO_CHIESA_truck/demo_camminata.html`) |
-| Test Marble Free su render FINALE 26-A011 (cucina truck) | ☐ da fare — costo zero, ~5 min. **Kit pronto**: https://claude.ai/code/artifact/06870770-7271-4bc0-ba65-44241ba8e157 — file sorgente `render_v10_01_chiuso.png` (chiuso approvato, giro 10) in `/STEFANO/Matteo/RENDER_MANUS/26-A011_cucina/`; collaudo camminata sulle voci della SPEC (4 frontali, gola continua, 4 ribalte M8, M7 300, giunto M1/M2 10 mm, zoccolo LED) |
+| Test Marble su render FINALE cucina (via Manus, costo zero) | ☐ **brief pronto da incollare in Manus**: `DINO_CHIESA_truck/BRIEF_MANUS_MARBLE.md` — Manus fa tutto (download render, Marble, screenshot, auto-collaudo), Claude collauda al ritorno. Kit/criteri: https://claude.ai/code/artifact/06870770-7271-4bc0-ba65-44241ba8e157 |
 | DWG allestimento camion | ☐ da ricevere da Matteo |
 | Conferma degli 8 ambienti/tappe con Matteo | ☐ da fare sul disegno |
 | Primo giro Manus "viste 1,60 m" + Marble Pro | ☐ dopo l'ok sul test |
