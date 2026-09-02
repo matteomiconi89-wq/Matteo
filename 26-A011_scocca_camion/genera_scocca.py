@@ -33,7 +33,10 @@ def config_chiusa(boxes):
         b = dict(b)
         dy = CORSA if b["gruppo"] == "estr_ing" else -CORSA if b["gruppo"] == "estr_cuc" else 0
         if dy:
-            b["y0"] += dy; b["y1"] += dy
+            if b.get("tipo") == "prisma_x":
+                b["profilo"] = [[y + dy, z] for y, z in b["profilo"]]
+            else:
+                b["y0"] += dy; b["y1"] += dy
         out.append(b)
     return out
 
@@ -50,6 +53,18 @@ def crea_dxf(boxes, out_dxf):
             L = b["y1"] - b["y0"]
             mesh = forms.cylinder(count=24, radius=b["r"], top_center=(0, 0, L))
             mesh = mesh.rotate_x(math.radians(-90)).translate(b["cx"], b["y0"], b["cz"])
+        elif b.get("tipo") == "prisma_x":
+            from ezdxf.render import MeshBuilder
+            prof = b["profilo"]
+            v0 = [(b["x0"], y, z) for y, z in prof]
+            v1 = [(b["x1"], y, z) for y, z in prof]
+            mesh = MeshBuilder()
+            mesh.add_face(v0[::-1])
+            mesh.add_face(v1)
+            n = len(prof)
+            for i in range(n):
+                j = (i + 1) % n
+                mesh.add_face([v0[i], v0[j], v1[j], v1[i]])
         else:
             dx, dy, dz = b["x1"] - b["x0"], b["y1"] - b["y0"], b["z1"] - b["z0"]
             mesh = forms.cube(center=False).scale(dx, dy, dz).translate(b["x0"], b["y0"], b["z0"])
@@ -69,6 +84,16 @@ def crea_scr(boxes, out_scr):
         if b.get("tipo") == "cilindro_y":
             righe += ["._CYLINDER", f"{b['cx']},{b['y0']},{b['cz']}", f"{b['r']}",
                       "_A", f"{b['cx']},{b['y1']},{b['cz']}"]
+        elif b.get("tipo") == "prisma_x":
+            # UCS sul piano YZ in x0 (X ucs = Y mondo, Y ucs = Z mondo, Z ucs = X mondo),
+            # profilo in PLINE chiusa, poi EXTRUDE lungo la lunghezza. Solido nativo.
+            righe += ["._UCS", "_W",
+                      "._UCS", "_3", f"{b['x0']},0,0", f"{b['x0']},1,0", f"{b['x0']},0,1",
+                      "._PLINE"]
+            righe += [f"{y},{z}" for y, z in b["profilo"]]
+            righe += ["_C",
+                      "._EXTRUDE", "_L", "", f"{b['x1'] - b['x0']}",
+                      "._UCS", "_W"]
         else:
             dx, dy, dz = b["x1"] - b["x0"], b["y1"] - b["y0"], b["z1"] - b["z0"]
             righe += ["._BOX", f"{b['x0']},{b['y0']},{b['z0']}", f"@{dx},{dy}", f"{dz}"]
@@ -107,6 +132,30 @@ def facce_cilindro_y(b, base, n=24):
     return out
 
 
+def facce_prisma_x(b, base):
+    prof = b["profilo"]
+    v0 = np.array([(b["x0"], y, z) for y, z in prof], dtype=float)
+    v1 = np.array([(b["x1"], y, z) for y, z in prof], dtype=float)
+    centro = np.vstack([v0, v1]).mean(axis=0)
+    out = []
+    n = len(prof)
+    facce = [list(v0), list(v1)]
+    for i in range(n):
+        j = (i + 1) % n
+        facce.append([v0[i], v0[j], v1[j], v1[i]])
+    for pts in facce:
+        pts = np.array(pts)
+        nrm = np.cross(pts[1] - pts[0], pts[2] - pts[0])
+        ln = np.linalg.norm(nrm)
+        if ln < 1e-9:
+            continue
+        nrm /= ln
+        if np.dot(nrm, pts.mean(axis=0) - centro) < 0:
+            nrm = -nrm
+        out.append((pts, nrm, base))
+    return out
+
+
 def proietta(boxes, az_deg, el_deg):
     az, el = math.radians(az_deg), math.radians(el_deg)
     cam = np.array([math.cos(el) * math.cos(az), math.cos(el) * math.sin(az), math.sin(el)])
@@ -118,7 +167,12 @@ def proietta(boxes, az_deg, el_deg):
     facce = []
     for b in boxes:
         base = np.array(matplotlib.colors.to_rgb(b.get("tinta", "#d7d2c8")))
-        gen = facce_cilindro_y(b, base) if b.get("tipo") == "cilindro_y" else facce_box(b, base)
+        if b.get("tipo") == "cilindro_y":
+            gen = facce_cilindro_y(b, base)
+        elif b.get("tipo") == "prisma_x":
+            gen = facce_prisma_x(b, base)
+        else:
+            gen = facce_box(b, base)
         for pts, n, col in gen:
             if np.dot(n, f) > 0:
                 continue
@@ -165,7 +219,7 @@ def main():
     scocca = [b for b in aperto if b["gruppo"] != "telaio"]
     senza_tetto = [b for b in aperto
                    if b["gruppo"] not in ("tetto", "controsoffitto")
-                   and not b["nome"].endswith("_tetto")]
+                   and "_tetto" not in b["nome"]]
     # il clima sta dentro il pacco tetto: nei complessivi non si vede (e sporca il painter)
     aperto_v = [b for b in aperto if b["gruppo"] != "clima"]
     chiuso_v = [b for b in chiuso if b["gruppo"] != "clima"]

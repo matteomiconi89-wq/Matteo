@@ -1,6 +1,6 @@
 {
- "titolo": "SCOCCA CAMION 26-A011 rev.03 - VOLUMI (controsoffitto a campate, oblo', soffitti estrattori)",
- "note": "Origine: X=0 faccia esterna MUSO, X+ verso coda. Y=0 faccia esterna estrattore lato INGRESSO aperto, Y+ verso CUCINA. Z=0 terra. Rev.02: controsoffitto rev.01 sp.40 a Z 3646-3685 (sotto-filo 3645 da sez. E-E': i tetti estrattori, filo 3646, ci rientrano sotto in chiusura) con 2 gruppi clima DENTRO il pacco tetto Z 3685-3960 (posizione dai tagli A-A' e D-D', lunghezza 900 ipotizzata), finestre con vetro nelle pareti estrattori (davanzale Z 2395, architrave Z 3042, dai fili F_VETRO in pianta e sez. C-C'), divisoria living/camera, tramezzi bagno negli estrattori, vetrate interne. Oblo' NON disegnati nel DWG: non modellati. Porta ingresso non forata (posizione da confermare). Quote perimetro/altezze come rev.01: esterno 13989x2540, aperto 4840, H 4000, pavimento 1395, cielo 3685. Rev.03 dalla pianta controsoffitto fornita da Matteo (screenshot, calibrata su zona spa 34250-35679 e pilastrino): controsoffitto in 3 campate (fronte/living/camera, interrotto a pilastrino e zona spa-divisoria), 4 botole quadre ~600-780 sull'asse (X loc. 1643/5311/8657/12647) e lucernario centrale 1292x650 sopra il living (X loc. 6303-7595) come volumi PASSANTI nel tetto (da sottrarre col comando SOTTRAI o tenere come segnaposto), soffitti sp.30 negli estrattori a Z 3460-3490. Scritta rossa sul lucernario non leggibile dallo screenshot: DA CONFERMARE tipo e misure esatte di botole/lucernario.",
+ "titolo": "SCOCCA CAMION 26-A011 rev.04 - VOLUMI (tetti estrattori inclinati come da sezioni)",
+ "note": "Origine: X=0 faccia esterna MUSO, X+ verso coda. Y=0 faccia esterna estrattore lato INGRESSO aperto, Y+ verso CUCINA. Z=0 terra. Rev.02: controsoffitto rev.01 sp.40 a Z 3646-3685 (sotto-filo 3645 da sez. E-E': i tetti estrattori, filo 3646, ci rientrano sotto in chiusura) con 2 gruppi clima DENTRO il pacco tetto Z 3685-3960 (posizione dai tagli A-A' e D-D', lunghezza 900 ipotizzata), finestre con vetro nelle pareti estrattori (davanzale Z 2395, architrave Z 3042, dai fili F_VETRO in pianta e sez. C-C'), divisoria living/camera, tramezzi bagno negli estrattori, vetrate interne. Oblo' NON disegnati nel DWG: non modellati. Porta ingresso non forata (posizione da confermare). Quote perimetro/altezze come rev.01: esterno 13989x2540, aperto 4840, H 4000, pavimento 1395, cielo 3685. Rev.03 dalla pianta controsoffitto fornita da Matteo (screenshot, calibrata su zona spa 34250-35679 e pilastrino): controsoffitto in 3 campate (fronte/living/camera, interrotto a pilastrino e zona spa-divisoria), 4 botole quadre ~600-780 sull'asse (X loc. 1643/5311/8657/12647) e lucernario centrale 1292x650 sopra il living (X loc. 6303-7595) come volumi PASSANTI nel tetto (da sottrarre col comando SOTTRAI o tenere come segnaposto), soffitti sp.30 negli estrattori a Z 3460-3490. Scritta rossa sul lucernario non leggibile dallo screenshot: DA CONFERMARE tipo e misure esatte di botole/lucernario. Rev.04: tetti estrattori INCLINATI come da sez. A-A'/D-D'/E-E' (linea misurata: sale 46 su 1176, ~2.2 gradi, da Z 3500 sulla parete esterna a Z 3546 sotto il bordo tetto fisso; intradosso 3468 esterno = quota 2073 dal pavimento, sp.32, sbordo 151 sotto il tetto fisso); solidi 'prisma_x' = profilo estruso lungo X (nello SCR: UCS+PLINE+EXTRUDE, solido nativo). Rimossi i soffitti piani sp.30 degli estrattori (l'intradosso del tetto inclinato E' il soffitto). In chiusura il colmo (3548) passa sotto il controsoffitto (3646).",
  "box": [
   {
    "nome": "TEL_rail_SX",
@@ -445,58 +445,6 @@
    "z1": 4002
   },
   {
-   "nome": "EST_ING_P_soffitto_sp30",
-   "gruppo": "estr_ing",
-   "layer": "VOL_ESTRATTORE_INGRESSO",
-   "colore": 4,
-   "tinta": "#dbe8f0",
-   "x0": 977,
-   "y0": 61,
-   "z0": 3460,
-   "x1": 3835,
-   "y1": 1150,
-   "z1": 3490
-  },
-  {
-   "nome": "EST_ING_G_soffitto_sp30",
-   "gruppo": "estr_ing",
-   "layer": "VOL_ESTRATTORE_INGRESSO",
-   "colore": 4,
-   "tinta": "#dbe8f0",
-   "x0": 4382,
-   "y0": 61,
-   "z0": 3460,
-   "x1": 13510,
-   "y1": 1150,
-   "z1": 3490
-  },
-  {
-   "nome": "EST_CUC_P_soffitto_sp30",
-   "gruppo": "estr_cuc",
-   "layer": "VOL_ESTRATTORE_CUCINA",
-   "colore": 3,
-   "tinta": "#e2eeda",
-   "x0": 977,
-   "y0": 3690,
-   "z0": 3460,
-   "x1": 3835,
-   "y1": 4779,
-   "z1": 3490
-  },
-  {
-   "nome": "EST_CUC_G_soffitto_sp30",
-   "gruppo": "estr_cuc",
-   "layer": "VOL_ESTRATTORE_CUCINA",
-   "colore": 3,
-   "tinta": "#e2eeda",
-   "x0": 4382,
-   "y0": 3690,
-   "z0": 3460,
-   "x1": 13510,
-   "y1": 4779,
-   "z1": 3490
-  },
-  {
    "nome": "CLIMA_gruppo_A_sezAA",
    "gruppo": "clima",
    "layer": "VOL_IMPIANTO_CLIMA",
@@ -758,19 +706,6 @@
    "z1": 3646
   },
   {
-   "nome": "EST_ING_P_tetto",
-   "gruppo": "estr_ing",
-   "layer": "VOL_ESTRATTORE_INGRESSO",
-   "colore": 4,
-   "tinta": "#b7cfe0",
-   "x0": 917,
-   "y0": 0,
-   "z0": 3490,
-   "x1": 3895,
-   "y1": 1150,
-   "z1": 3646
-  },
-  {
    "nome": "EST_ING_G_parete_sotto_finestra",
    "gruppo": "estr_ing",
    "layer": "VOL_ESTRATTORE_INGRESSO",
@@ -884,19 +819,6 @@
    "x0": 13510,
    "y0": 61,
    "z0": 1395,
-   "x1": 13570,
-   "y1": 1150,
-   "z1": 3646
-  },
-  {
-   "nome": "EST_ING_G_tetto",
-   "gruppo": "estr_ing",
-   "layer": "VOL_ESTRATTORE_INGRESSO",
-   "colore": 4,
-   "tinta": "#b7cfe0",
-   "x0": 4322,
-   "y0": 0,
-   "z0": 3490,
    "x1": 13570,
    "y1": 1150,
    "z1": 3646
@@ -1017,19 +939,6 @@
    "z0": 1395,
    "x1": 3895,
    "y1": 4779,
-   "z1": 3646
-  },
-  {
-   "nome": "EST_CUC_P_tetto",
-   "gruppo": "estr_cuc",
-   "layer": "VOL_ESTRATTORE_CUCINA",
-   "colore": 3,
-   "tinta": "#bfd8b0",
-   "x0": 917,
-   "y0": 3690,
-   "z0": 3490,
-   "x1": 3895,
-   "y1": 4840,
    "z1": 3646
   },
   {
@@ -1203,17 +1112,116 @@
    "z1": 3646
   },
   {
-   "nome": "EST_CUC_G_tetto",
+   "nome": "EST_ING_P_tetto_inclinato",
+   "gruppo": "estr_ing",
+   "layer": "VOL_ESTRATTORE_INGRESSO",
+   "colore": 4,
+   "tinta": "#b7cfe0",
+   "tipo": "prisma_x",
+   "x0": 917,
+   "x1": 3895,
+   "profilo": [
+    [
+     61,
+     3468
+    ],
+    [
+     1301,
+     3516
+    ],
+    [
+     1301,
+     3548
+    ],
+    [
+     61,
+     3500
+    ]
+   ]
+  },
+  {
+   "nome": "EST_ING_G_tetto_inclinato",
+   "gruppo": "estr_ing",
+   "layer": "VOL_ESTRATTORE_INGRESSO",
+   "colore": 4,
+   "tinta": "#b7cfe0",
+   "tipo": "prisma_x",
+   "x0": 4322,
+   "x1": 13570,
+   "profilo": [
+    [
+     61,
+     3468
+    ],
+    [
+     1301,
+     3516
+    ],
+    [
+     1301,
+     3548
+    ],
+    [
+     61,
+     3500
+    ]
+   ]
+  },
+  {
+   "nome": "EST_CUC_P_tetto_inclinato",
    "gruppo": "estr_cuc",
    "layer": "VOL_ESTRATTORE_CUCINA",
    "colore": 3,
    "tinta": "#bfd8b0",
+   "tipo": "prisma_x",
+   "x0": 917,
+   "x1": 3895,
+   "profilo": [
+    [
+     4779,
+     3468
+    ],
+    [
+     3539,
+     3516
+    ],
+    [
+     3539,
+     3548
+    ],
+    [
+     4779,
+     3500
+    ]
+   ]
+  },
+  {
+   "nome": "EST_CUC_G_tetto_inclinato",
+   "gruppo": "estr_cuc",
+   "layer": "VOL_ESTRATTORE_CUCINA",
+   "colore": 3,
+   "tinta": "#bfd8b0",
+   "tipo": "prisma_x",
    "x0": 4322,
-   "y0": 3690,
-   "z0": 3490,
    "x1": 13570,
-   "y1": 4840,
-   "z1": 3646
+   "profilo": [
+    [
+     4779,
+     3468
+    ],
+    [
+     3539,
+     3516
+    ],
+    [
+     3539,
+     3548
+    ],
+    [
+     4779,
+     3500
+    ]
+   ]
   }
  ]
 }

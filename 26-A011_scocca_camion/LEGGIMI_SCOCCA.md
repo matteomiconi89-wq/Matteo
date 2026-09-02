@@ -1,4 +1,15 @@
-# SCOCCA CAMION 26-A011 — Volumi 3D dal DWG 2D (rev.02)
+# SCOCCA CAMION 26-A011 — Volumi 3D dal DWG 2D (rev.04)
+
+**Rev.04**: tetti degli estrattori **INCLINATI** come da sez. A-A'/D-D'/E-E' — linea misurata
+nel DWG: sale 46 mm su 1176 (~2,2°), estradosso da Z 3500 (parete esterna) a Z 3546 (sotto il
+bordo del tetto fisso, sbordo 151), intradosso esterno Z 3468 (= quota 2073 dal pavimento),
+sp.32. Solidi di tipo `prisma_x` (profilo estruso lungo X): nello `.scr` sono creati con
+UCS+PLINE+EXTRUDE, quindi sempre **solidi nativi**. Rimossi i soffitti piani sp.30 degli
+estrattori (l'intradosso del tetto inclinato è il soffitto). In chiusura il colmo (3548)
+passa sotto il controsoffitto (3646). 89 solidi aperto / 74 chiuso.
+
+**Rev.03**: controsoffitto a 3 campate + 4 botole e lucernario dalla pianta controsoffitto
+di Matteo (volumi passanti nel tetto, 2 mm di abbondanza per il comando SOTTRAI).
 
 **Rev.02** (giro 2 su richiesta di Matteo): controsoffitto rev.01 sp.40 a Z 3646-3685
 (sotto-filo da sez. E-E': i tetti estrattori, filo 3646, ci rientrano sotto in chiusura);
