@@ -1,0 +1,574 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gabbia Tubolare B34</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f5f3f0;
+    --surface:#ffffff;
+    --ink:#18161b;
+    --muted:#6d6a74;
+    --line:#ddd9d4;
+    --line-soft:#e9e6e1;
+    --accent:#c2255c;
+    --accent-ink:#a61e50;
+    --accent-soft:rgba(194,37,92,.08);
+    --tube-edge:#121115;
+    --tube-body:#2a2930;
+    --tube-hi:#55545e;
+    --fit-edge:#0b0a0d;
+    --fit-body:#3a3942;
+    --floor:rgba(24,22,27,.055);
+    --ghost:#a5a1aa;
+    --halo:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#141318;
+      --surface:#1d1c22;
+      --ink:#ecebf0;
+      --muted:#98949f;
+      --line:#33323a;
+      --line-soft:#2a2930;
+      --accent:#f06595;
+      --accent-ink:#f582a9;
+      --accent-soft:rgba(240,101,149,.12);
+      --tube-edge:#0a0a0d;
+      --tube-body:#4b4a55;
+      --tube-hi:#75747f;
+      --fit-edge:#131218;
+      --fit-body:#5d5c68;
+      --floor:rgba(236,235,240,.05);
+      --ghost:#807d89;
+      --halo:#1d1c22;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#141318;
+    --surface:#1d1c22;
+    --ink:#ecebf0;
+    --muted:#98949f;
+    --line:#33323a;
+    --line-soft:#2a2930;
+    --accent:#f06595;
+    --accent-ink:#f582a9;
+    --accent-soft:rgba(240,101,149,.12);
+    --tube-edge:#0a0a0d;
+    --tube-body:#4b4a55;
+    --tube-hi:#75747f;
+    --fit-edge:#131218;
+    --fit-body:#5d5c68;
+    --floor:rgba(236,235,240,.05);
+    --ghost:#807d89;
+    --halo:#1d1c22;
+  }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+    font-size:15px;
+    line-height:1.55;
+    margin:0;
+  }
+  .sheet{max-width:1180px;margin:0 auto;padding:28px 20px 40px}
+
+  /* ── header ─────────────────────────────── */
+  .head{border:1px solid var(--line);background:var(--surface);border-radius:4px;
+        padding:22px 26px 20px;margin-bottom:14px}
+  .eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;
+           letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0 0 6px}
+  h1{font-weight:800;font-size:clamp(26px,4vw,38px);letter-spacing:-.015em;
+     margin:0 0 4px;text-wrap:balance}
+  .sub{color:var(--muted);margin:0 0 14px;max-width:62ch}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;
+        border:1px solid var(--line);border-radius:3px;padding:4px 10px;
+        background:var(--paper);white-space:nowrap}
+  .chip b{font-weight:600;color:var(--accent-ink)}
+
+  /* ── panels & grid ──────────────────────── */
+  .row{display:grid;gap:14px;margin-bottom:14px}
+  .row.views{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+  .row.three{grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,1.1fr)}
+  @media (max-width:860px){
+    .row.views,.row.three{grid-template-columns:minmax(0,1fr)}
+  }
+  .panel{border:1px solid var(--line);background:var(--surface);border-radius:4px;
+         padding:16px 18px;min-width:0}
+  .panel h2{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+            color:var(--muted);margin:0 0 10px;display:flex;align-items:baseline;gap:8px}
+  .panel h2 .tag{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:500;
+                 color:var(--accent);letter-spacing:.06em}
+  .stack{display:flex;flex-direction:column;gap:14px;min-width:0}
+  figure{margin:0}
+  figure svg{width:100%;height:auto;display:block}
+  figcaption{font-size:12.5px;color:var(--muted);margin-top:8px}
+
+  /* ── notes ──────────────────────────────── */
+  .note-list{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+  .note-list li{display:flex;gap:10px;font-size:13.5px}
+  .note-list .k{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;
+                color:var(--accent);white-space:nowrap;padding-top:1px}
+  ol.steps{margin:0;padding-left:0;counter-reset:step;list-style:none;
+           display:flex;flex-direction:column;gap:10px}
+  ol.steps li{display:flex;gap:12px;font-size:13.5px}
+  ol.steps li::before{counter-increment:step;content:counter(step);
+      font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px;font-weight:600;
+      color:var(--accent);border:1px solid var(--line);border-radius:3px;
+      min-width:22px;height:22px;display:inline-flex;align-items:center;justify-content:center;
+      background:var(--paper);flex-shrink:0;margin-top:1px}
+  code{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.92em;
+       background:var(--accent-soft);color:var(--accent-ink);border-radius:3px;padding:1px 5px}
+
+  /* ── distinta ───────────────────────────── */
+  .tblwrap{overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:720px}
+  th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+     font-weight:700;text-align:left;padding:8px 12px;border-bottom:1px solid var(--line)}
+  td{padding:10px 12px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+  tr.section td{padding:14px 12px 4px;border-bottom:none;
+      font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+  td.num,th.num{text-align:right;font-family:'IBM Plex Mono',ui-monospace,monospace;
+                font-variant-numeric:tabular-nums;white-space:nowrap}
+  td.qty{font-weight:600;font-size:14px}
+  .cod{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:600;font-size:13px;white-space:nowrap}
+  .desc{color:var(--muted);font-size:12.5px}
+  .pict{width:46px;height:46px;color:var(--ink);flex-shrink:0}
+  .comp{display:flex;align-items:center;gap:12px;min-width:220px}
+  tfoot td{border-bottom:none;padding-top:12px;font-size:13px;color:var(--muted)}
+
+  /* ── avviso carrello ────────────────────── */
+  .alert{border:1px solid var(--accent);border-left-width:4px;background:var(--accent-soft);
+         border-radius:4px;padding:14px 18px;margin-bottom:14px}
+  .alert h3{margin:0 0 6px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-ink)}
+  .alert p{margin:0;font-size:13.5px;max-width:88ch}
+  .alert p + p{margin-top:6px}
+
+  /* ── cartiglio ──────────────────────────── */
+  .cartiglio{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));border:1px solid var(--line);
+             border-radius:4px;background:var(--surface);overflow:hidden}
+  .cartiglio div{padding:10px 14px;border-left:1px solid var(--line-soft)}
+  .cartiglio div:first-child{border-left:none}
+  .cartiglio .lbl{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+                  display:block;margin-bottom:2px}
+  .cartiglio .val{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12.5px;font-weight:500}
+  @media (max-width:720px){.cartiglio{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .cartiglio div{border-top:1px solid var(--line-soft)}}
+
+  svg text{font-family:'IBM Plex Mono',ui-monospace,monospace}
+</style>
+
+<div class="sheet">
+
+  <header class="head">
+    <p class="eyebrow">Tavola di montaggio · tubo Ø 33,7 mm · serie B34 black (tubeo.com)</p>
+    <h1>Gabbia Tubolare B34</h1>
+    <p class="sub">Struttura scenica in tubo d'acciaio nero opaco Ø&nbsp;34 con raccordi in ghisa:
+       4 montanti, telaio superiore chiuso, 2 file di correnti che dividono l'altezza in 3 spazi,
+       un lato completamente aperto per l'ingresso di una persona con i materiali. Da realizzare in <b>2 esemplari uguali</b>.</p>
+    <div class="chips">
+      <span class="chip">pianta <b>90 × 90 cm</b></span>
+      <span class="chip">altezza <b>230 cm</b></span>
+      <span class="chip">3 spazi da <b>≈ 76,7 cm</b></span>
+      <span class="chip">tubo <b>Ø 33,7 × 2,6 mm</b></span>
+      <span class="chip">finitura <b>nero opaco</b></span>
+      <span class="chip">peso <b>≈ 40 kg/gabbia</b></span>
+    </div>
+  </header>
+
+  <div class="row views">
+    <div class="panel">
+      <h2>Vista assonometrica <span class="tag">scala libera · quote in cm</span></h2>
+      <figure>
+        <svg id="iso" role="img" aria-label="Assonometria della gabbia 90 per 90 per 230 cm: 4 montanti, telaio superiore chiuso sui 4 lati, correnti intermedi su 3 lati a due livelli, lato frontale aperto. Callout dei raccordi JM128, JM116, JM101, JM131."></svg>
+        <figcaption>Correnti intermedi solo su 3 lati; il lato aperto è chiuso soltanto dal corrente
+        di sommità del telaio superiore.</figcaption>
+      </figure>
+    </div>
+
+    <div class="stack">
+      <div class="panel">
+        <h2>Prospetto — lato aperto</h2>
+        <figure>
+          <svg id="fronte" role="img" aria-label="Prospetto del lato aperto: due montanti e solo il corrente superiore; luce netta di passaggio circa 83 per 226 cm; sagoma di persona con cassa di materiali in scala."></svg>
+          <figcaption>Luce netta di passaggio ≈ 83 × 226 cm — persona h 175 in scala.</figcaption>
+        </figure>
+      </div>
+      <div class="panel">
+        <h2>Prospetto — lato chiuso</h2>
+        <figure>
+          <svg id="lato" role="img" aria-label="Prospetto di un lato chiuso: correnti a 76,7 e 153,3 cm dividono l'altezza di 230 cm in tre spazi uguali."></svg>
+          <figcaption>I 2 correnti intermedi dividono i 230 cm in 3 spazi uguali (interassi).</figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <div class="row three">
+    <div class="panel">
+      <h2>Pianta</h2>
+      <figure>
+        <svg id="pianta" role="img" aria-label="Pianta 90 per 90 cm: telaio superiore su tutti e 4 i lati, correnti intermedi tratteggiati su 3 lati, lato inferiore aperto con freccia di accesso."></svg>
+        <figcaption>Tratteggio = correnti intermedi (3 lati). In basso il lato di accesso.</figcaption>
+      </figure>
+    </div>
+
+    <div class="panel">
+      <h2>Quote e tagli <span class="tag">indicativi</span></h2>
+      <ul class="note-list">
+        <li><span class="k">90,0</span><span>misura fuori tutto in pianta → interasse montanti <b>86,6 cm</b></span></li>
+        <li><span class="k">230,0</span><span>altezza fuori tutto → montanti tagliati a <b>230 cm</b> (la flangia JM131 resta a filo pavimento, l'angolo JM128 avvolge la sommità)</span></li>
+        <li><span class="k">≈83,2</span><span>taglio dei 10 correnti orizzontali (86,6 − Ø 3,4): <b>verifica la battuta reale dei raccordi prima di tagliare</b> — meglio provare il primo pezzo a secco</span></li>
+        <li><span class="k">76,7</span><span>interasse dei livelli: correnti a <b>76,7</b> e <b>153,3 cm</b> da terra</span></li>
+        <li><span class="k">2 tagli</span><span>ogni barra da 200 cm rende 2 correnti da ≈ 83 cm</span></li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Sequenza di montaggio</h2>
+      <ol class="steps">
+        <li><span>Infila su ogni montante, dal basso: flangia <code>JM131</code> e poi i 2 raccordi intermedi — <code>JM116</code> sui 2 montanti del lato chiuso posteriore, <code>JM101</code> sui 2 montanti del lato aperto (dopo non si infilano più).</span></li>
+        <li><span>Monta il telaio superiore: 4 angoli <code>JM128</code> + 4 correnti da ≈ 83 cm, serrando poco i grani.</span></li>
+        <li><span>Aggancia i 6 correnti intermedi a 76,7 e 153,3 cm sui 3 lati chiusi.</span></li>
+        <li><span>Metti in squadra e a piombo, poi serra tutti i grani con chiave a brugola.</span></li>
+        <li><span>Per uso scenico fissa le flange a una pedana o zavorra: con un lato aperto il fissaggio a terra dà la rigidezza.</span></li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:14px">
+    <h2>Distinta materiali <span class="tag">codici tubeo.com · serie B34 BLACK Ø 33,7</span></h2>
+    <div class="tblwrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Componente</th>
+          <th>Posizione</th>
+          <th class="num">× 1 gabbia</th>
+          <th class="num">× 2 gabbie</th>
+          <th class="num">€ cad.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section"><td colspan="5">Raccordi in ghisa, nero opaco</td></tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 6v34M23 23h17"/><path d="M23 23l-11 8" stroke-opacity=".45"/></svg>
+            <div><span class="cod">JM128-B34</span><br><span class="desc">angolo 90° a 3 vie</span></div>
+          </div></td>
+          <td class="desc">4 angoli superiori — chiudono il telaio alto</td>
+          <td class="num qty">4</td><td class="num qty">8</td><td class="num">6,71</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 4v38M23 23h17M23 23l-12 9"/></svg>
+            <div><span class="cod">JM116-B34</span><br><span class="desc">passante, 2 attacchi a 90°</span></div>
+          </div></td>
+          <td class="desc">montanti del lato chiuso posteriore, livelli 1 e 2</td>
+          <td class="num qty">4</td><td class="num qty">8</td><td class="num">6,80</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 4v38M23 23h17"/></svg>
+            <div><span class="cod">JM101-B34</span><br><span class="desc">giunto a T semplice</span></div>
+          </div></td>
+          <td class="desc">montanti del lato aperto, livelli 1 e 2</td>
+          <td class="num qty">4</td><td class="num qty">8</td><td class="num">4,58</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"><path d="M23 8v24"/><ellipse cx="23" cy="36" rx="15" ry="5"/></svg>
+            <div><span class="cod">JM131-B34</span><br><span class="desc">flangia di base</span></div>
+          </div></td>
+          <td class="desc">piede dei 4 montanti — fissaggio a pavimento/pedana</td>
+          <td class="num qty">4</td><td class="num qty">8</td><td class="num">6,04</td>
+        </tr>
+
+        <tr class="section"><td colspan="5">Tubi acciaio Ø 33,7 × 2,6 mm, nero opaco</td></tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"><path d="M14 42L32 4"/></svg>
+            <div><span class="cod">Montante · 230 cm</span><br><span class="desc">da barra ≥ 230 cm (es. 250 cm tagliata)</span></div>
+          </div></td>
+          <td class="desc">i 4 verticali</td>
+          <td class="num qty">4</td><td class="num qty">8</td><td class="num">da quotare</td>
+        </tr>
+        <tr>
+          <td><div class="comp">
+            <svg class="pict" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round"><path d="M8 30h30"/><path d="M8 16h30" stroke-opacity=".45"/></svg>
+            <div><span class="cod">Corrente · ≈ 83,2 cm</span><br><span class="desc">2 tagli da ogni barra 200 cm → 5 barre/gabbia</span></div>
+          </div></td>
+          <td class="desc">4 telaio superiore + 6 intermedi (2 livelli × 3 lati)</td>
+          <td class="num qty">10</td><td class="num qty">20</td><td class="num">28,69 / barra</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr><td colspan="5">Carrello per 2 gabbie: raccordi 8×(6,71 + 6,80 + 4,58 + 6,04) = <b>193,04 €</b> ·
+        10 barre da 200 cm = <b>286,90 €</b> · + 8 barre per i montanti (≥ 230 cm) da quotare su tubeo.
+        Ogni raccordo include i grani; serve solo una chiave a brugola.</td></tr>
+      </tfoot>
+    </table>
+    </div>
+  </div>
+
+  <div class="alert">
+    <h3>Correzione carrello per H 230</h3>
+    <p>Le quantità dei raccordi nel tuo carrello sono <b>giuste</b> (8 + 8 + 8 + 8 = 4 per tipo × 2 gabbie),
+       e anche le 10 barre da 200 cm per i correnti. Le <b>8 barre da 150 cm</b> invece erano i montanti
+       della versione alta 150: con l'altezza corretta a <b>230 cm</b> vanno sostituite con 8 barre
+       da almeno 230 cm (es. 250 cm da accorciare, o la lunghezza disponibile più vicina nella
+       collezione tubi B34).</p>
+  </div>
+
+  <footer class="cartiglio">
+    <div><span class="lbl">Progetto</span><span class="val">Gabbia scenica ×2</span></div>
+    <div><span class="lbl">Ingombro</span><span class="val">90 × 90 × 230 cm</span></div>
+    <div><span class="lbl">Materiale</span><span class="val">Tubo Ø 33,7 × 2,6</span></div>
+    <div><span class="lbl">Finitura</span><span class="val">Nero opaco B34</span></div>
+    <div><span class="lbl">Raccordi</span><span class="val">JM · tubeo.com</span></div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  'use strict';
+  var NS='http://www.w3.org/2000/svg';
+  var W=900, D=900, H=2300, Z1=767, Z2=1533;
+
+  function el(parent,tag,attrs){
+    var n=document.createElementNS(NS,tag);
+    for(var k in attrs) n.setAttribute(k,attrs[k]);
+    parent.appendChild(n); return n;
+  }
+  function seg(p,a,b,w,color,dash,cap){
+    var l=el(p,'line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1]});
+    l.style.stroke=color; l.style.strokeWidth=w;
+    l.style.strokeLinecap=cap||'round';
+    if(dash) l.style.strokeDasharray=dash;
+    return l;
+  }
+  function tube(p,a,b){
+    seg(p,a,b,40,'var(--tube-edge)');
+    seg(p,a,b,28,'var(--tube-body)');
+    seg(p,a,b,8,'var(--tube-hi)');
+  }
+  function fit(p,a,b){
+    seg(p,a,b,56,'var(--fit-edge)');
+    seg(p,a,b,44,'var(--fit-body)');
+  }
+  function txt(p,x,y,s,size,anchor,color,weight){
+    var t=el(p,'text',{x:x,y:y,'text-anchor':anchor||'middle','font-size':size});
+    t.style.fill=color||'var(--accent)';
+    t.style.fontWeight=weight||'600';
+    t.style.paintOrder='stroke';
+    t.style.stroke='var(--halo)';
+    t.style.strokeWidth=Math.round(size*0.3);
+    t.style.strokeLinejoin='round';
+    t.textContent=s; return t;
+  }
+  // linea di quota con tacche alle estremità
+  function dim(p,a,b,label,size,off){
+    off=off||[0,0];
+    var A=[a[0]+off[0],a[1]+off[1]], B=[b[0]+off[0],b[1]+off[1]];
+    var dx=B[0]-A[0], dy=B[1]-A[1], L=Math.hypot(dx,dy)||1;
+    var nx=-dy/L, ny=dx/L, t=size*0.42;
+    seg(p,A,B,size*0.07,'var(--accent)',null,'butt');
+    seg(p,[A[0]-nx*t,A[1]-ny*t],[A[0]+nx*t,A[1]+ny*t],size*0.09,'var(--accent)',null,'butt');
+    seg(p,[B[0]-nx*t,B[1]-ny*t],[B[0]+nx*t,B[1]+ny*t],size*0.09,'var(--accent)',null,'butt');
+    var mx=(A[0]+B[0])/2+nx*size*1.05, my=(A[1]+B[1])/2+ny*size*1.05;
+    txt(p,mx,my+size*0.35,label,size);
+  }
+  function arrow(p,a,b,w,color){
+    var dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy),ux=dx/L,uy=dy/L;
+    var hx=b[0]-ux*w*2.6, hy=b[1]-uy*w*2.6, nx=-uy,ny=ux;
+    seg(p,a,[hx,hy],w,color,null,'butt');
+    var h=el(p,'polygon',{points:
+      b[0]+','+b[1]+' '+(hx+nx*w*1.5)+','+(hy+ny*w*1.5)+' '+(hx-nx*w*1.5)+','+(hy-ny*w*1.5)});
+    h.style.fill=color;
+  }
+  function callout(p,pt,ex,ey,label,size){
+    var c=el(p,'circle',{cx:pt[0],cy:pt[1],r:size*0.28});
+    c.style.fill='none'; c.style.stroke='var(--accent)'; c.style.strokeWidth=size*0.1;
+    seg(p,[pt[0]+(ex>pt[0]?size*0.28:-size*0.28),pt[1]],[ex,ey],size*0.07,'var(--accent)',null,'butt');
+    txt(p,ex+(ex>pt[0]?size*0.3:-size*0.3),ey+size*0.32,label,size,ex>pt[0]?'start':'end');
+  }
+
+  /* ───────────── ASSONOMETRIA ───────────── */
+  (function(){
+    var s=document.getElementById('iso');
+    var P=function(x,y,z){ return [(x-y)*0.866,(x+y)*0.5-z]; };
+    var LS=52; // label size
+
+    // pavimento
+    var f=el(s,'polygon',{points:[P(-120,-120,0),P(W+320,-120,0),P(W+320,D+140,0),P(-120,D+140,0)]
+      .map(function(q){return q.join(',');}).join(' ')});
+    f.style.fill='var(--floor)';
+
+    var posts={ p00:[0,0], p01:[0,D], p10:[W,0], p11:[W,D] };
+    function flange(xy){
+      var e=el(s,'ellipse',{cx:P(xy[0],xy[1],0)[0],cy:P(xy[0],xy[1],0)[1],rx:105,ry:56});
+      e.style.fill='var(--fit-body)'; e.style.stroke='var(--fit-edge)'; e.style.strokeWidth=10;
+      fit(s,P(xy[0],xy[1],8),P(xy[0],xy[1],110));
+    }
+    function post(xy){ tube(s,P(xy[0],xy[1],0),P(xy[0],xy[1],H)); }
+    function sleeve(xy,z,dirs,top){
+      fit(s,P(xy[0],xy[1],top?z-95:z-70),P(xy[0],xy[1],top?z+6:z+70));
+      dirs.forEach(function(d){
+        fit(s,P(xy[0],xy[1],z),P(xy[0]+d[0]*95,xy[1]+d[1]*95,z));
+      });
+    }
+    function rail(a,b,z){ tube(s,P(a[0],a[1],z),P(b[0],b[1],z)); }
+
+    // dal fondo verso l'osservatore
+    flange(posts.p00); post(posts.p00);
+    sleeve(posts.p00,Z1,[[1,0],[0,1]]); sleeve(posts.p00,Z2,[[1,0],[0,1]]);
+    rail(posts.p00,posts.p01,Z1); rail(posts.p00,posts.p01,Z2);
+    rail(posts.p00,posts.p10,Z1); rail(posts.p00,posts.p10,Z2);
+    rail(posts.p00,posts.p01,H); rail(posts.p00,posts.p10,H);
+    sleeve(posts.p00,H,[[1,0],[0,1]],true);
+
+    flange(posts.p01); post(posts.p01);
+    sleeve(posts.p01,Z1,[[0,-1],[1,0]]); sleeve(posts.p01,Z2,[[0,-1],[1,0]]);
+    flange(posts.p10); post(posts.p10);
+    sleeve(posts.p10,Z1,[[-1,0]]); sleeve(posts.p10,Z2,[[-1,0]]);
+
+    rail(posts.p01,posts.p11,Z1); rail(posts.p01,posts.p11,Z2);
+    rail(posts.p01,posts.p11,H); rail(posts.p10,posts.p11,H);
+    sleeve(posts.p01,H,[[0,-1],[1,0]],true);
+    sleeve(posts.p10,H,[[-1,0],[0,1]],true);
+
+    flange(posts.p11); post(posts.p11);
+    sleeve(posts.p11,Z1,[[-1,0]]); sleeve(posts.p11,Z2,[[-1,0]]);
+    sleeve(posts.p11,H,[[-1,0],[0,-1]],true);
+
+    // lato aperto: freccia d'ingresso sulla faccia x=W
+    var aA=P(W+560,D/2,Z1+120), aB=P(W+120,D/2,Z1+120);
+    arrow(s,aA,aB,26,'var(--accent)');
+    txt(s,aA[0]+40,aA[1]-140,'LATO',LS,'start');
+    txt(s,aA[0]+40,aA[1]-140+LS*1.25,'APERTO',LS,'start');
+
+    // quote
+    dim(s,P(0,D,0),P(W,D,0),'90',LS,[P(0,120,0)[0]-P(0,0,0)[0],P(0,120,0)[1]-P(0,0,0)[1]]);
+    dim(s,P(W,0,0),P(W,D,0),'90',LS,[P(150,0,0)[0]-P(0,0,0)[0],P(150,0,0)[1]-P(0,0,0)[1]]);
+    dim(s,P(W,0,0),P(W,0,H),'230',LS,[P(320,0,0)[0]-P(0,0,0)[0],P(320,0,0)[1]-P(0,0,0)[1]]);
+
+    // callout raccordi
+    callout(s,P(W,D,H),P(W,D,H)[0]+240,P(W,D,H)[1]+210,'JM128 ×4',LS);
+    callout(s,P(0,D,Z2),P(0,D,Z2)[0]-290,P(0,D,Z2)[1]-260,'JM116 ×4',LS);
+    callout(s,P(W,D,Z2),P(W,D,Z2)[0]+300,P(W,D,Z2)[1]-60,'JM101 ×4',LS);
+    callout(s,P(W,D,30),P(W,D,30)[0]+280,P(W,D,30)[1]+120,'JM131 ×4',LS);
+
+    s.setAttribute('viewBox','-1500 -2560 2790 3700');
+  })();
+
+  /* ───────────── PROSPETTO LATO APERTO ───────────── */
+  (function(){
+    var s=document.getElementById('fronte');
+    var Y=function(z){ return H-z; };
+    var LS=64;
+
+    // terra
+    seg(s,[-160,Y(0)+22],[D+160,Y(0)+22],7,'var(--line)',null,'butt');
+    // correnti del lato chiuso dietro (tratteggiati)
+    [Z1,Z2].forEach(function(z){ seg(s,[20,Y(z)],[D-20,Y(z)],26,'var(--ghost)','52 40','butt'); });
+    // persona con cassa (dietro i montanti, dentro la gabbia)
+    var g=el(s,'g',{}); g.style.opacity='0.85';
+    var px=D/2-40, hb=Y(0);
+    var head=el(g,'circle',{cx:px,cy:hb-1640,r:92});
+    head.style.fill='var(--ghost)';
+    seg(g,[px,hb-1540],[px,hb-880],150,'var(--ghost)');           // torso
+    seg(g,[px-40,hb-900],[px-110,hb-40],62,'var(--ghost)');       // gambe
+    seg(g,[px+40,hb-900],[px+120,hb-40],62,'var(--ghost)');
+    seg(g,[px-60,hb-1430],[px-230,hb-1090],52,'var(--ghost)');    // braccia verso la cassa
+    seg(g,[px+60,hb-1430],[px+240,hb-1120],52,'var(--ghost)');
+    var box=el(g,'rect',{x:px+120,y:hb-1230,width:300,height:250,rx:12});
+    box.style.fill='none'; box.style.stroke='var(--ghost)'; box.style.strokeWidth=26;
+    dim(s,[px-320,Y(0)],[px-320,Y(1750)],'175',LS*0.82,[0,0]);
+
+    // montanti + corrente superiore
+    tube(s,[17,Y(0)],[17,Y(H)]); tube(s,[D-17,Y(0)],[D-17,Y(H)]);
+    tube(s,[17,Y(H-17)],[D-17,Y(H-17)]);
+    fit(s,[17,Y(H-90)],[17,Y(H)+6]); fit(s,[D-17,Y(H-90)],[D-17,Y(H)+6]);
+    fit(s,[-40,Y(H-17)],[100,Y(H-17)]); fit(s,[D-100,Y(H-17)],[D+40,Y(H-17)]);
+    // flange
+    [[17],[D-17]].forEach(function(q){
+      var b=el(s,'rect',{x:q[0]-95,y:Y(0)-2,width:190,height:26,rx:5});
+      b.style.fill='var(--fit-body)'; b.style.stroke='var(--fit-edge)'; b.style.strokeWidth=8;
+      fit(s,[q[0],Y(0)-4],[q[0],Y(110)]);
+    });
+
+    // freccia accesso
+    arrow(s,[D/2,Y(0)-260],[D/2,Y(0)-30],30,'var(--accent)');
+    txt(s,D/2,Y(0)-320,'ACCESSO',LS*0.9);
+
+    dim(s,[0,Y(0)],[D,Y(0)],'90',LS,[0,300]);
+    dim(s,[D,Y(0)],[D,Y(H)],'230',LS,[330,0]);
+    dim(s,[34,Y(1950)],[D-34,Y(1950)],'luce ≈83',LS*0.8,[0,0]);
+
+    s.setAttribute('viewBox','-360 -290 1720 3120');
+  })();
+
+  /* ───────────── PROSPETTO LATO CHIUSO ───────────── */
+  (function(){
+    var s=document.getElementById('lato');
+    var Y=function(z){ return H-z; };
+    var LS=64;
+    seg(s,[-160,Y(0)+22],[W+160,Y(0)+22],7,'var(--line)',null,'butt');
+
+    tube(s,[17,Y(0)],[17,Y(H)]); tube(s,[W-17,Y(0)],[W-17,Y(H)]);
+    tube(s,[17,Y(H-17)],[W-17,Y(H-17)]);
+    [Z1,Z2].forEach(function(z){
+      tube(s,[34,Y(z)],[W-34,Y(z)]);
+      fit(s,[17,Y(z+62)],[17,Y(z-62)]); fit(s,[W-17,Y(z+62)],[W-17,Y(z-62)]);
+      fit(s,[17,Y(z)],[110,Y(z)]); fit(s,[W-110,Y(z)],[W-17,Y(z)]);
+    });
+    fit(s,[17,Y(H-90)],[17,Y(H)+6]); fit(s,[W-17,Y(H-90)],[W-17,Y(H)+6]);
+    fit(s,[-40,Y(H-17)],[100,Y(H-17)]); fit(s,[W-100,Y(H-17)],[W+40,Y(H-17)]);
+    [[17],[W-17]].forEach(function(q){
+      var b=el(s,'rect',{x:q[0]-95,y:Y(0)-2,width:190,height:26,rx:5});
+      b.style.fill='var(--fit-body)'; b.style.stroke='var(--fit-edge)'; b.style.strokeWidth=8;
+      fit(s,[q[0],Y(0)-4],[q[0],Y(110)]);
+    });
+
+    dim(s,[W,Y(0)],[W,Y(Z1)],'76,7',LS*0.86,[300,0]);
+    dim(s,[W,Y(Z1)],[W,Y(Z2)],'76,7',LS*0.86,[300,0]);
+    dim(s,[W,Y(Z2)],[W,Y(H)],'76,7',LS*0.86,[300,0]);
+    dim(s,[0,Y(0)],[0,Y(H)],'230',LS,[-310,0]);
+    dim(s,[0,Y(0)],[W,Y(0)],'90',LS,[0,300]);
+
+    s.setAttribute('viewBox','-620 -160 2140 2990');
+  })();
+
+  /* ───────────── PIANTA ───────────── */
+  (function(){
+    var s=document.getElementById('pianta');
+    var LS=60;
+    // telaio superiore (tutti e 4 i lati)
+    tube(s,[17,17],[W-17,17]);       // lato chiuso posteriore (alto)
+    tube(s,[17,D-17],[W-17,D-17]);   // lato aperto (basso): solo corrente sommitale
+    tube(s,[17,17],[17,D-17]); tube(s,[W-17,17],[W-17,D-17]);
+    // correnti intermedi (3 lati) tratteggiati
+    seg(s,[80,64],[W-80,64],22,'var(--ghost)','48 38','butt');
+    seg(s,[64,80],[64,D-80],22,'var(--ghost)','48 38','butt');
+    seg(s,[W-64,80],[W-64,D-80],22,'var(--ghost)','48 38','butt');
+    // raccordi d'angolo
+    [[17,17],[W-17,17],[17,D-17],[W-17,D-17]].forEach(function(q){
+      var c=el(s,'circle',{cx:q[0],cy:q[1],r:34});
+      c.style.fill='var(--fit-body)'; c.style.stroke='var(--fit-edge)'; c.style.strokeWidth=9;
+    });
+    // accesso
+    arrow(s,[W/2,D+330],[W/2,D+70],28,'var(--accent)');
+    txt(s,W/2,D+430,'LATO APERTO',LS*0.9);
+
+    dim(s,[0,0],[W,0],'90',LS,[0,-260]);
+    dim(s,[0,0],[0,D],'90',LS,[-260,0]);
+    txt(s,W/2,D/2-40,'3 correnti',LS*0.72,'middle','var(--muted)','500');
+    txt(s,W/2,D/2+LS*0.9-40,'× 2 livelli',LS*0.72,'middle','var(--muted)','500');
+
+    s.setAttribute('viewBox','-560 -470 2030 1990');
+  })();
+})();
+</script>
