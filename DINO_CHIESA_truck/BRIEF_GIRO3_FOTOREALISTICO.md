@@ -59,7 +59,29 @@ approved renders.
 Deliver: final 2400x1350 PNG + updated .blend + the pixel self-check report.
 ```
 
-## Esito
+## Esito (collaudo Claude 02/09/2026 sera)
 
-- [ ] in attesa del giro (collaudo di Claude al rientro: geometria invariata vs
-  giro 2 sui bordi, conteggi moduli sui pixel, gola continua, resa fotografica).
+- Giro eseguito in ~10 min, 198 crediti (totale task 368). Consegnati PNG +
+  scena `.blend` fotorealistica + report.
+- **Geometria**: invariata (scena congelata confermata; prospettiva e moduli al
+  posto giusto; auto-report Manus: 0 modifiche su 86 oggetti).
+- **Resa**: PROGRESSO — luce calda, caduta di luce realistica intorno ai
+  lucernari, LED caldo sotto i pensili, pavimento con riflessi morbidi. MA non
+  ancora fotografico: superfici sfocate/ammorbidite (denoise pesante), materiali
+  senza grana leggibile.
+- **2 REGRESSIONI di spec**: (1) lo zoccolo è diventato una fascia ARANCIONE
+  accesa invece di zoccolo scuro incassato con LED discreto; (2) le fasce
+  vetrate sono diventate pannelli blu-grigi OPACHI senza luce diurna che entra.
+- **Verdetto: NON promosso** → giro 4 con 4 correzioni mirate + lista
+  anti-regressione (sotto), in attesa del VAI di Matteo (~100–200 crediti).
+
+### Correzioni per il giro 4 (max 4, regola dei giri)
+1. Zoccolo: antracite scuro, incassato, ombra netta; LED solo come velo caldo
+   sul pavimento — via la fascia arancione.
+2. Vetrate: vetro chiaro con luce diurna neutra brillante (bianco fuori) che
+   ENTRA e radente sul pavimento — non pannelli opachi.
+3. Nitidezza fotografica ovunque (niente sfocature/DOF), micro-texture leggibile
+   su frontali greige CERA e pavimento.
+4. Gola: la linea scura continua deve leggersi su tutto il fronte.
+ANTI-REGRESSIONE: camera/geometria congelate, mood caldo, caduta luce
+lucernari, LED sotto pensili, campata sinistra vuota, conteggi moduli.
