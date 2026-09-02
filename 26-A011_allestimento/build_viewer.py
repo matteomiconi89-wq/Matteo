@@ -12,9 +12,11 @@ def dims(meshes):
 META = {
  # camera master (fronte)
  "parete_letto":     ("Letto camera master",           "#c7a34e","camera","piano letto da pianta DWG"),
+ "letto_doppia":     ("Letto camera doppia",           "#d0b25e","camera","matrimoniale, camera retro"),
  "armadio_master":   ("Armadio camera master",         "#a8825a","camera","estruso da footprint DWG"),
  "parete_div_master":("Parete divisoria living/master","#c05f86","pareti","estruso da footprint DWG"),
- "bagno_ant":        ("Bagno anteriore (sanitari)",    "#9fb8c0","bagni","muri+sanitari da pianta DWG"),
+ "bagno_ant_muri":   ("Bagno anteriore · muri",        "#b9c6cc","bagni","muri dal contorno stanza DWG"),
+ "bagno_ant_sanitari":("Bagno anteriore · sanitari",   "#7fa9b5","bagni","doccia+WC+bidet dalle posizioni DWG"),
  "lavabo_bagno_ant": ("Lavabo bagno anteriore",        "#c58fa3","bagni","estruso da footprint DWG"),
  # living / ingresso / ufficio
  "divano":           ("Divano + pensile",              "#c86b45","living","ricostruito pianta+prospetto"),
@@ -31,7 +33,8 @@ META = {
  # camera doppia (retro) + bagno posteriore
  "armadio_doppia":   ("Armadio camera doppia",         "#96733f","camera","estruso da footprint DWG"),
  "parete_divisoria": ("Parete divisoria living/doppia","#c05f86","pareti","estruso da footprint DWG"),
- "bagno_post":       ("Bagno posteriore (sanitari)",   "#9fb8c0","bagni","muri+sanitari da pianta DWG"),
+ "bagno_post_muri":  ("Bagno posteriore · muri",       "#b9c6cc","bagni","muri dal contorno stanza DWG"),
+ "bagno_post_sanitari":("Bagno posteriore · sanitari", "#7fa9b5","bagni","doccia+WC+bidet dalle posizioni DWG"),
  "mobile_lavabo_bagno":("Mobile lavabo bagno post.",    "#c58fa3","bagni","ricostruito da prospetto"),
  "lavabo_bagno_post":("Lavabo bagno posteriore",       "#b98298","bagni","estruso da footprint DWG"),
  "muretti_bagni":    ("Muretti bagni",                 "#8a8a52","bagni","estruso da footprint DWG"),
