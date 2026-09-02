@@ -75,7 +75,30 @@ Deliver: final 2400x1350 PNG + updated .blend + the pixel self-check report.
 - **Verdetto: NON promosso** → giro 4 con 4 correzioni mirate + lista
   anti-regressione (sotto), in attesa del VAI di Matteo (~100–200 crediti).
 
-### Correzioni per il giro 4 (max 4, regola dei giri)
+## Esito GIRO 4 (collaudo Claude 02/09/2026, sera tardi)
+
+- 168 crediti (totale task 536). Consegnati PNG + `.blend` + report.
+- **Le 4 correzioni sono entrate**: ① zoccolo ora scuro incassato (mia misura
+  RGB ~79/80/74, pixel arancioni da 24.722 a 1.629 = solo il velo LED legittimo);
+  ② vetrate con telaio scuro e luce che entra; ③ nitidezza RADDOPPIATA
+  (laplaciano 2,35→4,90, niente più sfocature); ④ fronte cucina leggibile con
+  forno a vetro scuro in colonna.
+- **MA nuova regressione**: il SOFFITTO (corridoio + campate + fasce dei
+  gradini) è diventato ANTRACITE SCURO — la spec dice bianco opaco. E la
+  texture è ESAGERATA: pareti/frontali a puntinato grosso tipo intonaco,
+  non grana fine da laminato CERA; pavimento troppo chiazzato.
+- **Verdetto: NON promosso** → giro 5 con 3 correzioni, al VAI (~150–200 cr).
+
+### Correzioni per il giro 5
+1. SOFFITTI di nuovo BIANCO OPACO (corridoio, campate, fasce dei gradini) —
+   l'antracite resta SOLO allo zoccolo; lucernari invariati.
+2. Texture ridotta del ~70%: grana FINE da laminato sui frontali CERA, pareti
+   quasi lisce con giunti appena accennati — niente puntinato da intonaco.
+3. Pavimento: chiaro e uniforme come nei render approvati (meno chiazze).
+ANTI-REGRESSIONE: tenere zoccolo scuro incassato + LED, vetrate con luce,
+nitidezza piena, gola, geometria/camera congelate, campata sinistra vuota.
+
+### Correzioni per il giro 4 (max 4, regola dei giri) — ESEGUITE
 1. Zoccolo: antracite scuro, incassato, ombra netta; LED solo come velo caldo
    sul pavimento — via la fascia arancione.
 2. Vetrate: vetro chiaro con luce diurna neutra brillante (bianco fuori) che
