@@ -12,8 +12,8 @@ def dims(meshes):
 META = {
  # camera master (fronte)
  "parete_letto":     ("Letto camera master",           "#c7a34e","camera","piano letto da pianta DWG"),
- "letto_doppia":     ("Letto camera doppia",           "#d0b25e","camera","matrimoniale, camera retro"),
- "armadio_master":   ("Armadio camera master",         "#a8825a","camera","estruso da footprint DWG"),
+ "letto_doppia":     ("Letto contenitore (armadio)",   "#d0b25e","camera","ribaltabile dall armadio doppia"),
+ "armadio_master":   ("Armadio camera master",         "#a8825a","camera","ante+fianchi dai pannelli pianta"),
  "parete_div_master":("Parete divisoria living/master","#c05f86","pareti","estruso da footprint DWG"),
  "bagno_ant_muri":   ("Bagno anteriore · muri",        "#b9c6cc","bagni","muri dal contorno stanza DWG"),
  "bagno_ant_sanitari":("Bagno anteriore · sanitari",   "#7fa9b5","bagni","doccia+WC+bidet dalle posizioni DWG"),
@@ -31,7 +31,7 @@ META = {
  "lavanderia":       ("Lavanderia (muri)",             "#8fb0a8","bagni","muri da pianta DWG"),
  "pli_lavanderia":   ("Parete/porta lavanderia · PLI", "#5cb85c","pareti","estruso da footprint DWG"),
  # camera doppia (retro) + bagno posteriore
- "armadio_doppia":   ("Armadio camera doppia",         "#96733f","camera","estruso da footprint DWG"),
+ "armadio_doppia":   ("Armadio doppia + letto cont.",  "#96733f","camera","ante+fianchi dai pannelli pianta"),
  "parete_divisoria": ("Parete divisoria living/doppia","#c05f86","pareti","estruso da footprint DWG"),
  "bagno_post_muri":  ("Bagno posteriore · muri",       "#b9c6cc","bagni","muri dal contorno stanza DWG"),
  "bagno_post_sanitari":("Bagno posteriore · sanitari", "#7fa9b5","bagni","doccia+WC+bidet dalle posizioni DWG"),
