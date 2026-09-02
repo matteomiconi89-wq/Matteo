@@ -185,7 +185,7 @@ var sun2=new THREE.DirectionalLight(0xffffff,.28);sun2.position.set(-9000,16000,
 
 function col(hex){return new THREE.Color(hex);}
 var edgeMat=new THREE.LineBasicMaterial({color:0x222831,transparent:true,opacity:.42});
-var shellEdgeMat=new THREE.LineBasicMaterial({color:0x8b93a0,transparent:true,opacity:.55});
+var shellEdgeMat=new THREE.LineBasicMaterial({color:0x8b93a0,transparent:true,opacity:.34});
 var gridMat=new THREE.LineBasicMaterial({color:0xcfd3d9,transparent:true,opacity:.6});
 var personMat=new THREE.MeshLambertMaterial({color:0x8a929c,transparent:true,opacity:.85});
 
@@ -208,9 +208,9 @@ var shellGroup=new THREE.Group();scene.add(shellGroup);
 var shellSrc=(DATA.shell_step&&DATA.shell_step.length)?DATA.shell_step:DATA.aperto;
 var isStep=!!(DATA.shell_step&&DATA.shell_step.length);
 shellSrc.forEach(function(m){
-  var o=meshOf(m,col('#aeb6c0'),{transparent:true,opacity:isStep?0.07:0.10,depthWrite:false});
+  var o=meshOf(m,col('#aeb6c0'),{transparent:true,opacity:isStep?0.055:0.10,depthWrite:false});
   shellGroup.add(o.mesh);
-  var eg=new THREE.EdgesGeometry(o.geom,isStep?20:30);
+  var eg=new THREE.EdgesGeometry(o.geom,isStep?44:30);
   shellGroup.add(new THREE.LineSegments(eg,shellEdgeMat));
 });
 
