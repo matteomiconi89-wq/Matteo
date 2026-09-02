@@ -15,7 +15,7 @@ def box(x0,x1,y0,y1,z0,z1):
 ING = {
  "divano":            (4409,7009,   54,1004,  850,  "ingresso"),
  "tavolo_sedie":      (5983,8733,  1502,3318, 760,  "centro"),
- "libreria_ufficio":  (9440,11329,   61, 461, 2075, "ingresso/living"),
+ "libreria_ufficio":  (9440,11383,   61,1666, 2080, "ingresso/living"),  # dim reali dal DWG 1943x1605x2080
  "armadio_cam_doppia":(11382,13484,  61, 661, 2200, "ingresso"),
  "lavatrice":         (9558,10485, 4179,4779,  850, "cucina"),
  "lavabo_bagno":      (10543,12641,4362,4762, 1000, "cucina"),
