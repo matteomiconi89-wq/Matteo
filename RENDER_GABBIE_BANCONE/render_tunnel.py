@@ -4,7 +4,7 @@
 from PIL import Image, ImageDraw, ImageFilter
 
 SRC = '/home/user/Matteo/RENDER_GABBIE_BANCONE/rif_scena_angolata.jpg'
-OUT = 'render_TUNNEL_v4.png'
+OUT = 'render_TUNNEL_v5.png'
 K = 2992/1200.0          # 1200-space -> full res
 SS = 2                   # supersampling overlay
 
@@ -129,32 +129,36 @@ HL, HR = 336, 304                     # h bancone in px ai due angoli
 TL, TR = (FL[0], FL[1]-HL), (FR[0], FR[1]-HR)
 wL, wR = 7.6, 6.9                     # Ø tubo in px ai due lati
 
-# braccio DX (180 indietro, molto scorciato) con 3 verticali
-arm_end_b = (957, 507)
-arm_end_t = (957, 224)
-tube(TR, arm_end_t, wR*0.92)          # corrente sommità braccio DX
+# Convenzione confermata: SX/DX guardando DALL'APERTURA (da dietro il bancone).
+# Dalla camera (davanti) il braccio 180 con 3 verticali sta quindi a SINISTRA
+# dell'immagine, il braccio 110 con 1 verticale a DESTRA.
+
+# braccio 180 (3 verticali) — angolo sinistro in camera, recede verso il VP
+arm_end_b = (461, 495)
+arm_end_t = (461, 167)
+tube(TL, arm_end_t, wL*0.92)          # corrente sommità braccio 180
 arm_fracs = [0.34, 0.62, 0.84]        # 44/88/132 su 180 con compressione prospettica
 for f in arm_fracs:
-    b = lerp(FR, arm_end_b, f)
-    t = lerp(TR, arm_end_t, f)
-    tube(b, t, wR*0.9)
-    collar(t, wR*0.72, along=(arm_end_t[0]-TR[0], arm_end_t[1]-TR[1]))
-    flange(b, wR*0.8)
-collar(arm_end_t, wR*0.8, along=(0, 1))  # gomito estremità
-flange(arm_end_b, wR*0.8)
-tube(arm_end_b, arm_end_t, wR*0.88)
+    b = lerp(FL, arm_end_b, f)
+    t = lerp(TL, arm_end_t, f)
+    tube(b, t, wL*0.9)
+    collar(t, wL*0.72, along=(arm_end_t[0]-TL[0], arm_end_t[1]-TL[1]))
+    flange(b, wL*0.8)
+collar(arm_end_t, wL*0.8, along=(0, 1))  # gomito estremità
+flange(arm_end_b, wL*0.8)
+tube(arm_end_b, arm_end_t, wL*0.88)
 
-# braccio SX (110 indietro, quasi di taglio) con 1 verticale a metà
-axl_b = (447, 501)
-axl_t = (447, 173)
-tube(TL, axl_t, wL*0.94)
-mb, mt = lerp(FL, axl_b, 0.55), lerp(TL, axl_t, 0.55)
-tube(mb, mt, wL*0.92)
-collar(mt, wL*0.72, along=(axl_t[0]-TL[0], axl_t[1]-TL[1]))
-flange(mb, wL*0.82)
-collar(axl_t, wL*0.8, along=(0, 1))
-flange(axl_b, wL*0.82)
-tube(axl_b, axl_t, wL*0.9)
+# braccio 110 (1 verticale a metà) — angolo destro in camera, lungo il ritorno
+axl_b = (933, 514)
+axl_t = (933, 213)
+tube(TR, axl_t, wR*0.94)
+mb, mt = lerp(FR, axl_b, 0.5), lerp(TR, axl_t, 0.5)
+tube(mb, mt, wR*0.92)
+collar(mt, wR*0.72, along=(axl_t[0]-TR[0], axl_t[1]-TR[1]))
+flange(mb, wR*0.82)
+collar(axl_t, wR*0.8, along=(0, 1))
+flange(axl_b, wR*0.82)
+tube(axl_b, axl_t, wR*0.9)
 
 # fronte: 7 verticali (2 angolari + 5 intermedi) e corrente di sommità
 for i in range(7):

@@ -70,7 +70,8 @@ angolata `rif_scena_angolata.jpg` — Manus non necessario, 0 crediti.
 | v1 | ✗ | 0 | struttura ok; clonazioni scatoloni/cubo visibili, filo piano troppo chiaro |
 | v2 | ✗ | 0 | piastrellatura muro sbagliata (tile grigi); gabbia meno sventagliata |
 | v3 | ✗ | 0 | muro stirato per colonne ok; residui fondi scatole SOTTO il filo del piano |
-| v4 | ✓ | 0 | **PROMOSSO**: collaudo superato, vedi sotto |
+| v4 | ✗ | 0 | bocciato da Matteo: bracci della C specchiati rispetto alla convenzione |
+| v5 | ✓ | 0 | **PROMOSSO**: bracci corretti — dalla camera il braccio 180 (3 verticali) sta a SINISTRA, il 110 (1 verticale) a DESTRA. Convenzione fissata: SX/DX della C si leggono GUARDANDO DALL'APERTURA (da dietro il bancone), come confermato da Matteo |
 
 ## Collaudo v4 (esito)
 
