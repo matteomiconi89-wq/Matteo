@@ -10,21 +10,22 @@ def dims(meshes):
 
 # metadati pezzi: key -> (label, hex color, categoria, fonte)
 META = {
- "divano":           ("Divano + pensile",              "#c86b45","reali","STL DIVANO_PENSILE_3D"),
- "libreria":         ("Libreria ufficio",              "#3f7fae","reali","STL LIBRERIA_UFFICIO_3D"),
- "plo_ingresso":     ("Parete ingresso · PLO",         "#9b6fb0","reali","STL PLO_INGRESSO_3D"),
- "parete_letto":     ("Parete letto · camera master",  "#c7a34e","reali","STL PARETE_LETTO_3D"),
- "parete_divisoria": ("Parete divisoria living/camera","#c05f86","reali","STL PARETE_DIVISORIA_3D"),
- "lavatrice":        ("Colonna lavatrice",             "#4fb0a0","reali","STL LAVATRICE_3D"),
- "muretti_bagni":    ("Muretti bagni",                 "#8a8a52","reali","STL MURETTI_BAGNI_3D"),
- "pli_lavanderia":   ("Parete/porta lavanderia · PLI", "#5cb85c","reali","STL PLI_PORTA_LAVANDERIA_3D"),
+ "divano":           ("Divano + pensile",              "#c86b45","reali","ricostruito da pianta+prospetto DWG"),
+ "libreria":         ("Libreria ufficio",              "#3f7fae","reali","estruso da footprint pianta DWG"),
+ "plo_ingresso":     ("Parete ingresso · PLO",         "#9b6fb0","reali","estruso da footprint pianta DWG"),
+ "parete_letto":     ("Parete letto · camera master",  "#c7a34e","reali","estruso da footprint pianta DWG"),
+ "parete_divisoria": ("Parete divisoria living/camera","#c05f86","reali","estruso da footprint pianta DWG"),
+ "lavatrice":        ("Colonna lavatrice",             "#4fb0a0","reali","estruso da footprint pianta DWG"),
+ "muretti_bagni":    ("Muretti bagni",                 "#8a8a52","reali","estruso da footprint pianta DWG"),
+ "pli_lavanderia":   ("Parete/porta lavanderia · PLI", "#5cb85c","reali","estruso da footprint pianta DWG"),
+ "mobile_lavabo_bagno":("Mobile lavabo bagno doppia",   "#c58fa3","reali","ricostruito da prospetto DWG"),
  "mobile_ingresso":  ("Mobile ingresso-living",        "#7a9a6d","dett","spec ESECUTIVI_3D (41 pann.)"),
  "lavabo_lavanderia":("Lavabo lavanderia",             "#5aa0a6","dett","volumi DXF (74 solidi)"),
- "cucina":           ("Cucina",                        "#b58b56","dett","misure collaudo v10"),
+ "cucina":           ("Cucina (7 moduli)",             "#b58b56","reali","ricostruita da prospetti DWG · validata"),
  "tavolo_sedie":     ("Tavolo + sedie",                "#8b8f96","box","ingombro planimetria"),
  "armadio_cam_doppia":("Armadio camera doppia",        "#8b8f96","box","ingombro planimetria"),
 }
-CAT = {"reali":"Solidi reali (STL Dropbox)","dett":"Solidi dettagliati (specifiche)","box":"Ingombri (planimetria)"}
+CAT = {"reali":"Solidi ricostruiti dal DWG (2D→3D)","dett":"Solidi a livello pannello (specifiche)","box":"Ingombri (planimetria)"}
 
 # costruisci lista pezzi per il viewer con dimensioni
 pieces=[]
