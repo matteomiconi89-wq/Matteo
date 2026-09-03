@@ -74,10 +74,30 @@ def carica_volumi(percorso):
     return data, boxes
 
 
+def estremi(b):
+    """Estremi del pezzo, tenendo conto dell'eventuale rotazione ruota_x.
+
+    "ruota_x": gradi attorno all'asse X passante per il centro del pezzo
+    (verso destrorso: +Y ruota verso +Z). Serve per i ripiani inclinati.
+    """
+    ang = b.get("ruota_x", 0.0)
+    if not ang:
+        return b["x0"], b["y0"], b["z0"], b["x1"], b["y1"], b["z1"]
+    cy, cz = (b["y0"] + b["y1"]) / 2, (b["z0"] + b["z1"]) / 2
+    c, s = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+    ys, zs = [], []
+    for y in (b["y0"], b["y1"]):
+        for z in (b["z0"], b["z1"]):
+            dy, dz = y - cy, z - cz
+            ys.append(cy + dy * c - dz * s)
+            zs.append(cz + dy * s + dz * c)
+    return b["x0"], min(ys), min(zs), b["x1"], max(ys), max(zs)
+
+
 def ingombro(boxes):
-    return (min(b["x0"] for b in boxes), min(b["y0"] for b in boxes),
-            min(b["z0"] for b in boxes), max(b["x1"] for b in boxes),
-            max(b["y1"] for b in boxes), max(b["z1"] for b in boxes))
+    ee = [estremi(b) for b in boxes]
+    return (min(e[0] for e in ee), min(e[1] for e in ee), min(e[2] for e in ee),
+            max(e[3] for e in ee), max(e[4] for e in ee), max(e[5] for e in ee))
 
 
 def tinta_rgb(b):
@@ -137,6 +157,10 @@ def crea_step(data, boxes, out_stp):
         for b in gruppo:
             dx, dy, dz = b["x1"] - b["x0"], b["y1"] - b["y0"], b["z1"] - b["z0"]
             solido = cq.Solid.makeBox(dx, dy, dz, pnt=cq.Vector(b["x0"], b["y0"], b["z0"]))
+            ang = b.get("ruota_x", 0.0)
+            if ang:
+                cy, cz = (b["y0"] + b["y1"]) / 2, (b["z0"] + b["z1"]) / 2
+                solido = solido.rotate(cq.Vector(0, cy, cz), cq.Vector(1, cy, cz), ang)
             r, g, bl = tinta_rgb(b)
             ramo.add(solido, name=nome_step_valido(b["nome"]), color=cq.Color(r, g, bl))
         radice.add(ramo, name=nome_step_valido(layer))
@@ -238,11 +262,12 @@ def collauda_step(out_stp, boxes):
 
 def crea_distinta(boxes, out_csv, mappa=None):
     """Distinta in CSV (apribile in Excel): pezzo, materiale, misure, volume."""
-    righe = ["pezzo;materiale;layer;L_mm;P_mm;H_mm;volume_dm3"]
+    righe = ["pezzo;materiale;layer;L_mm;P_mm;H_mm;volume_dm3;inclinazione_gradi"]
     for b in sorted(boxes, key=lambda b: (materiale_di(b, mappa), b["nome"])):
         dx, dy, dz = b["x1"] - b["x0"], b["y1"] - b["y0"], b["z1"] - b["z0"]
         righe.append(f"{b['nome']};{materiale_di(b, mappa)};{b.get('layer', 'VOLUMI')};"
-                     f"{dx:g};{dy:g};{dz:g};{dx * dy * dz / 1e6:.3f}")
+                     f"{dx:g};{dy:g};{dz:g};{dx * dy * dz / 1e6:.3f};"
+                     f"{b.get('ruota_x', 0):g}")
     open(out_csv, "w", encoding="utf-8-sig").write("\n".join(righe))
 
 
@@ -257,7 +282,14 @@ def crea_dxf(boxes, out_dxf):
         if layer not in doc.layers:
             doc.layers.add(layer, color=b.get("colore", 8))
         dx, dy, dz = b["x1"] - b["x0"], b["y1"] - b["y0"], b["z1"] - b["z0"]
-        mesh = forms.cube(center=False).scale(dx, dy, dz).translate(b["x0"], b["y0"], b["z0"])
+        ang = b.get("ruota_x", 0.0)
+        if ang:
+            cx = (b["x0"] + b["x1"]) / 2
+            cy, cz = (b["y0"] + b["y1"]) / 2, (b["z0"] + b["z1"]) / 2
+            mesh = (forms.cube(center=True).scale(dx, dy, dz)
+                    .rotate_x(math.radians(ang)).translate(cx, cy, cz))
+        else:
+            mesh = forms.cube(center=False).scale(dx, dy, dz).translate(b["x0"], b["y0"], b["z0"])
         mesh.render_mesh(msp, dxfattribs={"layer": layer})
     doc.saveas(out_dxf)
 
@@ -273,6 +305,11 @@ def crea_scr(boxes, out_scr):
             layer_corrente = lay
         dx, dy, dz = b["x1"] - b["x0"], b["y1"] - b["y0"], b["z1"] - b["z0"]
         righe += ["._BOX", f"{b['x0']},{b['y0']},{b['z0']}", f"@{dx},{dy}", f"{dz}"]
+        ang = b.get("ruota_x", 0.0)
+        if ang:
+            cx = (b["x0"] + b["x1"]) / 2
+            cy, cz = (b["y0"] + b["y1"]) / 2, (b["z0"] + b["z1"]) / 2
+            righe += ["._ROTATE3D", "_L", "", "_X", f"{cx},{cy},{cz}", f"{ang}"]
     righe += ["._-VIEW", "_SWISO", "._ZOOM", "_E", "._VSCURRENT", "_S", ""]
     open(out_scr, "w", encoding="ascii").write("\n".join(righe))
 
@@ -369,12 +406,23 @@ def proietta(boxes, az_deg, el_deg):
         x0, y0, z0, x1, y1, z1 = b["x0"], b["y0"], b["z0"], b["x1"], b["y1"], b["z1"]
         v = np.array([(x0, y0, z0), (x1, y0, z0), (x1, y1, z0), (x0, y1, z0),
                       (x0, y0, z1), (x1, y0, z1), (x1, y1, z1), (x0, y1, z1)], dtype=float)
+        ang = b.get("ruota_x", 0.0)
+        rot = None
+        if ang:
+            th = math.radians(ang)
+            rot = np.array([[1, 0, 0],
+                            [0, math.cos(th), -math.sin(th)],
+                            [0, math.sin(th), math.cos(th)]])
+            centro = np.array([0.0, (y0 + y1) / 2, (z0 + z1) / 2])
+            v = (v - centro) @ rot.T + centro
         quads = [([0, 1, 5, 4], (0, -1, 0)), ([3, 2, 6, 7], (0, 1, 0)),
                  ([0, 3, 7, 4], (-1, 0, 0)), ([1, 2, 6, 5], (1, 0, 0)),
                  ([4, 5, 6, 7], (0, 0, 1)), ([0, 1, 2, 3], (0, 0, -1))]
         base = np.array(tinta_rgb(b))
         for idx, n in quads:
             n = np.array(n, dtype=float)
+            if rot is not None:
+                n = n @ rot.T
             if np.dot(n, f) > 0:
                 continue
             pts = v[idx]
