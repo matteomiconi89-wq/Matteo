@@ -87,9 +87,44 @@ basta UNA di queste: nome del produttore/catalogo, foto del campione, o
 scansione della cartella colori. Appena arriva, aggiorno scena e capitolato.
 
 ## Traduzione in giri render (palcoscenico task Manus WSLtwCSEyoi5azfnCcFKP5)
-1. **GIRO 6 — al VAI (~100–200 crediti)**: pavimento vero (corridoio spina
-   MACADAMIA + campate CHAMPAGNE), piano cottura sulla penultima base,
-   telaio apribile 120 cm segnato nella vetrata cucina e salone.
-2. Poi un ambiente per giro, col suo pezzo di capitolato: lavanderia
+1. **GIRO 6 — ESEGUITO il 03/09 dopo il VAI** (160 crediti, tot. task 814):
+   pavimento capitolato + piano cottura penultima base + finestra apribile.
+2. **GIRO 7 — al VAI (~100–200 crediti)**: la sola correzione della posa
+   (sotto).
+3. Poi un ambiente per giro, col suo pezzo di capitolato: lavanderia
    (lavatrice+asciugatrice, anta persianina), bagno master, bagno guest,
    salone/divano (tessuto 17020), camere, ufficio.
+
+## Esito GIRO 6 (collaudo Claude 03/09/2026)
+
+- **5 modifiche su 6 ENTRATE**, collaudate sui pixel da me:
+  ① piano cottura SPOSTATO sull'ultima→**penultima base (base 3)** ✔ (misura
+  inversa sulla proiezione: X vecchio 7,65 m = base 4, X nuovo 7,37 m =
+  base 3; conferma anche nel report Manus);
+  ② campate laterali in **Champagne** chiaro uniforme ✔ (RGB ~207/191/172);
+  ③ **bordo netto** corridoio/campate con profilo scuro su entrambe le linee
+  dei pilastri ✔;
+  ④ **finestra apribile 1200** nella vetrata cucina: telaio ispessito +
+  montante dello scorrevole visibili ✔ (2 nuovi montanti rilevati nel
+  confronto pixel col giro 5, a X≈7,47 m e 8,03 m);
+  ⑤ **zero regressioni**: metà alta dell'immagine PIXEL-IDENTICA al giro 5
+  (correlazione 1,000) — soffitti bianchi, zoccolo scuro identico, grana
+  parete identica (2,88=2,88), nitidezza perfino salita (1,24→1,62),
+  0 pixel arancioni fuori dal legno.
+- **1 correzione NON riuscita**: il corridoio ha il colore Macadamia caldo
+  giusto MA la **posa a spina di pesce non esiste**: al 100% è una
+  micro-texture intrecciata tipo stoffa, NON doghe vere 120×600 a 90°;
+  e il centro del corridoio è **slavato/sbiancato** (il materiale si lava
+  via sotto il lucernario).
+- **Verdetto: NON promosso** → giro 7 con UNA correzione, al VAI.
+
+### Correzione per il giro 7 (una sola, mirata)
+PAVIMENTO CORRIDOIO: rifare in VERA posa a spina di pesce — doghe singole
+120×600 mm leggibili come tavole, con fughe visibili, chevron a 90° in
+scala reale, asse della posa verso il punto di fuga; colore Macadamia
+caldo UNIFORME per tutta la corsa (niente zona centrale slavata: la pozza
+di luce del lucernario resta ma il materiale sotto non si sbianca).
+ANTI-REGRESSIONE: tutto il resto del giro 6 è giusto e non si tocca —
+hob su base 3, champagne campate, bordi netti, finestra apribile, soffitti
+bianchi, zoccolo, gola, LED, nitidezza, campata sinistra vuota, camera
+congelata.
