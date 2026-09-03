@@ -1,0 +1,66 @@
+{
+  "titolo": "BOZZA da tavola_prova.dxf — DA RIFINIRE (Fase A del protocollo)",
+  "note": "Ingombro proposto dai bbox delle viste; i prismi PIANTA_R* sono i rettangoli della pianta estrusi a tutta altezza: vanno tagliati in altezza con le quote di prospetto/sezione e battezzati coi nomi veri.",
+  "box": [
+    {
+      "nome": "INGOMBRO_da_verificare",
+      "layer": "BOZZA",
+      "colore": 8,
+      "tinta": "#d7d2c8",
+      "x0": 0,
+      "y0": 0,
+      "z0": 0,
+      "x1": 600.0,
+      "y1": 400.0,
+      "z1": 720.0
+    },
+    {
+      "nome": "PIANTA_R01_MOBILE",
+      "layer": "BOZZA",
+      "colore": 8,
+      "tinta": "#c9c4ba",
+      "x0": 0.0,
+      "y0": 0.0,
+      "z0": 0,
+      "x1": 600.0,
+      "y1": 400.0,
+      "z1": 720.0
+    },
+    {
+      "nome": "PIANTA_R02_MOBILE",
+      "layer": "BOZZA",
+      "colore": 8,
+      "tinta": "#c9c4ba",
+      "x0": 0.0,
+      "y0": 0.0,
+      "z0": 0,
+      "x1": 18.0,
+      "y1": 400.0,
+      "z1": 720.0
+    },
+    {
+      "nome": "PIANTA_R03_MOBILE",
+      "layer": "BOZZA",
+      "colore": 8,
+      "tinta": "#c9c4ba",
+      "x0": 18.0,
+      "y0": 0.0,
+      "z0": 0,
+      "x1": 582.0,
+      "y1": 18.0,
+      "z1": 720.0
+    },
+    {
+      "nome": "PIANTA_R04_MOBILE",
+      "layer": "BOZZA",
+      "colore": 8,
+      "tinta": "#c9c4ba",
+      "x0": 582.0,
+      "y0": 0.0,
+      "z0": 0,
+      "x1": 600.0,
+      "y1": 400.0,
+      "z1": 720.0
+    }
+  ]
+}

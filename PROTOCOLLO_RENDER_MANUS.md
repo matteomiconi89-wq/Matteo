@@ -160,6 +160,11 @@ vetrata 1,96× vs 2,3×, ceramiche Geberit ~20% piccole in parallasse, giunti pa
 
 ## 9. Strumenti
 
+- **`STRUMENTI_3D/` nel repo (dal 03/09/2026, permanenti — non piu' da rigenerare)**:
+  `estrai_2d.py` (tavola 2D → viste/quote/rettangoli + bozza volumi), `volumi_3d.py`
+  (volumi.json → **STP con solidi veri per CATIA/fornitori** + DXF 3D + SCR AutoCAD + viste
+  di controllo, con collaudi automatici), `setup_ambiente.sh` (prepara la sessione in ~2 min).
+  Flusso completo in `STRUMENTI_3D/README_3D.md`. Il checkpoint 3D di Matteo resta la regola.
 - Script Python di sessione (da rigenerare al bisogno, vivevano nello scratchpad):
   `render.py` (DXF→PNG: ezdxf, opzioni `no_hatch`/`ruota180`/skip layer), `*_esplodi_pianta.py`
   (virtual_entities + bbox per X), `misura_*.py` (misura su pixel), `fix_*.py` (warp a bande + clonazioni),

@@ -1,0 +1,38 @@
+ANALISI 2D — tavola_prova.dxf
+============================================================
+
+LAYER (entita'):
+  MOBILE                                   11
+  QUOTE                                    6
+  TESTI                                    3
+
+VISTE INDIVIDUATE: 3
+  [PROSPETTO] larg 600 x alt 720 (unita' disegno) — origine (0, 700)
+  [SEZIONE A-A'] larg 400 x alt 720 (unita' disegno) — origine (950, 700)
+  [PIANTA] larg 600 x alt 400 (unita' disegno) — origine (0, 0)
+
+QUOTE (DIMENSION) trovate: 6
+       720.0  in ?
+       720.0  in ?
+       600.0  in ?
+       600.0  in ?
+       400.0  in ?
+       400.0  in ?
+
+RETTANGOLI CHIUSI (candidati pannelli/pezzi): 11
+     600.0 x    720.0  layer MOBILE                         in PROSPETTO a (0, 700)
+     400.0 x    720.0  layer MOBILE                         in SEZIONE A-A' a (950, 700)
+     600.0 x    400.0  layer MOBILE                         in PIANTA a (0, 0)
+     300.0 x    720.0  layer MOBILE                         in PROSPETTO a (0, 700)
+     300.0 x    720.0  layer MOBILE                         in PROSPETTO a (300, 700)
+     564.0 x     18.0  layer MOBILE                         in PIANTA a (18, 0)
+      18.0 x    400.0  layer MOBILE                         in PIANTA a (0, 0)
+      18.0 x    400.0  layer MOBILE                         in PIANTA a (582, 0)
+     400.0 x     18.0  layer MOBILE                         in SEZIONE A-A' a (950, 700)
+     400.0 x     18.0  layer MOBILE                         in SEZIONE A-A' a (950, 1402)
+     382.0 x     18.0  layer MOBILE                         in SEZIONE A-A' a (950, 1060)
+
+TESTI CON NUMERI (possibili quote a testo): 0
+
+PROPOSTA INGOMBRO (dai bbox delle viste, VERIFICARE con le quote):
+  L 600 x P 400 x H 720 mm
