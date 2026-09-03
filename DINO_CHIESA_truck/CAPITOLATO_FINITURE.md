@@ -9,14 +9,17 @@
 - **Cucina e divano (salone): parte centrale L.120 cm APRIBILE** nella fascia
   vetrata.
 - **Zanzariere con oscurante, stesso meccanismo** — ricerca fatta (03/09):
-  - **Pista veicolo (consigliata)**: Dometic **Seitz S4 scorrevole 1200×600 mm**
-    — esiste esattamente nella misura della parte apribile, con **oscurante e
-    zanzariera a rullo integrati nello stesso telaio** (un meccanismo, manovra
-    a una mano); telaio poliuretano, doppio vetro acrilico. Prezzo visto
-    ~889 € iva compresa. Gamma S4 da 50×45 a 145×60.
-  - **Pista serramento su misura**: sistemi a **doppio cassonetto/doppio rullo**
-    (zanzariera sopra + oscurante sotto, stesse guide e stessa manovra), es.
-    sistema "Duplo" e doppio cassonetto roll-up (San Giorgio, Mondozanzariere);
+  - **Pista veicolo (consigliata)**: Dometic **Seitz S4 in misura 1200×600 mm**
+    — esiste esattamente nella misura della parte apribile, sia **scorrevole**
+    sia **a compasso** (vasistas), con **oscurante e zanzariera a rullo
+    integrati nello stesso telaio** (un meccanismo, manovra a una mano);
+    telaio poliuretano, doppio vetro acrilico. Prezzo visto ~889 € iva
+    compresa (versione a compasso). Gamma S4 da 50×45 a 145×60. Sempre da
+    veicolo: sistema "Duplo" (cassonetto zanzariera + cassonetto oscurante
+    solidali nel movimento).
+  - **Pista serramento su misura**: sistemi a **doppio cassonetto/doppio
+    rullo** (zanzariera + oscurante nelle stesse guide, stessa manovra), es.
+    doppio cassonetto roll-up di San Giorgio o su misura Mondozanzariere;
     per fori fuori misura standard.
 - La fascia vetrata del camion è alta ~647 mm (da +1000 a +1647): la S4
   1200×600 ci sta di misura.
