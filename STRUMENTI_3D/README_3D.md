@@ -11,6 +11,23 @@
 `volumi.json` → checkpoint di Matteo → `volumi_3d.py` → `nome.stp` + `nome_3d.dxf`
 + `nome.scr` (+ viste PNG di controllo, tutto collaudato in automatico).**
 
+## Sul PC di Matteo: doppio click e basta
+
+Nella radice del repo ci sono due `.bat` per Windows:
+
+- **`SETUP_PC.bat`** — da lanciare UNA volta: mette le librerie Python, dice
+  come installare Claude Code (una riga in PowerShell, login col proprio
+  account Claude) e, facoltativo, l'ODA File Converter per i DWG.
+- **`FAI_3D.bat`** — l'uso quotidiano: doppio click, oppure **trascinaci
+  sopra i DWG/DXF**. I file finiscono in `CONSEGNA_2D/`, si apre Claude Code
+  che sa gia' cosa fare (le istruzioni permanenti sono in `CLAUDE.md`:
+  analisi, volumi, checkpoint, consegna in `USCITA_3D/`), e alla chiusura
+  si apre la cartella dei risultati.
+
+Lo stesso automatismo vale anche da telefono/browser (claude.ai/code, oppure
+una chat con questo repo): qualsiasi sessione nuova legge `CLAUDE.md`, quindi
+basta allegare la tavola e scrivere "FAI_3D" — non serve rispiegare niente.
+
 ## Comandi
 
 ```bash

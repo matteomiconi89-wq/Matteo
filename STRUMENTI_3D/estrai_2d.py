@@ -44,17 +44,35 @@ PAROLE_VISTE = {
 def apri_documento(percorso):
     p = Path(percorso)
     if p.suffix.lower() == ".dwg":
-        exe = shutil.which("dwg2dxf")
-        if not exe:
-            sys.exit("Il file e' un DWG e dwg2dxf (LibreDWG) non c'e': "
-                     "convertirlo in DXF (in AutoCAD: SAVEAS -> DXF) e rilanciare.")
-        tmp = Path(tempfile.mkdtemp()) / (p.stem + ".dxf")
-        subprocess.run([exe, "-y", "-o", str(tmp), str(p)], check=True,
-                       capture_output=True, timeout=600)
-        print(f"DWG convertito in DXF di lavoro: {tmp}")
-        p = tmp
+        p = converti_dwg_in_dxf(p)
     doc = ezdxf.readfile(str(p))
     return doc
+
+
+def converti_dwg_in_dxf(p):
+    """DWG -> DXF di lavoro: prima ODAFileConverter (il piu' affidabile,
+    tipico sul PC Windows), poi dwg2dxf di LibreDWG (tipico in remoto)."""
+    oda = shutil.which("ODAFileConverter")
+    if oda:
+        tin, tout = Path(tempfile.mkdtemp()), Path(tempfile.mkdtemp())
+        shutil.copy(p, tin / p.name)
+        esito = subprocess.run([oda, str(tin), str(tout), "ACAD2018", "DXF", "0", "1"],
+                               capture_output=True, timeout=600)
+        prodotto = tout / (p.stem + ".dxf")
+        if esito.returncode == 0 and prodotto.exists():
+            print(f"DWG convertito in DXF di lavoro con ODAFileConverter: {prodotto}")
+            return prodotto
+        print("ODAFileConverter presente ma conversione fallita, provo LibreDWG...")
+    exe = shutil.which("dwg2dxf")
+    if not exe:
+        sys.exit("Il file e' un DWG e non c'e' un convertitore (ODAFileConverter "
+                 "o dwg2dxf): convertirlo in DXF (in AutoCAD: SAVEAS -> DXF) "
+                 "e rilanciare, oppure installare ODA File Converter.")
+    tmp = Path(tempfile.mkdtemp()) / (p.stem + ".dxf")
+    subprocess.run([exe, "-y", "-o", str(tmp), str(p)], check=True,
+                   capture_output=True, timeout=600)
+    print(f"DWG convertito in DXF di lavoro: {tmp}")
+    return tmp
 
 
 def bbox_entita(e):
