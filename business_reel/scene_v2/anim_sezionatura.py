@@ -148,7 +148,7 @@ def frame(t, dur):
             fill=GRIGIO)
     if tt > fine_posa + 0.06:
         al = min(1.0, (tt - fine_posa - 0.06) / 0.12)
-        dr.rectangle([0, 972, W, 1056], fill=SFONDO)     # copre la riga di stato
+        dr.rectangle([0, 966, W, H], fill=SFONDO)        # copre la riga di stato
         fv = font(F_BOLD, 58)
         t2 = 'SEZIONATURA PRONTA — zero doppioni'
         twl = dr.textlength(t2, font=fv)
