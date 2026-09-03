@@ -1,56 +1,38 @@
 #!/usr/bin/env python3
-# ARMADIO camera master — MODELLO 3D in DXF/DWG (polyface mesh, facce quadre pulite per snap).
-# Parti come box -> 6 facce quadre; bastoni come barra. Layer per tipo. Coord trailer mm.
-import ezdxf
-from ezdxf.render import MeshBuilder
-doc=ezdxf.new("R2010"); msp=doc.modelspace()
-LAYCOL={"STRUTTURA":8,"MONTANTE":38,"RIPIANO":42,"CASSETTO":30,"ANTA":24,"MANIGLIA":1,"BASTONE":251,"ZOCCOLO":18}
-for n,c in LAYCOL.items(): doc.layers.add(n,color=c)
-
-PAV=1395.0
-X0,X1=1005.0,3807.0; YB,YF=49.0,657.0
-H=2200.0; T=18.0; PLINT=100.0
-Z0=PAV; ZT=PAV+H; Zb=Z0+PLINT+T; Zt=ZT-T
-MONT=[1407,1906,2406,2907,3405]
-DOORS=[(1048,350),(1436,450),(1945,450),(2429,450),(2942,450),(3426,350)]
-TIPI=['r','a','c','c','a','r']
-inner=[X0+T]+[m+T/2 for m in MONT]; right=[m-T/2 for m in MONT]+[X1-T]
-VANI=list(zip(inner,right))
-
-boxes=[]  # (layer, x0,x1,y0,y1,z0,z1)
+# ARMADIO master v2 -> DXF/DWG a FACCE (anteprima rapida; per i SOLIDI usare lo STEP).
+# Stessa geometria del builder solido: 6 bussolotti + fasce + ante + maniglie.
+import ezdxf, pathlib
+HERE=pathlib.Path(__file__).parent
+PAV=1395.0; T=18.0; H=2200.0; PLINT=100.0
+YB,YF=49.0,629.0; Z0=PAV; ZT=PAV+H
+MODS=[(1041,1389),(1425,1873),(1938,2386),(2426,2874),(2939,3387),(3423,3771)]
+DOORS=[(1044,1394),(1428,1878),(1941,2391),(2421,2871),(2934,3384),(3418,3768)]
+TIPI=['ripiani','appenderia','ripiani','ripiani','appenderia','ripiani']
+Xtot0,Xtot1=1041.0,3771.0
+boxes=[]
 def B(l,x0,x1,y0,y1,z0,z1): boxes.append((l,x0,x1,y0,y1,z0,z1))
-# CARCASSA
-B("STRUTTURA",X0,X0+T,YB,YF,Z0+PLINT,ZT); B("STRUTTURA",X1-T,X1,YB,YF,Z0+PLINT,ZT)
-B("STRUTTURA",X0,X1,YB,YF,Z0+PLINT,Z0+PLINT+T); B("STRUTTURA",X0,X1,YB,YF,ZT-T,ZT)
-B("STRUTTURA",X0,X1,YB,YB+T,Z0+PLINT,ZT)
-B("ZOCCOLO",X0,X1,YF-T,YF,Z0,Z0+PLINT); B("ZOCCOLO",X0,X1,YB,YB+T,Z0,Z0+PLINT)
-for xc in MONT: B("MONTANTE",xc-T/2,xc+T/2,YB+T,YF,Zb,Zt)
-# INTERNI
-for (xs,xd),tp in zip(VANI,TIPI):
-    if tp=='r':
-        for i in range(1,7):
-            z=Zb+i*(Zt-Zb)/7.0; B("RIPIANO",xs,xd,YB+T,YF-30,z,z+T)
-    elif tp=='a':
-        zs=Zt-360; B("RIPIANO",xs,xd,YB+T,YF-30,zs,zs+T)
-        cx=(xs+xd)/2; B("BASTONE",xs+10,xd-10,(YB+YF)/2-15,(YB+YF)/2+15,zs-60,zs-30)
+B("FASCIA",Xtot0,Xtot1,YB,YF,Z0,Z0+PLINT); B("FASCIA",Xtot0,Xtot1,YB,YF,ZT-T,ZT); B("FASCIA",Xtot0,Xtot1,YB,YB+T,Z0+PLINT,ZT-T)
+for (xo0,xo1),tp in zip(MODS,TIPI):
+    xi0,xi1=xo0+T,xo1-T; zc0,zc1=Z0+PLINT,ZT-T
+    B("FIANCO",xo0,xo0+T,YB+T,YF,zc0,zc1); B("FIANCO",xo1-T,xo1,YB+T,YF,zc0,zc1)
+    B("FIANCO",xo0,xo1,YB+T,YF,zc0,zc0+T); B("FIANCO",xo0,xo1,YB+T,YF,zc1-T,zc1)
+    if tp=='appenderia':
+        zs=zc1-360; B("RIPIANO",xi0,xi1,YB+T,YF-30,zs,zs+T)
+        B("BASTONE",xi0+10,xi1-10,(YB+YF)/2-15,(YB+YF)/2+15,zs-70,zs-40)
     else:
-        for k in range(3):
-            zc=Zb+k*230; B("CASSETTO",xs+8,xd-8,YB+T,YF-40,zc+8,zc+222)
-        zs=Zb+3*230+40; B("RIPIANO",xs,xd,YB+T,YF-30,zs,zs+T)
-        za=Zt-360; B("RIPIANO",xs,xd,YB+T,YF-30,za,za+T)
-        B("BASTONE",xs+10,xd-10,(YB+YF)/2-15,(YB+YF)/2+15,za-60,za-30)
-# ANTE + MANIGLIE
-for dx,dw in DOORS:
-    B("ANTA",dx+2,dx+dw-2,YF,YF+T,Z0+PLINT+2,ZT-2)
-    hx=dx+dw-45 if (dx+dw/2)<(X0+X1)/2 else dx+30
-    B("MANIGLIA",hx,hx+22,YF+T,YF+T+28,PAV+980,PAV+1300)
+        for k in range(1,6):
+            z=zc0+k*(zc1-zc0)/6.0; B("RIPIANO",xi0,xi1,YB+T,YF-30,z,z+T)
+for (dx0,dx1) in DOORS:
+    B("ANTA",dx0+2,dx1-2,YF+1,YF+1+T,Z0+PLINT+2,ZT-T-2)
+    cxm=(dx0+dx1)/2; hx=dx1-45 if cxm<(Xtot0+Xtot1)/2 else dx0+25
+    B("MANIGLIA",hx,hx+22,YF+1+T,YF+1+T+28,PAV+980,PAV+1300)
 
-def add_box(lay,x0,x1,y0,y1,z0,z1):
-    v=[(x0,y0,z0),(x1,y0,z0),(x1,y1,z0),(x0,y1,z0),(x0,y0,z1),(x1,y0,z1),(x1,y1,z1),(x0,y1,z1)]
-    f=[[0,1,2,3],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]]  # 6 facce quadre
-    mb=MeshBuilder(); mb.vertices=v; mb.faces=f
-    mb.render_polyface(msp,dxfattribs={"layer":lay})
-for b in boxes: add_box(*b)
-
-import pathlib; doc.saveas(str(pathlib.Path(__file__).parent/"armadio_master_3d.dxf"))
-print("DXF 3D salvato:",len(boxes),"parti (box)")
+doc=ezdxf.new("R2010"); msp=doc.modelspace()
+for n,c in {"FASCIA":18,"FIANCO":8,"RIPIANO":42,"BASTONE":251,"ANTA":24,"MANIGLIA":1}.items(): doc.layers.add(n,color=c)
+def faces(x0,x1,y0,y1,z0,z1):
+    c=[(x0,y0,z0),(x1,y0,z0),(x1,y1,z0),(x0,y1,z0),(x0,y0,z1),(x1,y0,z1),(x1,y1,z1),(x0,y1,z1)]
+    return [(c[0],c[1],c[2],c[3]),(c[4],c[5],c[6],c[7]),(c[0],c[1],c[5],c[4]),(c[1],c[2],c[6],c[5]),(c[2],c[3],c[7],c[6]),(c[3],c[0],c[4],c[7])]
+for l,x0,x1,y0,y1,z0,z1 in boxes:
+    for f in faces(x0,x1,y0,y1,z0,z1): msp.add_3dface(f,dxfattribs={"layer":l})
+doc.saveas(str(HERE/"armadio_master_3d.dxf"))
+print("DXF v2 a facce:",len(boxes),"box, audit err:",len(doc.audit().errors))

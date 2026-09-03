@@ -34,10 +34,11 @@ label input{accent-color:var(--accent)}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 const MESH=/*__GEO__*/, INFO=/*__INFO__*/;
-const LAB={carcassa:'Struttura',zoccolo:'Zoccolo',montante:'Montanti',ripiano:'Ripiani',cassetto:'Cassetti',anta:'Ante',maniglia:'Maniglie',bastone:'Bastoni appenderia'};
+function FAM(l){ if(l.indexOf('fascia')==0)return'fascia'; if(l.indexOf('bussolotto')==0)return'bussolotto'; if(l.indexOf('anta')==0)return'anta'; if(l.indexOf('maniglia')==0)return'maniglia'; return l; }
+const LAB={fascia:'Fasce di collegamento',bussolotto:'6 bussolotti + interni',anta:'Ante',maniglia:'Maniglie'};
 document.getElementById('ttl').textContent=INFO.pezzo;
-document.getElementById('dim').textContent=`${INFO.W} × ${INFO.D} × ${INFO.H} mm  ·  ${INFO.vani} vani`;
-document.getElementById('hint').textContent='Ipotesi da confermare: n° e passo ripiani, quali vani hanno i cassetti (ora vani 3–4), altezza appenderia, altezza maniglie. Dimmi e correggo.';
+document.getElementById('dim').textContent=`${INFO.W} × ${INFO.D} × ${INFO.H} mm  ·  ${INFO.vani} bussolotti`;
+document.getElementById('hint').textContent='6 scatole distinte legate da fasce (base + cappello + schiena). Interni: bussolotti 2 e 5 = appenderia, gli altri a ripiani (da confermare, e dimmi dove vanno i cassetti). SOLIDI veri nello STEP.';
 const scene=new THREE.Scene();
 const cvs=document.getElementById('c');
 const renderer=new THREE.WebGLRenderer({canvas:cvs,antialias:true});
@@ -58,16 +59,15 @@ MESH.forEach(m=>{
  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));g.computeVertexNormals();
  const mat=new THREE.MeshLambertMaterial({color:new THREE.Color(m.c),side:THREE.DoubleSide});
  const mesh=new THREE.Mesh(g,mat);
- (groups[m.l]=groups[m.l]||new THREE.Group()).add(mesh);
+ const k=FAM(m.l);
+ (groups[k]=groups[k]||new THREE.Group()).add(mesh);
 });
 Object.values(groups).forEach(g=>scene.add(g));
-// wireframe edges per leggibilità
-MESH.forEach(m=>{});
-// toggles
-const order=['carcassa','montante','ripiano','cassetto','bastone','anta','maniglia','zoccolo'];
+// toggles per famiglia
+const order=['fascia','bussolotto','anta','maniglia'];
 const tg=document.getElementById('toggles');
 order.filter(k=>groups[k]).forEach(k=>{
- const first=MESH.find(m=>m.l===k);
+ const first=MESH.find(m=>FAM(m.l)===k);
  const l=document.createElement('label');
  l.innerHTML=`<input type=checkbox checked><span class=sw style="background:${first.c}"></span>${LAB[k]||k}`;
  l.querySelector('input').onchange=e=>groups[k].visible=e.target.checked;

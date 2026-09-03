@@ -1,72 +1,53 @@
 #!/usr/bin/env python3
-# ARMADIO camera MASTER — costruttore DETTAGLIATO (proposta in revisione con Matteo).
-# Carcassa (sp.18) + montanti + ripiani + cassetti + ante + maniglie + bastoni appenderia.
-# Dati vani/ante dalla PIANTA DWG (6 vani, 6 ante). Coord trailer mm.
+# ARMADIO camera master — 6 BUSSOLOTTI distinti (ognuno una scatola SOLIDA) collegati da
+# fasce di collegamento (base + cappello + schiena continui). SOLIDI veri (B-rep), non facce.
+# Struttura e ante ricavate dai fianchi reali della pianta DWG. Coord trailer mm.
 # Output (in questa cartella): armadio_master_review.step  +  armadio_master_dettaglio.json
-# Quando la geometria e' confermata, si integra in ../ricostruisci.py.
+# Nota: per un DWG con SOLIDI, importare lo STEP in AutoCAD (IMPORTA) e salvare in DWG;
+#       gli strumenti liberi scrivono nel DWG solo facce, non solidi ACIS.
 import cadquery as cq, json, pathlib
 from cadquery import exporters
 from collections import Counter
 HERE=pathlib.Path(__file__).parent
-PAV=1395.0
-# --- dati dalla pianta (ARMADIO_camera master_sol.C_pianta) ---
-X0,X1=1005.0,3807.0            # larghezza 2802
-YB,YF=49.0,657.0              # YB=schienale (parete esterna), YF=fronte ante (verso stanza/letto)
-H=2200.0; T=18.0; PLINT=100.0
-Z0=PAV; ZT=PAV+H; Zb=Z0+PLINT+T; Zt=ZT-T
-MONT=[1407,1906,2406,2907,3405]                       # centri montanti interni (dalla pianta)
-DOORS=[(1048,350),(1436,450),(1945,450),(2429,450),(2942,450),(3426,350)]  # (x_sx, larghezza)
-inner=[X0+T]+[m+T/2 for m in MONT]
-right=[m-T/2 for m in MONT]+[X1-T]
-VANI=list(zip(inner,right))
-TIPI=['r','a','c','c','a','r']    # r=ripiani  a=appenderia  c=cassetti+appenderia  (DA CONFERMARE)
+PAV=1395.0; T=18.0; H=2200.0; PLINT=100.0
+YB,YF=49.0,629.0
+Z0=PAV; ZT=PAV+H
+MODS=[(1041,1389),(1425,1873),(1938,2386),(2426,2874),(2939,3387),(3423,3771)]   # fianchi reali
+DOORS=[(1044,1394),(1428,1878),(1941,2391),(2421,2871),(2934,3384),(3418,3768)]
+TIPI=['ripiani','appenderia','ripiani','ripiani','appenderia','ripiani']          # M2,M5 appenderia (bastone in pianta)
+Xtot0,Xtot1=1041.0,3771.0
 
-parts=[]
 def box(x0,x1,y0,y1,z0,z1): return cq.Workplane('XY').box(x1-x0,y1-y0,z1-z0,centered=False).translate((x0,y0,z0))
-def add(lab,x0,x1,y0,y1,z0,z1): parts.append((lab,box(x0,x1,y0,y1,z0,z1)))
-
-# CARCASSA
-add('carcassa', X0,X0+T, YB,YF, Z0+PLINT, ZT)
-add('carcassa', X1-T,X1, YB,YF, Z0+PLINT, ZT)
-add('carcassa', X0,X1, YB,YF, Z0+PLINT, Z0+PLINT+T)
-add('carcassa', X0,X1, YB,YF, ZT-T, ZT)
-add('carcassa', X0,X1, YB,YB+T, Z0+PLINT, ZT)
-add('zoccolo',  X0,X1, YF-T,YF, Z0, Z0+PLINT)
-add('zoccolo',  X0,X1, YB,YB+T, Z0, Z0+PLINT)
-for xc in MONT: add('montante', xc-T/2,xc+T/2, YB+T,YF, Zb, Zt)
-
-# INTERNI
-for (xs,xd),tp in zip(VANI,TIPI):
-    if tp=='r':
-        for i in range(1,7):
-            z=Zb+i*(Zt-Zb)/7.0; add('ripiano', xs,xd, YB+T,YF-30, z,z+T)
-    elif tp=='a':
-        zs=Zt-360; add('ripiano', xs,xd, YB+T,YF-30, zs,zs+T)
-        parts.append(('bastone',cq.Workplane('XY').cylinder(xd-xs-20,15,direct=(1,0,0),centered=True).translate(((xs+xd)/2,(YB+YF)/2,zs-45))))
+solids=[]
+# FASCE DI COLLEGAMENTO continue
+solids.append(('fascia_base', box(Xtot0,Xtot1,YB,YF,Z0,Z0+PLINT)))
+solids.append(('fascia_cappello', box(Xtot0,Xtot1,YB,YF,ZT-T,ZT)))
+solids.append(('fascia_schiena', box(Xtot0,Xtot1,YB,YB+T,Z0+PLINT,ZT-T)))
+# 6 BUSSOLOTTI (scatole solide) + interni
+for i,((xo0,xo1),tp) in enumerate(zip(MODS,TIPI),1):
+    xi0,xi1=xo0+T,xo1-T; zc0,zc1=Z0+PLINT,ZT-T
+    car=box(xo0,xo0+T,YB+T,YF,zc0,zc1).union(box(xo1-T,xo1,YB+T,YF,zc0,zc1))
+    car=car.union(box(xo0,xo1,YB+T,YF,zc0,zc0+T)).union(box(xo0,xo1,YB+T,YF,zc1-T,zc1))
+    if tp=='appenderia':
+        zs=zc1-360; car=car.union(box(xi0,xi1,YB+T,YF-30,zs,zs+T))
+        car=car.union(cq.Workplane('XY').cylinder(xi1-xi0-20,15,direct=(1,0,0),centered=True).translate(((xi0+xi1)/2,(YB+YF)/2,zs-55)))
     else:
-        for k in range(3):
-            zc=Zb+k*230; add('cassetto', xs+8,xd-8, YB+T,YF-40, zc+8,zc+222)
-        zs=Zb+3*230+40; add('ripiano', xs,xd, YB+T,YF-30, zs,zs+T)
-        za=Zt-360; add('ripiano', xs,xd, YB+T,YF-30, za,za+T)
-        parts.append(('bastone',cq.Workplane('XY').cylinder(xd-xs-20,15,direct=(1,0,0),centered=True).translate(((xs+xd)/2,(YB+YF)/2,za-45))))
-
+        for k in range(1,6):
+            z=zc0+k*(zc1-zc0)/6.0; car=car.union(box(xi0,xi1,YB+T,YF-30,z,z+T))
+    solids.append((f'bussolotto{i}_{tp}', car))
 # ANTE + MANIGLIE
-for dx,dw in DOORS:
-    add('anta', dx+2,dx+dw-2, YF, YF+T, Z0+PLINT+2, ZT-2)
-    hx = dx+dw-45 if (dx+dw/2)<(X0+X1)/2 else dx+30
-    parts.append(('maniglia',box(hx,hx+22, YF+T,YF+T+28, PAV+980, PAV+1300)))
+for i,(dx0,dx1) in enumerate(DOORS,1):
+    solids.append((f'anta{i}', box(dx0+2,dx1-2,YF+1,YF+1+T,Z0+PLINT+2,ZT-T-2)))
+    cxm=(dx0+dx1)/2; hx=dx1-45 if cxm<(Xtot0+Xtot1)/2 else dx0+25
+    solids.append((f'maniglia{i}', box(hx,hx+22,YF+1+T,YF+1+T+28,PAV+980,PAV+1300)))
 
-# STEP (52 corpi separati: comodo da editare in CAD)
-comp=cq.Compound.makeCompound([p[1].val() for p in parts])
+comp=cq.Compound.makeCompound([s.val() for _,s in solids])
 exporters.export(comp, str(HERE/'armadio_master_review.step'))
-
-# mesh etichettata per il viewer di controllo
-COL={'carcassa':'#a8825a','zoccolo':'#6f5334','montante':'#b8946a','ripiano':'#c9a878',
-     'cassetto':'#8a6a42','anta':'#7a5a36','maniglia':'#d8d8dc','bastone':'#9aa0a6'}
+def col(l): return '#6f5334' if l.startswith('fascia') else '#7a5a36' if l.startswith('anta') else '#d8d8dc' if l.startswith('maniglia') else '#a8825a'
 mesh=[]
-for lab,s in parts:
+for lab,s in solids:
     v,t=s.val().tessellate(0.3)
-    mesh.append({'l':lab,'c':COL[lab],'v':[[round(a.x,1),round(a.y,1),round(a.z,1)] for a in v],'f':[[int(i) for i in f] for f in t]})
-json.dump({'pezzo':'ARMADIO camera master','W':X1-X0,'D':YF-YB,'H':H,'vani':len(VANI),'tipi':TIPI,'mesh':mesh},
+    mesh.append({'l':lab,'c':col(lab),'v':[[round(a.x,1),round(a.y,1),round(a.z,1)] for a in v],'f':[[int(i) for i in f] for f in t]})
+json.dump({'pezzo':'ARMADIO camera master (6 bussolotti)','W':Xtot1-Xtot0,'D':YF-YB+20,'H':H,'vani':6,'tipi':TIPI,'mesh':mesh},
           open(HERE/'armadio_master_dettaglio.json','w'),separators=(',',':'))
-print('STEP:',comp.Volume()/1e9,'m3  parti:',len(parts),dict(Counter(l for l,_ in parts)))
+print('STEP solidi:',comp.Volume()/1e9,'m3  n solidi:',len(solids))
