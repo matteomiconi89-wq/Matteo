@@ -479,42 +479,43 @@ def scena_cta():
 # ----------------------------------------------------------------------------
 SCENE = [
     ("static", scena_titolo, "minimal",
-     "Filiera un Clic, versione due. Dal disegno 3D del progettista alla "
-     "commessa completa. Da sola."),
+     "Filiera un Clic, versione due. Dal 3D del progettista alla commessa "
+     "completa: da sola."),
     ("static", scena_problema, "build",
-     "Prima: importare il 3D, esplodere i pezzi, esportare i DXF, togliere i "
-     "doppioni, distinta, sezionatura, programmare due macchine diverse. E "
-     "poi le tavole per il cliente, e il preventivo. Giorni di lavoro."),
+     "Una commessa a mano? Import, esplosioni, DXF, doppioni, distinta, due "
+     "macchine da programmare, tavole, preventivo. Giorni interi. Spariti."),
     ("anim", "anim_tre_d", "build",
-     "Adesso tutto parte dal 3D del progettista. Quello che hai già."),
-    ("anim", "anim_avvia", "minimal", "Io premo un bottone."),
+     "Si parte dal 3D che hai già. Quello del tuo progettista."),
+    ("anim", "anim_avvia", "minimal", "Poi premi un bottone. Uno."),
     ("anim", "anim_run", "drop",
-     "E la filiera parte da sola: i DXF di ogni pezzo, i programmi unici "
-     "senza doppioni, la distinta e la sezionatura."),
+     "E la filiera corre da sola: i DXF di ogni pezzo, i programmi unici "
+     "senza doppioni, la distinta e la sezionatura. Fatti."),
     ("static", scena_macchine, "groove",
-     "I programmi macchina sono già fatti: TLF per la Masterwood, MPRX per "
-     "la Homag. Fori, tasche, e le lamate che staccano i frontali."),
+     "Fori, tasche, lamate: i programmi per la Masterwood e per la Homag "
+     "escono già pronti. Tu li carichi, e tagli."),
+    ("anim", "anim_sezionatura", "groove",
+     "La sezionatura si disegna da sola: ogni pezzo al suo posto sul "
+     "pannello, prima ancora di toccare la sega."),
     ("static", scena_scheda_ordini, "groove",
-     "La scheda base si compila con le formule di casa, e per ogni fornitore "
-     "esce il suo ordine in PDF, già pronto nella cartella ordini."),
+     "La scheda base si compila con le formule di casa. E ogni fornitore "
+     "riceve il suo ordine in PDF, già pronto in cartella."),
     ("anim", "anim_tavola", "half",
-     "E per il cliente? Dalla stessa filiera esce la tavola quotata: pianta, "
-     "prospetto e sezioni, coi vani utili e i materiali a colori. PDF da "
-     "stampare, e DWG in scala reale con quote vere."),
+     "E per il tuo cliente? La tavola quotata: pianta, prospetto, sezioni, "
+     "materiali a colori. Da stampare, o in DWG con quote vere."),
     ("anim", "anim_costi", "groove",
-     "E sai quanto ti costa ogni mobile: pannelli, bordi, ferramenta, "
-     "laccatura, illuminazione e manodopera. Prima di accendere la sega."),
+     "E prima di partire sai già quanto ti costa il mobile: pannelli, bordi, "
+     "ferramenta, laccatura, manodopera. Tutto, subito."),
     ("static", scena_collaudo, "groove",
-     "Tutto collaudato pezzo per pezzo contro i programmi veri delle mie "
-     "macchine: identici al cento per cento."),
+     "Collaudata pezzo per pezzo sui programmi veri delle macchine: identica "
+     "al cento per cento."),
     ("static", scena_cta, "outro",
-     "Tu selezioni i file, premi avvia, e torni a fare il falegname. "
-     "Filiera un Clic, dal Falegname Digitale."),
+     "Seleziona i file. Premi Avvia. E torna a fare il falegname. Filiera un "
+     "Clic, dal Falegname Digitale. Scrivimi, e provala nella tua officina."),
 ]
 
 FALLBACK = {"anim_tre_d": scena_tre_d_fallback, "anim_avvia": scena_bottone,
             "anim_run": scena_pipeline, "anim_tavola": None,  # gestita a parte
-            "anim_costi": scena_costi}
+            "anim_costi": scena_costi, "anim_sezionatura": scena_pipeline}
 
 # girato reale da inserire DOPO la scena indicata (1-based), se esiste
 GIRATO = [
@@ -551,7 +552,7 @@ async def _genera_voci_async():
     for i, (_, _, _, testo) in enumerate(SCENE, 1):
         if os.path.exists(_voce_path(i)):
             continue
-        await edge_tts.Communicate(testo, VOCE, rate="+6%").save(_voce_path(i))
+        await edge_tts.Communicate(testo, VOCE, rate="+10%").save(_voce_path(i))
         print("voce", i, "ok")
 
 
@@ -587,7 +588,7 @@ def durata_media(path):
 # MUSICA procedurale (stesso motore di genera_musica.py, durata adattiva)
 # ----------------------------------------------------------------------------
 SR = 44100
-BEAT = 0.5                                  # 120 BPM
+BEAT = 60.0 / 138.0                         # 138 BPM: ritmo da spot
 ACC = [55.00, 43.65, 65.41, 49.00]
 
 
@@ -671,11 +672,12 @@ def componi_musica(segmenti, wav_path, click_times=()):
                 if b % 2 == 1:
                     metti(clap(), t, 0.30, pan=0.2)
                 for k in range(2):
-                    metti(basso(ACC[bar % 4], 0.22), t + k * 0.25, 0.42)
+                    metti(basso(ACC[bar % 4], 0.20), t + k * BEAT / 2, 0.42)
                 f0 = ACC[bar % 4] * 4
-                metti(pluck([f0, f0 * 1.5, f0 * 2][b % 3]), t + 0.25,
+                metti(pluck([f0, f0 * 1.5, f0 * 2][b % 3]), t + BEAT / 2,
                       0.18, pan=0.4)
-            metti(hat(), t + 0.25, 0.10 if mezzo else 0.16, pan=-0.3)
+                metti(hat(), t + 0.75 * BEAT, 0.08, pan=0.25)   # sedicesimi
+            metti(hat(), t + BEAT / 2, 0.10 if mezzo else 0.16, pan=-0.3)
 
     for t0, dur, stile in segmenti:
         nb = int(dur / BEAT)
@@ -684,7 +686,7 @@ def componi_musica(segmenti, wav_path, click_times=()):
                 t = t0 + b * BEAT
                 if b % 2 == 0:
                     metti(kick(), t, 0.45)
-                metti(hat(), t + 0.25, 0.10, pan=-0.3)
+                metti(hat(), t + BEAT / 2, 0.10, pan=-0.3)
             metti(basso(ACC[bar_of(t0) % 4], 1.6, dec=1.5), t0, 0.30)
             metti(riser(1.0), t0 + dur - 1.1, 0.18)
         elif stile == "build":
@@ -692,7 +694,7 @@ def componi_musica(segmenti, wav_path, click_times=()):
                 t = t0 + b * BEAT
                 if b % 2 == 0:
                     metti(kick(), t, 0.55)
-                metti(hat(), t + 0.25, 0.13, pan=-0.3)
+                metti(hat(), t + BEAT / 2, 0.13, pan=-0.3)
                 if b % 4 == 2:
                     metti(clap(), t, 0.22, pan=0.2)
                 if b % 4 == 0:
