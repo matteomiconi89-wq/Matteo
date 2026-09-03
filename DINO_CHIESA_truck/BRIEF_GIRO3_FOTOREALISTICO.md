@@ -89,7 +89,7 @@ Deliver: final 2400x1350 PNG + updated .blend + the pixel self-check report.
   non grana fine da laminato CERA; pavimento troppo chiazzato.
 - **Verdetto: NON promosso** → giro 5 con 3 correzioni, al VAI (~150–200 cr).
 
-### Correzioni per il giro 5
+### Correzioni per il giro 5 — ESEGUITE
 1. SOFFITTI di nuovo BIANCO OPACO (corridoio, campate, fasce dei gradini) —
    l'antracite resta SOLO allo zoccolo; lucernari invariati.
 2. Texture ridotta del ~70%: grana FINE da laminato sui frontali CERA, pareti
@@ -97,6 +97,24 @@ Deliver: final 2400x1350 PNG + updated .blend + the pixel self-check report.
 3. Pavimento: chiaro e uniforme come nei render approvati (meno chiazze).
 ANTI-REGRESSIONE: tenere zoccolo scuro incassato + LED, vetrate con luce,
 nitidezza piena, gola, geometria/camera congelate, campata sinistra vuota.
+
+## Esito GIRO 5 (collaudo Claude 03/09/2026) — **PROMOSSO** ✔
+
+- 118 crediti (totale task 654 in 5 giri). Consegnati PNG 2400×1350 + `.blend`
+  aggiornato + report.
+- **Le 3 correzioni sono entrate**: ① soffitti di nuovo BIANCHI ovunque (mia
+  misura: campata 46→164, corridoio ~201; antracite rimasta SOLO allo zoccolo);
+  ② texture −40% misurata (grana parete 3,0→1,79), via il puntinato — e la
+  nitidezza NON è regredita: spigoli netti, il calo del laplaciano (4,9→2,78)
+  è la texture tolta, non sfocatura; ③ pavimento chiaro e uniforme (193→223),
+  resta solo la pozza di luce sotto il lucernario grande — fisica, legittima.
+- **Anti-regressione tenuta**: zoccolo scuro incassato RGB ~79/80/74 con velo
+  LED (896 px caldi, contro i 24.722 della fascia arancione del giro 3);
+  vetrate luminose con telaio scuro; LED caldo sotto i pensili; gola; forno a
+  vetro scuro; campata sinistra vuota; 4 lucernari; prospettiva congelata.
+- **Palcoscenico master fotorealistico PRONTO**: la scena `.blend` salvata nel
+  task è la base su cui piazzare gli altri ambienti (un giro per ambiente,
+  stesso task_id, geometria scocca congelata).
 
 ### Correzioni per il giro 4 (max 4, regola dei giri) — ESEGUITE
 1. Zoccolo: antracite scuro, incassato, ombra netta; LED solo come velo caldo
