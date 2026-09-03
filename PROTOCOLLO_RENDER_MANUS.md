@@ -101,6 +101,13 @@ La spec vive nella cartella Dropbox del mobile e si aggiorna a ogni giro e a ogn
 
 ## 6. Fase D — COLLAUDO (prima di qualsiasi consegna)
 
+**0. COLLAUDO SCENA (lezione gabbie/bancone, 03/09/2026): prima delle strutture si collauda
+la FOTO BASE.** Nei fotoinserimenti la foto deve mostrare il locale nello stato definitivo
+(arredi e volumi in posizione finale, non parcheggiati); si confronta con lo schema di posa
+della tavola prima di disegnare, e se lo stato definitivo non è fotografato si chiede a
+Matteo invece di renderizzare. Vale per i render fatti da Claude e per quelli consegnati
+da Manus: un render geometricamente perfetto sulla scena sbagliata è totalmente sbagliato.
+
 Checklist obbligatoria su OGNI render candidato:
 
 1. **Misure col righello sui pixel**: H/L globale e rapporti-ancora della spec, confrontati col CAD.

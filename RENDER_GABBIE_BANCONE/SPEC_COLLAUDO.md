@@ -71,7 +71,22 @@ angolata `rif_scena_angolata.jpg` — Manus non necessario, 0 crediti.
 | v2 | ✗ | 0 | piastrellatura muro sbagliata (tile grigi); gabbia meno sventagliata |
 | v3 | ✗ | 0 | muro stirato per colonne ok; residui fondi scatole SOTTO il filo del piano |
 | v4 | ✗ | 0 | bocciato da Matteo: bracci della C specchiati rispetto alla convenzione |
-| v5 | ✓ | 0 | **PROMOSSO**: bracci corretti — dalla camera il braccio 180 (3 verticali) sta a SINISTRA, il 110 (1 verticale) a DESTRA. Convenzione fissata: SX/DX della C si leggono GUARDANDO DALL'APERTURA (da dietro il bancone), come confermato da Matteo |
+| v5 | ✗ | 0 | bracci corretti (convenzione fissata: SX/DX della C si leggono GUARDANDO DALL'APERTURA), ma **BOCCIATO DA MATTEO: foto base sbagliata** — nella foto angolata il cubo era solo parcheggiato in mezzo alla sala, non in posizione definitiva accanto al bancone. Render su scena di cantiere = render inutile |
+
+## LEZIONE 03/09/2026 — COLLAUDO SCENA (nuova voce obbligatoria)
+
+Prima di qualsiasi fotoinserimento (fatto da Claude o consegnato da Manus), il collaudo parte
+dalla **foto base**, non dalle strutture inserite:
+
+1. **La foto mostra il locale nello stato DEFINITIVO?** Arredi/volumi nella posizione finale,
+   non parcheggiati in giro. Se c'è più di una foto, usare quella con la posa definitiva
+   (qui: la FRONTALE con i 2 cubi ai lati del bancone) e mai una foto di cantiere.
+2. Confrontare la foto base con lo schema di posa della tavola PRIMA di disegnare.
+3. Se lo stato definitivo non è documentato da nessuna foto, fermarsi e chiederlo a Matteo:
+   costa zero, un render su scena sbagliata costa un giro intero.
+
+Prossimo giro: SOLO sulla foto frontale (cubi in posizione, bancone al centro) —
+in attesa del file (Dropbox TUNNEL o chat).
 
 ## Collaudo v4 (esito)
 
