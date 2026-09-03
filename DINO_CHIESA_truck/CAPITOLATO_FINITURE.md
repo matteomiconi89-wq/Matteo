@@ -146,14 +146,33 @@ congelata.
   giro futuro può ripartire da lì — nessun vincolo al giro 7.
 
 ### Strade possibili per il pavimento (al VAI di Matteo)
-A. **Giro 8 con CAMPIONE ALLEGATO**: preparo io un'immagine-campione
-   (pattern a spina esatto + colore preso dal giro 6) e la allego al task
-   con l'ordine "copia questo". È l'arma non ancora usata. Costo Manus
-   stimato 150–700 crediti (i giri sul pavimento sono costati 160 e 666:
-   onestà sui numeri).
-B. **Tenere il giro 6 come palcoscenico**: colore giusto, posa "stampata"
-   ma credibile nelle viste d'insieme; si va avanti a piazzare gli
-   ambienti e la spina vera si ritenta più avanti (o si decide sul
-   campione THRONE/BARON del fornitore quando arriva).
-C. Ripiego tecnico: doghe dritte lungo il corridoio (facili per Manus) —
-   fuori capitolato, solo se la spina continua a fallire.
+A. **Giro 8 con CAMPIONE ALLEGATO** ← SCELTA DA MATTEO, eseguita.
+B. Tenere il giro 6 come palcoscenico — non servita.
+C. Ripiego doghe dritte — non servito.
+
+## Esito GIRO 8 (collaudo Claude 03/09/2026) — **PROMOSSO** ✔
+
+- **272 crediti** (~9 min; totale task **1752 in 8 giri**).
+- **Metodo del campione**: ho generato io l'immagine-campione (spina di
+  pesce 90° in pianta, doghe 5:1, colore doga 205/175/148 con variazione
+  naturale, freccia = asse corridoio), committata nel repo
+  (`campione_spina_macadamia.png`) e allegata al task via URL pubblico
+  con l'ordine "copia questo esattamente, riparti dalla scena del giro 6".
+- **Collaudo mio, tutto favorevole**: SPINA DI PESCE VERA a ±45° con
+  chevron leggibili e fughe (a occhio sul ritaglio 1:1 ✓); colore del
+  corridoio (204/174/147) praticamente IDENTICO al campione (205/175/148);
+  uniforme lungo la corsa (204→192→214, niente slavato né scuro); ~4-5
+  colonne di chevron per 1,4 m = passo reale giusto; **0 pixel cambiati
+  fuori dal pavimento** rispetto al giro 6 (misurato: soffitti, cucina,
+  vetrata, campate a diff 0,0) → piano cottura su base 3, finestra
+  apribile, champagne, zoccolo, gola tutti intatti; nitidezza salita
+  (1,62→3,05 col pattern). Report Manus concorde su tutto.
+- **Lezione registrata nella ricetta**: quando un pattern/materiale non
+  entra a parole, generare un campione-immagine e allegarlo come
+  riferimento da copiare — 1 giro riuscito da 272 cr contro 2 falliti
+  da 826 cr.
+
+**IL PALCOSCENICO È COMPLETO E AL CAPITOLATO**: cucina fotorealistica con
+piano cottura sulla penultima base, corridoio in spina Macadamia, campate
+Champagne, finestra apribile 1200, soffitti bianchi, zoccolo scuro LED.
+Pronto per piazzare gli altri 7 ambienti, un giro l'uno.

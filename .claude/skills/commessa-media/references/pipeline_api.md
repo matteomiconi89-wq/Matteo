@@ -87,6 +87,18 @@ Sono i dettagli che costano ore se riscoperti da zero.
   scena, non misure sull'immagine → rifare le misure sui PNG (proiezione:
   `px = 1200 + f·Y/d`, `py = 675 + f·(1,6−h)/d`, con f = 1651,658 px per
   FOV 72° su 2400 px; d = X − X_camera).
+- **Metodo del CAMPIONE (per pattern/materiali che "non entrano" a parole)**:
+  se dopo 1-2 giri un pattern esce sbagliato (es. spina di pesce diventata
+  micro-texture o intreccio a canestro), NON insistere a parole: generare con
+  PIL un'immagine-campione in pianta (pattern esatto in scala, colore doga
+  target con variazione naturale, freccia = asse), committarla nel repo,
+  allegarla al task via URL `raw.githubusercontent.com` (corto e stabile —
+  gli URL firmati lunghi fanno fallire la CREATE) con l'ordine "copy the
+  attached reference exactly" + "riparti dalla scena del giro buono".
+  Verificato su DINO CHIESA: 1 giro riuscito da 272 cr contro 2 giri a
+  parole falliti da 160+666 cr. Nel check chiedere: confronto side-by-side
+  col campione, angolo doghe, RGB a 1/4-1/2-3/4 della corsa dentro una
+  famiglia dichiarata.
 - Per PORTARE un'immagine dal sandbox alla sessione (per guardarla): ridurla
   (800 px, JPEG q62) → `gzip -9` → `base64` → ricopiare il testo (l'entropia
   alta della compressione rende fedele la copia) → verificare md5 di .gz e .jpg.
