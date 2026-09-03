@@ -1,15 +1,20 @@
 # -*- coding: utf-8 -*-
 """VIDEO V2 — FILIERA UN CLIC completa (viste cliente + costi + ordini).
 
-Landscape 1920x1080, 30 fps. Card Pillow sovracampionate + zoompan ffmpeg,
-musica procedurale sincronizzata alle scene (stesso motore di genera_musica.py)
-e voce edge-tts (it-IT-Diego) QUANDO la rete lo permette; senza rete il video
-esce comunque, guidato dai testi a schermo (stile reel muto).
+Landscape 1920x1080, 30 fps. Undici scene: sei card Pillow con zoom morbido e
+CINQUE SCENE ANIMATE frame-per-frame (moduli in scene_v2/: 3D che si monta,
+click su AVVIA, filiera che gira in console, Ken Burns sulla tavola vera,
+costi che contano). Musica procedurale sincronizzata (stesso motore di
+genera_musica.py) e voce it-IT-Diego.
+
+La voce si cerca in quest'ordine: 1) mp3 gia' pronti in voci_v2/ (generati da
+un'altra sessione o dal PC), 2) edge-tts al volo se la rete lo permette,
+3) niente voce: il video esce comunque guidato dai testi a schermo.
 
 La scena VISTE usa la TAVOLA VERA: importa Viste/viste_cliente.py e genera la
-tavola A3 del MOBILE TV demo (stesse misure del collaudo 25-A018) col codice di
-produzione. Se sul PC esiste il girato reale (Desktop/FILIERA_UN_CLIC), gli
-spezzoni configurati in GIRATO vengono inseriti da soli tra le scene.
+tavola A3 del MOBILE TV demo (stesse misure del collaudo 25-A018) col codice
+di produzione. Se sul PC esiste il girato reale (Desktop/FILIERA_UN_CLIC),
+gli spezzoni configurati in GIRATO vengono inseriti da soli tra le scene.
 
 Uso:  py fai_video_v2_filiera.py             -> video completo
       py fai_video_v2_filiera.py anteprima   -> solo le card PNG delle scene
@@ -20,6 +25,7 @@ import re
 import sys
 import wave
 import asyncio
+import importlib.util
 import subprocess
 
 import numpy as np
@@ -43,15 +49,14 @@ W, H = 1920, 1080
 CW, CH = 2880, 1620          # card sovracampionata 1.5x per lo zoom morbido
 FPS = 30
 VOCE = "it-IT-DiegoNeural"
+VOCI_DIR = os.path.join(QUI, "voci_v2")      # mp3 pronti (da git o dal PC)
 
 SFONDO = (18, 16, 14)
-PANNA = (32, 28, 24)
 ARANCIO = (255, 140, 66)
 BIANCO = (245, 242, 238)
 GRIGIO = (150, 145, 140)
 VERDE = (110, 200, 120)
 ROSSO = (220, 80, 70)
-BLU = (120, 170, 220)
 
 
 # ----------------------------------------------------------------------------
@@ -199,9 +204,9 @@ def genera_tavola_reale():
 
 
 # ----------------------------------------------------------------------------
-# SCENE (card 2880x1620)
+# SCENE STATICHE (card 2880x1620)
 # ----------------------------------------------------------------------------
-def scena_titolo(tavola=None):
+def scena_titolo():
     img, dr = card_base()
     testo_centrato(dr, [
         ("FILIERA", font(F_BLACK, 300), ARANCIO, -30),
@@ -215,7 +220,7 @@ def scena_titolo(tavola=None):
     return img
 
 
-def scena_problema(tavola=None):
+def scena_problema():
     img, dr = card_base()
     testo_centrato(dr, [("UNA COMMESSA INTERA, A MANO:",
                          font(F_BLACK, 100), BIANCO, 0)], 230)
@@ -237,7 +242,17 @@ def scena_problema(tavola=None):
     return img
 
 
-def scena_bottone(tavola=None):
+def scena_tre_d_fallback():
+    img, dr = card_base()
+    testo_centrato(dr, [
+        ("TUTTO PARTE", font(F_BLACK, 170), BIANCO, 10),
+        ("DAL 3D DEL PROGETTISTA", font(F_BLACK, 150), ARANCIO, 90),
+        ("quello che hai già", font(F_BOLD, 84), GRIGIO, 0),
+    ], 480)
+    return img
+
+
+def scena_bottone():
     img, dr = card_base()
     testo_centrato(dr, [
         ("Adesso io premo", font(F_BOLD, 110), GRIGIO, 20),
@@ -254,7 +269,7 @@ def scena_bottone(tavola=None):
     return img
 
 
-def scena_pipeline(tavola=None):
+def scena_pipeline():
     img, dr = card_base()
     testo_centrato(dr, [("LA FILIERA PARTE DA SOLA",
                          font(F_BLACK, 100), BIANCO, 0)], 230)
@@ -284,7 +299,7 @@ def scena_pipeline(tavola=None):
     return img
 
 
-def scena_macchine(tavola=None):
+def scena_macchine():
     img, dr = card_base()
     testo_centrato(dr, [("PROGRAMMI MACCHINA GIÀ FATTI",
                          font(F_BLACK, 100), ARANCIO, 0)], 230)
@@ -311,7 +326,7 @@ def scena_macchine(tavola=None):
     return img
 
 
-def scena_scheda_ordini(tavola=None):
+def scena_scheda_ordini():
     img, dr = card_base()
     testo_centrato(dr, [("SCHEDA BASE  +  ORDINI FORNITORI",
                          font(F_BLACK, 100), BIANCO, 0)], 230)
@@ -406,7 +421,7 @@ def scena_viste(tavola=None):
     return img
 
 
-def scena_costi(tavola=None):
+def scena_costi():
     img, dr = card_base()
     testo_centrato(dr, [("RIEPILOGO COSTI — COMMESSA 25-A019",
                          font(F_BLACK, 96), BIANCO, 0)], 220)
@@ -434,7 +449,7 @@ def scena_costi(tavola=None):
     return img
 
 
-def scena_collaudo(tavola=None):
+def scena_collaudo():
     img, dr = card_base()
     testo_centrato(dr, [
         ("COLLAUDATA", font(F_BLACK, 190), BIANCO, 20),
@@ -444,7 +459,7 @@ def scena_collaudo(tavola=None):
     return img
 
 
-def scena_cta(tavola=None):
+def scena_cta():
     img, dr = card_base()
     testo_centrato(dr, [
         ("Selezioni i file.  Premi AVVIA.", font(F_BOLD, 96), BIANCO, 10),
@@ -457,64 +472,103 @@ def scena_cta(tavola=None):
     return img
 
 
-# (fabbrica, stile musica, testo voce)
+# ----------------------------------------------------------------------------
+# STORYBOARD: (tipo, riferimento, stile musica, testo voce)
+#   tipo "static" -> riferimento = funzione card
+#   tipo "anim"   -> riferimento = nome modulo in scene_v2/ (con fallback card)
+# ----------------------------------------------------------------------------
 SCENE = [
-    (scena_titolo, "minimal",
+    ("static", scena_titolo, "minimal",
      "Filiera un Clic, versione due. Dal disegno 3D del progettista alla "
      "commessa completa. Da sola."),
-    (scena_problema, "build",
+    ("static", scena_problema, "build",
      "Prima: importare il 3D, esplodere i pezzi, esportare i DXF, togliere i "
      "doppioni, distinta, sezionatura, programmare due macchine diverse. E "
      "poi le tavole per il cliente, e il preventivo. Giorni di lavoro."),
-    (scena_bottone, "groove", "Adesso premo un bottone."),
-    (scena_pipeline, "groove",
-     "Dai file del progettista escono da soli i DXF di ogni pezzo, i "
-     "programmi unici senza doppioni, la distinta e la sezionatura."),
-    (scena_macchine, "groove",
+    ("anim", "anim_tre_d", "build",
+     "Adesso tutto parte dal 3D del progettista. Quello che hai già."),
+    ("anim", "anim_avvia", "minimal", "Io premo un bottone."),
+    ("anim", "anim_run", "drop",
+     "E la filiera parte da sola: i DXF di ogni pezzo, i programmi unici "
+     "senza doppioni, la distinta e la sezionatura."),
+    ("static", scena_macchine, "groove",
      "I programmi macchina sono già fatti: TLF per la Masterwood, MPRX per "
      "la Homag. Fori, tasche, e le lamate che staccano i frontali."),
-    (scena_scheda_ordini, "groove",
+    ("static", scena_scheda_ordini, "groove",
      "La scheda base si compila con le formule di casa, e per ogni fornitore "
      "esce il suo ordine in PDF, già pronto nella cartella ordini."),
-    (scena_viste, "half",
+    ("anim", "anim_tavola", "half",
      "E per il cliente? Dalla stessa filiera esce la tavola quotata: pianta, "
      "prospetto e sezioni, coi vani utili e i materiali a colori. PDF da "
      "stampare, e DWG in scala reale con quote vere."),
-    (scena_costi, "groove",
+    ("anim", "anim_costi", "groove",
      "E sai quanto ti costa ogni mobile: pannelli, bordi, ferramenta, "
      "laccatura, illuminazione e manodopera. Prima di accendere la sega."),
-    (scena_collaudo, "groove",
+    ("static", scena_collaudo, "groove",
      "Tutto collaudato pezzo per pezzo contro i programmi veri delle mie "
      "macchine: identici al cento per cento."),
-    (scena_cta, "outro",
+    ("static", scena_cta, "outro",
      "Tu selezioni i file, premi avvia, e torni a fare il falegname. "
      "Filiera un Clic, dal Falegname Digitale."),
 ]
 
-# girato reale da inserire DOPO la scena indicata (indice 0-based), se esiste
+FALLBACK = {"anim_tre_d": scena_tre_d_fallback, "anim_avvia": scena_bottone,
+            "anim_run": scena_pipeline, "anim_tavola": None,  # gestita a parte
+            "anim_costi": scena_costi}
+
+# girato reale da inserire DOPO la scena indicata (1-based), se esiste
 GIRATO = [
-    (4, "girato_woodwop.mp4", 8.0),      # dopo le macchine: WoodWOP vero
-    (6, "girato_demo.mp4", 8.0),         # dopo le viste: app che gira davvero
+    (6, "girato_woodwop.mp4", 8.0),      # dopo le macchine: WoodWOP vero
+    (8, "girato_demo.mp4", 8.0),         # dopo la tavola: app che gira davvero
 ]
 
 
+def carica_modulo(nome):
+    """importa scene_v2/<nome>.py; None se manca o non carica."""
+    path = os.path.join(QUI, "scene_v2", f"{nome}.py")
+    if not os.path.exists(path):
+        return None
+    try:
+        spec = importlib.util.spec_from_file_location(nome, path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        assert callable(mod.frame) and mod.DUR_NOM > 0
+        return mod
+    except Exception as ex:
+        print(f"[!] modulo {nome} non caricabile ({ex}): uso la card fissa")
+        return None
+
+
 # ----------------------------------------------------------------------------
-# VOCE (edge-tts) — se la rete non c'è si va di testi a schermo
+# VOCE: mp3 pronti in voci_v2/, altrimenti edge-tts, altrimenti niente
 # ----------------------------------------------------------------------------
+def _voce_path(i):
+    return os.path.join(OUT, f"voce{i:02d}.mp3")
+
+
 async def _genera_voci_async():
     import edge_tts
-    for i, (_, _, testo) in enumerate(SCENE, 1):
-        mp3 = os.path.join(OUT, f"voce{i}.mp3")
-        if os.path.exists(mp3):
+    for i, (_, _, _, testo) in enumerate(SCENE, 1):
+        if os.path.exists(_voce_path(i)):
             continue
-        await edge_tts.Communicate(testo, VOCE, rate="+6%").save(mp3)
+        await edge_tts.Communicate(testo, VOCE, rate="+6%").save(_voce_path(i))
         print("voce", i, "ok")
 
 
-def genera_voci():
+def trova_voci():
+    """porta gli mp3 in OUT. True se ci sono tutti."""
+    pronte = [os.path.join(VOCI_DIR, f"voce{i:02d}.mp3")
+              for i in range(1, len(SCENE) + 1)]
+    if all(os.path.exists(p) for p in pronte):
+        for i, p in enumerate(pronte, 1):
+            if not os.path.exists(_voce_path(i)):
+                with open(p, "rb") as fi, open(_voce_path(i), "wb") as fo:
+                    fo.write(fi.read())
+        print("voci: mp3 pronti da voci_v2/")
+        return True
     try:
         asyncio.run(_genera_voci_async())
-        return all(os.path.exists(os.path.join(OUT, f"voce{i}.mp3"))
+        return all(os.path.exists(_voce_path(i))
                    for i in range(1, len(SCENE) + 1))
     except Exception as ex:
         print(f"[!] voce non disponibile ({ex}): video con musica e testi")
@@ -537,8 +591,10 @@ BEAT = 0.5                                  # 120 BPM
 ACC = [55.00, 43.65, 65.41, 49.00]
 
 
-def componi_musica(segmenti, wav_path):
-    """segmenti = [(t0, dur, stile)]; stile: minimal/build/groove/half/outro."""
+def componi_musica(segmenti, wav_path, click_times=()):
+    """segmenti = [(t0, dur, stile)];
+    stile: minimal / build / groove / half / drop / outro.
+    click_times: istanti (s) dove mettere il click del mouse su AVVIA."""
     tot = segmenti[-1][0] + segmenti[-1][1]
     N = int(SR * tot)
     rng = np.random.default_rng(32)
@@ -602,6 +658,25 @@ def componi_musica(segmenti, wav_path):
     def bar_of(t):
         return int(t / (BEAT * 4))
 
+    def battute_groove(t0, nb, mezzo=False):
+        for b in range(nb):
+            t = t0 + b * BEAT
+            bar = bar_of(t)
+            if mezzo:
+                if b % 4 == 0:
+                    metti(kick(), t, 0.60)
+                    metti(basso(ACC[bar % 4], 1.8, dec=1.2), t, 0.30)
+            else:
+                metti(kick(), t, 0.85)
+                if b % 2 == 1:
+                    metti(clap(), t, 0.30, pan=0.2)
+                for k in range(2):
+                    metti(basso(ACC[bar % 4], 0.22), t + k * 0.25, 0.42)
+                f0 = ACC[bar % 4] * 4
+                metti(pluck([f0, f0 * 1.5, f0 * 2][b % 3]), t + 0.25,
+                      0.18, pan=0.4)
+            metti(hat(), t + 0.25, 0.10 if mezzo else 0.16, pan=-0.3)
+
     for t0, dur, stile in segmenti:
         nb = int(dur / BEAT)
         if stile == "minimal":
@@ -611,40 +686,27 @@ def componi_musica(segmenti, wav_path):
                     metti(kick(), t, 0.45)
                 metti(hat(), t + 0.25, 0.10, pan=-0.3)
             metti(basso(ACC[bar_of(t0) % 4], 1.6, dec=1.5), t0, 0.30)
+            metti(riser(1.0), t0 + dur - 1.1, 0.18)
         elif stile == "build":
             for b in range(nb):
                 t = t0 + b * BEAT
-                metti(kick(), t, 0.55 if b % 2 == 0 else 0.0)
+                if b % 2 == 0:
+                    metti(kick(), t, 0.55)
                 metti(hat(), t + 0.25, 0.13, pan=-0.3)
                 if b % 4 == 2:
                     metti(clap(), t, 0.22, pan=0.2)
                 if b % 4 == 0:
                     metti(basso(ACC[bar_of(t) % 4], 1.6, dec=1.5), t, 0.30)
             metti(riser(1.2), t0 + dur - 1.3, 0.25)
-        elif stile in ("groove", "half"):
-            mezzo = stile == "half"
-            if t0 < 0.6:
-                pass
-            for b in range(nb):
-                t = t0 + b * BEAT
-                bar = bar_of(t)
-                if mezzo:
-                    if b % 4 == 0:
-                        metti(kick(), t, 0.60)
-                    if b % 4 == 0:
-                        metti(basso(ACC[bar % 4], 1.8, dec=1.2), t, 0.30)
-                else:
-                    metti(kick(), t, 0.85)
-                    if b % 2 == 1:
-                        metti(clap(), t, 0.30, pan=0.2)
-                    for k in range(2):
-                        metti(basso(ACC[bar % 4], 0.22), t + k * 0.25, 0.42)
-                    f0 = ACC[bar % 4] * 4
-                    metti(pluck([f0, f0 * 1.5, f0 * 2][b % 3]), t + 0.25,
-                          0.18, pan=0.4)
-                metti(hat(), t + 0.25, 0.16 if not mezzo else 0.10, pan=-0.3)
-            if mezzo:
-                metti(pad([220, 261.63, 329.63], min(dur, 6.0)), t0, 0.16)
+        elif stile == "drop":
+            metti(boom(), t0, 0.75)
+            metti(clap(), t0, 0.30)
+            battute_groove(t0, nb)
+        elif stile == "groove":
+            battute_groove(t0, nb)
+        elif stile == "half":
+            battute_groove(t0, nb, mezzo=True)
+            metti(pad([220, 261.63, 329.63], min(dur, 6.0)), t0, 0.16)
         elif stile == "outro":
             metti(boom(), t0, 0.8)
             metti(clap(), t0, 0.35)
@@ -653,6 +715,15 @@ def componi_musica(segmenti, wav_path):
             for b in range(0, nb, 4):
                 if b * BEAT < dur - 2.5:
                     metti(kick(), t0 + b * BEAT, 0.40)
+
+    def click_ui():
+        t = tempo(0.09)
+        n = np.diff(rng.standard_normal(len(t)), prepend=0.0)
+        blip = np.sin(2 * np.pi * 1800 * t) * np.exp(-t * 90)
+        return n * np.exp(-t * 220) * 0.8 + blip * 0.6
+
+    for tc in click_times:
+        metti(click_ui(), tc, 0.9)
 
     mix = np.tanh(np.vstack([bufL, bufR]) * 1.1)
     mix *= 0.95 / max(np.abs(mix).max(), 1e-9)
@@ -670,31 +741,71 @@ def componi_musica(segmenti, wav_path):
 # ----------------------------------------------------------------------------
 # MONTAGGIO
 # ----------------------------------------------------------------------------
-def scena_mp4(i, png, dur, mp3, ultimo):
-    frames = int(dur * FPS)
+def _mux_audio(i, video, dur, mp3):
+    """aggiunge la voce (o silenzio) a un video muto, -c:v copy."""
     mp4 = os.path.join(OUT, f"scena{i}.mp4")
+    cmd = [FFMPEG, "-y", "-i", video]
+    if mp3:
+        cmd += ["-i", mp3, "-filter_complex", "[1:a]adelay=350|350,apad[a]"]
+    else:
+        cmd += ["-f", "lavfi", "-t", f"{dur:.2f}",
+                "-i", "anullsrc=r=44100:cl=stereo",
+                "-filter_complex", "[1:a]anull[a]"]
+    cmd += ["-map", "0:v", "-map", "[a]", "-t", f"{dur:.2f}",
+            "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-ar", "44100",
+            mp4]
+    r = subprocess.run(cmd, capture_output=True, text=True)
+    if r.returncode != 0:
+        print(r.stderr[-1500:])
+        raise SystemExit(f"mux audio scena {i} fallito")
+    return mp4
+
+
+def scena_static_mp4(i, fabbrica, dur, mp3, ultimo, tavola=None):
+    png = os.path.join(OUT, f"scena{i}.png")
+    (fabbrica(tavola) if fabbrica is scena_viste else fabbrica()).save(png)
+    frames = int(dur * FPS)
     vf = (f"zoompan=z='min(1.06,1+0.0006*on)':"
           f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
           f"d={frames}:s={W}x{H}:fps={FPS},fade=t=in:st=0:d=0.3")
     if ultimo:
         vf += f",fade=t=out:st={max(0, dur - 0.7):.2f}:d=0.7"
-    cmd = [FFMPEG, "-y", "-loop", "1", "-framerate", str(FPS), "-i", png]
-    if mp3:
-        cmd += ["-i", mp3,
-                "-filter_complex", f"[0:v]{vf}[v];[1:a]adelay=350|350,apad[a]"]
-    else:
-        cmd += ["-f", "lavfi", "-t", f"{dur:.2f}",
-                "-i", "anullsrc=r=44100:cl=stereo",
-                "-filter_complex", f"[0:v]{vf}[v];[1:a]anull[a]"]
-    cmd += ["-map", "[v]", "-map", "[a]", "-t", f"{dur:.2f}",
-            "-c:v", "libx264", "-preset", "medium", "-crf", "20",
-            "-pix_fmt", "yuv420p", "-r", str(FPS),
-            "-c:a", "aac", "-b:a", "192k", "-ar", "44100", mp4]
-    r = subprocess.run(cmd, capture_output=True, text=True)
+    muto = os.path.join(OUT, f"_v{i}.mp4")
+    r = subprocess.run(
+        [FFMPEG, "-y", "-loop", "1", "-framerate", str(FPS), "-i", png,
+         "-vf", vf, "-t", f"{dur:.2f}",
+         "-c:v", "libx264", "-preset", "medium", "-crf", "20",
+         "-pix_fmt", "yuv420p", "-r", str(FPS), "-an", muto],
+        capture_output=True, text=True)
     if r.returncode != 0:
         print(r.stderr[-1500:])
         raise SystemExit(f"ffmpeg scena {i} fallito")
-    return mp4
+    return _mux_audio(i, muto, dur, mp3)
+
+
+def scena_anim_mp4(i, mod, dur, mp3, ultimo):
+    muto = os.path.join(OUT, f"_v{i}.mp4")
+    gen = imageio_ffmpeg.write_frames(
+        muto, (W, H), pix_fmt_in="rgb24", fps=FPS, codec="libx264",
+        quality=None, macro_block_size=1,
+        output_params=["-crf", "20", "-preset", "medium",
+                       "-pix_fmt", "yuv420p"])
+    gen.send(None)
+    n = int(dur * FPS)
+    for k in range(n):
+        t = k / FPS
+        im = mod.frame(t, dur)
+        if im.size != (W, H):
+            im = im.resize((W, H))
+        a = np.asarray(im.convert("RGB"), dtype=np.uint8)
+        fatt = min(1.0, t / 0.3)                       # fade-in
+        if ultimo and t > dur - 0.7:
+            fatt = min(fatt, max(0.0, (dur - t) / 0.7))
+        if fatt < 1.0:
+            a = (a.astype(np.float32) * fatt).astype(np.uint8)
+        gen.send(np.ascontiguousarray(a))
+    gen.close()
+    return _mux_audio(i, muto, dur, mp3)
 
 
 def girato_mp4(idx, nome, dur_max):
@@ -724,31 +835,52 @@ def girato_mp4(idx, nome, dur_max):
 
 def main():
     tavola = genera_tavola_reale()
+    if tavola:
+        os.environ["FILIERA_TAVOLA_PNG"] = tavola
 
     if len(sys.argv) > 1 and sys.argv[1] == "anteprima":
-        for i, (fabbrica, _, _) in enumerate(SCENE, 1):
-            fabbrica(tavola).save(os.path.join(OUT, f"scena{i}.png"))
+        for i, (tipo, rif, _, _) in enumerate(SCENE, 1):
+            if tipo == "static":
+                img = rif(tavola) if rif is scena_viste else rif()
+            else:
+                mod = carica_modulo(rif)
+                if mod:
+                    img = mod.frame(mod.DUR_NOM * 0.6, mod.DUR_NOM)
+                else:
+                    fb = FALLBACK.get(rif) or scena_viste
+                    img = fb(tavola) if fb is scena_viste else fb()
+            img.save(os.path.join(OUT, f"scena{i}.png"))
         print("anteprime in", OUT)
         return
 
-    con_voce = genera_voci()
-    pezzi, segmenti, copione = [], [], []
+    con_voce = trova_voci()
+    pezzi, segmenti, copione, click_times = [], [], [], []
     t_cursore = 0.0
-    for i, (fabbrica, stile, testo) in enumerate(SCENE, 1):
-        png = os.path.join(OUT, f"scena{i}.png")
-        fabbrica(tavola).save(png)
-        mp3 = os.path.join(OUT, f"voce{i}.mp3") if con_voce else None
-        if mp3:
-            dur = max(4.0, durata_media(mp3) + 1.0)
+    for i, (tipo, rif, stile, testo) in enumerate(SCENE, 1):
+        ultimo = i == len(SCENE)
+        mp3 = _voce_path(i) if con_voce else None
+        vdur = durata_media(mp3) + 1.0 if mp3 else None
+        if tipo == "anim":
+            mod = carica_modulo(rif)
+            if mod:
+                dur = max(mod.DUR_NOM, vdur) if vdur else mod.DUR_NOM
+                pezzi.append(scena_anim_mp4(i, mod, dur, mp3, ultimo))
+            else:
+                fb = FALLBACK.get(rif) or scena_viste
+                dur = vdur if vdur else max(4.2, min(8.5, 1.8 + 0.04 * len(testo)))
+                dur = max(4.0, dur)
+                pezzi.append(scena_static_mp4(i, fb, dur, mp3, ultimo, tavola))
         else:
-            dur = max(4.2, min(8.5, 1.8 + 0.04 * len(testo)))
-        pezzi.append(scena_mp4(i, png, dur, mp3, i == len(SCENE)))
+            dur = max(4.0, vdur) if vdur else max(4.2, min(8.5, 1.8 + 0.04 * len(testo)))
+            pezzi.append(scena_static_mp4(i, rif, dur, mp3, ultimo, tavola))
+        if tipo == "anim" and rif == "anim_avvia":
+            click_times.append(t_cursore + 0.55 * dur)   # click su AVVIA
         segmenti.append((t_cursore, dur, stile))
         copione.append(f"SCENA {i}  ({dur:.1f}s)\n  {testo}\n")
         t_cursore += dur
         print(f"scena {i}: {dur:.1f}s ok")
         for idx, (dopo, nome, dmax) in enumerate(GIRATO):
-            if dopo == i - 1:
+            if dopo == i:
                 g = girato_mp4(idx, nome, dmax)
                 if g:
                     gd = durata_media(g)
@@ -764,11 +896,19 @@ def main():
     r = subprocess.run([FFMPEG, "-y", "-f", "concat", "-safe", "0",
                         "-i", lista, "-c", "copy", muto],
                        capture_output=True, text=True)
-    if r.returncode != 0:
-        print(r.stderr[-1500:])
-        raise SystemExit("concat fallito")
+    if r.returncode != 0:                        # codec diversi: ricodifica
+        r = subprocess.run([FFMPEG, "-y", "-f", "concat", "-safe", "0",
+                            "-i", lista,
+                            "-c:v", "libx264", "-preset", "medium",
+                            "-crf", "20", "-pix_fmt", "yuv420p",
+                            "-c:a", "aac", "-b:a", "192k", muto],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            print(r.stderr[-1500:])
+            raise SystemExit("concat fallito")
 
-    wav = componi_musica(segmenti, os.path.join(OUT, "musica_v2.wav"))
+    wav = componi_musica(segmenti, os.path.join(OUT, "musica_v2.wav"),
+                         click_times)
     gain = 0.42 if con_voce else 0.85
     finale = os.path.join(OUT, "FILIERA_UN_CLIC_v2.mp4")
     r = subprocess.run(
@@ -786,7 +926,7 @@ def main():
 
     with open(os.path.join(OUT, "copione_v2.txt"), "w", encoding="utf-8") as fh:
         fh.write("FILIERA UN CLIC V2 - copione\n"
-                 + ("(con voce Diego)\n\n" if con_voce
+                 + ("(con voce)\n\n" if con_voce
                     else "(senza voce: musica + testi a schermo)\n\n")
                  + "\n".join(copione))
     print("\nVIDEO PRONTO:", finale)
