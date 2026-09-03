@@ -1,0 +1,17 @@
+# --- Repo del toolset (FILIERA UN CLIC ecc.): SOLO CODICE SORGENTE ---
+# Regola: ignora TUTTO, poi riammetti solo i sorgenti Python. Cosi' NESSUN
+# dato cliente (DWG/STEP/Excel/PDF), nota (.md/.txt) o binario entra nel repo.
+*
+# entra comunque nelle sottocartelle per pescare i sorgenti
+!*/
+# sorgenti da versionare
+!*.py
+!*.pyw
+!*.spec
+!.gitignore
+# ...ma MAI questi, anche se combaciassero sopra
+dist/
+build/
+__pycache__/
+*.pyc
+*.pyo
