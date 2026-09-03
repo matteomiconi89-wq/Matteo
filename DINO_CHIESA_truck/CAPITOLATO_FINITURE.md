@@ -118,7 +118,7 @@ scansione della cartella colori. Appena arriva, aggiorno scena e capitolato.
   via sotto il lucernario).
 - **Verdetto: NON promosso** → giro 7 con UNA correzione, al VAI.
 
-### Correzione per il giro 7 (una sola, mirata)
+### Correzione per il giro 7 (una sola, mirata) — ESEGUITA, non riuscita
 PAVIMENTO CORRIDOIO: rifare in VERA posa a spina di pesce — doghe singole
 120×600 mm leggibili come tavole, con fughe visibili, chevron a 90° in
 scala reale, asse della posa verso il punto di fuga; colore Macadamia
@@ -128,3 +128,32 @@ ANTI-REGRESSIONE: tutto il resto del giro 6 è giusto e non si tocca —
 hob su base 3, champagne campate, bordi netti, finestra apribile, soffitti
 bianchi, zoccolo, gola, LED, nitidezza, campata sinistra vuota, camera
 congelata.
+
+## Esito GIRO 7 (collaudo Claude 03/09/2026) — NON promosso
+
+- **666 crediti** (~26 min; tot. task 1480 in 7 giri) — molto sopra la stima
+  100–200: Manus ha modellato 384 doghe singole una a una.
+- **Progressi**: doghe VERE con fughe scure visibili (finita l'era della
+  texture stampata); colore uniforme lungo la corsa (via lo slavato);
+  **fuori dal corridoio 0 pixel cambiati** (verificato da me: soffitti,
+  cucina, vetrata, campate = diff 0,0 esatto rispetto al giro 6).
+- **MA 2 difetti nuovi**: ① la posa è un **INTRECCIO A CANESTRO**
+  (coppie di doghe alternate dritte/traverse, quadretti 0°/90°), NON la
+  spina di pesce a 45°; ② il colore è un **mattone scuro rossiccio**
+  (RGB ~101/53/25), non il Macadamia caldo medio — il corridoio stacca
+  da tutta la scena chiara, e la resa è piatta.
+- **La scena del giro 6 resta salvata** (`..._round6.blend`): qualunque
+  giro futuro può ripartire da lì — nessun vincolo al giro 7.
+
+### Strade possibili per il pavimento (al VAI di Matteo)
+A. **Giro 8 con CAMPIONE ALLEGATO**: preparo io un'immagine-campione
+   (pattern a spina esatto + colore preso dal giro 6) e la allego al task
+   con l'ordine "copia questo". È l'arma non ancora usata. Costo Manus
+   stimato 150–700 crediti (i giri sul pavimento sono costati 160 e 666:
+   onestà sui numeri).
+B. **Tenere il giro 6 come palcoscenico**: colore giusto, posa "stampata"
+   ma credibile nelle viste d'insieme; si va avanti a piazzare gli
+   ambienti e la spina vera si ritenta più avanti (o si decide sul
+   campione THRONE/BARON del fornitore quando arriva).
+C. Ripiego tecnico: doghe dritte lungo il corridoio (facili per Manus) —
+   fuori capitolato, solo se la spina continua a fallire.
