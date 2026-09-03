@@ -24,10 +24,24 @@ cosa vuole.** Il flusso e' questo, dettagli in `STRUMENTI_3D/README_3D.md`:
 4. `python3 STRUMENTI_3D/volumi_3d.py volumi.json uscita/nome` → STP con
    materiali dentro, DXF 3D, SCR, distinta CSV, viste PNG. I collaudi
    automatici devono passare tutti.
-5. **CHECKPOINT DI MATTEO (regola fissa)**: mostrare le PNG + il report
+5. **SQUADRA DI AGENTI (regola fissa dal 03/09/2026, richiesta di Matteo)**:
+   per ogni mobile usare TUTTI gli agenti disponibili, non lavorare da soli.
+   Il giro minimo, in parallelo (tool Workflow o Agent):
+   - inventario per famiglia di pezzi (ante/frontali, vetri+telai, zoccoli/
+     piedini, ripiani e interni, LED/elettrico) con coordinate esatte dal DXF;
+   - forense ORIENTAMENTO: trasformazioni degli INSERT (rotazioni, scale
+     negative, estrusione -Z), testi capovolti, direzione di vista delle
+     sezioni — il mobile specchiato e' gia' successo (mobile ingresso);
+   - verifica incrociata inventario vs volumi.json;
+   - **AGENTE FALEGNAME**: rilegge il volumi.json finito con l'occhio di chi
+     lo deve costruire — battute e giochi delle ante, sensi di apertura vs
+     cerniere, spessori e sormonti realistici, zoccoli/piedini sensati,
+     pezzi doppi o compenetrati, cose che "in officina non stanno in piedi".
+     Le sue obiezioni si risolvono PRIMA del checkpoint di Matteo.
+6. **CHECKPOINT DI MATTEO (regola fissa)**: mostrare le PNG + il report
    materiali con le voci da confermare e aspettare il suo OK prima di
    considerare consegnato. Un errore corretto qui costa zero.
-6. Consegna in `USCITA_3D/<nome_mobile>/` (su PC) o inviando i file in chat
+7. Consegna in `USCITA_3D/<nome_mobile>/` (su PC) o inviando i file in chat
    (in remoto). Il DWG vero si fa in AutoCAD (IMPORT dello .stp o SCRIPT
    dello .scr, poi SAVEAS); se c'e' ODAFileConverter nel PATH esce da solo.
 
