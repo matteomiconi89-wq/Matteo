@@ -1,6 +1,16 @@
 {
   "titolo": "MOBILE LAVABO LAVANDERIA 26-A011 rev.04 - PANNELLI + IMPIANTO DI SCARICO (no ferramenta)",
   "note": "X=larghezza (0=filo esterno fianco sx). Y=profondita (0=faccia esterna parete lato opposto, 466=fronte anta). Z=altezza da pavimento. Quote lette dalla sezione A-A', dal prospetto e dalla pianta. Rev.04 dopo collaudo incrociato: schienali in laminato CERA (il grigio del prospetto e ombra, non materiale), lavabo centrato sul piano, foro di scarico passante nel top, gruppo scarico/sifone completo, quarto tubolare 30x25 in sommita.",
+  "materiali": {
+    "CARC_": "Laminato CERA",
+    "RIPIANO_": "Laminato CERA",
+    "SCHIENALE_": "Laminato CERA",
+    "TRAVERSO_": "Laminato CERA",
+    "ANTA_": "Laminato OPACO",
+    "TOP_": "Laminato OPACO",
+    "ZOCCOLO_": "Laminato OPACO",
+    "GOLA_fondo": "Specchio"
+  },
   "box": [
     {"nome": "PAR_finitura_sp2_sotto_A", "layer": "VOL_PARETE", "colore": 9, "tinta": "#eae7e0",
      "x0": 0, "y0": 0, "z0": 0, "x1": 1173, "y1": 2, "z1": 291},

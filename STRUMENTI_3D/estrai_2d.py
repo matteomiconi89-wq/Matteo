@@ -258,15 +258,18 @@ def main():
     box = []
     if L and P and H:
         box.append({"nome": "INGOMBRO_da_verificare", "layer": "BOZZA", "colore": 8,
-                    "tinta": "#d7d2c8", "x0": 0, "y0": 0, "z0": 0,
+                    "tinta": "#d7d2c8", "materiale": "DA_DEFINIRE",
+                    "x0": 0, "y0": 0, "z0": 0,
                     "x1": round(L, 1), "y1": round(P, 1), "z1": round(H, 1)})
     if pianta and H:
         for k, (b, lay, w, h) in enumerate(
                 sorted((r for r in rettangoli
                         if dentro((r[0][0]+r[0][2])/2, (r[0][1]+r[0][3])/2, pianta, 0)),
                        key=lambda r: r[0][0])):
+            # nei DWG di Matteo il layer e' la specifica del materiale:
+            # lo portiamo dietro cosi' finisce dritto nello STEP
             box.append({"nome": f"PIANTA_R{k+1:02d}_{lay[:20]}", "layer": "BOZZA",
-                        "colore": 8, "tinta": "#c9c4ba",
+                        "colore": 8, "tinta": "#c9c4ba", "materiale": lay,
                         "x0": round(b[0] - pianta[0], 1), "y0": round(b[1] - pianta[1], 1),
                         "z0": 0, "x1": round(b[2] - pianta[0], 1),
                         "y1": round(b[3] - pianta[1], 1), "z1": round(H, 1)})

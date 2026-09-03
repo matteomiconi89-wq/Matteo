@@ -2,9 +2,11 @@ ANALISI 2D — tavola_prova.dxf
 ============================================================
 
 LAYER (entita'):
-  MOBILE                                   11
+  MOBILE                                   6
   QUOTE                                    6
+  Nobilitato_Bianco_sp18                   3
   TESTI                                    3
+  Tamburato_Laminato_NERO_Opaco            2
 
 VISTE INDIVIDUATE: 3
   [PROSPETTO] larg 600 x alt 720 (unita' disegno) — origine (0, 700)
@@ -23,11 +25,11 @@ RETTANGOLI CHIUSI (candidati pannelli/pezzi): 11
      600.0 x    720.0  layer MOBILE                         in PROSPETTO a (0, 700)
      400.0 x    720.0  layer MOBILE                         in SEZIONE A-A' a (950, 700)
      600.0 x    400.0  layer MOBILE                         in PIANTA a (0, 0)
-     300.0 x    720.0  layer MOBILE                         in PROSPETTO a (0, 700)
-     300.0 x    720.0  layer MOBILE                         in PROSPETTO a (300, 700)
-     564.0 x     18.0  layer MOBILE                         in PIANTA a (18, 0)
-      18.0 x    400.0  layer MOBILE                         in PIANTA a (0, 0)
-      18.0 x    400.0  layer MOBILE                         in PIANTA a (582, 0)
+     300.0 x    720.0  layer Tamburato_Laminato_NERO_Opaco  in PROSPETTO a (0, 700)
+     300.0 x    720.0  layer Tamburato_Laminato_NERO_Opaco  in PROSPETTO a (300, 700)
+     564.0 x     18.0  layer Nobilitato_Bianco_sp18         in PIANTA a (18, 0)
+      18.0 x    400.0  layer Nobilitato_Bianco_sp18         in PIANTA a (0, 0)
+      18.0 x    400.0  layer Nobilitato_Bianco_sp18         in PIANTA a (582, 0)
      400.0 x     18.0  layer MOBILE                         in SEZIONE A-A' a (950, 700)
      400.0 x     18.0  layer MOBILE                         in SEZIONE A-A' a (950, 1402)
      382.0 x     18.0  layer MOBILE                         in SEZIONE A-A' a (950, 1060)

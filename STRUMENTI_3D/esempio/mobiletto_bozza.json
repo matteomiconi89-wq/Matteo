@@ -7,6 +7,7 @@
       "layer": "BOZZA",
       "colore": 8,
       "tinta": "#d7d2c8",
+      "materiale": "DA_DEFINIRE",
       "x0": 0,
       "y0": 0,
       "z0": 0,
@@ -19,6 +20,7 @@
       "layer": "BOZZA",
       "colore": 8,
       "tinta": "#c9c4ba",
+      "materiale": "MOBILE",
       "x0": 0.0,
       "y0": 0.0,
       "z0": 0,
@@ -27,10 +29,11 @@
       "z1": 720.0
     },
     {
-      "nome": "PIANTA_R02_MOBILE",
+      "nome": "PIANTA_R02_Nobilitato_Bianco_sp",
       "layer": "BOZZA",
       "colore": 8,
       "tinta": "#c9c4ba",
+      "materiale": "Nobilitato_Bianco_sp18",
       "x0": 0.0,
       "y0": 0.0,
       "z0": 0,
@@ -39,10 +42,11 @@
       "z1": 720.0
     },
     {
-      "nome": "PIANTA_R03_MOBILE",
+      "nome": "PIANTA_R03_Nobilitato_Bianco_sp",
       "layer": "BOZZA",
       "colore": 8,
       "tinta": "#c9c4ba",
+      "materiale": "Nobilitato_Bianco_sp18",
       "x0": 18.0,
       "y0": 0.0,
       "z0": 0,
@@ -51,10 +55,11 @@
       "z1": 720.0
     },
     {
-      "nome": "PIANTA_R04_MOBILE",
+      "nome": "PIANTA_R04_Nobilitato_Bianco_sp",
       "layer": "BOZZA",
       "colore": 8,
       "tinta": "#c9c4ba",
+      "materiale": "Nobilitato_Bianco_sp18",
       "x0": 582.0,
       "y0": 0.0,
       "z0": 0,

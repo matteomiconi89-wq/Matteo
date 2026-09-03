@@ -89,9 +89,44 @@ def tinta_rgb(b):
 
 # ------------------------------------------------------------ STEP (CATIA)
 
+def materiale_di(b, mappa=None):
+    """Il materiale del pezzo, in ordine di precedenza:
+
+    1. campo "materiale" del box;
+    2. mappa "materiali" a livello di file {prefisso nome: materiale}
+       (vince il prefisso piu' lungo) — comoda per famiglie intere
+       senza toccare le righe dei box gia' approvate;
+    3. il layer: nei DWG di Matteo il layer E' la specifica del materiale
+       ("Tamburato Laminato NERO Opaco"), quindi quando la bozza arriva
+       da estrai_2d.py il default e' gia' quello giusto.
+    """
+    if b.get("materiale"):
+        return str(b["materiale"])
+    if mappa:
+        candidati = [p for p in mappa if b["nome"].startswith(p)]
+        if candidati:
+            return str(mappa[max(candidati, key=len)])
+    return str(b.get("layer", "VOLUMI"))
+
+
 def crea_step(data, boxes, out_stp):
-    """Solidi veri via OpenCASCADE, albero per layer, nomi e colori dei pezzi."""
+    """Solidi veri via OpenCASCADE: albero per layer, nomi, colori e MATERIALI.
+
+    I materiali vengono scritti come entita' STEP vere (XCAF MaterialTool +
+    material mode del writer), non solo come testo nei nomi: CATIA li mostra
+    nelle proprieta' del pezzo.
+    """
     import cadquery as cq
+    from cadquery.occ_impl.assembly import toCAF
+    from OCP.IFSelect import IFSelect_ReturnStatus
+    from OCP.Interface import Interface_Static
+    from OCP.STEPCAFControl import STEPCAFControl_Writer
+    from OCP.STEPControl import STEPControl_StepModelType
+    from OCP.TCollection import TCollection_AsciiString, TCollection_HAsciiString
+    from OCP.TDF import TDF_LabelSequence
+    from OCP.TDataStd import TDataStd_Name
+    from OCP.XCAFDoc import XCAFDoc_DocumentTool
+    from OCP.XSControl import XSControl_WorkSession
 
     radice = cq.Assembly(name=nome_step_valido(data.get("titolo", "VOLUMI")))
     per_layer = {}
@@ -105,7 +140,70 @@ def crea_step(data, boxes, out_stp):
             r, g, bl = tinta_rgb(b)
             ramo.add(solido, name=nome_step_valido(b["nome"]), color=cq.Color(r, g, bl))
         radice.add(ramo, name=nome_step_valido(layer))
-    radice.export(str(out_stp), exportType="STEP")
+
+    _, doc = toCAF(radice, True)
+
+    # aggancio dei materiali alle label dei pezzi (il nome della label e'
+    # esattamente il nome dato nell'assembly)
+    shape_tool = XCAFDoc_DocumentTool.ShapeTool_s(doc.Main())
+    mat_tool = XCAFDoc_DocumentTool.MaterialTool_s(doc.Main())
+    mappa = data.get("materiali")
+    mat_per_pezzo = {nome_step_valido(b["nome"]): materiale_di(b, mappa) for b in boxes}
+    label_mat = {}
+
+    def materiale_label(nome_mat):
+        if nome_mat not in label_mat:
+            label_mat[nome_mat] = mat_tool.AddMaterial(
+                TCollection_HAsciiString(nome_mat), TCollection_HAsciiString(""),
+                0.0, TCollection_HAsciiString(""), TCollection_HAsciiString(""))
+        return label_mat[nome_mat]
+
+    labs = TDF_LabelSequence()
+    shape_tool.GetShapes(labs)
+    agganciati = 0
+    for i in range(1, labs.Length() + 1):
+        lab = labs.Value(i)
+        if not shape_tool.IsSimpleShape_s(lab):
+            continue
+        attr = TDataStd_Name()
+        if not lab.FindAttribute(TDataStd_Name.GetID_s(), attr):
+            continue
+        nome = TCollection_AsciiString(attr.Get()).ToCString()
+        if nome in mat_per_pezzo:
+            mat_tool.SetMaterial(lab, materiale_label(mat_per_pezzo[nome]))
+            agganciati += 1
+    if agganciati != len(boxes):
+        print(f"ATTENZIONE: materiale agganciato a {agganciati}/{len(boxes)} pezzi")
+
+    # scrittura STEP: stessa ricetta dell'export cadquery + material mode
+    session = XSControl_WorkSession()
+    writer = STEPCAFControl_Writer(session, False)
+    writer.SetColorMode(True)
+    writer.SetLayerMode(True)
+    writer.SetNameMode(True)
+    writer.SetMaterialMode(True)
+    Interface_Static.SetIVal_s("write.surfacecurve.mode", 1)
+    Interface_Static.SetIVal_s("write.precision.mode", 0)
+    Interface_Static.SetIVal_s("write.stepcaf.subshapes.name", 1)
+    Interface_Static.SetCVal_s("xstep.cascade.unit", "MM")
+    Interface_Static.SetCVal_s("write.step.unit", "MM")
+    writer.Transfer(doc, STEPControl_StepModelType.STEPControl_AsIs)
+    if writer.Write(str(out_stp)) != IFSelect_ReturnStatus.IFSelect_RetDone:
+        print("ERRORE: scrittura STEP fallita")
+        sys.exit(1)
+
+
+def collauda_materiali(out_stp, boxes, mappa=None):
+    """I nomi dei materiali devono comparire nel file STEP scritto."""
+    contenuto = Path(out_stp).read_text(encoding="utf-8", errors="replace")
+    materiali = sorted({materiale_di(b, mappa) for b in boxes})
+    mancanti = [m for m in materiali if m not in contenuto]
+    if mancanti:
+        print(f"COLLAUDO MATERIALI: MANCANO nel file STEP: {mancanti} -> ERRORE")
+        return False
+    print(f"COLLAUDO MATERIALI: {len(materiali)} materiali presenti nello STEP OK "
+          f"({', '.join(materiali[:5])}{', ...' if len(materiali) > 5 else ''})")
+    return True
 
 
 def nome_step_valido(testo):
@@ -136,6 +234,16 @@ def collauda_step(out_stp, boxes):
     print(f"COLLAUDO STEP: ingombro riletto {xs1-xs0:.1f} x {ys1-ys0:.1f} x {zs1-zs0:.1f} mm "
           f"(atteso {x1-x0:.1f} x {y1-y0:.1f} x {z1-z0:.1f}) {'OK' if ok_bb else 'ERRORE'}")
     return ok_n and ok_bb
+
+
+def crea_distinta(boxes, out_csv, mappa=None):
+    """Distinta in CSV (apribile in Excel): pezzo, materiale, misure, volume."""
+    righe = ["pezzo;materiale;layer;L_mm;P_mm;H_mm;volume_dm3"]
+    for b in sorted(boxes, key=lambda b: (materiale_di(b, mappa), b["nome"])):
+        dx, dy, dz = b["x1"] - b["x0"], b["y1"] - b["y0"], b["z1"] - b["z0"]
+        righe.append(f"{b['nome']};{materiale_di(b, mappa)};{b.get('layer', 'VOLUMI')};"
+                     f"{dx:g};{dy:g};{dz:g};{dx * dy * dz / 1e6:.3f}")
+    open(out_csv, "w", encoding="utf-8-sig").write("\n".join(righe))
 
 
 # ------------------------------------------------- DXF mesh + SCR AutoCAD
@@ -223,6 +331,10 @@ def crea_dwg(out_dxf, out_dwg, n_attese):
         prova = subprocess.run([lettore, "-y", "-o", str(ritorno), str(out_dwg)],
                                capture_output=True, timeout=300)
         if prova.returncode == 0 and ritorno.exists():
+            # qui un file rotto e' un esito previsto: zittisco i lamenti di
+            # ezdxf mentre lo esamina, il verdetto lo diamo noi sotto
+            import logging
+            logging.disable(logging.ERROR)
             try:
                 d = ezdxf.readfile(str(ritorno))
                 n = sum(1 for _ in d.modelspace())
@@ -231,6 +343,8 @@ def crea_dwg(out_dxf, out_dwg, n_attese):
                     print(f"COLLAUDO DWG: rilette {n} entita' su {n_attese} attese -> BOCCIATO")
             except Exception as err:
                 print(f"COLLAUDO DWG: DWG illeggibile ({err}) -> BOCCIATO")
+            finally:
+                logging.disable(logging.NOTSET)
         ritorno.unlink(missing_ok=True)
     if not ok:
         print("DWG diretto scartato per prudenza: usare DXF/SCR/STP "
@@ -308,7 +422,12 @@ def main():
 
     crea_step(data, boxes, str(out) + ".stp")
     ok_step = collauda_step(str(out) + ".stp", boxes)
-    print(f"Scritto {out.name}.stp (STEP AP214, solidi veri — CATIA/SolidWorks/AutoCAD IMPORT)")
+    ok_mat = collauda_materiali(str(out) + ".stp", boxes, data.get("materiali"))
+    print(f"Scritto {out.name}.stp (STEP AP214, solidi veri + materiali — "
+          f"CATIA/SolidWorks/AutoCAD IMPORT)")
+
+    crea_distinta(boxes, str(out) + "_distinta.csv", data.get("materiali"))
+    print(f"Distinta pezzi/materiali: {out.name}_distinta.csv")
 
     crea_dwg(str(out) + "_3d.dxf", str(out) + ".dwg", len(boxes))
 
@@ -317,7 +436,7 @@ def main():
     disegna(boxes, titolo + "\nfianco", str(out) + "_fianco.png", az=180, el=2)
     print(f"Viste di controllo: {out.name}_asso/_fronte/_fianco.png")
 
-    if not ok_step:
+    if not (ok_step and ok_mat):
         sys.exit(1)
 
 

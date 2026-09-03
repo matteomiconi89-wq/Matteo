@@ -31,10 +31,32 @@ python3 STRUMENTI_3D/estrai_2d.py TAVOLA.dxf uscita/nome
 # 3. generazione 3D, tutto in un colpo:
 python3 STRUMENTI_3D/volumi_3d.py volumi.json uscita/nome
 #    -> nome.stp          STEP AP214, SOLIDI VERI (CATIA, SolidWorks, NX, AutoCAD IMPORT)
+#                         con i MATERIALI scritti dentro (vedi sotto)
+#    -> nome_distinta.csv distinta pezzi: materiale, misure, volume (per Excel)
 #    -> nome_3d.dxf       DXF 3D mesh (anteprima diretta in AutoCAD)
 #    -> nome.scr          script AutoCAD: BOX solidi nativi
 #    -> nome_asso/_fronte/_fianco.png   viste di controllo
 ```
+
+## Materiali dai layer, dentro lo STEP
+
+Nei DWG di Matteo **il layer e' la specifica del materiale** ("Tamburato
+Laminato NERO Opaco"): la pipeline lo sfrutta. Ogni pezzo riceve il suo
+materiale cosi', in ordine di precedenza:
+
+1. campo `"materiale"` sul singolo box del `volumi.json`;
+2. mappa `"materiali"` a livello di file, per famiglie di pezzi senza toccare
+   le righe approvate: `{"CARC_": "Laminato CERA", "ANTA_": "Laminato OPACO"}`
+   (vince il prefisso piu' lungo);
+3. il **layer di provenienza** (quello che `estrai_2d.py` porta dietro in
+   automatico dal 2D).
+
+Nel file STEP il materiale viaggia come proprieta' standard del pezzo
+(`PROPERTY_DEFINITION 'material property' -> DESCRIPTIVE_REPRESENTATION_ITEM`):
+CATIA e SolidWorks la mostrano nelle proprieta', e il collaudo automatico
+verifica che ogni materiale sia davvero finito nel file. La stessa
+informazione esce anche in `nome_distinta.csv` (pezzo; materiale; L; P; H;
+volume in dm3), pronta per preventivi e ordini.
 
 ## Come si arriva ai tre formati chiesti
 
@@ -80,4 +102,6 @@ compreso lo `mobiletto.stp` da provare in CATIA.
 
 Il mobile lavabo 26-A011 (74 solidi, rev.04 approvata) rigenerato con questa
 pipeline: `26-A011_lavabo_lavanderia/lavabo_volumi.stp` — collaudo 74/74 solidi,
-ingombro 1173 × 474 × 2215 mm esatto.
+ingombro 1173 × 474 × 2215 mm esatto, 12 materiali dentro lo STEP (quelli
+della SPEC: Laminato CERA, Laminato OPACO, Specchio; il resto eredita il
+layer, senza inventare nulla) + `lavabo_volumi_distinta.csv`.
