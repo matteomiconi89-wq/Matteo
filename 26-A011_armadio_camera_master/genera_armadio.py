@@ -50,18 +50,13 @@ for m, (x0, x1, sx0, sx1) in MODULI.items():
     B(f"MOD{m}_cielo_sp18", **TES, x0=x0, y0=0, z0=2027.5, x1=x1, y1=P_CASSONE, z1=2045.5)
     B(f"MOD{m}_schienale_sp9", **TES, x0=sx0, y0=12.0, z0=5.5, x1=sx1, y1=21.0, z1=2045.5)
 
-# ---- spalle interne ripiani nei moduli A e F (sp18, P548, H2040)
-B("MODA_spalla_ripiani_sp18", **TES, x0=348.0, y0=Y_INT[0], z0=H_FIANCO[0],
-  x1=366.0, y1=Y_INT[1], z1=H_FIANCO[1])
-B("MODF_spalla_ripiani_sp18", **TES, x0=2436.0, y0=Y_INT[0], z0=H_FIANCO[0],
-  x1=2454.0, y1=Y_INT[1], z1=H_FIANCO[1])
-
-# ---- ripiani (da prospetto; profondita' come ripiano cassettiera: 530, filo retro-anta)
+# ---- ripiani a tutto vano, fianco a fianco (checkpoint Matteo 03/09:
+# niente doppia spalla nei moduli A/F; profondita' come ripiano cassettiera)
 Y_RIP = (51.0, 581.0)
-for m, xs, quote_z in [("A", (54.0, 348.0), (273.5, 541.5, 809.5)),
+for m, xs, quote_z in [("A", (54.0, 366.0), (273.5, 541.5, 809.5)),
                        ("B", (438.0, 850.0), (962.5,)),
                        ("E", (1952.0, 2364.0), (962.5,)),
-                       ("F", (2454.0, 2748.0), (273.5, 541.5, 809.5))]:
+                       ("F", (2436.0, 2748.0), (273.5, 541.5, 809.5))]:
     for k, z in enumerate(quote_z, 1):
         B(f"MOD{m}_ripiano{k}_sp18", **TES, x0=xs[0], y0=Y_RIP[0], z0=z,
           x1=xs[1], y1=Y_RIP[1], z1=z + SP)
@@ -106,24 +101,31 @@ B("FASCIA_sup_frontale_sp18", **LAM, x0=36.0, y0=Y_ANTA[0], z0=2055.0,
 B("STAFFA_sup_posteriore_sp18", **LAM, x0=36.0, y0=18.0, z0=2045.5,
   x1=2766.0, y1=36.0, z1=2080.0)
 
-# ---- LED (da confermare): 4 verticali alle lesene + 2 strip orizzontali
-for nome, x in [("SX", 36.0), ("CSX", 891.0), ("CDX", 1899.0), ("DX", 2754.0)]:
-    B(f"LED_verticale_{nome}", **LED, x0=x, y0=599.0, z0=100.0, x1=x + 12.0,
-      y1=611.0, z1=1980.0)
-B("LED_orizz_frontale", **LED, x0=28.0, y0=604.0, z0=2056.0, x1=2774.0, y1=612.0, z1=2064.0)
-B("LED_orizz_interno", **LED, x0=28.0, y0=526.0, z0=2019.0, x1=2774.0, y1=534.0, z1=2027.0)
+# ---- LED INCASSATI negli scassi 9x5 del disegno (checkpoint Matteo 03/09).
+# 4 frontali nelle lesene (y 606..610) + 6 interni nei fianchi, uno per
+# modulo, aperti verso il vano (y 528..532). Barra 8 larga dentro scasso 9.
+for nome, x in [("LESENA_SX", 28.0), ("LESENA_CSX", 903.0),
+                ("LESENA_CDX", 1891.0), ("LESENA_DX", 2766.0)]:
+    B(f"LED_{nome}_incassato", **LED, x0=x, y0=606.0, z0=30.0,
+      x1=x + 8.0, y1=610.0, z1=2050.0)
+for nome, x in [("MODA", 366.0), ("MODB", 850.0), ("MODC", 1363.0),
+                ("MODD", 1431.0), ("MODE", 1944.0), ("MODF", 2428.0)]:
+    B(f"LED_{nome}_incassato", **LED, x0=x, y0=528.0, z0=30.0,
+      x1=x + 8.0, y1=532.0, z1=2030.0)
 
 data = {
-    "titolo": "ARMADIO CAMERA MASTER 026-A011 sol.C - VOLUMI (no ferramenta) rev.01",
-    "note": "X=0 filo sx struttura (L 2802 dalla pianta sol.C; il prospetto mostra "
-            "+14mm per lato, probabile rivestimento parete: DA CONFERMARE). "
-            "Y=0 filo retro contro rivestimento, fronte ante y599, lesene y618. "
-            "Z=0 pavimento, H 2080 a soffitto. Pianta disegnata +20 in X rispetto "
-            "al prospetto: compensata. Cassettiere accostate al fianco SX del "
-            "modulo come in pianta (il prospetto le mostra +30: DA CONFERMARE). "
-            "Ante H2050 dal prospetto (la sezione mostra pannello 2024: scelto "
-            "prospetto). LED da confermare. 6 ante battenti 350/450x4/350, "
-            "interno 6 moduli 294/412/412/412/412/294.",
+    "titolo": "ARMADIO CAMERA MASTER 026-A011 sol.C - VOLUMI (no ferramenta) rev.02",
+    "note": "Rev.02 dopo checkpoint Matteo 03/09/2026: niente doppia spalla nei "
+            "moduli A/F (ripiani a tutto vano 312), cassettiere da pianta "
+            "(accostate al fianco SX del modulo), ante H2050 confermate, "
+            "laminato ok per ora, LED INCASSATI nei 10 scassi 9x5 del disegno "
+            "(4 nelle lesene frontali + 6 nei fianchi, uno per modulo). "
+            "X=0 filo sx struttura (L 2802 dalla pianta sol.C; il prospetto "
+            "disegna +14mm per lato: probabile rivestimento parete). "
+            "Y=0 filo retro, fronte ante y599, lesene y618. Z=0 pavimento, "
+            "H 2080 a soffitto. Pianta disegnata +20 in X sul prospetto: "
+            "compensata. 6 ante battenti 350/450x4/350, interno 6 moduli "
+            "312/412/412/412/412/312.",
     "materiali": {
         "FIANCO_": "MULTI rivestito tessuto",
         "MOD": "MULTI rivestito tessuto",
