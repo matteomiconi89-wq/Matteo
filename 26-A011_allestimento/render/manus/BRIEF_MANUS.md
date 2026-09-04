@@ -14,7 +14,7 @@ Da rifare non c'è nulla di geometrico: servono luci, materiali e inquadrature.
 | `26A011_camera_master.glb` | **camera master**, 214 pezzi, origine al centro della stanza |
 | `26A011_camera_master.obj` + `material.mtl` | stessa cosa in OBJ, se serve |
 | `26A011_arredo_completo.glb` | tutto l'arredo del veicolo, 448 pezzi |
-| `26A011_scocca_aperta.glb` | scocca del truck in configurazione **aperta** (slider estratti) |
+| `26A011_scocca_aperta.glb` | scocca reale del truck in configurazione **aperta**: 120 elementi costruttivi — pareti, controsoffitto, divisori vetrati con telai |
 | `inquadrature.json` | le inquadrature già verificate, in coordinate |
 | `arredo_plan.png`, `insieme_plan.png`, `arredo_axo.png` | pianta e assonometria di riferimento |
 
@@ -117,11 +117,34 @@ Obiettivo **35 mm**, FOV verticale 42°. Coordinate in `inquadrature.json`.
 3. **Testata e letto** (8 s) — avvicinamento al mobile contenitore.
 4. **Spaccato sul fianco** (12 s) — arco esterno oltre la parete che si allarga; quella parete **non va renderizzata**, serve come sezione.
 
-## 7. Cosa non toccare
+## 7. Non aggiungere niente
+
+**Nel render deve comparire solo quello che c'è in questi file.** Niente mobili
+in più, niente finestre, niente oggetti di scena, niente aperture inventate per
+"far entrare la luce". È un allestimento esecutivo: un mobile o una finestra che
+non esiste rende il render inutilizzabile per il cliente.
+
+Le uniche aperture reali sono quelle già modellate nella scocca (divisori vetrati
+e oblò). Se una stanza sembra spoglia, è spoglia: mancano i complementi perché non
+sono ancora a progetto, non perché vadano immaginati. Meglio un'inquadratura più
+stretta che riempire con arredo che non esiste.
+
+Stessa regola per i materiali: quelli marcati "da fissare" vanno resi con il
+segnaposto, non sostituiti con un'essenza a piacere.
+
+## 8. Cosa non toccare
 
 Le misure. Sono quelle esecutive: spessori 18 mm, montanti 30 × 60, cassetti a
 passo 183, ripiani a passo 268. Se un pezzo sembra fuori posto è meglio segnalarlo
 che spostarlo — probabilmente è giusto e riguarda un vincolo del veicolo.
+
+**Divisori della scocca esclusi.** 18 elementi dello STEP della scocca — i divisori
+vetrati con telaio nelle due zone notte e uno nel bagno anteriore — attraversano
+fisicamente gli armadi. Gli allineamenti sono verificati (la larghezza 4840 combacia,
+il tramezzo del bagno anteriore e i rivestimenti laterali cadono sulle polilinee
+della pianta), quindi non è un errore di posizionamento: sono i due disegni a non
+concordare, ed è in verifica con l'ufficio tecnico. Nel GLB della scocca quei 18
+elementi non ci sono; ci sono gli altri 120.
 
 Nota sulla **parete letto della camera doppia**: il mobile è reale (STEP, 50 pezzi,
 con la sua distinta), ma questa revisione della pianta non disegna ancora quella

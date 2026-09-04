@@ -77,7 +77,7 @@ def scena(meshes, origine, mat_fisso=None):
         t = trimesh.Trimesh(vertices=P, faces=F, process=False)
         t.visual = trimesh.visual.TextureVisuals(
             material=materiale(mat_fisso if mat_fisso is not None
-                               else materiali_pezzo.get((chiave, m["l"]))))
+                               else m.get("m") or materiali_pezzo.get((chiave, m["l"]))))
         nome = f"{chiave}__{m['l']}"
         visti[nome] = visti.get(nome, 0) + 1
         if visti[nome] > 1:
@@ -113,10 +113,9 @@ sc2.export(OUT / "26A011_arredo_completo.glb")
 print("arredo tutto  :", len(tutti), "pezzi -> 26A011_arredo_completo.glb")
 
 # ------------------------------------------------- 3. scocca del veicolo aperta
-sc3 = scena([("scocca", m) for m in G["aperto"]], ASSE_VEICOLO,
-            mat_fisso="F_PARETI-PAVIMENTI e SOFFITTI_cassone")
+sc3 = scena([("scocca", m) for m in G["aperto"]], ASSE_VEICOLO)
 sc3.export(OUT / "26A011_scocca_aperta.glb")
-print("scocca aperta :", len(G["aperto"]), "volumi -> 26A011_scocca_aperta.glb")
+print("scocca aperta :", len(G["aperto"]), "elementi -> 26A011_scocca_aperta.glb")
 
 # ------------------------------------------------- 4. inquadrature verificate
 INQ = {
