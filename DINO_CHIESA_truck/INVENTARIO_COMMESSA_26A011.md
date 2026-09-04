@@ -200,10 +200,13 @@ Conteggio sui 6 mobili:
 | `Tamburato Laminato Nero Opaco` | 1 | **pannello porta del divisorio** |
 | `VETRO STRATIFICATO SATINATO sp.8` | 1 | vetro della libreria ingresso |
 
-> ⚠ **Da confermare con Matteo**: negli armadi il **tessuto sp.18 sta sulle CASSE**
-> (fianchi, basi, cieli, ripiani) mentre le **ante** sono in laminato bianco.
-> Di solito è il contrario: da falegname va verificato se l'assegnazione è
-> quella voluta o se nell'export si sono scambiati i due materiali.
+> ✔ **Chiarito da Matteo il 04/09**: il **laminato bianco è il supporto grezzo
+> da LACCARE** — il colore della laccatura non è ancora deciso. Quindi
+> l'assegnazione è giusta: casse rivestite in tessuto sp.18, ante in laminato
+> bianco perché andranno laccate.
+> **Nei render**: le ante vanno rese come **laccato opaco neutro** (bianco
+> sporco / grigio chiarissimo) finché non arriva il colore; quando Matteo lo
+> decide, basta un giro per cambiarlo su tutte le ante.
 
 ## 6. Cosa manca ancora
 
