@@ -86,27 +86,91 @@ misure vere (la cucina già promossa si ri-piazza nella scena corretta).
 - **Scarpiera**: 3 ante (bassa 1.298, media 1.499, alta 2.077 di altezza,
   tutte 269,5 larghe), **ripiani inclinati** 247,5 × 465,5, fondali 247,5
 
-## 3. Cosa gli STP NON portano (onestà)
+## 3. Cosa portano gli STP e cosa portano i DXF
 
-- **Materiali e finiture: NON ci sono.** L'export CATIA ha un solo colore
-  generico (RGB 210,210,255 = azzurro di default), nessun nome commerciale.
-  → I materiali si prendono dal **capitolato di Matteo** (`CAPITOLATO_FINITURE.md`):
-  Sabbia / Lava / Congo, WMT, Macadamia, Champagne, ecc.
-- **Ferramenta: NON c'è.** I 203 componenti sono tutti pannelli in legno
-  (fianchi, basi, cieli, ripiani, ante, schiene, zoccoli, cassetti, travoni,
-  cornici): nessuna cerniera, guida o profilo gola nominato.
-  → Se serve in distinta, va chiesta a parte.
-- **Posizioni nel camion: NON ci sono.** Ogni mobile è esportato nel proprio
-  sistema di riferimento (origine 0,0,0). Le trasformazioni interne descrivono
-  solo i pezzi dentro il mobile.
-  → **Servono dalla pianta**: per questo serve il DXF.
+| Informazione | Dove sta | Note |
+|---|---|---|
+| Geometria e misure dei pezzi | **STP** ✔ | 203 componenti al millimetro |
+| **Materiali e finiture** | **DXF, nei nomi dei LAYER** ✔ | vedi §5 — negli STP NON ci sono (colore unico di default CATIA) |
+| **Posizioni nel camion** | **DXF pianta generale** ✔ | vedi §4 — negli STP ogni mobile ha origine 0,0,0 |
+| Ferramenta (marca/modello) | ✘ da nessuna parte | i 203 componenti STP sono tutti pannelli; nei DXF c'è il layer `F_FERRAMENTA` col disegno, non i codici |
 
-## 4. Cosa manca per andare avanti
+## 4. POSIZIONI — dal DXF `26A011_PIANTA_GENERALE`
 
-1. **DXF della pianta generale** (da AutoCAD: `SALVACOME` → DXF 2010 o più
-   recente). Il DWG 2018 è compresso e qui non è leggibile; l'anteprima
-   incorporata (256×108 px) mostra il layout ma non permette misure.
-   Serve per: posizione X,Y di ogni mobile, divisione degli ambienti,
-   posizione di porte e finestre.
-2. **Gli STP mancanti**: bagni, lavanderia, ufficio, letti, divano
-   (dal capitolato risultano previsti ma non sono tra i file caricati).
+Sistema di riferimento adottato: **X = 0 all'inizio del cassone, Y = 0 sull'asse
+del corridoio** (ricavato dal blocco `F_PARETI CASSONE`: 13.989 × 2.540 mm,
+che conferma la scocca STP). Conversione dal disegno: `X = X_dxf − 2292`,
+`Y = Y_dxf − 5525`.
+Le due campate laterali si chiamano nel disegno **lato cucina** (Y positivo,
+qui "NORD") e **lato ingresso** (Y negativo, qui "SUD").
+
+### Mappa degli ambienti lungo i 14 metri
+
+| Ambiente | Da X | A X | Cosa c'è |
+|---|---|---|---|
+| **CAMERA MASTER** | 0 | 3.944 | letto a 559 (corridoio) · armadio master a 1.006 (SUD) · bagno + lavabo a 1.001/1.790 (NORD) |
+| *divisorio living-master* | 3.944 | 4.939 | |
+| **LIVING + CUCINA** | 4.303 | 8.810 | divano a 4.410 (SUD) · cucina 4.417→8.523 (NORD) · tavolo a 5.984 (corridoio) · mobile ingresso-living a 7.010 (SUD) |
+| **INGRESSO + scala** | 7.893 | 11.109 | porta e pianerottolo (SUD), scala esterna |
+| **BAGNO-LAVANDERIA** | 8.386 | 10.486 | sol. B |
+| *divisorio living-doppia* | 8.810 | 11.381 | |
+| **CAMERA DOPPIA** | 10.539 | 13.927 | bagno + lavabo a 10.539/10.544 (NORD) · armadio doppia a 11.383 (SUD) · letto a 11.912 (corridoio) |
+
+### Cucina — moduli veri (campata NORD, quota Y 1.273→2.354)
+
+| Modulo | X da | X a | Largh. |
+|---|---|---|---|
+| Colonna frigo | 4.417 | 5.048 | 631 |
+| Colonna forni | 5.027 | 5.698 | 671 |
+| Base lavello | 5.647 | 6.400 | 753 |
+| Base lavastoviglie | 6.248 | 6.846 | 598 |
+| Base cassettiera posate L.403 | 6.847 | 7.577 | 730 |
+| Base anta | 7.401 | 8.131 | 730 |
+| Colonna L.220 | 7.988 | 8.523 | 535 |
+
+> ⚠ Il palcoscenico Manus ha la cucina a X 4.407→8.291 con moduli
+> 700+600+4×571+300: **posizione giusta, ripartizione dei moduli da correggere**
+> con le larghezze qui sopra.
+
+### Strutture mobili (slider)
+- **Slider grande** (living/cucina): X 4.303→13.591, profondità 1.256 per lato
+- **Slider piccola** (camera master): X 898→3.916, profondità 1.256
+- **Pistoni escursori** `Pist. c.1150`: corsa **1.150 mm**, 8 posizioni lungo il
+  camion (X 1.031 · 3.281 · 4.366 · 7.366 · 9.956 · 12.956 …)
+- Controsoffitto: 13.005 × 2.418 · pavimento cassone: 13.265 × 2.290
+
+## 5. MATERIALI — dai layer dei DXF (fonte vera)
+
+**Pannelli e legno**
+`MULTI laminato CERA` · `MULTI laminato OPACO` · `MULTI laminato_soffitto` (+ veletta)
+· `MULTI OKUME` · `MULTI tessuto` · `LISTELLARE ALLEGARITO laminato o laccato`
+· `LISTELLARE MDF laccato opaco colore…` · `LISTELLARE rovere` · `LSB Lam.to BIANCO`
+· `Tamburato Laminato Nero Opaco` · `MASSELLO_abete` · `MASSELLO_rovere`
+· `MASSELLO lac.to nero` · `Massello Lac.to colore NERO fin. OPACO`
+· **`MASSELLO verniciato BVN`** (la verniciatura BVN delle tue formule)
+
+**Superfici e rivestimenti**
+**`BETACRYL o CORIAN`** (solid surface: top e lavabi) · `MINERAL WALL`
+· `DIBOND_soffitto_cassone` · `LAMIERA ESTERNA` · `CARROZZERIA esterna`
+· `VETRO` · **`VETRO stratificato_pellicola satinata`** · **`SPECCHIO`**
+· `PROFILI_metallo` · `TUBOLARE sez. 40×40`
+
+**Impianti e complementi**
+`STRIP-LED` · `SANITARI` · `RUBINETTERIE` · `COMBIFIX bidet e wc`
+· `ELETTRODOMESTICI` · `TV` · `Tendaggio` · `Piedini` · `Guide` · `Spondine`
+· `FERRAMENTA` · `IMPIANTO ELETTRICO` · `IMPIANTO IDRAULICO` · `IMPIANTO cdz`
+· `Illuminazione`
+
+> Questi nomi **combaciano col capitolato di Matteo**: il vetro stratificato con
+> pellicola satinata e lo specchio sono le paretine dei bagni; il laminato CERA
+> è la cucina già renderizzata; BETACRYL/CORIAN è la famiglia del lavabo.
+
+## 6. Cosa manca ancora
+
+1. **STP dei mobili non ancora ricevuti**: bagno master, bagno guest,
+   bagno-lavanderia, letti, divano, tavolo, libreria-parete ufficio.
+   (In pianta ci sono tutti: si possono già piazzare come volumi con le misure
+   del DXF, ma per il dettaglio dei frontali serve l'STP.)
+2. **Codici finitura commerciali** già chiesti nel capitolato (WMT 538/520/542/511,
+   Plexicor, Pral 2099, Macadamia, Champagne, tessuto 17020): i layer danno la
+   famiglia del materiale, non il colore preciso.
