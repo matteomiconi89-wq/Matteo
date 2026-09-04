@@ -208,3 +208,45 @@ Camera master a X 0→3.944: parete letto a 559 (corridoio), armadio master a
 cucina). Misure e materiali già in `INVENTARIO_COMMESSA_26A011.md`.
 Serve anche perché è il render sorgente del **mondo interattivo della camera
 master** chiesto da Matteo (Marble, ~1.580 crediti World Labs, ne restano ~5.420).
+
+## Esito GIRO 10 (collaudo Claude 04/09/2026) — **BOCCIATO** ✘
+
+227 crediti (tot. task **2.304**). Il referto di Manus dichiarava tutto
+"pass": l'ho guardato lo stesso, ed è sbagliato. Due difetti, uno mio e uno suo.
+
+**Difetto mio — l'inquadratura.** Avevo messo la camera a X 3.700 sull'asse
+del corridoio a guardare dritto verso la parete letto, a 2,8 m. Il risultato
+è la fotografia di un muro: l'armadio (che sta nella campata di fianco) resta
+completamente fuori campo, il pavimento non si vede perché è sotto il bordo
+basso, e del letto ribaltabile aperto si vede solo il piede in primo piano.
+Per un mondo camminabile è la vista peggiore possibile.
+
+**Difetto suo — la resa.** L'immagine sembra un modello CAD grezzo:
+| Misura | Giro 10 | Dovrebbe essere |
+|---|---|---|
+| Luminanza media | **199,8** su 255 | 95–150 |
+| Pixel oltre 245 | **4,65 %** | sotto 1,5 % |
+| Ombre vere (30–90) | quasi assenti | almeno 15 % |
+Niente trama sul tessuto, niente riflesso sul laccato, LED spenti, nessuna
+ombra di contatto. E una **fascia nera** attraversa tutta la parte alta del
+fotogramma: un vuoto non illuminato sopra la parete letto.
+
+**Quello che invece è giusto e va conservato**: la geometria. Ho verificato
+la proiezione da solo — il bordo alto della parete letto cade a py 253 contro
+254 attesi, i bordi verticali a px 496 e 1.893 contro 493 e 1.907. Le quote
+del CAD sono entrate correttamente nella scena.
+
+### GIRO 11 — riquadrare e rimettere la luce (lanciato 04/09)
+Riferimento allegato: `rif_camera_master_v2.png`.
+- **Camera d'angolo**: X 3.820 · Y +600 · h 1.300, asse ruotato di 22° verso
+  la campata armadio, **campo 85°** (largo, perché la stanza è stretta e
+  servono pavimento e soffitto nello stesso fotogramma). Così entrano: parete
+  letto intera, ~4 ante d'armadio in fuga, pavimento a spina, soffitto.
+- **Due immagini dallo stesso punto**: letto CHIUSO (è quella che va in
+  Marble: stanza libera e camminabile) e letto APERTO (mostra la funzione).
+- **Luce con criteri numerici da rispettare** (media 95–150, meno dell'1,5 %
+  di pixel bruciati, almeno il 15 % di toni d'ombra, deviazione ≥ 45, nessuna
+  zona nera più larga di 40 px): non più "fai luce bella", ma numeri che
+  Manus può misurare da solo e su cui deve iterare.
+- **Regola di Matteo scritta nel disegno**: in questa camera non ci sono
+  finestre e non si aggiunge nulla che non sia disegnato.
