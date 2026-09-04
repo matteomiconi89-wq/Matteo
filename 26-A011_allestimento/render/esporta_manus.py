@@ -88,7 +88,8 @@ def scena(meshes, origine, mat_fisso=None):
 
 G = json.load(open(HERE.parent / "arredo_geometry.json"))
 MOB = G["mobili"]
-CAMERA_MASTER = ("armadio_master", "letto_master", "parete_div_master")
+CAMERA_MASTER = ("armadio_master", "parete_letto_master", "letto_master",
+                 "parete_div_master")
 
 # ------------------------------------------------- 1. camera master da sola
 mm = [(k, m) for k in CAMERA_MASTER for m in MOB[k]]
@@ -96,8 +97,7 @@ sc = scena(mm, CENTRO_MASTER)
 sc.export(OUT / "26A011_camera_master.glb")
 sc.export(OUT / "26A011_camera_master.obj")
 with open(OUT / "material.mtl", "w") as f:                 # trimesh lascia l'mtl vuoto
-    for lay in sorted({m for _, m, _ in MAT["armadio_master"]
-                       + MAT["letto_master"] + MAT["parete_div_master"]}):
+    for lay in sorted({m for k in CAMERA_MASTER for _, m, _ in MAT[k]}):
         d = RESA.get(lay) or RESA["_default"]
         r, g, b = rgb(d["base"])
         f.write(f"newmtl {(lay or 'NON_DETERMINATO').replace(' ', '_')}\n"

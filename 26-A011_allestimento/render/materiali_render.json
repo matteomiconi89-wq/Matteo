@@ -1,41 +1,353 @@
 {
- "_nota": "Layer materiale del DWG -> resa nel render. base = colore, ruv = roughness, met = metalness. 'finitura' dice se il DWG definisce gia' il colore o se e' ancora da fissare.",
- "F_MULTI laminato OPACO":        {"base":"#C9B393","ruv":0.62,"met":0.0,"nome":"Multistrato + laminato opaco","finitura":"DA FISSARE"},
- "F_MULTI laminato CERA":         {"base":"#D8BE97","ruv":0.55,"met":0.0,"nome":"Multistrato + laminato cera","finitura":"DA FISSARE"},
- "F_MULTI laminato_soffitto":     {"base":"#E7DFD2","ruv":0.80,"met":0.0,"nome":"Multistrato laminato, soffitto","finitura":"DA FISSARE"},
- "F_MULTI laminato_soffitto_veletta":{"base":"#E2D8C8","ruv":0.78,"met":0.0,"nome":"Multistrato laminato, veletta","finitura":"DA FISSARE"},
- "F_MULTI OKUME":                 {"base":"#C08A5E","ruv":0.65,"met":0.0,"nome":"Multistrato okoume","finitura":"essenza"},
- "F_LISTELLARE ALLEGARITO_laminato o laccato":{"base":"#BFAE96","ruv":0.60,"met":0.0,"nome":"Listellare alleggerito, laminato o laccato","finitura":"DA FISSARE"},
- "F_LISTELLARE_rovere":           {"base":"#B08A55","ruv":0.62,"met":0.0,"nome":"Listellare rovere","finitura":"essenza rovere"},
- "F_LISTELLARE MDF_laccato_opaco_colore................":{"base":"#B9B2A6","ruv":0.70,"met":0.0,"nome":"MDF laccato opaco","finitura":"COLORE NON INDICATO NEL DWG"},
- "F_MASSELLO_abete":              {"base":"#D6BE95","ruv":0.72,"met":0.0,"nome":"Massello di abete","finitura":"essenza abete"},
- "F_MASSELLO_rovere":             {"base":"#A87F4C","ruv":0.62,"met":0.0,"nome":"Massello di rovere","finitura":"essenza rovere"},
- "F_MASSELLO verniciato BVN":     {"base":"#C4A87E","ruv":0.45,"met":0.0,"nome":"Massello verniciato BVN","finitura":"vernice trasparente"},
- "F_MASSELLO_lac.to_nero":        {"base":"#262422","ruv":0.55,"met":0.0,"nome":"Massello laccato nero","finitura":"nero"},
- "F_Massello Lac.to colore NERO fin.OPACO":{"base":"#232120","ruv":0.75,"met":0.0,"nome":"Massello laccato nero opaco","finitura":"nero opaco"},
- "F_Tamburato Laminato Nero Opaco":{"base":"#26241F","ruv":0.78,"met":0.0,"nome":"Tamburato laminato nero opaco","finitura":"nero opaco"},
- "F_LSB Lam.to BIANCO":           {"base":"#EDE9E1","ruv":0.68,"met":0.0,"nome":"LSB laminato bianco","finitura":"bianco"},
- "F_MINERAL WALL":                {"base":"#D3CEC4","ruv":0.85,"met":0.0,"nome":"Mineral wall","finitura":"DA FISSARE"},
- "F_VETRO":                       {"base":"#A8C4CC","ruv":0.05,"met":0.0,"nome":"Vetro","finitura":"trasparente"},
- "F_VETRO stratificato_pellilocala satinata":{"base":"#C2D2D6","ruv":0.30,"met":0.0,"nome":"Vetro stratificato satinato","finitura":"satinato"},
- "F_SPECCHIO":                    {"base":"#C6CDD0","ruv":0.05,"met":0.9,"nome":"Specchio","finitura":"specchiante"},
- "F_PROFILI_metallo":             {"base":"#9A9EA2","ruv":0.35,"met":0.7,"nome":"Profili metallici","finitura":"DA FISSARE"},
- "F_FERRAMENTA":                  {"base":"#8E9296","ruv":0.30,"met":0.8,"nome":"Ferramenta","finitura":"metallo"},
- "F_TUBOLARE sez.40x40":          {"base":"#7C8084","ruv":0.40,"met":0.7,"nome":"Tubolare 40x40","finitura":"metallo"},
- "F_SANITARI":                    {"base":"#F2F2F0","ruv":0.15,"met":0.0,"nome":"Sanitari","finitura":"ceramica bianca"},
- "F_RUBINETTERIE":                {"base":"#B7BCC0","ruv":0.12,"met":0.9,"nome":"Rubinetterie","finitura":"cromo"},
- "F_BETACRYL o CORIAN":           {"base":"#EFEDE7","ruv":0.30,"met":0.0,"nome":"Betacryl / Corian","finitura":"DA FISSARE"},
- "F_ELETTRODOMESTICI":            {"base":"#A8AEB2","ruv":0.30,"met":0.5,"nome":"Elettrodomestici","finitura":"acciaio"},
- "F_Imbottiti":                   {"base":"#8C7F72","ruv":0.95,"met":0.0,"nome":"Imbottiti","finitura":"DA FISSARE"},
- "F_MULTI tessuto":               {"base":"#9C9184","ruv":0.95,"met":0.0,"nome":"Rivestimento tessuto","finitura":"DA FISSARE"},
- "F_PARETI_slider":               {"base":"#CFC9BE","ruv":0.85,"met":0.0,"nome":"Pareti slider","finitura":"DA FISSARE"},
- "F_PARETI-PAVIMENTI e SOFFITTI_cassone":{"base":"#C8C2B6","ruv":0.85,"met":0.0,"nome":"Pareti/pavimenti/soffitti cassone","finitura":"DA FISSARE"},
- "F_RIV.to PARETI e SOFFITTO_slider":{"base":"#D2CCC1","ruv":0.85,"met":0.0,"nome":"Rivestimento pareti e soffitto slider","finitura":"DA FISSARE"},
- "F_DIBOND_soffitto_cassone":     {"base":"#BFC3C6","ruv":0.55,"met":0.2,"nome":"Dibond soffitto cassone","finitura":"DA FISSARE"},
- "F_LAMIERA ESTERNA":             {"base":"#B4BABE","ruv":0.45,"met":0.4,"nome":"Lamiera esterna","finitura":"DA FISSARE"},
- "F_INFISSI":                     {"base":"#8B9095","ruv":0.35,"met":0.6,"nome":"Infissi","finitura":"metallo"},
- "F_PORTE":                       {"base":"#C4B49B","ruv":0.60,"met":0.0,"nome":"Porte","finitura":"DA FISSARE"},
- "F_TV":                          {"base":"#1A1A1C","ruv":0.20,"met":0.3,"nome":"Televisore","finitura":"nero"},
- "F_STRIP-LED":                   {"base":"#FFF0D2","ruv":0.90,"met":0.0,"nome":"Strip LED","finitura":"sorgente luminosa"},
- "_default":                      {"base":"#B3A897","ruv":0.65,"met":0.0,"nome":"Non determinato","finitura":"DA FISSARE"}
+ "_nota": "Materiale -> resa nel render. I nomi senza F_ vengono dalla DISTINTA degli STEP (fonte migliore); quelli con F_ dai layer del DWG. base = colore, ruv = roughness, met = metalness. 'finitura' dice se la finitura e' gia' definita o ancora da fissare.",
+ "F_MULTI laminato OPACO": {
+  "base": "#C9B393",
+  "ruv": 0.62,
+  "met": 0.0,
+  "nome": "Multistrato + laminato opaco",
+  "finitura": "DA FISSARE"
+ },
+ "F_MULTI laminato CERA": {
+  "base": "#D8BE97",
+  "ruv": 0.55,
+  "met": 0.0,
+  "nome": "Multistrato + laminato cera",
+  "finitura": "DA FISSARE"
+ },
+ "F_MULTI laminato_soffitto": {
+  "base": "#E7DFD2",
+  "ruv": 0.8,
+  "met": 0.0,
+  "nome": "Multistrato laminato, soffitto",
+  "finitura": "DA FISSARE"
+ },
+ "F_MULTI laminato_soffitto_veletta": {
+  "base": "#E2D8C8",
+  "ruv": 0.78,
+  "met": 0.0,
+  "nome": "Multistrato laminato, veletta",
+  "finitura": "DA FISSARE"
+ },
+ "F_MULTI OKUME": {
+  "base": "#C08A5E",
+  "ruv": 0.65,
+  "met": 0.0,
+  "nome": "Multistrato okoume",
+  "finitura": "essenza"
+ },
+ "F_LISTELLARE ALLEGARITO_laminato o laccato": {
+  "base": "#BFAE96",
+  "ruv": 0.6,
+  "met": 0.0,
+  "nome": "Listellare alleggerito, laminato o laccato",
+  "finitura": "DA FISSARE"
+ },
+ "F_LISTELLARE_rovere": {
+  "base": "#B08A55",
+  "ruv": 0.62,
+  "met": 0.0,
+  "nome": "Listellare rovere",
+  "finitura": "essenza rovere"
+ },
+ "F_LISTELLARE MDF_laccato_opaco_colore................": {
+  "base": "#B9B2A6",
+  "ruv": 0.7,
+  "met": 0.0,
+  "nome": "MDF laccato opaco",
+  "finitura": "COLORE NON INDICATO NEL DWG"
+ },
+ "F_MASSELLO_abete": {
+  "base": "#D6BE95",
+  "ruv": 0.72,
+  "met": 0.0,
+  "nome": "Massello di abete",
+  "finitura": "essenza abete"
+ },
+ "F_MASSELLO_rovere": {
+  "base": "#A87F4C",
+  "ruv": 0.62,
+  "met": 0.0,
+  "nome": "Massello di rovere",
+  "finitura": "essenza rovere"
+ },
+ "F_MASSELLO verniciato BVN": {
+  "base": "#C4A87E",
+  "ruv": 0.45,
+  "met": 0.0,
+  "nome": "Massello verniciato BVN",
+  "finitura": "vernice trasparente"
+ },
+ "F_MASSELLO_lac.to_nero": {
+  "base": "#262422",
+  "ruv": 0.55,
+  "met": 0.0,
+  "nome": "Massello laccato nero",
+  "finitura": "nero"
+ },
+ "F_Massello Lac.to colore NERO fin.OPACO": {
+  "base": "#232120",
+  "ruv": 0.75,
+  "met": 0.0,
+  "nome": "Massello laccato nero opaco",
+  "finitura": "nero opaco"
+ },
+ "F_Tamburato Laminato Nero Opaco": {
+  "base": "#26241F",
+  "ruv": 0.78,
+  "met": 0.0,
+  "nome": "Tamburato laminato nero opaco",
+  "finitura": "nero opaco"
+ },
+ "F_LSB Lam.to BIANCO": {
+  "base": "#EDE9E1",
+  "ruv": 0.68,
+  "met": 0.0,
+  "nome": "LSB laminato bianco",
+  "finitura": "bianco"
+ },
+ "F_MINERAL WALL": {
+  "base": "#D3CEC4",
+  "ruv": 0.85,
+  "met": 0.0,
+  "nome": "Mineral wall",
+  "finitura": "DA FISSARE"
+ },
+ "F_VETRO": {
+  "base": "#A8C4CC",
+  "ruv": 0.05,
+  "met": 0.0,
+  "nome": "Vetro",
+  "finitura": "trasparente"
+ },
+ "F_VETRO stratificato_pellilocala satinata": {
+  "base": "#C2D2D6",
+  "ruv": 0.3,
+  "met": 0.0,
+  "nome": "Vetro stratificato satinato",
+  "finitura": "satinato"
+ },
+ "F_SPECCHIO": {
+  "base": "#C6CDD0",
+  "ruv": 0.05,
+  "met": 0.9,
+  "nome": "Specchio",
+  "finitura": "specchiante"
+ },
+ "F_PROFILI_metallo": {
+  "base": "#9A9EA2",
+  "ruv": 0.35,
+  "met": 0.7,
+  "nome": "Profili metallici",
+  "finitura": "DA FISSARE"
+ },
+ "F_FERRAMENTA": {
+  "base": "#8E9296",
+  "ruv": 0.3,
+  "met": 0.8,
+  "nome": "Ferramenta",
+  "finitura": "metallo"
+ },
+ "F_TUBOLARE sez.40x40": {
+  "base": "#7C8084",
+  "ruv": 0.4,
+  "met": 0.7,
+  "nome": "Tubolare 40x40",
+  "finitura": "metallo"
+ },
+ "F_SANITARI": {
+  "base": "#F2F2F0",
+  "ruv": 0.15,
+  "met": 0.0,
+  "nome": "Sanitari",
+  "finitura": "ceramica bianca"
+ },
+ "F_RUBINETTERIE": {
+  "base": "#B7BCC0",
+  "ruv": 0.12,
+  "met": 0.9,
+  "nome": "Rubinetterie",
+  "finitura": "cromo"
+ },
+ "F_BETACRYL o CORIAN": {
+  "base": "#EFEDE7",
+  "ruv": 0.3,
+  "met": 0.0,
+  "nome": "Betacryl / Corian",
+  "finitura": "DA FISSARE"
+ },
+ "F_ELETTRODOMESTICI": {
+  "base": "#A8AEB2",
+  "ruv": 0.3,
+  "met": 0.5,
+  "nome": "Elettrodomestici",
+  "finitura": "acciaio"
+ },
+ "F_Imbottiti": {
+  "base": "#8C7F72",
+  "ruv": 0.95,
+  "met": 0.0,
+  "nome": "Imbottiti",
+  "finitura": "DA FISSARE"
+ },
+ "F_MULTI tessuto": {
+  "base": "#9C9184",
+  "ruv": 0.95,
+  "met": 0.0,
+  "nome": "Rivestimento tessuto",
+  "finitura": "DA FISSARE"
+ },
+ "F_PARETI_slider": {
+  "base": "#CFC9BE",
+  "ruv": 0.85,
+  "met": 0.0,
+  "nome": "Pareti slider",
+  "finitura": "DA FISSARE"
+ },
+ "F_PARETI-PAVIMENTI e SOFFITTI_cassone": {
+  "base": "#C8C2B6",
+  "ruv": 0.85,
+  "met": 0.0,
+  "nome": "Pareti/pavimenti/soffitti cassone",
+  "finitura": "DA FISSARE"
+ },
+ "F_RIV.to PARETI e SOFFITTO_slider": {
+  "base": "#D2CCC1",
+  "ruv": 0.85,
+  "met": 0.0,
+  "nome": "Rivestimento pareti e soffitto slider",
+  "finitura": "DA FISSARE"
+ },
+ "F_DIBOND_soffitto_cassone": {
+  "base": "#BFC3C6",
+  "ruv": 0.55,
+  "met": 0.2,
+  "nome": "Dibond soffitto cassone",
+  "finitura": "DA FISSARE"
+ },
+ "F_LAMIERA ESTERNA": {
+  "base": "#B4BABE",
+  "ruv": 0.45,
+  "met": 0.4,
+  "nome": "Lamiera esterna",
+  "finitura": "DA FISSARE"
+ },
+ "F_INFISSI": {
+  "base": "#8B9095",
+  "ruv": 0.35,
+  "met": 0.6,
+  "nome": "Infissi",
+  "finitura": "metallo"
+ },
+ "F_PORTE": {
+  "base": "#C4B49B",
+  "ruv": 0.6,
+  "met": 0.0,
+  "nome": "Porte",
+  "finitura": "DA FISSARE"
+ },
+ "F_TV": {
+  "base": "#1A1A1C",
+  "ruv": 0.2,
+  "met": 0.3,
+  "nome": "Televisore",
+  "finitura": "nero"
+ },
+ "F_STRIP-LED": {
+  "base": "#FFF0D2",
+  "ruv": 0.9,
+  "met": 0.0,
+  "nome": "Strip LED",
+  "finitura": "sorgente luminosa"
+ },
+ "_default": {
+  "base": "#B3A897",
+  "ruv": 0.65,
+  "met": 0.0,
+  "nome": "Non determinato",
+  "finitura": "DA FISSARE"
+ },
+ "MULTI TESSUTO sp.18": {
+  "base": "#9A8C7A",
+  "ruv": 0.94,
+  "met": 0.0,
+  "nome": "Multistrato rivestito in tessuto sp.18",
+  "finitura": "TESSUTO DA SCEGLIERE"
+ },
+ "MULTI TESSUTO sp.10": {
+  "base": "#9A8C7A",
+  "ruv": 0.94,
+  "met": 0.0,
+  "nome": "Multistrato rivestito in tessuto sp.10",
+  "finitura": "TESSUTO DA SCEGLIERE"
+ },
+ "MULT.LAM.B.18mm 305x130": {
+  "base": "#EAE5DA",
+  "ruv": 0.55,
+  "met": 0.0,
+  "nome": "Multistrato laminato bianco 18 mm",
+  "finitura": "bianco"
+ },
+ "MULT.LAM.B.18mm 305x130 CERA": {
+  "base": "#E6DCC7",
+  "ruv": 0.48,
+  "met": 0.0,
+  "nome": "Multistrato laminato bianco 18 mm, finitura cera",
+  "finitura": "bianco cera"
+ },
+ "MASSELLO verniciato BVN": {
+  "base": "#C4A87E",
+  "ruv": 0.45,
+  "met": 0.0,
+  "nome": "Massello verniciato BVN",
+  "finitura": "vernice trasparente"
+ },
+ "MULT. PP/PLAC.SP30 CERA": {
+  "base": "#E3D8C2",
+  "ruv": 0.45,
+  "met": 0.0,
+  "nome": "Multistrato placcato sp.30, finitura cera",
+  "finitura": "cera"
+ },
+ "MULT. PP/PLAC.SP30 3050X1300 BCO CERA BO13 CERA": {
+  "base": "#E8DFCB",
+  "ruv": 0.45,
+  "met": 0.0,
+  "nome": "Multistrato placcato sp.30 bianco cera",
+  "finitura": "bianco cera"
+ },
+ "MULTI laminato OPACO sp.10": {
+  "base": "#D9D2C6",
+  "ruv": 0.62,
+  "met": 0.0,
+  "nome": "Multistrato laminato opaco sp.10",
+  "finitura": "DA FISSARE"
+ },
+ "Tamburato Laminato Nero Opaco": {
+  "base": "#26241F",
+  "ruv": 0.78,
+  "met": 0.0,
+  "nome": "Tamburato laminato nero opaco",
+  "finitura": "nero opaco"
+ },
+ "VETRO STRATIFICATO SATINATO sp.8": {
+  "base": "#C2D2D6",
+  "ruv": 0.3,
+  "met": 0.0,
+  "nome": "Vetro stratificato satinato sp.8",
+  "finitura": "satinato"
+ },
+ "_MATERASSO": {
+  "base": "#CFC7B8",
+  "ruv": 0.95,
+  "met": 0.0,
+  "nome": "Materasso",
+  "finitura": "non a capitolato"
+ },
+ "_GUANCIALE": {
+  "base": "#EDE8DF",
+  "ruv": 1.0,
+  "met": 0.0,
+  "nome": "Guanciale",
+  "finitura": "non a capitolato"
+ }
 }

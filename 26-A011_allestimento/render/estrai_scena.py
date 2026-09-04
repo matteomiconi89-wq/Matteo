@@ -16,9 +16,10 @@ G = json.load(open(HERE.parent / "arredo_geometry.json"))["mobili"]
 
 # chiave -> etichetta mostrata quando si clicca un pezzo
 CAMERA_MASTER = {
-    "armadio_master":    "Armadio",
-    "letto_master":      "Testata e letto",
-    "parete_div_master": "Divisorio",
+    "armadio_master":      "Armadio",
+    "parete_letto_master": "Parete letto",
+    "letto_master":        "Letto",
+    "parete_div_master":   "Divisorio",
 }
 
 MAT = json.load(open(HERE.parent / "materiali.json"))

@@ -11,9 +11,9 @@ Da rifare non c'è nulla di geometrico: servono luci, materiali e inquadrature.
 
 | file | cosa contiene |
 |---|---|
-| `26A011_camera_master.glb` | **camera master**, 182 pezzi, origine al centro della stanza |
+| `26A011_camera_master.glb` | **camera master**, 214 pezzi, origine al centro della stanza |
 | `26A011_camera_master.obj` + `material.mtl` | stessa cosa in OBJ, se serve |
-| `26A011_arredo_completo.glb` | tutto l'arredo del veicolo, 348 pezzi |
+| `26A011_arredo_completo.glb` | tutto l'arredo del veicolo, 448 pezzi |
 | `26A011_scocca_aperta.glb` | scocca del truck in configurazione **aperta** (slider estratti) |
 | `inquadrature.json` | le inquadrature già verificate, in coordinate |
 | `arredo_plan.png`, `insieme_plan.png`, `arredo_axo.png` | pianta e assonometria di riferimento |
@@ -57,34 +57,45 @@ mai dentro un solido e la linea di mira non è mai ostruita.
 
 ## 4. Materiali
 
-Nel DWG i materiali **non sono un attributo**: sono i **layer `F_...`** su cui è
-disegnata la geometria dentro i blocchi. Sono stati letti da lì e assegnati pezzo
-per pezzo; nel GLB lo **slot materiale porta il nome del layer originale**, quindi
-si sostituisce la finitura senza toccare la geometria.
+I materiali vengono da due fonti, in quest'ordine:
 
-| pezzi | layer del DWG | materiale | finitura |
-|---:|---|---|---|
-| 315 | `F_MULTI laminato OPACO` | multistrato + laminato opaco | **da fissare** |
-| 9 | `F_LISTELLARE ALLEGARITO_laminato o laccato` | listellare alleggerito | **da fissare** |
-| 9 | `F_SANITARI` | ceramica | bianco |
-| 7 | `F_Imbottiti` | imbottito divano | **da fissare** |
-| 3 | `F_PROFILI_metallo` | profili metallici | **da fissare** |
-| 2 | `F_MULTI laminato CERA` | multistrato + laminato cera | **da fissare** |
-| 1 | `F_PARETI_slider` | pareti slider | **da fissare** |
-| 1 | `F_MINERAL WALL` | mineral wall | **da fissare** |
-| 1 | `F_FERRAMENTA` | ferramenta | metallo |
+1. **La distinta degli STEP.** I pezzi si chiamano
+   `26-A011_PLS_174_RIPIANO -- MULT.LAM.B.18mm 305x130`: il materiale sta dopo il
+   `--`, con spessore e formato lastra. È la fonte migliore e copre 378 pezzi su 448.
+2. **I layer `F_...` del DWG**, per i mobili di cui non c'è ancora lo STEP.
 
-**La camera master è tutta in `F_MULTI laminato OPACO`**: nel DWG non c'è un
-materiale diverso per le ante. I colori nel GLB sono un segnaposto plausibile —
-**il DWG dice il tipo di pannello, non il colore della finitura**, e un layer
-si chiama letteralmente `F_LISTELLARE MDF_laccato_opaco_colore................`,
-cioè colore ancora da decidere. Prima del render finale vanno definiti.
+Nel GLB lo **slot materiale porta il nome esatto della distinta**, quindi si
+sostituisce la finitura senza toccare la geometria.
 
-Provenienza delle assegnazioni: 215 lette direttamente dal DWG, 106 ereditate
-dalla cassa di appartenenza (i ripiani e i cieli in pianta non si vedono, ma sono
-lo stesso pannello dei fianchi), 21 copiate dal mobile gemello, 6 dedotte
-dall'ingombro in pianta — queste ultime 6 sono le meno sicure e riguardano
-lavanderia, mobile ingresso e mobile lavabo posteriore.
+| pezzi | materiale | finitura |
+|---:|---|---|
+| 156 | `MULT.LAM.B.18mm 305x130` — multistrato laminato bianco 18 | bianco |
+| 148 | `MULTI TESSUTO sp.18` — multistrato **rivestito in tessuto** | **tessuto da scegliere** |
+| 32 | `F_MULTI laminato OPACO` (dal DWG) | da fissare |
+| 26 | `MASSELLO verniciato BVN` | vernice trasparente |
+| 16 | `MULT.LAM.B.18mm 305x130 CERA` | bianco cera |
+| 12 | `MULTI TESSUTO sp.10` | **tessuto da scegliere** |
+| 9 | `F_LISTELLARE ALLEGARITO_laminato o laccato` (dal DWG) | da fissare |
+| 9 | `F_SANITARI` | ceramica bianca |
+| 8 | `MULT. PP/PLAC.SP30 ... BCO CERA` | bianco cera |
+| 7 | `F_Imbottiti` (divano) | da fissare |
+| 6 | `MULT. PP/PLAC.SP30 CERA` | cera |
+| 4 | `MULTI laminato OPACO sp.10` | da fissare |
+| 1 | `VETRO STRATIFICATO SATINATO sp.8` | satinato |
+| 1 | `Tamburato Laminato Nero Opaco` | nero opaco |
+| 3 | `F_PROFILI_metallo`, `F_MINERAL WALL`, `F_PARETI_slider` | da fissare |
+
+**Il dato che cambia l'aspetto del render: gli armadi sono rivestiti in tessuto**
+(`MULTI TESSUTO sp.18`, 148 pezzi — le carcasse di entrambi gli armadi). Non sono
+pannelli laminati. Il tessuto specifico non è indicato nella distinta: serve
+scegliere colore e trama, e vanno resi come tessuto, non come legno.
+
+Bianco e bianco cera sono invece già definiti. I colori nel GLB per i materiali
+marcati "da fissare" sono un segnaposto plausibile.
+
+Provenienza: 378 dalla distinta degli STEP, 32 lette dai layer del DWG, 27
+ereditate dalla cassa di appartenenza, 5 dedotte dall'ingombro in pianta,
+3 copiate dal mobile gemello, 3 fuori capitolato (materasso e guanciali).
 
 ## 5. Luci
 
@@ -111,3 +122,8 @@ Obiettivo **35 mm**, FOV verticale 42°. Coordinate in `inquadrature.json`.
 Le misure. Sono quelle esecutive: spessori 18 mm, montanti 30 × 60, cassetti a
 passo 183, ripiani a passo 268. Se un pezzo sembra fuori posto è meglio segnalarlo
 che spostarlo — probabilmente è giusto e riguarda un vincolo del veicolo.
+
+Una sola eccezione, dichiarata: la **parete letto della camera doppia** è la
+specchiatura di quella della master. In pianta i sei setti da 307 di profondità
+compaiono **solo nella master**, quindi la sua posizione è un'ipotesi in attesa
+di conferma. Tutto il resto è agganciato alla pianta e verificato.

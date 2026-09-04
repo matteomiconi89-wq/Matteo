@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Legge i MATERIALI dalla PIANTA GENERALE e li assegna ai pezzi dei modelli 3D.
 
-Nel DWG di Matteo i materiali non sono un attributo: sono i LAYER `F_...` su cui
-e' disegnata la geometria dentro i blocchi (es. `F_MULTI laminato OPACO`,
+Gli STEP aggiornati portano gia' il materiale nel nome del pezzo
+(`..._RIPIANO -- MULT.LAM.B.18mm 305x130`): quella e' la fonte migliore e viene
+usata per prima. Per tutto il resto il materiale sta nei LAYER `F_...` del DWG,
+su cui e' disegnata la geometria dentro i blocchi (es. `F_MULTI laminato OPACO`,
 `F_MASSELLO_abete`, `F_VETRO`). Questo script:
 
   1. estrae dalla pianta ogni polilinea chiusa disegnata su un layer materiale,
@@ -96,6 +98,8 @@ def assegna(mobili, pol):
             continue                       # riempito dopo, copiando dal gemello
         letti, per_fam = {}, collections.defaultdict(collections.Counter)
         for i, m in enumerate(pezzi):
+            if m.get("m"):
+                continue                   # materiale gia' nel nome di distinta
             V = m["v"]
             bb = (min(p[0] for p in V), max(p[0] for p in V),
                   min(p[1] for p in V), max(p[1] for p in V))
@@ -110,7 +114,14 @@ def assegna(mobili, pol):
         voto_mobile = collections.Counter(letti.values()).most_common(1)
         ris[chiave] = []
         for i, m in enumerate(pezzi):
-            if i in letti:
+            u = m["l"].upper()
+            if "MATERASSO" in u or "GUANCIALE" in u:      # non sono a capitolato
+                mat = "_MATERASSO" if "MATERASSO" in u else "_GUANCIALE"
+                ris[chiave].append([m["l"], mat, "fuori capitolato"])
+                stat["fuori capitolato"] += 1
+            elif m.get("m"):
+                ris[chiave].append([m["l"], m["m"], "distinta"]); stat["distinta"] += 1
+            elif i in letti:
                 ris[chiave].append([m["l"], letti[i], "dwg"]); stat["dwg"] += 1
             else:
                 f = per_fam.get(famiglia(m["l"]))

@@ -24,7 +24,7 @@ def scena(v):              # trailer(mm) -> scena(m), Y in alto, z negato (terna
 
 G = json.load(open(HERE.parent / "arredo_geometry.json"))["mobili"]
 BOX = []
-for k in ("armadio_master", "letto_master", "parete_div_master"):
+for k in ("armadio_master", "parete_letto_master", "letto_master", "parete_div_master"):
     for p in G[k]:
         a = [scena(v) for v in p["v"]]
         BOX.append((k, p["l"],
@@ -67,7 +67,7 @@ SHOTS = [
     ("Armadio 6 casse",   [-1.20, 1.55, -0.58], [1.36, 1.50, -0.58],
                           [-1.10, 1.02, 1.45], [1.26, 1.02, 1.45], "armadio_master"),
     ("Testata e letto",   [1.28, 1.62, -0.78], [0.18, 1.30, -0.56],
-                          [-1.32, 0.94, -0.42], [-1.62, 1.06, -0.46], "letto_master"),
+                          [-1.32, 0.94, -0.42], [-1.62, 1.06, -0.46], "parete_letto"),
 ]
 BERSAGLIO_VOLO = [-0.20, 1.00, -0.05]
 

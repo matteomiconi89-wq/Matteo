@@ -7,3 +7,84 @@ Ns 76
 d 1
 illum 2
 
+newmtl MASSELLO_verniciato_BVN
+# Massello verniciato BVN — finitura: vernice trasparente
+Kd 0.7686 0.6588 0.4941
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 110
+d 1
+illum 2
+
+newmtl MULT._PP/PLAC.SP30_CERA
+# Multistrato placcato sp.30, finitura cera — finitura: cera
+Kd 0.8902 0.8471 0.7608
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 110
+d 1
+illum 2
+
+newmtl MULT.LAM.B.18mm_305x130
+# Multistrato laminato bianco 18 mm — finitura: bianco
+Kd 0.9176 0.8980 0.8549
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 90
+d 1
+illum 2
+
+newmtl MULTI_TESSUTO_sp.10
+# Multistrato rivestito in tessuto sp.10 — finitura: TESSUTO DA SCEGLIERE
+Kd 0.6039 0.5490 0.4784
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 12
+d 1
+illum 2
+
+newmtl MULTI_TESSUTO_sp.18
+# Multistrato rivestito in tessuto sp.18 — finitura: TESSUTO DA SCEGLIERE
+Kd 0.6039 0.5490 0.4784
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 12
+d 1
+illum 2
+
+newmtl MULTI_laminato_OPACO_sp.10
+# Multistrato laminato opaco sp.10 — finitura: DA FISSARE
+Kd 0.8510 0.8235 0.7765
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 76
+d 1
+illum 2
+
+newmtl Tamburato_Laminato_Nero_Opaco
+# Tamburato laminato nero opaco — finitura: nero opaco
+Kd 0.1490 0.1412 0.1216
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 44
+d 1
+illum 2
+
+newmtl _GUANCIALE
+# Guanciale — finitura: non a capitolato
+Kd 0.9294 0.9098 0.8745
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 1
+d 1
+illum 2
+
+newmtl _MATERASSO
+# Materasso — finitura: non a capitolato
+Kd 0.8118 0.7804 0.7216
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 10
+d 1
+illum 2
+
