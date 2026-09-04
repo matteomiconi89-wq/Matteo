@@ -43,6 +43,13 @@ W, H = 1920, 1080
 CW, CH = 2880, 1620          # card sovracampionata 1.5x per lo zoom morbido
 FPS = 30
 VOCE = "it-IT-DiegoNeural"
+RATE = "+12%"                # parlato serrato: sta nel minuto senza mangiarsi le parole
+
+MAX_TOTALE = 60.0            # il video non deve MAI superare il minuto
+DUR_MIN = 2.9                # scena piu corta ammessa
+PAD_VOCE = 0.55              # respiro dopo la voce quando c'e' spazio
+PAD_MIN = 0.35               # respiro minimo (copre i 200 ms di attacco)
+DELAY_MS = 200               # attacco della voce dentro la scena
 
 SFONDO = (18, 16, 14)
 PANNA = (32, 28, 24)
@@ -460,41 +467,39 @@ def scena_cta(tavola=None):
 # (fabbrica, stile musica, testo voce)
 SCENE = [
     (scena_titolo, "minimal",
-     "Filiera un Clic, versione due. Dal disegno 3D del progettista alla "
-     "commessa completa. Da sola."),
+     "Filiera un Clic, versione due: dal 3D del progettista alla commessa "
+     "completa."),
     (scena_problema, "build",
-     "Prima: importare il 3D, esplodere i pezzi, esportare i DXF, togliere i "
-     "doppioni, distinta, sezionatura, programmare due macchine diverse. E "
-     "poi le tavole per il cliente, e il preventivo. Giorni di lavoro."),
+     "Prima: esplodere i pezzi, DXF, doppioni, distinta, sezionatura, due "
+     "macchine, tavole, preventivo. Giorni."),
     (scena_bottone, "groove", "Adesso premo un bottone."),
     (scena_pipeline, "groove",
-     "Dai file del progettista escono da soli i DXF di ogni pezzo, i "
-     "programmi unici senza doppioni, la distinta e la sezionatura."),
+     "Dal 3D escono da soli i DXF di ogni pezzo, i programmi senza doppioni, "
+     "distinta e sezionatura."),
     (scena_macchine, "groove",
-     "I programmi macchina sono già fatti: TLF per la Masterwood, MPRX per "
-     "la Homag. Fori, tasche, e le lamate che staccano i frontali."),
+     "Programmi pronti: TLF per Masterwood, MPRX per Homag. Fori, tasche e "
+     "lamate."),
     (scena_scheda_ordini, "groove",
-     "La scheda base si compila con le formule di casa, e per ogni fornitore "
-     "esce il suo ordine in PDF, già pronto nella cartella ordini."),
+     "La scheda si compila con le formule di casa, e ogni fornitore ha il suo "
+     "ordine in PDF."),
     (scena_viste, "half",
-     "E per il cliente? Dalla stessa filiera esce la tavola quotata: pianta, "
-     "prospetto e sezioni, coi vani utili e i materiali a colori. PDF da "
-     "stampare, e DWG in scala reale con quote vere."),
+     "Per il cliente, la tavola quotata: pianta, prospetto, sezioni, vani e "
+     "materiali a colori. PDF e DWG in scala."),
     (scena_costi, "groove",
-     "E sai quanto ti costa ogni mobile: pannelli, bordi, ferramenta, "
-     "laccatura, illuminazione e manodopera. Prima di accendere la sega."),
+     "E sai il costo di ogni mobile: pannelli, bordi, ferramenta, laccatura, "
+     "luci, manodopera. Prima di tagliare."),
     (scena_collaudo, "groove",
-     "Tutto collaudato pezzo per pezzo contro i programmi veri delle mie "
-     "macchine: identici al cento per cento."),
+     "Collaudata sui programmi veri delle mie macchine: identici al cento per "
+     "cento."),
     (scena_cta, "outro",
-     "Tu selezioni i file, premi avvia, e torni a fare il falegname. "
-     "Filiera un Clic, dal Falegname Digitale."),
+     "Selezioni i file, premi avvia, torni a fare il falegname. Filiera un "
+     "Clic, dal Falegname Digitale."),
 ]
 
 # girato reale da inserire DOPO la scena indicata (indice 0-based), se esiste
 GIRATO = [
-    (4, "girato_woodwop.mp4", 8.0),      # dopo le macchine: WoodWOP vero
-    (6, "girato_demo.mp4", 8.0),         # dopo le viste: app che gira davvero
+    (4, "girato_woodwop.mp4", 3.5),      # dopo le macchine: WoodWOP vero
+    (6, "girato_demo.mp4", 3.5),         # dopo le viste: app che gira davvero
 ]
 
 
@@ -507,7 +512,7 @@ async def _genera_voci_async():
         mp3 = os.path.join(OUT, f"voce{i}.mp3")
         if os.path.exists(mp3):
             continue
-        await edge_tts.Communicate(testo, VOCE, rate="+6%").save(mp3)
+        await edge_tts.Communicate(testo, VOCE, rate=RATE).save(mp3)
         print("voce", i, "ok")
 
 
@@ -670,7 +675,7 @@ def componi_musica(segmenti, wav_path):
 # ----------------------------------------------------------------------------
 # MONTAGGIO
 # ----------------------------------------------------------------------------
-def scena_mp4(i, png, dur, mp3, ultimo):
+def scena_mp4(i, png, dur, mp3, ultimo, tempo=1.0):
     frames = int(dur * FPS)
     mp4 = os.path.join(OUT, f"scena{i}.mp4")
     vf = (f"zoompan=z='min(1.06,1+0.0006*on)':"
@@ -680,8 +685,11 @@ def scena_mp4(i, png, dur, mp3, ultimo):
         vf += f",fade=t=out:st={max(0, dur - 0.7):.2f}:d=0.7"
     cmd = [FFMPEG, "-y", "-loop", "1", "-framerate", str(FPS), "-i", png]
     if mp3:
+        af = f"atempo={tempo:.3f}," if tempo > 1.005 else ""
         cmd += ["-i", mp3,
-                "-filter_complex", f"[0:v]{vf}[v];[1:a]adelay=350|350,apad[a]"]
+                "-filter_complex",
+                f"[0:v]{vf}[v];"
+                f"[1:a]{af}adelay={DELAY_MS}|{DELAY_MS},apad[a]"]
     else:
         cmd += ["-f", "lavfi", "-t", f"{dur:.2f}",
                 "-i", "anullsrc=r=44100:cl=stereo",
@@ -722,6 +730,48 @@ def girato_mp4(idx, nome, dur_max):
     return mp4
 
 
+def durate_girato():
+    """Quanto tempo si prende il girato reale (0 se sul PC non c'e')."""
+    tot = 0.0
+    for _, nome, dmax in GIRATO:
+        src = os.path.join(GIRATO_DIR, nome)
+        if os.path.exists(src):
+            try:
+                tot += min(dmax, durata_media(src))
+            except Exception:
+                tot += dmax
+    return tot
+
+
+def pianifica(voci, testi, budget):
+    """Durate delle scene dentro il budget, senza tagliare una parola: prima
+    si stringono le pause, poi si accelera la voce. Torna (durate, tempo)."""
+    grezze, minime = [], []
+    for v, testo in zip(voci, testi):
+        if v:
+            grezze.append(max(DUR_MIN, v + PAD_VOCE))
+            minime.append(max(DUR_MIN, v + PAD_MIN))
+        else:                                   # muto: tempo per leggere
+            g = max(DUR_MIN, min(5.6, 1.2 + 0.032 * len(testo)))
+            grezze.append(g)
+            minime.append(max(DUR_MIN * 0.85, g * 0.8))
+    if sum(grezze) <= budget:
+        if not any(voci):                       # muto: spazio per leggere
+            f = min(1.35, budget / sum(grezze))
+            return [min(5.6, g * f) for g in grezze], 1.0
+        return grezze, 1.0
+    if sum(minime) <= budget:                   # basta togliere il respiro
+        avanzo = budget - sum(minime)
+        quota = sum(grezze) - sum(minime)
+        return [m + avanzo * (g - m) / quota
+                for g, m in zip(grezze, minime)], 1.0
+    if not any(voci):
+        fattore = budget / sum(minime)
+        return [m * fattore for m in minime], 1.0
+    tempo = min(1.30, sum(minime) / budget)     # oltre 1.30 la voce corre
+    return [m / tempo for m in minime], tempo
+
+
 def main():
     tavola = genera_tavola_reale()
 
@@ -732,17 +782,23 @@ def main():
         return
 
     con_voce = genera_voci()
+
+    testi = [t for _, _, t in SCENE]
+    voci = [durata_media(os.path.join(OUT, f"voce{i}.mp3")) if con_voce else 0.0
+            for i in range(1, len(SCENE) + 1)]
+    budget = max(20.0, MAX_TOTALE - durate_girato())
+    durate, tempo = pianifica(voci, testi, budget)
+    if tempo > 1.005:
+        print(f"voce accelerata x{tempo:.2f} per stare dentro il minuto")
+
     pezzi, segmenti, copione = [], [], []
     t_cursore = 0.0
     for i, (fabbrica, stile, testo) in enumerate(SCENE, 1):
         png = os.path.join(OUT, f"scena{i}.png")
         fabbrica(tavola).save(png)
         mp3 = os.path.join(OUT, f"voce{i}.mp3") if con_voce else None
-        if mp3:
-            dur = max(4.0, durata_media(mp3) + 1.0)
-        else:
-            dur = max(4.2, min(8.5, 1.8 + 0.04 * len(testo)))
-        pezzi.append(scena_mp4(i, png, dur, mp3, i == len(SCENE)))
+        dur = durate[i - 1]
+        pezzi.append(scena_mp4(i, png, dur, mp3, i == len(SCENE), tempo))
         segmenti.append((t_cursore, dur, stile))
         copione.append(f"SCENA {i}  ({dur:.1f}s)\n  {testo}\n")
         t_cursore += dur
