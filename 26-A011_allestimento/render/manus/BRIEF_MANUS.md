@@ -123,9 +123,9 @@ Le misure. Sono quelle esecutive: spessori 18 mm, montanti 30 × 60, cassetti a
 passo 183, ripiani a passo 268. Se un pezzo sembra fuori posto è meglio segnalarlo
 che spostarlo — probabilmente è giusto e riguarda un vincolo del veicolo.
 
-Una sola eccezione, dichiarata: la **parete letto della camera doppia**. Il mobile
-è reale (STEP, 50 pezzi, con la sua distinta), ma questa revisione della pianta non
-disegna ancora quella stanza, quindi la posizione non è agganciata come le altre:
-è ricavata dal vano — schiena contro la testata dove finiscono i rivestimenti
-laterali (X 13593,4), stessa fascia in larghezza della master, ruotata a guardare
-verso il divisorio. **Da confermare.** Tutto il resto è agganciato alla pianta.
+Nota sulla **parete letto della camera doppia**: il mobile è reale (STEP, 50 pezzi,
+con la sua distinta), ma questa revisione della pianta non disegna ancora quella
+stanza, quindi la posizione non è agganciata al disegno come le altre — è ricavata
+dal vano (schiena a X 13593,4, dove finiscono i rivestimenti laterali; stessa fascia
+in larghezza della master; ruotata a guardare verso il divisorio) e **confermata
+direttamente dal progettista**. Tutto il resto è agganciato alla pianta.

@@ -37,7 +37,8 @@ PEZZI = {
  # la camera doppia non e' disegnata in questa revisione della pianta: la parete
  # letto e' ancorata al vano — schiena contro la testata del vano (X 13593.4, dove
  # finiscono i rivestimenti laterali) e stessa fascia in Y della master (1223.8..3591.8).
- # Ruotata di 270 perche' guarda verso il divisorio, non verso la coda. DA CONFERMARE.
+ # Ruotata di 270 perche' guarda verso il divisorio, non verso la coda.
+ # Quota 13593.4 confermata da Matteo (04/09).
  'parete_letto_doppia': dict(f='0b000a3b-26A011_PareteLetto_CameraDoppia.stp',
                              rot=270, off=(13286.4, 3591.8)),
 }
