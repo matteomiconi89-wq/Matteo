@@ -911,16 +911,20 @@ def main():
 
     wav = componi_musica(segmenti, os.path.join(OUT, "musica_v2.wav"),
                          click_times)
-    gain = 0.42 if con_voce else 0.85
+    # le voci sono mono: senza aformat l'amix schiaccia a mono anche la musica
+    gain, voce_gain = (0.38, 1.6) if con_voce else (0.85, 1.0)
     finale = os.path.join(OUT, "FILIERA_UN_CLIC_v2.mp4")
     r = subprocess.run(
         [FFMPEG, "-y", "-i", muto, "-i", wav,
          "-filter_complex",
-         f"[1:a]volume={gain}[m];"
-         f"[0:a][m]amix=inputs=2:duration=first:dropout_transition=0,"
-         f"alimiter=limit=0.95[a]",
+         f"[0:a]aformat=channel_layouts=stereo,volume={voce_gain}[v];"
+         f"[1:a]volume={gain},aformat=channel_layouts=stereo[m];"
+         f"[v][m]amix=inputs=2:duration=first:dropout_transition=0,"
+         f"loudnorm=I=-16:TP=-1.5:LRA=11,alimiter=limit=0.97,"
+         f"aresample=44100[a]",
          "-map", "0:v", "-map", "[a]",
-         "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", finale],
+         "-c:v", "copy", "-c:a", "aac", "-b:a", "192k",
+         "-ar", "44100", "-ac", "2", finale],
         capture_output=True, text=True)
     if r.returncode != 0:
         print(r.stderr[-1500:])
