@@ -13,9 +13,9 @@ def dims(meshes):
 
 # key -> (label, hex color, categoria, fonte)  — 21 pezzi ricostruiti dal DWG 2D
 META = {
- "letto_master":     ("Letto matrimoniale · master",   "#c7a34e","camera","footprint dalla pianta · ALTEZZE mie, da confermare"),
+ "letto_master":     ("Letto matrimoniale · master",   "#c7a34e","camera","DWG MOBILE CONTENITORE TESTATA LETTO (prospetto+sezioni)"),
  "armadio_master":   ("Armadio camera master",         "#a8825a","camera","STEP REALE di Matteo (106 pezzi, nomi distinta)"),
- "letto_doppia":     ("Letto contenitore · doppia",    "#d0b25e","camera","IPOTESI: non e disegnato in pianta (ribaltabile da armadio)"),
+ "letto_doppia":     ("Letto contenitore · doppia",    "#d0b25e","camera","stesso mobile del master, specchiato contro la parete di fondo"),
  "armadio_doppia":   ("Armadio camera doppia",         "#96733f","camera","STEP REALE di Matteo (90 pezzi, nomi distinta)"),
  "divano":           ("Divano + pensile",              "#c86b45","living","footprint dalla pianta · ALTEZZE mie, da confermare"),
  "tavolo":           ("Tavolo",                        "#7d7f86","living","piano dalla pianta · gambe e altezza mie"),
