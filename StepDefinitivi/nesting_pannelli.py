@@ -143,7 +143,8 @@ def _disegna(pagine, mat, lastra, W, H, fogli, font, mm2px):
 
 
 def nesting_lavoro(base, log=print):
-    """base = DXF DEFINITIVI. Ritorna ({materiale: n fogli}, pdf_path)."""
+    """base = cartella madre "Programmi CNC".
+    Ritorna ({materiale: n fogli}, pdf_path)."""
     import sys
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from scheda_base_da_filiera import (_leggi_riepilogo, _codice_num,
@@ -206,7 +207,8 @@ def nesting_lavoro(base, log=print):
         return fogli_per_mat, None
 
     lavoro = os.path.basename(os.path.dirname(base)) or "lavoro"
-    pdf = os.path.join(os.path.dirname(base), f"NESTING_{lavoro}.pdf")
+    # dentro la cartella madre del lavoro: prima usciva accanto ai file 3D
+    pdf = os.path.join(base, f"NESTING_{lavoro}.pdf")
     tmp = pdf + ".parte"
     Image.init()
     pag = [p.convert("L") for p in pagine]

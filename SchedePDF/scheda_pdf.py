@@ -3,8 +3,8 @@ r"""scheda_pdf - il LIBRETTO PDF del mobile: copertina con l'ESPLOSO
 (palloncini = numeri programma) + una SCHEDA per programma col disegno
 del pezzo e le misure rilevanti. Tutto con Pillow (PDF multipagina).
 
-uso: py scheda_pdf.py <base DXF DEFINITIVI> <camera/mobile> [step]
-es.: py scheda_pdf.py "...\21032\SET_19_20_21_22\DXF DEFINITIVI" A102
+uso: py scheda_pdf.py <cartella madre "Programmi CNC"> <camera/mobile> [step]
+es.: py scheda_pdf.py "...\21032\SET_19_20_21_22\Programmi CNC" A102
      "...\21032_A102_J-03_02_ter.stp"
 """
 import json
@@ -116,7 +116,7 @@ INT_KW = ("RIPIANO", "TRAVERSA", "CASSETTO", "FRONTALE", "ANTA", "GOLA",
 
 
 def pagina_esploso(mobile, programmi, boxes, manifest, mat_map=None,
-                   finito_shots=None, ferr=None):
+                   finito_shots=None, ferr=None, motivo=""):
     """Copertina: esploso isometrico con palloncini numero programma.
     Ritorna UNA lista di pagine: mobile FINITO a colori, montato
     fronte/retro, poi l'esploso (1 o 2 viste struttura/interni).
@@ -133,6 +133,13 @@ def pagina_esploso(mobile, programmi, boxes, manifest, mat_map=None,
         dr.text((MARG, 300), "(nessun 3D d'assieme disponibile: "
                              "vedi l'elenco programmi nelle schede)",
                 fill="black", font=font(32))
+        # PERCHE' manca: senza queste righe l'unico modo di capirlo era
+        # rileggersi il log della filiera
+        y = 370
+        for riga in str(motivo or "").split("\n"):
+            if riga.strip():
+                dr.text((MARG, y), riga, fill=(90, 90, 90), font=font(26))
+                y += 36
         return [img]
     # abbina ogni box a un programma per QUOTE ordinate, con PUNTEGGIO e
     # assegnazione ESCLUSIVA che rispetta la q.ta' del programma nel
@@ -1438,7 +1445,8 @@ def disegna_ferramenta(mobile, ferr):
     return img
 
 
-def genera(base, camera, step=None, out_dir=None, log=print, dwg=None):
+def genera(base, camera, step=None, out_dir=None, log=print, dwg=None,
+           ripiego_dwg=False):
     pu = os.path.join(base, "PROGRAMMI_UNICI")
     manifest = json.load(open(os.path.join(base, "_manifest.json"),
                               encoding="utf-8"))
@@ -1453,6 +1461,9 @@ def genera(base, camera, step=None, out_dir=None, log=print, dwg=None):
 
     boxes = []
     finito_shots = None
+    # traccia dei tentativi: se l'esploso non esce, la pagina dice PERCHE'
+    perche = ["STEP: " + (step if step else "non trovato"),
+              "DWG:  " + (dwg if dwg else "non trovato")]
     # sorgente esploso: preferisco il DWG SOLO se i suoi solidi sono NOMINATI
     # (layer "NOME -- MATERIALE" -> abbinamento ESATTO pezzo->programma nei
     # palloncini). Cosi' i lavori non-variante (es. 21032) restano sullo STEP
@@ -1486,18 +1497,27 @@ def genera(base, camera, step=None, out_dir=None, log=print, dwg=None):
                 log("    [!] esploso dallo step non riuscito "
                     "(FreeCAD non ha letto il file): "
                     "libretto senza copertina-esploso")
+                perche.append("FreeCAD non ha letto lo STEP "
+                              f"({FREECADCMD})")
             shutil.rmtree(tmp, ignore_errors=True)
         except Exception as ex:
             log(f"    [!] esploso dallo step non riuscito ({ex}): "
                 "libretto senza copertina-esploso")
+            perche.append(f"FreeCAD non partito: {ex}")
     if (not boxes and dwg and os.path.isfile(dwg)
-            and not (step and os.path.isfile(step))):
-        # DWG non nominato e NIENTE step (es. demo): esploso dal dwg, a quote.
-        # Se lo step c'era ma e' fallito NON ripiego sul dwg: il lavoro
-        # non-variante (es. 21032) resta "dallo step o niente", com'era
+            and (ripiego_dwg or not (step and os.path.isfile(step)))):
+        # ripiego: esploso dal DWG a quote. Con ripiego_dwg=True (filiera
+        # GENERICO) ci si passa ANCHE se lo step c'era ma FreeCAD non l'ha
+        # letto: meglio l'esploso a scatole che una pagina vuota. Il 21032
+        # (ripiego_dwg=False) resta "dallo step o niente", com'era
         boxes = boxes_da_dwg(dwg, log)
         if boxes:
-            log(f"  esploso: {len(boxes)} solidi dal dwg")
+            log(f"  esploso: {len(boxes)} solidi dal dwg (ripiego)")
+        else:
+            perche.append("il DWG non ha dato solidi (AutoCAD occupato, "
+                          "disegno gia' aperto o senza 3DSOLID?)")
+    if not boxes:
+        log("    [!] ESPLOSO VUOTO -> " + " | ".join(perche))
 
     # materiale per programma dal riepilogo -> colori. La colonna MATERIALE
     # si cerca per NOME di intestazione: le due filiere hanno layout diversi
@@ -1552,7 +1572,8 @@ def genera(base, camera, step=None, out_dir=None, log=print, dwg=None):
         except Exception as ex:
             log(f"    [!] ferramenta dal dwg saltata ({ex})")
     pagine = list(pagina_esploso(camera, miei, boxes, miei, mat_map,
-                                 finito_shots=finito_shots, ferr=ferr_mob))
+                                 finito_shots=finito_shots, ferr=ferr_mob,
+                                 motivo="\n".join(perche)))
 
     def _ord(kv):
         e = ETI.get(kv[0], num_programma(kv[1].get("name") or kv[0]))

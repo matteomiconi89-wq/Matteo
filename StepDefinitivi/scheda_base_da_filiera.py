@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """scheda_base_da_filiera - compila la SCHEDA BASE dal giro di filiera.
 
-Copia lo stampo SCHEDA_BASE_MODELLO_FILIERA.xlsm accanto al lavoro come
-"SCHEDA BASE_<lavoro>.xlsm" e riempie via Excel COM (tendine e macro
+Copia lo stampo SCHEDA_BASE_MODELLO_FILIERA.xlsm dentro la cartella madre
+del lavoro (Programmi CNC\SCHEDA BASE) come "SCHEDA BASE_<lavoro>.xlsm"
+e la riempie via Excel COM (tendine e macro
 sopravvivono, i valori restano in cache per lo script fornitori):
   - GENERALE, distinta pezzi (righe sopra l'END): CODICE, MOBILE,
     MATERIALE (dal 3D quando c'e'), Q.TA, PEZZO, H/L/SP
@@ -212,7 +213,7 @@ def _blocco_pannellame(wb, ws, righe, log, fogli=None):
 
 def compila_scheda_base(base, log=print, ferramenta=None, fogli=None,
                         fornitori=None):
-    """base = cartella DXF DEFINITIVI del lavoro. ferramenta opzionale:
+    """base = cartella madre "Programmi CNC" del lavoro. ferramenta opzionale:
     [(codice, qta)]; se None niente blocco ferramenta. fornitori opzionale:
     {codice: FORNITORE} (dai layer del DWG d'assieme) -> scritto in colonna E
     (nascosta) del blocco ferramenta, esatto dal modello."""
@@ -234,8 +235,13 @@ def compila_scheda_base(base, log=print, ferramenta=None, fogli=None,
         righe = righe[:RIGA_END - RIGA_DATI]
 
     lavoro = os.path.basename(os.path.dirname(base)) or "lavoro"
-    dst = os.path.join(os.path.dirname(base),
-                       f"SCHEDA BASE_{lavoro}.xlsm")
+    # TUTTO dentro la cartella madre del lavoro. Prima la scheda nasceva
+    # FUORI (accanto ai file 3D) e con lei se ne andavano il _COMPLETO e la
+    # cartella ORDINI, che vengono creati accanto alla scheda: era questo a
+    # sparpagliare l'output del giro
+    out_scheda = os.path.join(base, "SCHEDA BASE")
+    os.makedirs(out_scheda, exist_ok=True)
+    dst = os.path.join(out_scheda, f"SCHEDA BASE_{lavoro}.xlsm")
     try:
         shutil.copy2(STAMPO, dst)
     except PermissionError:
@@ -330,7 +336,8 @@ def compila_scheda_base(base, log=print, ferramenta=None, fogli=None,
 def genera_ordini_fornitori(scheda_path, log=print):
     """Dalla SCHEDA BASE compilata sforna il file '<scheda>_COMPLETO' coi fogli
     d'ORDINE per FORNITORE (ferramenta + illuminazione + laccatura) + la
-    sezionatura raggruppata, ACCANTO al lavoro. Riusa HEADLESS (niente finestre)
+    sezionatura raggruppata, ACCANTO alla scheda (quindi dentro la cartella
+    madre del lavoro). Riusa HEADLESS (niente finestre)
     la logica del tool GUI automazioni_excel_FINALE, cosi' l'ordine si genera da
     solo in coda alla filiera."""
     import sys as _sys

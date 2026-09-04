@@ -1,5 +1,5 @@
 """
-dxf2tlf_masterwood - dai DXF 3D (3DSOLID, es. DXF DEFINITIVI) ai .TLF
+dxf2tlf_masterwood - dai DXF 3D (3DSOLID, es. "Programmi CNC") ai .TLF
 per Masterwood MW315 (PROJECT MW315 WINDOWS), senza aprire nessun software.
 
 COME FUNZIONA

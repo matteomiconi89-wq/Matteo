@@ -1,12 +1,13 @@
 """
-step_dxf_definitivi - dai file STEP ai DXF DEFINITIVI, a mani libere.
+step_dxf_definitivi - dai file STEP alla cartella "Programmi CNC", a mani
+libere. Tutto il giro scrive li' dentro: niente file sparsi nel lavoro.
 
 Per ogni .stp/.step selezionato:
   1. nuovo disegno nell'AutoCAD GIA' APERTO (non chiude ne' riavvia nulla)
   2. IMPORT dello STEP (aspetta la traduzione in background)
   3. salva il DWG col NOME REALE (nome del file step) accanto allo step
   4. ESPLODINOMI automatico (tutti i blocchi + etichette) e ri-salva il DWG
-  5. ESPSOL nella cartella  DXF DEFINITIVI\\<nome file>\\  accanto allo step
+  5. ESPSOL nella cartella  Programmi CNC\\<nome file>\\  accanto allo step
      (i frontali cassetto SX/CX/DX escono gia' in file unico)
   6. chiude il disegno
 
@@ -29,7 +30,9 @@ from tkinter import filedialog, messagebox
 
 LISP_DIR = r"C:\Users\User\Desktop\CLAUDE\autocad"
 LISP_FILES = ["nomina-solididef.lsp", "esplodi-nomi.lsp", "esporta-solidi.lsp"]
-OUT_DIRNAME = "DXF DEFINITIVI"
+# cartella MADRE del giro: dentro ci finisce TUTTO (pezzi, programmi
+# macchina, tavole cliente, libretti, scheda base, ordini, nesting)
+OUT_DIRNAME = "Programmi CNC"
 
 # False = modo 21032: frontali cassetto uniti in file unico, confronto col
 #         modulo 21032 (regole CNC) e sezionatura finale.
@@ -449,23 +452,43 @@ def libretti_pdf(base, log):
                 and d != "PROGRAMMI_UNICI"]
     sorgenti = {f.lower(): f for f in os.listdir(sopra)}
     log(f"  LIBRETTI PDF ({len(camere)} mobili):")
+
+    def _norm(s):
+        return "".join(c for c in str(s).lower() if c.isalnum())
+
+    def _trova(nome_base, est):
+        """il 3D sorgente accanto al lavoro: prima il nome esatto, poi il
+        confronto NORMALIZZATO (spazi, underscore, trattini e maiuscole non
+        contano). Prima si cercava solo il nome esatto della cartella: se il
+        file 3D era scritto anche di un solo carattere diverso, step e dwg
+        restavano None e il libretto usciva senza esploso, senza dirlo."""
+        f = sorgenti.get((nome_base + est).lower())
+        if f:
+            return os.path.join(sopra, f)
+        atteso = _norm(nome_base) + _norm(est)
+        for basso, vero in sorgenti.items():
+            if _norm(basso) == atteso:
+                return os.path.join(sopra, vero)
+        return None
+
     for cam in sorted(camere):
         step = dwg = None
-        for d in cartelle:
-            if d == cam or _codice_camera(d) == cam:
-                for est in (".stp", ".step"):
-                    f = sorgenti.get((d + est).lower())
-                    if f:
-                        step = os.path.join(sopra, f)
-                        break
-                # il DWG lo prendo SEMPRE (anche se c'e' lo step): lo step
-                # serve all'esploso, il DWG agli SCREENSHOT 3D del finito
-                f = sorgenti.get((d + ".dwg").lower())
-                if f:
-                    dwg = os.path.join(sopra, f)
-                break
+        # candidati: la cartella del mobile dentro il lavoro E il nome della
+        # camera (il 3D sorgente puo' chiamarsi come l'una o come l'altra)
+        cand = [d for d in cartelle if d == cam or _codice_camera(d) == cam]
+        if cam not in cand:
+            cand.append(cam)
+        for nb in cand:
+            for est in (".stp", ".step"):
+                step = step or _trova(nb, est)
+            # il DWG lo prendo SEMPRE (anche se c'e' lo step): lo step
+            # serve all'esploso, il DWG agli SCREENSHOT 3D del finito
+            dwg = dwg or _trova(nb, ".dwg")
+        log(f"    {cam}: step={os.path.basename(step) if step else '-'}"
+            f"  dwg={os.path.basename(dwg) if dwg else '-'}")
         try:
             genera_schede(base, cam, step=step, dwg=dwg,
+                          ripiego_dwg=MODO_GENERICO,
                           log=lambda m: log("  " + str(m)))
         except Exception as ex:
             log(f"    [!] libretto {cam} fallito: {ex}")
@@ -566,6 +589,15 @@ def confronto_e_sezionatura(base, log):
             viste_cliente_pdf(base, log)
         except Exception as ex:
             log(f"  [!] viste cliente fallite: {ex}")
+    # dove e' finito tutto: l'output sta SOLO qui dentro, niente file sparsi
+    log(f"  TUTTO IN: {base}")
+    log("     <mobile>\\        dxf dei pezzi + TLF / MPR / MPRX")
+    log("     PROGRAMMI_UNICI\\ programmi senza doppioni + riepilogo")
+    log("     VISTE\\           TAVOLE PER IL CLIENTE (pdf + dwg quotato)")
+    log("     SCHEDE_PDF\\      libretti di officina, uno per mobile")
+    if MODO_GENERICO:
+        log("     SCHEDA BASE\\     scheda, _COMPLETO e ORDINI\\ fornitori")
+        log("     NESTING_*.pdf    piano di taglio")
     return res
 
 
@@ -776,7 +808,7 @@ def ferramenta_da_stp(base, log):
 
 
 def _confronto_core(base, log):
-    """Sulle sottocartelle di <base> (= DXF DEFINITIVI, una per mobile):
+    """Sulle sottocartelle di <base> (= Programmi CNC, una per mobile):
     - modo 21032:   confronta_file_unici_dxf (regole CNC) -> PROGRAMMI_UNICI
                     + _RIEPILOGO, poi genera_sezionatura -> _LAVORATO.xlsx
     - modo GENERICO: file_unici_dxf_generico -> PROGRAMMI_UNICI + _RIEPILOGO

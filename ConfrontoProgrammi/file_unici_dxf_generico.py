@@ -359,8 +359,8 @@ MAGG_TAGLIO = 10        # mm in piu' su L e H in sezionatura (SP no)
 
 
 def carica_distinte(base, log=print):
-    """Cerca *Distinta*.xls* accanto al lavoro (la cartella sopra DXF
-    DEFINITIVI e le sue sottocartelle di primo livello) e ne tira fuori
+    """Cerca *Distinta*.xls* accanto al lavoro (la cartella sopra
+    "Programmi CNC" e le sue sottocartelle di primo livello) e ne tira fuori
     Codice/Pezzo -> Materiale, con le misure per sciogliere gli omonimi.
     Serve quando STP/DWG non portano il materiale: la colonna MATERIALE
     del riepilogo si compila da sola dalla distinta del mobile."""
