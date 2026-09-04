@@ -1,0 +1,115 @@
+{
+ "convenzione": "metri, Y in alto, terna destrorsa, pavimento y=0, origine al centro della camera master (trailer X2422 Y1829.5)",
+ "obiettivo_mm": 35,
+ "fov_verticale_gradi": 42,
+ "vano": {
+  "lunghezza": 3.728,
+  "larghezza": 3.562,
+  "altezza": 2.293
+ },
+ "inquadrature": [
+  {
+   "nome": "Dalla porta",
+   "durata_s": 9,
+   "camera_da": [
+    2.8,
+    1.66,
+    1.3
+   ],
+   "camera_a": [
+    1.78,
+    1.56,
+    1.02
+   ],
+   "mira_da": [
+    0.2,
+    1.02,
+    0.2
+   ],
+   "mira_a": [
+    -0.55,
+    0.98,
+    -0.1
+   ],
+   "nota": "si entra dal living attraverso il varco del divisorio"
+  },
+  {
+   "nome": "Armadio 6 casse",
+   "durata_s": 9,
+   "camera_da": [
+    -1.2,
+    1.55,
+    -0.58
+   ],
+   "camera_a": [
+    1.36,
+    1.5,
+    -0.58
+   ],
+   "mira_da": [
+    -1.1,
+    1.02,
+    1.45
+   ],
+   "mira_a": [
+    1.26,
+    1.02,
+    1.45
+   ],
+   "nota": "carrellata parallela all'armadio, sopra il letto"
+  },
+  {
+   "nome": "Testata e letto",
+   "durata_s": 8,
+   "camera_da": [
+    1.28,
+    1.62,
+    -0.78
+   ],
+   "camera_a": [
+    0.18,
+    1.3,
+    -0.56
+   ],
+   "mira_da": [
+    -1.32,
+    0.94,
+    -0.42
+   ],
+   "mira_a": [
+    -1.62,
+    1.06,
+    -0.46
+   ]
+  },
+  {
+   "nome": "Spaccato sul fianco",
+   "durata_s": 12,
+   "tipo": "arco",
+   "angolo_gradi": [
+    -55,
+    -118
+   ],
+   "raggio": [
+    3.1,
+    2.55
+   ],
+   "altezza": [
+    1.75,
+    1.35
+   ],
+   "centro": [
+    0.0,
+    0.0,
+    -0.1
+   ],
+   "mira": [
+    -0.2,
+    1.0,
+    -0.05
+   ],
+   "nota": "camera fuori dal fianco che si allarga; la parete non va renderizzata"
+  }
+ ],
+ "vincolo": "il vano e' chiuso su tre lati: armadio su z 1.16..1.78, testata su x < 0.15, divisorio su x 1.52..1.86 tranne il varco a z > 0.59. Camere fuori da questi due settori inquadrano un muro."
+}

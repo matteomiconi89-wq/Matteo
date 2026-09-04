@@ -2,9 +2,9 @@
 """Controlla che le inquadrature del render non attraversino i mobili.
 
 Il vano della camera master e' quasi tutto occupato: l'armadio chiude la parete
-ingresso (z -1.78..-1.16), la testata-letto la parete anteriore (x < 0.15) e il
+ingresso (z 1.16..1.78), la testata-letto la parete anteriore (x < 0.15) e il
 divisorio chiude il lato living (x 1.52..1.86) tranne il varco della porta
-(z < -0.59). Restano liberi solo due settori: la porta e il fianco che si allarga.
+(z > 0.59). Restano liberi solo due settori: la porta e il fianco che si allarga.
 
 Per ogni inquadratura campiona il percorso e verifica:
   - la camera non finisce DENTRO un solido;
@@ -18,8 +18,8 @@ HERE = pathlib.Path(__file__).parent
 CX, CY, PAV = 2422, 1829.5, 1395          # centro stanza / quota pavimento (mm)
 
 
-def scena(v):                              # trailer(mm) -> scena(m), Y in alto
-    return ((v[0] - CX) / 1000, (v[2] - PAV) / 1000, (v[1] - CY) / 1000)
+def scena(v):              # trailer(mm) -> scena(m), Y in alto, z negato (terna destrorsa)
+    return ((v[0] - CX) / 1000, (v[2] - PAV) / 1000, -(v[1] - CY) / 1000)
 
 
 G = json.load(open(HERE.parent / "arredo_geometry.json"))["mobili"]
@@ -62,14 +62,14 @@ lerp = lambda a, b, k: [a[i] + (b[i] - a[i]) * k for i in range(3)]
 
 # le stesse costanti che stanno in render_camera_master.html
 SHOTS = [
-    ("Dalla porta",       [2.80, 1.66, -1.30], [1.78, 1.56, -1.02],
-                          [0.20, 1.02, -0.20], [-0.55, 0.98, 0.10], None),
-    ("Armadio 6 casse",   [-1.20, 1.55, 0.58], [1.36, 1.50, 0.58],
-                          [-1.10, 1.02, -1.45], [1.26, 1.02, -1.45], "armadio_master"),
-    ("Testata e letto",   [1.28, 1.62, 0.78], [0.18, 1.30, 0.56],
-                          [-1.32, 0.94, 0.42], [-1.62, 1.06, 0.46], "letto_master"),
+    ("Dalla porta",       [2.80, 1.66, 1.30], [1.78, 1.56, 1.02],
+                          [0.20, 1.02, 0.20], [-0.55, 0.98, -0.10], None),
+    ("Armadio 6 casse",   [-1.20, 1.55, -0.58], [1.36, 1.50, -0.58],
+                          [-1.10, 1.02, 1.45], [1.26, 1.02, 1.45], "armadio_master"),
+    ("Testata e letto",   [1.28, 1.62, -0.78], [0.18, 1.30, -0.56],
+                          [-1.32, 0.94, -0.42], [-1.62, 1.06, -0.46], "letto_master"),
 ]
-BERSAGLIO_VOLO = [-0.20, 1.00, 0.05]
+BERSAGLIO_VOLO = [-0.20, 1.00, -0.05]
 
 problemi = 0
 for nome, p0, p1, t0, t1, soggetto in SHOTS:
@@ -86,8 +86,8 @@ for nome, p0, p1, t0, t1, soggetto in SHOTS:
 cam, mira = set(), set()
 for j in range(61):                        # volo: arco 55 -> 118 gradi
     e = ease(j / 60)
-    a, r, y = math.radians(55 + 63 * e), 3.10 - 0.55 * e, 1.75 - 0.40 * e
-    p = [math.cos(a) * r, y, 0.10 + math.sin(a) * r]
+    a, r, y = math.radians(-(55 + 63 * e)), 3.10 - 0.55 * e, 1.75 - 0.40 * e
+    p = [math.cos(a) * r, y, -0.10 + math.sin(a) * r]
     cam.update(dentro(p))
     mira.update(ostruzioni(p, BERSAGLIO_VOLO))
 problemi += len(cam) + len(mira)

@@ -1,0 +1,9 @@
+newmtl F_MULTI_laminato_OPACO
+# Multistrato + laminato opaco — finitura: DA FISSARE
+Kd 0.7882 0.7020 0.5765
+Ka 0 0 0
+Ks 0.04 0.04 0.04
+Ns 76
+d 1
+illum 2
+

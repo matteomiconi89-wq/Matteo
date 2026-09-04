@@ -18,3 +18,20 @@ chiude la parete ingresso, la testata quella anteriore e il divisorio il lato li
 tranne il varco della porta. Gli unici due settori da cui si vede davvero dentro
 sono **la porta** e **il fianco che si allarga**: tutte e quattro le inquadrature
 partono da lì, e lo script lo verifica al mm prima di pubblicare.
+
+## Materiali
+
+I materiali non sono inventati: sono i layer `F_...` del DWG, letti da
+`pipeline/materiali_da_dwg.py` (che esplode i blocchi della pianta e confronta le
+impronte con i pezzi 3D) e resi secondo `materiali_render.json`. Il DWG dice il
+**tipo di pannello**, non il colore della finitura: quelli marcati `DA FISSARE`
+aspettano ancora la scelta.
+
+## Pacchetto per il render esterno
+
+```
+python3 esporta_manus.py     # -> manus/  GLB + OBJ + brief + inquadrature
+```
+
+Produce `manus/BRIEF_MANUS.md` con convenzione di coordinate, elenco materiali,
+inquadrature verificate e vincoli del vano.
