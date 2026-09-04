@@ -19,7 +19,7 @@ PAV = 1395.0
 PEZZI = {
  'armadio_master':    dict(rot=0,  off=(991.0,   49.0, PAV)),
  'parete_div_master': dict(rot=90, off=(4278.0, 1242.0, PAV)),
- 'armadio_doppia':    dict(rot=0,  off=(11432.0, 49.0, PAV)),   # quando arriva lo .stp
+ 'armadio_doppia':    dict(rot=0,  off=(11382.0, 49.0, PAV)),   # match esatto sugli 8 fianchi
 }
 
 def colore(nome):

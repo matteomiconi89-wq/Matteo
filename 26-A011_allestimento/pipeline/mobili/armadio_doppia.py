@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 """ARMADIO camera doppia — ricostruito col SISTEMA COSTRUTTIVO REALE di Matteo.
+*** SUPERATO: ora si usa il modello STEP reale di Matteo (integra_step.py). Tenuto come
+*** documentazione della derivazione, che si e' rivelata corretta al mm (bbox 2102, fianchi
+*** a 59/509/592/1022/1080/1510/1593/2043, offset 11382).
 
 Regole prese dal suo STEP dell'armadio master (26A011_ArmadioCameraMaster.stp):
   pannelli 18 mm; fianco 18x580x2040 (Z 5.5..2045.5); base/cielo 18 (Z 5.5..23.5 / 2027.5..2045.5);
