@@ -517,13 +517,29 @@ async def _genera_voci_async():
 
 
 def genera_voci():
+    """True se le voci ci sono. Se manca la voce lo dice FORTE: un video muto
+    per sbaglio e' il modo piu' facile per accorgersene troppo tardi."""
     try:
         asyncio.run(_genera_voci_async())
         return all(os.path.exists(os.path.join(OUT, f"voce{i}.mp3"))
                    for i in range(1, len(SCENE) + 1))
+    except ImportError:
+        motivo = "manca il pacchetto: py -m pip install edge-tts"
     except Exception as ex:
-        print(f"[!] voce non disponibile ({ex}): video con musica e testi")
-        return False
+        testo = str(ex)
+        if "403" in testo or "Handshake" in testo:
+            motivo = ("Microsoft rifiuta la connessione (403). Succede dalle "
+                      "macchine in cloud: rilancia dal PC di casa")
+        elif "certificate" in testo.lower():
+            motivo = ("certificato TLS non riconosciuto: aggiungi il CA "
+                      "aziendale allo store di certifi")
+        else:
+            motivo = testo
+    print("\n" + "!" * 68)
+    print("!! VIDEO SENZA VOCE (musica + testi a schermo)")
+    print(f"!! {motivo}")
+    print("!" * 68 + "\n")
+    return False
 
 
 def durata_media(path):
@@ -846,7 +862,8 @@ def main():
                     else "(senza voce: musica + testi a schermo)\n\n")
                  + "\n".join(copione))
     print("\nVIDEO PRONTO:", finale)
-    print("durata totale:", f"{durata_media(finale):.1f}s")
+    print("durata totale:", f"{durata_media(finale):.1f}s",
+          "- CON VOCE Diego" if con_voce else "- SENZA VOCE (solo musica)")
 
 
 if __name__ == "__main__":
