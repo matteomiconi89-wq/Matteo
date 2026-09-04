@@ -30,14 +30,57 @@ FFMPEG = imageio_ffmpeg.get_ffmpeg_exe()
 QUI = os.path.dirname(os.path.abspath(__file__))
 WINDOWS = os.name == "nt"
 
+
+def desktop():
+    """Il Desktop VERO. Con OneDrive attivo il desktop sta in
+    C:/Users/<tu>/OneDrive/Desktop: scrivendo in ~/Desktop si crea una
+    cartella che sul desktop non si vede mai."""
+    casa = os.path.expanduser("~")
+    if WINDOWS:
+        try:                                  # la strada ufficiale di Windows
+            import ctypes
+
+            class GUID(ctypes.Structure):
+                _fields_ = [("d1", ctypes.c_ulong), ("d2", ctypes.c_ushort),
+                            ("d3", ctypes.c_ushort), ("d4", ctypes.c_ubyte * 8)]
+
+            # FOLDERID_Desktop
+            fid = GUID(0xB4BFCC3A, 0xDB2C, 0x424C,
+                       (ctypes.c_ubyte * 8)(0xB0, 0x29, 0x7F, 0xE9,
+                                            0x9A, 0x87, 0xC6, 0x41))
+            buf = ctypes.c_wchar_p()
+            ok = ctypes.windll.shell32.SHGetKnownFolderPath(
+                ctypes.byref(fid), 0, None, ctypes.byref(buf))
+            via = buf.value
+            ctypes.windll.ole32.CoTaskMemFree(buf)
+            if ok == 0 and via and os.path.isdir(via):
+                return via
+        except Exception:
+            pass
+        try:                                  # ripiego: registro di sistema
+            import winreg
+            chiave = (r"Software\Microsoft\Windows\CurrentVersion"
+                      r"\Explorer\Shell Folders")
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, chiave) as k:
+                via = os.path.expandvars(winreg.QueryValueEx(k, "Desktop")[0])
+            if os.path.isdir(via):
+                return via
+        except Exception:
+            pass
+        via = os.path.join(casa, "OneDrive", "Desktop")
+        if os.path.isdir(via):
+            return via
+    return os.path.join(casa, "Desktop")
+
+
 OUT = os.environ.get("FILIERA_VIDEO_OUT") or (
-    os.path.join(os.path.expanduser("~"), "Desktop", "FILIERA_UN_CLIC_V2")
+    os.path.join(desktop(), "FILIERA_UN_CLIC_V2")
     if WINDOWS else os.path.join(QUI, "out_v2"))
 os.makedirs(OUT, exist_ok=True)
 
 # girato reale (solo sul PC di casa): se i file esistono vengono inseriti
 GIRATO_DIR = os.environ.get("FILIERA_GIRATO") or os.path.join(
-    os.path.expanduser("~"), "Desktop", "FILIERA_UN_CLIC")
+    desktop(), "FILIERA_UN_CLIC")
 
 W, H = 1920, 1080
 CW, CH = 2880, 1620          # card sovracampionata 1.5x per lo zoom morbido
@@ -789,6 +832,7 @@ def pianifica(voci, testi, budget):
 
 
 def main():
+    print("cartella di lavoro:", OUT)
     tavola = genera_tavola_reale()
 
     if len(sys.argv) > 1 and sys.argv[1] == "anteprima":
