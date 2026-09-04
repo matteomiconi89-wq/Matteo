@@ -303,3 +303,39 @@ contorno irregolare. Tutti da sistemare in un eventuale giro 12.
 > ⚠ **CREDITI WORLD LABS ESAURITI**: il saldo API dopo questo mondo è **0**.
 > Altri mondi richiedono una ricarica, oppure vanno in addebito. Da dire a
 > Matteo prima di qualunque altra generazione.
+
+## Esito GIRO 12 (collaudo Claude 04/09/2026) — **NON PROMOSSO** ✘
+
+424 crediti (tot. task **3.279**). Metà riuscito, metà peggiorato: si tiene
+il giro 11 come render buono.
+
+**Quello che è entrato, e bene**:
+- I **cinque bersagli di luce centrati su ENTRAMBE le viste**, letto aperto
+  compreso (che al giro 11 sforava): chiusa media 147,3 · bruciati 0,002 % ·
+  ombre 19,3 % · deviazione 49,9; aperta 154,7 · 0,002 % · 18,4 % · 55,7.
+  Non serve più la mia correzione in post.
+- **Saturazione dei LED 0,342** contro il tetto di 0,35: le strisce non sono
+  più tubi al neon arancioni.
+- **Le fughe ci sono**: hairline scure fra le ante dell'armadio e attorno al
+  pannello del letto ribaltabile (2 px sull'immagine = i 4 mm veri alla
+  distanza di ripresa, il conto torna).
+
+**Quello che ha rotto**: sulle pareti sono comparse **chiazze biancastre
+irregolari**, come intonaco scrostato. Misurato sulla fascia di parete di
+destra: la disomogeneità è salita del **47 %** rispetto al giro 11 (deviazione
+da 23,2 a 34,1 a parità di zona). Probabile effetto collaterale del materiale
+a trama che ho chiesto per il tessuto, finito anche dove non doveva.
+
+**Trama del tessuto: ancora debole.** Ampiezza misurata sulla cassa 6,0 livelli
+su una finestra di 40 px. Non è zero, ma a quella distanza non si legge.
+
+### Se si fa un giro 13
+Tenere ESATTAMENTE luce, fughe e LED del 12; togliere la texture dalle pareti
+(deve stare solo sui pannelli in tessuto dell'armadio) e alzarne il rilievo
+sulle casse. È un giro breve e mirato, ~250–400 crediti.
+
+## Video di presentazione — consegnato
+
+`camera_master_26A011.mp4` (18 s, 760×428, 479 KB), montato in locale a costo
+zero dal render del giro 11: carrellata con targhette su armadio, parete letto
+e pavimento a spina. Niente Veo, niente crediti.
