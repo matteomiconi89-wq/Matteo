@@ -250,3 +250,56 @@ Riferimento allegato: `rif_camera_master_v2.png`.
   Manus può misurare da solo e su cui deve iterare.
 - **Regola di Matteo scritta nel disegno**: in questa camera non ci sono
   finestre e non si aggiunge nulla che non sia disegnato.
+
+## Esito GIRO 11 (collaudo Claude 04/09/2026) — **PROMOSSO** ✔ con post-produzione
+
+551 crediti (tot. task **2.855**). Ho sforato la stima che avevo dato
+(250–450): l'ho detto a Matteo.
+
+**Geometria: esatta.** Ho proiettato cinque punti noti della camera d'angolo
+e misurato dove cadono davvero nell'immagine:
+| Punto | Atteso | Misurato | Scarto |
+|---|---|---|---|
+| Soffitto corridoio sopra la parete letto | py 171 | 172 | +1 |
+| Base parete letto lato armadio | py 1176 | 1175 | −1 |
+| Spigolo alto parete letto lato armadio | py 321 | 317 | −4 |
+| Spigolo alto parete letto lato bagno | px 2057 / py 196 | 2054 / 191 | −3 / −5 |
+
+**Luce: i cinque bersagli numerici sono stati centrati** sulla vista principale
+(letto chiuso): luminanza media 130,3 (bersaglio 95–150) · pixel bruciati
+0,008 % (sotto 1,5) · toni d'ombra 17,0 % (almeno 15) · deviazione 48,6
+(almeno 45) · nessuna zona nera. Dare a Manus **numeri misurabili invece di
+aggettivi** ha funzionato dove "fai luce fotografica" aveva fallito al giro 10.
+La seconda vista (letto aperto) sfora sul bruciato (3,0 %): sono le lenzuola
+bianche, resta una vista di servizio.
+
+**Cosa si vede finalmente**: armadio con 4 ante in prospettiva, parete letto
+intera con le due colonne e le mensole, **pavimento a spina Macadamia**,
+Champagne nella campata, soffitto. Nessun mobile o finestra inventati:
+verifica passata.
+
+**Post-produzione mia, a costo zero.** Il render usciva troppo cupo e con le
+strisce LED di un arancione da neon. Invece di spendere un altro giro ho
+corretto l'immagine come farebbe un fotografo: sollevate le ombre, ridotta la
+saturazione solo sui pixel accesi delle strip, mezzo diaframma di luce.
+Risultato: media da 130 a 143, deviazione 45,9, nessun pixel bruciato.
+
+**Difetti rimasti, dichiarati**: l'anta del letto ribaltabile non ha una fuga
+visibile sulla parete (sembra un pannello unico); la trama del tessuto sulle
+casse non si legge a questa distanza; il bordo destro del fotogramma ha un
+contorno irregolare. Tutti da sistemare in un eventuale giro 12.
+
+## Mondo Marble della camera master — **PROMOSSO** ✔
+
+- **https://marble.worldlabs.ai/world/64deef9d-c237-4b7f-ab66-a72ab8e95ee5**
+- Generato dal render corretto del giro 11, seed 26011, `marble-1.1`,
+  privato con accesso via link.
+- **Costo 1.580 crediti** (80 pano + 1.500 mondo), come da listino.
+- **Collaudo numerico**: riproiettato il panorama equirettangolare in
+  prospettiva (gnomonica, campo 62°) e correlato col render sorgente →
+  **0,873** contro la soglia di promozione 0,60. Per confronto il mondo
+  della cucina aveva fatto 0,701. È il mondo più fedele finora.
+
+> ⚠ **CREDITI WORLD LABS ESAURITI**: il saldo API dopo questo mondo è **0**.
+> Altri mondi richiedono una ricarica, oppure vanno in addebito. Da dire a
+> Matteo prima di qualunque altra generazione.

@@ -149,6 +149,20 @@ qui "NORD") e **lato ingresso** (Y negativo, qui "SUD").
 > 700+600+4×571+300: **posizione giusta, ripartizione dei moduli da correggere**
 > con le larghezze qui sopra.
 
+### Finestre — dove ci sono DAVVERO (letto dalla scocca STP)
+
+Fascia finestrata sulle pareti esterne delle campate, quota **Z 1.303 → 1.947**
+(altezza 644 mm), su entrambi i lati. **Non copre tutta la lunghezza**: i punti
+di quella fascia compaiono da **X ≈ 2.000 in poi**; nella prima parte del
+camion (X 0 → 2.000, cioè la testa della camera master) le pareti hanno quote
+diverse (1.229 / 1.258 / 1.285) e **nessuna fascia vetrata**.
+In pianta i layer confermano: l'unico infisso a disegno è la porta bagno a
+X 9.406; nella camera master non è disegnata nessuna finestra.
+
+> **Regola di Matteo (04/09)**: *ciò che non è nei disegni non si mette.*
+> Niente mobili in più, niente finestre in più, niente decorazioni: ogni
+> elemento inventato rende il render meno vero, non più bello.
+
 ### Strutture mobili (slider)
 - **Slider grande** (living/cucina): X 4.303→13.591, profondità 1.256 per lato
 - **Slider piccola** (camera master): X 898→3.916, profondità 1.256

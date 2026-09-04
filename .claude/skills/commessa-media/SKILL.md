@@ -179,6 +179,14 @@ headless `--print-to-pdf`. Niente dati inventati: ogni numero viene da DXF/disti
 ## Regole d'oro (sempre)
 
 - Il disegno è la verità; l'AI si adegua o si boccia.
+- **Vietare esplicitamente ciò che non c'è.** Un motore di render riempie i
+  vuoti da solo: se non gli dici "qui NON c'è una finestra", te la mette.
+  In ogni brief scrivi una riga *"nothing that is not in the drawings: no
+  extra furniture, no extra windows, no decorations"*, ed elenca gli elementi
+  che in quell'ambiente NON esistono. Nel collaudo, conta gli oggetti presenti
+  contro il disegno e boccia gli intrusi (regola di Matteo, 04/09/2026:
+  *"se non ci sono altri mobili o finestre non le deve mettere, se no non
+  facciamo una cosa realistica"*).
 - Costi dichiarati PRIMA, spesa solo dopo il VAI.
 - Un checkpoint umano prima di ogni salto di qualità (volumi prima dei render,
   render prima dei mondi/video).
