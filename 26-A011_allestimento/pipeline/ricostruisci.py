@@ -229,9 +229,8 @@ WALLS={'plo_ingresso':('P.lo PARETE INGRESSO_pianta',2100),
 for k,(blk,h) in WALLS.items():
     fp=footprint(blk)
     if fp: put(k,extrude(fp,PAV,PAV+h))
-for k,(x0,y0,x1,y1,h) in {'muretti_bagni':(10543,4231,11687,4762,1195),
-        'pli_lavanderia':(8385,4100,11899,4200,2080)}.items():
-    put(k,extrude([[[x0,y0],[x1,y0],[x1,y1],[x0,y1]]],PAV,PAV+h))
+# NB: 'muretti_bagni' e 'pli_lavanderia' erano rettangoli inventati (nessun blocco in pianta,
+# e sovrapposti al mobile lavabo / attraversavano i locali). Rimossi: servono i disegni veri.
 # lavanderia (colonna lavatrice+asciugatrice+mobili) e colonna dispensa 220, dai blocchi pianta
 put('lavanderia', tall_unit('BAGNO-LAVANDERIA_pianta_sol.B',2076))
 put('colonna_220', tall_unit('COLONNA L.220 MM_pianta',2076))
