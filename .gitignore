@@ -1,0 +1,9 @@
+# bytecode / cache Python
+__pycache__/
+*.py[cod]
+
+# file temporanei CAD/sistema
+*.bak
+*.dwl
+*.dwl2
+.DS_Store
