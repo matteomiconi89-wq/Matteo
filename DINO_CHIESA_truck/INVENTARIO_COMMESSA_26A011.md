@@ -90,10 +90,27 @@ misure vere (la cucina già promossa si ri-piazza nella scena corretta).
 
 | Informazione | Dove sta | Note |
 |---|---|---|
-| Geometria e misure dei pezzi | **STP** ✔ | 203 componenti al millimetro |
-| **Materiali e finiture** | **DXF, nei nomi dei LAYER** ✔ | vedi §5 — negli STP NON ci sono (colore unico di default CATIA) |
+| Geometria e misure dei pezzi | **STP** ✔ | ogni componente al millimetro |
+| **Materiali e finiture** | **STP ri-esportati (04/09) ✔ + layer DXF ✔** | vedi §5 e §7: i nuovi export CATIA hanno il materiale scritto nel nome di ogni pezzo |
 | **Posizioni nel camion** | **DXF pianta generale** ✔ | vedi §4 — negli STP ogni mobile ha origine 0,0,0 |
-| Ferramenta (marca/modello) | ✘ da nessuna parte | i 203 componenti STP sono tutti pannelli; nei DXF c'è il layer `F_FERRAMENTA` col disegno, non i codici |
+| Ferramenta (marca/modello) | ✘ da nessuna parte | i componenti STP sono tutti pannelli; nei DXF c'è il layer `F_FERRAMENTA` col disegno, non i codici |
+
+### Mobili ricevuti (aggiornato 04/09)
+
+| Mobile | L × P × H (mm) | Componenti |
+|---|---|---|
+| Armadio camera MASTER | 2.860 × 599 × 2.055 | 68 |
+| Armadio camera DOPPIA | 2.132 × 601 × 2.055 | 51 |
+| Divisorio living | 2.368 × 397 × 2.220 | 47 |
+| Ingresso living | 852 × 832 × 2.080 | 36 |
+| **Parete letto MASTER** | **2.368 × 315 × 2.220** | 49 |
+| **Parete letto CAMERA DOPPIA** | **2.368 × 315 × 2.220** (gemella) | 49 |
+
+**Parete letto** (identica nelle due camere): colonna SX + testata + colonna DX.
+Testata 1.714 × 307 × 2.191 con pannello 1.710 × 2.169; colonne con anta,
+ripiani, **mensola in PLAC.SP30 CERA sp.30**, ripiano LED e cassetto
+(frontale 205/365 × 212); cornici in **MASSELLO verniciato BVN** (vert. 30 e 36,
+orizz. SX/testata/DX, sp. 8 mm); fascione 2.368 × 102.
 
 ## 4. POSIZIONI — dal DXF `26A011_PIANTA_GENERALE`
 
@@ -164,6 +181,29 @@ qui "NORD") e **lato ingresso** (Y negativo, qui "SUD").
 > Questi nomi **combaciano col capitolato di Matteo**: il vetro stratificato con
 > pellicola satinata e lo specchio sono le paretine dei bagni; il laminato CERA
 > è la cucina già renderizzata; BETACRYL/CORIAN è la famiglia del lavabo.
+
+## 7. MATERIALI dagli STP ri-esportati (04/09) — il vero capitolato di produzione
+
+Matteo ha ri-esportato gli STP con il materiale scritto nel nome di ogni pezzo.
+Conteggio sui 6 mobili:
+
+| Materiale | Pezzi | Dove |
+|---|---|---|
+| `MULT.LAM.B.18mm 305x130` | 88 | struttura e ante: divisorio, parete letto, ante armadi |
+| `MULTI TESSUTO sp.18` | 68 | **casse degli armadi** (fianchi, basi, cieli, ripiani, schiene, cassettiera) |
+| `MULT.LAM.B.18mm 305x130 CERA` | 13 | ingresso living: fianchi, basi, cappelli, ripiani, ripiani inclinati |
+| `MASSELLO verniciato BVN` | 9 | cornici del divisorio e delle pareti letto |
+| `MULT. PP/PLAC.SP30 3050X1300 BCO CERA BO13 CERA` | 5 | ingresso living |
+| `MULT. PP/PLAC.SP30 CERA` | 4 | mensole pareti letto, travoni divisorio |
+| `MULTI TESSUTO sp.10` | 2 | fondi cassetto armadi |
+| `MULTI laminato OPACO sp.10` | 2 | fondi cassetto pareti letto |
+| `Tamburato Laminato Nero Opaco` | 1 | **pannello porta del divisorio** |
+| `VETRO STRATIFICATO SATINATO sp.8` | 1 | vetro della libreria ingresso |
+
+> ⚠ **Da confermare con Matteo**: negli armadi il **tessuto sp.18 sta sulle CASSE**
+> (fianchi, basi, cieli, ripiani) mentre le **ante** sono in laminato bianco.
+> Di solito è il contrario: da falegname va verificato se l'assegnazione è
+> quella voluta o se nell'export si sono scambiati i due materiali.
 
 ## 6. Cosa manca ancora
 

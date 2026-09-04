@@ -176,3 +176,35 @@ C. Ripiego doghe dritte — non servito.
 piano cottura sulla penultima base, corridoio in spina Macadamia, campate
 Champagne, finestra apribile 1200, soffitti bianchi, zoccolo scuro LED.
 Pronto per piazzare gli altri 7 ambienti, un giro l'uno.
+
+## Esito GIRO 9 (collaudo Claude 04/09/2026) — **PROMOSSO** ✔ (con una nota)
+
+Primo giro fatto sulle misure VERE lette dai file del cliente (STP scocca +
+DXF pianta), non più su disegni ricostruiti. 325 crediti (tot. task 2.077).
+
+- **Geometria ESATTA, verificata da me al pixel** (proiezione con f=1651,658):
+  | Elemento | Atteso | Misurato | Scarto |
+  |---|---|---|---|
+  | Bordo sx parete di fondo (X=13.970) | px 1046 | 1047 | +1 |
+  | Bordo dx parete di fondo | px 1354 | 1351 | −3 |
+  | Soffitto corridoio al fondo (h 2.608) | py 547 | 546 | −1 |
+  | Pavimento al fondo | py 879 | 878 | −1 |
+- **Le tre correzioni della scocca sono entrate**: lunghezza 13.970 (era 9.200),
+  corridoio alto 2.608 (era 2.251), campate a 2.515 col gradino di 93 mm sui
+  due lati (verificato: separazione 21,3 px a X=8.200, come da formula).
+- **Cucina rifatta coi 7 moduli veri** della pianta (631/650/702/446/731/554/392,
+  sviluppo 4.106) con il piano cottura sul 6° modulo, come approvato.
+- **Finiture del giro 8 conservate**: pavimento corridoio identico
+  (204/174/147 contro 204/174/147), campate Champagne, soffitti bianchi,
+  zoccolo, gola, vetrata apribile. Pixel scuri scesi da 602k a 351k.
+- **NOTA (non è una bocciatura)**: su 14 metri invece di 9 la scena appare più
+  spenta e piatta — la stessa luce distribuita su una lunghezza quasi doppia.
+  Va data una passata di luce (più lucernari accesi, LED più presenti,
+  esposizione), da fare **insieme** al prossimo giro per non sprecarne uno.
+
+### Prossimo giro (10) — al VAI: CAMERA MASTER + passata di luce
+Camera master a X 0→3.944: parete letto a 559 (corridoio), armadio master a
+1.006 (campata lato ingresso), bagno e lavabo a 1.001/1.790 (campata lato
+cucina). Misure e materiali già in `INVENTARIO_COMMESSA_26A011.md`.
+Serve anche perché è il render sorgente del **mondo interattivo della camera
+master** chiesto da Matteo (Marble, ~1.580 crediti World Labs, ne restano ~5.420).
