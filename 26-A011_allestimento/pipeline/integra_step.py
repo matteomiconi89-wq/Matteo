@@ -34,6 +34,12 @@ PEZZI = {
  'parete_div_master':   dict(f='16abd2bd-26A011_Divisorio_living.stp',    rot=90,  off=(4278.4, 1223.8)),
  'parete_letto_master': dict(f='fffdb07b-26A011_PareteLetto.stp',         rot=90,  off=(865.4, 1223.8)),
  'ingresso_living':     dict(f='de2fba7f-26A011_IngressoLiving.stp',      rot=270, off=(7008.9, 1226.3)),
+ # la camera doppia non e' disegnata in questa revisione della pianta: la parete
+ # letto e' ancorata al vano — schiena contro la testata del vano (X 13593.4, dove
+ # finiscono i rivestimenti laterali) e stessa fascia in Y della master (1223.8..3591.8).
+ # Ruotata di 270 perche' guarda verso il divisorio, non verso la coda. DA CONFERMARE.
+ 'parete_letto_doppia': dict(f='0b000a3b-26A011_PareteLetto_CameraDoppia.stp',
+                             rot=270, off=(13286.4, 3591.8)),
 }
 
 
@@ -73,10 +79,11 @@ def integra(key, cfg, tol=0.4):
     return mesh
 
 
-# La camera doppia: Matteo dice che la parete letto e' lo stesso mobile. In pianta
-# pero' i sei setti da 307 di profondita' compaiono SOLO nella master, quindi la
-# posizione qui sotto e' un'IPOTESI (specchiatura del master), non una lettura.
-MIRROR_X = 7023.0
+# Il letto della doppia: ne abbiamo solo il materasso. Lo specchiamo dal master
+# attorno all'asse che porta la schiena di una parete letto sulla schiena dell'altra
+# (558.4 -> 13593.4), cosi' la testa del materasso entra nella campata centrale con
+# lo stesso gioco di 15 mm che ha nel master.
+MIRROR_X = (558.4 + 13593.4) / 2
 
 
 def specchia(mesh, asse):
@@ -102,9 +109,7 @@ if __name__ == '__main__':
     if letto:
         G['mobili']['letto_master'] = letto
         G['mobili']['letto_doppia'] = specchia(letto, MIRROR_X)
-    G['mobili']['parete_letto_doppia'] = specchia(G['mobili']['parete_letto_master'], MIRROR_X)
-    print(f"parete_letto_doppia  {len(G['mobili']['parete_letto_doppia'])} pezzi  "
-          f"(IPOTESI: master specchiato su X={MIRROR_X:.0f}, non confermato dalla pianta)")
+
     json.dump(G, open(geo_path, 'w'), separators=(',', ':'))
     print(f"\nscritto {geo_path.name}: {len(G['mobili'])} mobili, "
           f"{sum(len(v) for v in G['mobili'].values())} pezzi")
